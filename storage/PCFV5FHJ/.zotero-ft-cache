@@ -1,0 +1,406 @@
+Neurocomputing â (ââââ) âââââââ
+
+Contents lists available at ScienceDirect
+
+Neurocomputing
+journal homepage: www.elsevier.com/locate/neucom
+
+Transfer subspace learning for cross-dataset facial expression recognition
+Haibin Yan
+School of Automation, Beijing University of Posts and Telecommunications, Beijing 100876, China
+
+a r t ic l e i nf o
+Article history: Received 25 September 2015 Received in revised form 21 November 2015 Accepted 21 November 2015 Keywords: Facial expression recognition Transfer learning Subspace learning Multi-view learning Biometrics
+
+a b s t r a c t
+In this paper, we propose a transfer subspace learning approach cross-dataset facial expression recognition. To our best knowledge, this problem has been seldom addressed in the literature. While many facial expression recognition methods have been proposed in recent years, most of them assume that face images in the training and testing sets are collected under the same conditions so that they are independently and identically distributed. In many real applications, this assumption does not hold as the testing data are usually collected online and are generally more uncontrollable than the training data. Hence, the testing samples are likely different from the training samples. In this paper, we deï¬ne this problem as cross-dataset facial expression recognition as the training and testing data are considered to be collected from different datasets due to different acquisition conditions. To address this, we propose a transfer subspace learning approach to learn a feature subspace which transfers the knowledge gained from the source domain (training samples) to the target domain (testing samples) to improve the recognition performance. To better exploit more complementary information for multiple feature representations of face images, we develop a multi-view transfer subspace learning approach where multiple different yet related subspaces are learned to transfer information from the source domain to the target domain. Experimental results are presented to demonstrate the efï¬cacy of these proposed methods for the cross-dataset facial expression recognition task. & 2016 Elsevier B.V. All rights reserved.
+
+1. Introduction Over the past decades, facial expression analysis has been extensively studied in the area of pattern recognition and computer vision due to its huge potential applications such as intelligent affective computing and human robot interaction. Over the past two decades, a number of facial expression analysis methods [1â4] have been proposed in the literature. Generally, there are two key components in a facial expression recognition system: feature representation and expression classiï¬cation. For feature representation, there are mainly two categories of methods: geometry-based and appearance-based. Geometry-based methods usually extract facial features such as the shape and locations of facial components (like the mouth, eyes, brows and nose) and represent them by a feature vector to characterize the facial geometry [5â8]. In general, different facial expressions have different feature representations. Appearance-based methods holistically convert each facial image into a feature vector and then apply subspace learning techniques to extract some statistical features for facial expression representation [9â15]. Since it is generally
+E-mail address: eyanhaibin@bupt.edu.cn http://dx.doi.org/10.1016/j.neucom.2015.11.113 0925-2312/& 2016 Elsevier B.V. All rights reserved.
+
+challenging to precisely localize and extract geometrical features for geometry-based methods in many practical applications, appearance-based methods are more popular for facial expression recognition and also demonstrate better performance than geometry-based ones in terms of the recognition accuracy. Having obtained feature representations of facial images, facial expression classiï¬cation can be implemented by using a multi-class classiï¬cation method, such as the nearest neighborhood classiï¬er, support vector machine, neural networks and sparse representation. See [1â4] for more details. Subspace learning techniques have been widely used to reveal the intrinsic structure of data and successfully applied to facial expression recognition. With subspace learning methods [39â58], facial expression images are projected into a low-dimensional feature space to reduce the feature dimensions. Representative methods in subspace learning include principal component analysis (PCA) [16,29], linear discriminant analysis (LDA) [17,29], locality preserving projections (LPPs) [18,30] and orthogonal neighborhood preserving projections (ONPPs) [19]. PCA [16,29] aims to learn a feature subspace by mapping the original highdimensional face images to a low-dimensional linear subspace which is spanned by the top eigenvectors of a covariance matrix. LDA [17,29] seeks a discriminative subspace which consists of a set
+
+Please cite this article as: H. Yan, Transfer subspace learning for cross-dataset facial expression recognition, Neurocomputing (2016), http://dx.doi.org/10.1016/j.neucom.2015.11.113i
+
+2
+
+H. Yan / Neurocomputing â (ââââ) âââââââ
+
+of projections to maximize the ratio of the between-class variance to the within-class variance. Generally, LDA usually outperforms PCA for classiï¬cation because it exploits the label information of samples. Unlike PCA and LDA which fail to discover the underlying nonlinear manifold structure of face samples, a number of manifold-based subspace learning algorithms [16,18,29,30,37,38] have been proposed in recent years and some of them have been successfully employed for facial expression recognition. The basic idea of these methods is high-dimensional face images can be modeled as a set of geometrically related points which lie on or nearby a smooth and low-dimension manifold. LPP is the most representative manifold-based subspace learning method, where it seeks a low-dimensional subspace to preserve the intrinsic geometric structure of the original samples. Since the bases of LPP are not orthogonal, ONPP is introduced to enforce an orthogonal constraint on the optimization objective of LPP. Recently, Shan et al. [9] compared these methods for facial expression recognition and reported that supervised LPP was the best one in supervised methods and OPPP produced the best results in unsupervised methods. More recently, Xiao et al. [20] proposed a multi-manifold learning method for facial expression recognition, in which each expression data was modeled by a manifold and the recognition was performed by using a âdata-tomanifoldâ distance strategy. Experimental results on two benchmark face datasets have shown the advantage of their proposed method. While different subspace learning methods are developed with different motivations, they can be well interpreted into a general graph embedding framework [30]. Most existing facial expression recognition methods assume facial images in the training and testing sets are collected under the same condition such that they are independent and identically distributed. In many real world applications, this assumption may not hold as the testing data are usually collected online and generally more uncontrollable than the training data, such as different races, illuminations and imaging conditions. Under this scenario, the performance of conventional subspace learning methods may be poor because the training and testing data are not independently and identically distributed. The generalization capability of these methods is limited on the cross-dataset facial expression recognition problem. To the best of our knowledge, this problem has not been formally addressed in the literature even if it is very important in many real applications. To address this problem, we propose a new transfer subspace learning approach to learn a feature space which transfers the knowledge gained from the training set to the target (testing) data to improve the recognition performance under cross-dataset scenarios. We apply the proposed approach to four popular subspace learning methods including PCA, LDA, LPP and ONPP, and formulate the corresponding transfer PCA (TPCA), transfer LDA (TLDA), transfer LPP (TLPP) and transfer ONPP (TONPP) for crossdataset facial expression recognition. To better exploit more complementary information for multiple feature representations of face images, we develop a multi-view transfer subspace learning approach where multiple different yet related subspaces are learned to transfer information from the source domain to the target domain, where four multi-view transfer subspace learning methods, namely multi-view transfer PCA (MTPCA), multi-view transfer LDA (MTLDA), multi-view transfer LPP (MTLPP), and multi-view transfer ONPP (MTONPP) are introduced. Experimental results are presented to demonstrate the efï¬cacy of the proposed methods for cross-dataset facial expression recognition. This paper is an extended version of work presented at IEEE ICRA 2011 [31]. New contributions include the newly proposed localized multi-view transfer subspace learning methods, analysis of the proposed approach, and extensive experimental results.
+
+2. Related work In this section, we brieï¬y review three related topics: subspace learning, transfer learning, and multi-view learning. 2.1. Subspace learning Let X Â¼ Â½x1 ; x2 ; â¦; xN Â, xi A Rd , i Â¼ 1; 2; â¦; N, be a training set of facial images, where N is the number of samples and d is the feature dimension of each sample. For supervised subspace learning algorithms, the class label of xi is assumed to be li A f1; 2; â¦; cg, where c is the number of classes. For the jth class, nj denotes the number of its samples, where j Â¼ 1; 2; â¦; c. Hence, P N Â¼ c Â¼ 1 nj . The objective of a subspace learning algorithm, such j as PCA, LDA, LPP and ONPP, is to ï¬nd a linear projection matrix W Â¼ Â½w1 ; w2 ; â¦; wk Â to map xi into a low dimensional representation yi, where yi Â¼ W T xi A Rm , m o d [9]. The essential differences of different subspace learning methods lie in their differences in deï¬ning and ï¬nding the projection matrix W by using different objective functions and constraints, such as min FÃ°WÃ subject to GÃ°WÃ Â¼ 0 Ã°1Ã
+
+Table 1 shows the objective functions and constraints of PCA, P 1 LDA, LPP and ONPP, where ST Â¼ N NÂ¼ 1 Ã°xi Ã mÃÃ°xi Ã mÃT , i PN Pc P P i 1 1 1 m Â¼ N i Â¼ 1 xi , SB Â¼ N i Â¼ 1 ni Ã°mi Ã mÃÃ°mi Ã mÃT , SW Â¼ N c Â¼ 1 nÂ¼ 1 i j Ã°xij Ã mi ÃÃ°xij Ã mi ÃT , xij denotes the jth training sample of the ith class, mi is the mean of the training samples of the ith class, P L Â¼ D Ã S, Dii Â¼ j Sji , Sij is the locality similarity between xi and xj, T M Â¼ Ã°I Ã V ÃÃ°I Ã VÃ, V can be obtained by solving the following optimization function: X X min Îµ Ã°VÃ Â¼ J xi Ã V ik xik J 2 Ã°2Ã
+i k
+
+where xik is the k-nearest neighbors of xi. 2.2. Transfer learning The past ï¬ve years have witnessed the signiï¬cance of transfer learning for practical applications such as cross-domain image and text classiï¬cation, and domain-adaptation video analysis. It has also been identiï¬ed to be an effective solution to address the cross-dataset recognition problem because it can transfer the knowledge gained from the training set to the testing set. Generally, there are three main issues in transfer learning: what to transfer, how to transfer and when to transfer. Compared with the conventional machine learning techniques, transfer learning can be generally classiï¬ed into three categories: inductive transfer learning, transductive transfer learning and unsupervised transfer learning. Refer to [21] for more details. While a number of transfer learning methods have been proposed recently, there is little effort of transfer learning made for subspace learning. To our knowledge, Si et al. [22] ï¬rst applied transfer learning techniques to subspace learning by minimizing the distribution distance between the source and target domains in subspace learning algorithms. More recently, Su et al. [23] employed the mixture Gaussian model to model the distributions of the data
+Table 1 Objective functions and constraints of four popular subspace learning methods. Method PCA LDA LPP ONPP F(W) Ã trÃ°W T ST WÃ
+trÃ°W T SW WÃ trÃ°W T SB WÃ T T
+
+G(W) WT W ÃI W T XDX T W Ã I WT W ÃI
+
+W XLX W trÃ°W T XMX T WÃ
+
+Please cite this article as: H. Yan, Transfer subspace learning for cross-dataset facial expression recognition, Neurocomputing (2016), http://dx.doi.org/10.1016/j.neucom.2015.11.113i
+
+H. Yan / Neurocomputing â (ââââ) âââââââ
+
+3
+
+in the source and target domains to make it more consistent with the original LDA method. However, these methods estimate the distribution based on the kernel density estimation method and Gaussian model, respectively, which may fail when there is a limited number of samples in the source and target domains. In this paper, we propose a new nonparametric transfer learning approach to learn a feature space which transfers the knowledge gained from the training set to the target (testing) data to improve the recognition performance under cross-dataset scenarios. 2.3. Multi-view learning In many real-world applications, samples are usually characterized as a multi-view data representation. For a given face image, we extract many different descriptors such as intensity, local binary patterns (LBPs) and Gabor features. Generally, different features characterize samples from different perspectives, and the presence of multi-view data provide an opportunity to learn better representations for recognition tasks. Therefore, how to effectively exploit complementary information from such multiview data remains a central problem in various applications. In recent years, many multi-view learning algorithms have been proposed to exploit the related structure of multi-view data to improve the performance of the learning tasks, where they assume that data from different views are corrected and aim to learn a shared latent space to discover such correlations. Canonical correlation analysis (CCA) is one of the most representative learning method, which learn a couple of projections of two view to maximize their correlations in the latent space. While encouraging performance can be obtained, CCA only works well for two views and cannot be applicable to multiple views directly. To address this, Fu et al. [32] proposed a general subspace learning approach to perform multiple feature fusion with the CCA criterion over multiple pairs of views, Lu et al. [33] presented a multi-view neighborhood repulsed metric learning approach to learn a latent feature space to map features from different views into the common space. However, these multi-view learning methods assume that samples in the training and testing sets are collected under the same condition such that they are independent and identically distributed, which are not suitable for cross-dataset facial expression recognition because discriminative information exploited in the source domain cannot be applied to target domain directly. In this work, we develop a multi-view transfer subspace learning approach where multiple different yet related subspaces are learned to transfer information from the source domain to the target domain, so that complementary information for multiple feature representations of face images can be better exploited for facial expression recognition.
+
+differences between X and Y in W simultaneously. Speciï¬cally, we formulate our objective into the following optimization function: minJÃ°WÃ Â¼ FÃ°WÃ Ã¾ Î»HÃ°WÃ
+W
+
+Ã°3Ã
+
+where Î» Z0, and HÃ°WÃ Â¼
+N1 X iÂ¼1
+
+J W T xi Ã W T
+
+k X jÂ¼1
+
+t ij yij J 2
+
+Ã°4Ã
+
+yi1 ; yi2 ; â¦; yik are the k-nearest neighbors of xi, t i1 ; t i2 ; â¦; t ik are the corresponding coefï¬cients, and they can be obtained similarly to the coefï¬cients obtained in the locally linear embedding (LLE) method in [24]. We simplify H(W) to the following form: 2 0 10 1T 3 N1 k k X X X 6 T 7 tr4W @xi Ã t ij yij A@xi Ã t ij yij A W 5 HÃ°WÃ Â¼
+iÂ¼1 jÂ¼1 N1 X iÂ¼1 jÂ¼1
+
+2 6 Â¼ tr4W T
+
+0 @x i Ã
+
+k X jÂ¼1
+
+10 t ij yij A@xi Ã
+
+k X jÂ¼1
+
+1T
+
+3
+
+7 t ij yij A W 5 Ã°5Ã
+
+Â¼ trÃ°W T GWÃ where G 9 PN 1 â¬
+iÂ¼1
+
+â¬â¬ â¬T ! P P . xi Ã k Â¼ 1 t ij yij xi Ã k Â¼ 1 t ij yij j j
+âHÃ°WÃ âW
+
+The derivative of âHÃ°WÃ Â¼ 2GW âW
+
+is Ã°6Ã
+
+As different subspace learning methods have different F(W), we include different F(W) for different subspace learning methods and formulate the corresponding transferred ones in the following. 3.2. TPCA From Table 1, we can obtain FÃ°WÃ Â¼ Ã trÃ°W T ST WÃ for PCA. To make the minimization problem with respect to W well-posed, we impose an orthogonal constraint W T W Â¼ I and formulate TPCA as the following constrained optimization problem: min
+W
+
+TÃ°WÃ Â¼ Ã trÃ°W T ST WÃ Ã¾ Î» trÃ°W T GWÃ W T W Â¼ I: Ã°7Ã
+
+s:t:
+
+Let Â¼ 0, we can obtain the projections of TPCA by solving the following eigenvalue equation: Ã°Î»G ÃST Ãw Â¼ Î±w Ã°8Ã
+
+âTÃ°WÃ âW
+
+Let fw1 ; w2 ; â¦; wp g be the eigenvectors corresponding to the p smallest eigenvalues fÎ±i j i Â¼ 1; 2; â¦; kg ordered such that Î±1 r Î±2 râ¯ r Î±p . Then W Â¼ Â½w1 ; w2 ; â¦; wp Â is the subspace projection of TPCA. 3.3. TLDA
+
+3. Transfer subspace learning 3.1. Basic idea Conventional subspace learning algorithms seek a feature subspace W by solving an optimization objective function F(W) and then apply W for feature extraction since the training and testing samples are implicitly assumed to be independent and identical distribution. As mentioned before, this assumption will not hold for cross-dataset facial recognition problem. Hence, we also need to minimize the difference between the training and testing sets besides optimizing F(W). Given N1 training samples X Â¼ Â½x1 ; x2 ; â¦; xN1 Â and N2 testing samples Y Â¼ Â½y1 ; y2 ; â¦; yN2 Â, our objective now is seeking a feature space W to optimize F(W) in the training set and minimize the
+T
+
+WÃ From Table 1, we can obtain FÃ°WÃ Â¼ trÃ°W TSWWÃ for LDA. Hence, trÃ°W S
+B
+
+âFÃ°WÃ Ã Ã Â¼ 2p1 1 SW W Ã2p1 2 p2 SB W âW
+
+Ã°9Ã
+
+where p1 Â¼ trÃ°W T SB WÃ and p2 Â¼ trÃ°W T SW WÃ. As Eq. (3) is nonlinear and it is nontrivial to derive its closedform global optimal solution, we modiï¬ed the trace ratio of LDA to the difference form and seek a global solution by the following optimization problem: minTÃ°WÃ
+W
+
+Â¼ trÃ°W T Ã°SW Ã SB ÃWÃ Ã¾ Î» trÃ°W T GWÃ Ã°10Ã
+
+s:t:
+
+W T W Â¼ I:
+
+Please cite this article as: H. Yan, Transfer subspace learning for cross-dataset facial expression recognition, Neurocomputing (2016), http://dx.doi.org/10.1016/j.neucom.2015.11.113i
+
+4
+
+H. Yan / Neurocomputing â (ââââ) âââââââ
+
+Let âTÃ°WÃ Â¼ 0, we can obtain the projections of TLDA by solving the âW following eigenvalue equation Ã°Î»G Ã¾ SW Ã SB Ãw Â¼ Î±w Ã°11Ã
+
+We can obtain the projections of TLDA similarly to that of TPCA. 3.4. TLPP For LPP, FÃ°WÃ Â¼ W T XLX T W. Hence, TLPP can be formulated as the following constrained optimization problem: min
+W
+
+The trivial solution of (16) is Î·k Â¼ 1, which corresponds to the minimum ZÃ°W 1 ; â¦; W K Ã, and Î·k Â¼ 0 otherwise. This means that only the best single data is selected for recognition, To address this, we modify Î·k to be Î·kp Ã°p 4 1Ã, and rewrite the following objective function:
+W 1 ;â¦;W K ;Î·
+
+min Ã¾Î»
+
+K X kÂ¼1
+
+Î·p Ã°F k Ã°W 1 ; â¦; W K Ã Ã¾ Î»H k Ã°W 1 ; â¦; W K ÃÃ k
+âW T1 xk1 Ã W T2 xk2 â2 k i k i 2
+
+K N X X
+k1 ;k2 Â¼ 1 k1 a k2
+
+TÃ°WÃ Â¼ W T XLX T W Ã¾ Î» trÃ°W T GWÃ W T W Â¼ I: Ã°12Ã
+
+iÂ¼1
+
+s:t:
+
+subject to
+
+K X kÂ¼1
+
+Î·k Â¼ 1; Î·k Z 0;
+
+1 r k r K:
+
+Ã°19Ã
+
+Let âTÃ°WÃ Â¼ 0, we can obtain the projections of TLPP by solving the âW following eigenvalue equation: Ã°XLX Ã¾ Î»GÃw Â¼ Î±w
+T
+
+Ã°13Ã
+
+We can obtain the projections of TLPP similarly to that of TPCA. 3.5. TONPP For ONPP, FÃ°WÃ Â¼ trÃ°W T XMX T WÃ. Hence, TONPP can be formulated as the following constrained optimization problem: minTÃ°WÃ
+W
+
+Since there are K matrices to be optimized simultaneously in (19), we use the following alternating optimization method to obtain a local solution. First, we ï¬x Î· and update W. When Î· is ï¬xed, the optimization problem in (19) can be rewritten as: min
+K X kÂ¼1
+
+W 1 ;W 2 ;â¦;W K
+
+Î·p Ã°F k Ã°W 1 ; â¦; W K Ã Ã¾ Î»H k Ã°W 1 ; â¦; W K ÃÃ k
+âW T1 xk1 Ã W T2 xk2 â2 k i k i 2 Ã°20Ã
+
+Â¼ trÃ°W XMX WÃ Ã¾ Î» trÃ°W GWÃ
+T T T
+
+Ã¾Î»
+
+K N X X
+k1 ;k2 Â¼ 1 k1 a k2
+
+iÂ¼1
+
+s:t:
+
+W T W Â¼ I:
+âTÃ°WÃ âW
+
+Ã°14Ã
+
+Let Â¼ 0, we can obtain the projections of TONPP by solving the following eigenvalue equation: Ã°XMX T Ã¾ Î»GÃw Â¼ Î±w Ã°15Ã
+
+We sequentially optimize Wk with the ï¬xed W1, W2, â¯, Wk Ã 1, W k Ã¾ 1 , â¯, WK. Then, (20) can be rewritten as: min JÃ°W k Ã Â¼ Î·p Ã°F k Ã°W k Ã Ã¾ Î»H k Ã°W k ÃÃ Ã¾ Î» k
+Wk K N X X
+k1 ;k Â¼ 1 k1 a k
+
+iÂ¼1
+
+âW T xk ÃW T1 xk1 â2 k i k i 2 Ã°21Ã
+
+We can obtain the projections of TONPP similarly to that of TPCA.
+
+4. Multi-view transfer subspace learning Assume there are K feature descriptors extracted for each face sample, X k Â¼ fxk j i Â¼ 1; 2; â¦; N 1 g and Y k Â¼ fyk j i Â¼ 1; 2; â¦; N2 g be the i i training and testing samples in the kth view, the objective of our multi-view transfer subspace learning aims to learn K feature spaces W 1 ; â¦; W K and a nonnegative weighting vector Î· Â¼ Â½Î·1 ; Î·2 ; â¦; Î·K Â to optimize FÃ°W 1 ; â¦; W K Ã in the training set and minimize the differences between X and Y in the learned feature spaces W 1 ; â¦; W K , which are deï¬ned as follows: minJÃ°W 1 ; â¦; W K ; Î·Ã Â¼ ZÃ°W 1 ; â¦; W K Ã Ã¾ Î´RÃ°W 1 ; â¦; W K Ã K X subject to Î·k Â¼ 1; Î·k Z0; 1 rk rK:
+kÂ¼1
+
+Wk can be obtained by solving the following gradient descent algorithm: Wk Â¼ Wk ÃÎ¸ âJÃ°W k Ã âW k Ã°22Ã
+
+where âJÃ°Wkk Ã is the gradient of the objective function JÃ°W k Ã with âW respect to the parameter Wk, and Î¸ is the learning rate. Then, we update Î· with the ï¬xed Wk. We construct the following Lagrange function:
+K X kÂ¼1 K N X X
+k1 ;k2 Â¼ 1 k1 a k2
+
+JÃ°Î·; Î¶ Ã Â¼ Ã°16Ã
+
+Î·p g k Ã°W k Ã Ã¾ Î» k
+K X kÂ¼1
+
+iÂ¼1
+
+âW T1 xk1 Ã W T2 xk2 â2 k i k i 2
+
+!
+
+where Î´ Z 0, and ZÃ°W 1 ; â¦; W K Ã Â¼
+K X kÂ¼1 K N X X
+k1 ;k2 Â¼ 1 k1 a k2
+
+ÃÎ¶
+
+Î·k Ã 1
+
+Ã°23Ã
+
+Î·k Ã°F k Ã°W 1 ; â¦; W K Ã Ã¾ Î»Hk Ã°W 1 ; â¦; W K ÃÃ
+J W T1 xk1 ÃW T2 xk2 J 2 2 k i k i
+
+Ã°17Ã
+
+where g k Â¼ F k Ã°W k Ã Ã¾ Î»H k Ã°W k Ã. Let
+âJÃ°Î·;Î¶ Ã â Î·k
+
+Â¼ 0 and
+
+âJÃ°Î·;Î¶ Ã âÎ¶
+
+Â¼ 0 , we have Ã°24Ã Ã°25Ã
+
+RÃ°W 1 ; â¦; W K Ã Â¼
+
+Ã°18Ã
+
+pÎ·
+
+pÃ1 g k Ã°W k Ã Ã k
+
+Î¶Â¼0
+
+iÂ¼1
+
+K X kÂ¼1
+
+The physical meaning of (16) is to learn K subspaces Wk (k Â¼ 1; 2; â¦; K) under which: (1) The difference of features of the same sample is enforced to be as small as possible, which is equivalent to the canonical correlation analysis based multiple feature fusion method where the correlation of different feature representations of each sample are maximized; (2) Feature subspaces learned from the source domain can be transferred into the target domain.
+
+Î·k Ã 1 Â¼ 0
+
+Combining (24) and (25), we can obtain Ã Ã1=Ã°p Ã 1Ã 1=g Ã°W Ã Î·k Â¼ PK Ã k k Ã1=Ã°p Ã 1Ã : k Â¼ 1 1=g k Ã°W k Ã
+
+Î·k as follows
+Ã°26Ã
+
+We repeat the above procedure until the algorithm converges. The proposed Multi-view Transfer Subspace Learning algorithm is
+
+Please cite this article as: H. Yan, Transfer subspace learning for cross-dataset facial expression recognition, Neurocomputing (2016), http://dx.doi.org/10.1016/j.neucom.2015.11.113i
+
+H. Yan / Neurocomputing â (ââââ) âââââââ
+
+5
+
+summarized in Algorithm 2, where Edl Ãdk is a matrix with ones on the diagonal and zeros elsewhere. Algorithm 1. Multi-view Transfer Subspace Learning. Input: Training set X Â¼ fX k gk Â¼ 1 , X k A Rdk ÃN is the kth feature set, learning rate Î¸, parameter p and Î», and convergence error Ï. Output: Subspaces: W 1 ; W 2 ; â¦; W K and weights: Î·1 ; Î·2 ; â¦; Î·K . Step 1 (Initialization): 1.1. Set Î·k Â¼ 1=K, Lk Â¼ Edl Ãdk , k Â¼ 1; â¦; K. Step 2 (Local optimization): For r Â¼ 1; 2; â¦, repeat 2.1. Compute Wk by using (WW). 2.2. Obtain
+K
+
+Î·k by using (26).
+
+2.3. If r 4 2 and j W r Ã W r Ã 1 j o Ï, go to Step 3. Step 3 (Output subspaces and weighting vector): Output W 1 ; W 2 ; â¦; W K and Î·1 ; Î·2 ; â¦; Î·K .
+
+5. Experimental results 5.1. Datasets and settings Three publicly available facial expression image databases including the JAFFE [25,26], CohnâKanade [27], Feedtum [28] databases were selected to evaluate the effectiveness of the proposed methods for cross-dataset facial expression recognition. The JAFFE database consists of 213 facial expression images from 10 Japanese females. They posed 3 or 4 examples for each of the seven basic expressions (six emotional expressions including anger, disgust, fear, happy, sad, surprise plus neutral expression). The image size is 256 Ã 256. The CohnâKanade database consists of 100 university students aged from 18 to 30 years. 65% subjects are female, 15% are AfricanAmerican, and 3% are Asian or Latino. Subjects are instructed to perform a series of 23 facial displays, seven of which are anger, disgust, fear, happy, neural, sad and surprise. We selected 10 subjects which contain all the seven different expressions from the database, where each expression has four samples. Hence, we have 280 samples in total. As the original image sequences in the database start
+
+from a neural expression and end with the peak of the expression, we selected the last four frames of each expression sequence. For the neural expression, we selected the ï¬rst frame of four different sequences. The size of the original facial image is 640 Ã 490. The Feedtum database, also known as the FG-NET database, is much more challenging because in the database subjects performed the expressions spontaneously and some of the resulting expressions are not well distinguishable. It contains a set of facial image sequences that show a number of subjects performing the seven different universal expressions deï¬ned by Ekman and Friesen. All seven expressions were performed three times by each subject. Since these images were captured under natural circumstances, there could be head movement in the images. However, in order to simplify our experiments, only the images which include frontal faces without large head movement were chosen. We selected 10 subjects which contain all the seven different expressions from the database, where each expression has four samples. Hence, we have 280 samples in total. The size of the original facial image is 320 Ã 240. For all the three databases, we converted the images to gray scale and manually located the eye positions. We cropped the face regions from original images according to the eyesâ positions and resized them to 64 Ã 64. No further registration such as alignment of mouth was performed in our experiments. Some examples of the aligned images from the databases are shown in Fig. 1, where 1 (a), 1(b) and 1(c) are the example samples of the JAFFE, Cohnâ Kanade and Feedtum databases, respectively. For transfer subspace learning methods, the raw pixels are used for face representation. For multi-view transfer subspace learning, we apply three more different feature descriptors including Local Binary Patterns (LBP) [34], Spatial Pyramid LEarning (SPLE) [35] and Scale-Invariant Feature Transform (SIFT) [36] to extract different and complementary information from each face image. The reason we selected these three features is that they have shown reasonably good performance in recent facial expression recognition studies. No doubt, more effective feature descriptors could be employed to improve the veriï¬cation performance. However, the main interest in this study is to evaluate the proposed multi-view transfer subspace learning methods which use multiple features for facial expression recognition. For each face image, we employed 256 bins to extract the LBP feature. For the SPLE feature, three different resolutions are ï¬rst
+
+Fig. 1. Facial expression images of one subject from (a) JAFFE, (b) CohnâKanade, and (c) Feedtum databases. From left to right are the images with anger, disgust, fear, happy, sad, surprise and neural expressions, respectively.
+
+Please cite this article as: H. Yan, Transfer subspace learning for cross-dataset facial expression recognition, Neurocomputing (2016), http://dx.doi.org/10.1016/j.neucom.2015.11.113i
+
+6
+
+H. Yan / Neurocomputing â (ââââ) âââââââ Table 3 Confusion matrix of seven-class expression recognition obtained by LDA under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 37.0% 3.6% 10.6% 3.0% 6.6% 3.0% 5.4% DIS 20.3% 36.5% 20.4% 11.6% 15.2% 12.2% 13.3% FEA 6.4% 20.4% 34.3% 19.4% 16.8% 19.8% 10.4% HAP 1.4% 1.8% 19.8% 35.3% 5.6% 16.8% 11.4% SAD 16.3% 20.6% 5.2% 18.8% 36.3% 8.2% 8.5% SUR 7.3% 12.3% 7.2% 7.7% 14.2% 35.3% 17.3% NEU 11.3% 4.8% 2.5% 4.2% 5.3% 4.7% 33.7%
+
+constructed and 21 cells are obtained. Then, each local feature in each cell was quantized into 200 bins and each face image was represented by a 4200-dimensional long feature vector. For the SIFT feature, each SIFT descriptors was ï¬rst sampled over each 16 Ã 16 patch with a grid spacing of 8 pixels. Then, each SIFT descriptor is concatenated into a long feature vector. For these features, we apply PCA to reduce each feature into 200 dimensions to remove some noise components. We employed the nearest neighbor (NN) classiï¬er for facial expression recognition. The value of Î» was empirically set to be 10 for all the four transfer subspace learning methods. We compared our proposed transfer subspace learning methods with four existing non-transferred subspace learning methods including PCA, LDA, LPP and ONPP for cross-dataset facial expression recognition. The feature dimensions of all subspace learning methods are set as 200 except the LDA related methods, where the feature dimensions of these methods are set to 6. Based on the three datasets, we conducted six sets of crossdataset facial expression recognition as follows: 1. J2C: the training set is JAFFE and the testing set is Cohnâ Kanade; 2. J2F: the training set is JAFFE and the testing set is Feedtum; 3. C2J: the training set is CohnâKanade and the testing set is JAFFE; 4. C2F: the training set is CohnâKanade and the testing set is Feedtum; 5. F2J: the training set is Feedtum and the testing set is JAFFE; 6. F2C: the training set is Feedtum and the testing set is Cohnâ Kanade. 5.2. Results The confusion matrices of the seven expressions under the F2C setting were also calculated for PCA, LDA, LPP, ONPP, TPCA, TLDA, TLPP, TONPP, MTPCA, MTLDA, MTLPP, and MTONPP and tabulated in Tables 2â13, respectively, where ANG, DIS, FEA, HAP, SAD, SUR and NEU represents the anger, disgust, fear, happy, sad, surprise and neural expressions, respectively. We can observe from these results that diagonal elements of the confusion matrices of transfer subspace learning methods are generally better than those of conventional non-transferred subspace learning methods, which further indicated that transfer subspace learning approach can improve the recognition accuracy of subspace learning for cross-dataset facial expression recognition. That is because conventional subspace learning algorithms such as PCA, LDA, LPP and ONPP assume that the training and testing samples are independent and identically distributed variables and this assumption does not hold for cross-dataset facial expression recognition tasks. Moreover, multi-view transfer subspace learning methods achieve higher performance than the corresponding single-view transfer subspace learning methods.
+Table 2 Confusion matrix of seven-class expression recognition obtained by PCA under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 30.3% 3.6% 13.6% 3.0% 8.6% 3.0% 6.4% DIS 22.3% 29.8% 21.4% 13.6% 16.2% 13.2% 15.3% FEA 6.4% 22.4% 27.6% 21.4% 18.8% 21.8% 12.4% HAP 1.4% 1.8% 21.8% 28.6% 5.6% 18.8% 11.4% SAD 20.3% 22.6% 5.2% 20.8% 29.6% 9.2% 10.2% SUR 7.3% 14.3% 7.4% 8.2% 15.2% 28.6% 19.3% NEU 12.0% 5.5% 3.0% 4.4% 6.0% 5.4% 25.0%
+
+Table 4 Confusion matrix of seven-class expression recognition obtained by LPP under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 34.0% 3.5% 12.6% 3.0% 7.6% 3.0% 5.4% DIS 20.3% 33.5% 20.4% 12.6% 15.2% 12.2% 15.3% FEA 6.4% 20.4% 31.3% 20.4% 17.8% 20.8% 11.4% HAP 1.4% 1.8% 20.8% 32.3% 5.3% 17.8% 9.4% SAD 19.3% 21.6% 5.0% 19.1% 33.3% 8.5% 11.2% SUR 7.3% 14.2% 6.9% 8.2% 14.8% 32.3% 18.6% NEU 11.3% 5.0% 3.0% 4.4% 6.0% 5.4% 28.7%
+
+Table 5 Confusion matrix of seven-class expression recognition obtained by ONPP under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 39.6% 3.6% 10.6% 3.0% 6.6% 3.0% 5.4% DIS 17.3% 39.1% 18.4% 11.6% 15.2% 12.2% 13.3% FEA 6.4% 18.4% 36.9% 18.4% 15.8% 17.8% 10.4% HAP 1.4% 1.2% 19.2% 37.9% 5.6% 16.2% 10.8% SAD 16.3% 20.6% 5.2% 17.2% 38.9% 8.2% 8.5% SUR 7.2% 12.3% 7.2% 7.7% 13.2% 37.9% 15.3% NEU 11.8% 4.8% 2.5% 4.2% 4.7% 4.7% 36.3%
+
+Table 6 Confusion matrix of seven-class expression recognition obtained by TPCA under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 45.3% 3.6% 13.6% 3.0% 8.6% 3.0% 6.4% DIS 12.3% 44.8% 11.4% 13.6% 11.2% 13.2% 10.3% FEA 6.4% 12.4% 42.6% 11.4% 13.8% 11.8% 12.4% HAP 1.4% 1.8% 16.8% 43.6% 5.6% 13.8% 10.4% SAD 15.3% 17.6% 5.2% 15.8% 44.6% 9.2% 10.2% SUR 7.3% 14.3% 7.4% 8.2% 10.2% 43.6% 10.3% NEU 12.0% 5.5% 3.0% 4.4% 6.0% 5.4% 40.0%
+
+Table 7 Confusion matrix of seven-class expression recognition obtained by TLDA under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 55.0% 3.6% 10.6% 3.0% 3.6% 3.0% 5.4% DIS 10.3% 54.5% 10.4% 10.6% 10.2% 12.2% 10.3% FEA 6.4% 10.4% 52.3% 10.4% 10.8% 9.8% 6.4% HAP 1.4% 1.8% 12.8% 53.3% 5.6% 8.8% 10.4% SAD 10.3% 12.6% 5.2% 10.8% 54.3% 8.2% 8.5% SUR 7.5% 12.3% 6.2% 7.7% 10.2% 53.3% 7.3% NEU 9.1% 4.8% 2.5% 4.2% 5.3% 4.7% 51.7%
+
+Please cite this article as: H. Yan, Transfer subspace learning for cross-dataset facial expression recognition, Neurocomputing (2016), http://dx.doi.org/10.1016/j.neucom.2015.11.113i
+
+H. Yan / Neurocomputing â (ââââ) âââââââ Table 8 Confusion matrix of seven-class expression recognition obtained by TLPP under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 51.0% 3.6% 12.6% 3.0% 7.6% 3.0% 5.4% DIS 10.3% 50.5% 10.4% 12.6% 10.2% 12.2% 1.3% FEA 6.4% 10.4% 48.3% 10.4% 10.8% 10.8% 9.4% HAP 1.4% 1.8% 13.8% 49.3% 5.3% 10.8% 9.4% SAD 12.3% 14.6% 5.0% 12.1% 50.3% 8.5% 10.2% SUR 7.3% 14.1% 6.9% 8.2% 9.8% 49.3% 8.6% NEU 11.3% 5.0% 3.0% 4.4% 6.0% 5.4% 55.7%
+
+7
+
+Table 9 Confusion matrix of seven-class expression recognition obtained by TONPP under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 55.6% 3.6% 10.6% 3.0% 6.6% 3.0% 5.4% DIS 9.3% 55.1% 10.4% 11.6% 10.2% 7.2% 11.3% FEA 6.4% 11.4% 52.9% 11.4% 11.8% 11.8% 6.4% HAP 1.4% 1.2% 11.2% 53.9% 5.6% 11.2% 6.8% SAD 8.3% 11.6% 5.2% 8.2% 54.9% 8.2% 8.5% SUR 7.2% 12.3% 7.2% 7.7% 8.2% 53.9% 9.3% NEU 11.8% 4.8% 2.5% 4.2% 2.7% 4.7% 52.3%
+
+Table 12 Confusion matrix of seven-class expression recognition obtained by MTLPP under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 55.0% 3.6% 11.6% 3.0% 7.6% 3.0% 5.4% DIS 8.3% 54.5% 10.4% 11.6% 9.2% 11.2% 1.3% FEA 6.4% 8.4% 51.3% 10.4% 9.8% 9.8% 8.4% HAP 1.4% 1.8% 11.8% 52.3% 5.3% 9.8% 8.4% SAD 12.3% 14.6% 5.0% 10.1% 53.3% 8.5% 9.2% SUR 7.3% 12.1% 6.9% 8.2% 8.8% 52.3% 8.6% NEU 9.3% 5.0% 3.0% 4.4% 6.0% 5.4% 58.7%
+
+Table 10 Confusion matrix of seven-class expression recognition obtained by MTPCA under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 48.3% 3.6% 11.6% 3.0% 8.6% 3.0% 6.4% DIS 11.3% 46.8% 11.4% 11.6% 10.2% 11.2% 9.3% FEA 5.4% 11.4% 45.6% 11.4% 11.8% 10.8% 10.4% HAP 1.4% 1.8% 14.8% 47.6% 5.6% 13.8% 10.4% SAD 14.3% 11.6% 5.2% 13.8% 47.6% 9.2% 10.2% SUR 7.3% 14.3% 7.4% 8.2% 10.2% 46.6% 10.3% NEU 12.0% 5.5% 3.0% 4.4% 6.0% 5.4% 43.0%
+
+Table 13 Confusion matrix of seven-class expression recognition obtained by MTONPP under the F2C setting. ANG ANG DIS FEA HAP SAD SUR NEU 58.6% 3.6% 9.6% 3.0% 6.6% 3.0% 5.4% DIS 9.3% 58.1% 9.4% 10.6% 8.2% 7.2% 10.3% FEA 6.4% 10.4% 55.9% 10.4% 10.8% 10.8% 5.4% HAP 1.4% 1.2% 10.2% 55.9% 5.6% 9.2% 5.8% SAD 7.3% 10.6% 5.2% 8.2% 57.9% 8.2% 7.5% SUR 6.2% 11.3% 7.2% 7.7% 8.2% 56.9% 9.3% NEU 10.8% 4.8% 2.5% 4.2% 2.7% 4.7% 56.3%
+
+Table 11 Confusion matrix of seven-class expression recognition obtained by MTLDA under the F2C setting.
+
+50
+
+45
+
+ANG DIS FEA HAP SAD SUR NEU
+
+58.0% 3.6% 10.6% 3.0% 3.6% 3.0% 5.4%
+
+9.3% 57.5% 9.4% 10.6% 9.2% 11.2% 9.3%
+
+4.4% 10.4% 55.3% 9.4% 10.8% 7.8% 6.4%
+
+1.4% 1.8% 10.8% 55.3% 5.6% 8.8% 8.4%
+
+10.3% 12.6% 5.2% 9.8% 57.3% 8.2% 8.5%
+
+7.5% 10.3% 6.2% 7.7% 8.2% 56.3% 7.3%
+
+9.1% 3.8% 2.5% 4.2% 5.3% 4.7% 54.7%
+
+Mean recognition accuracy (%)
+
+ANG
+
+DIS
+
+FEA
+
+HAP
+
+SAD
+
+SUR
+
+NEU
+
+40
+
+35
+
+30
+
+Fig. 2 shows the mean veriï¬cation rate of TPCA and MTPCA methods versus different number of iterations under the F2C setting. Our methods obtain stable recognition rates in several iterations. We also examine the mean recognition rate of our multi-view transfer subspace learning methods versus different values of p under the F2C setting. We ï¬nd that the performance of our multi-view transfer subspace learning methods are not sensitive to this parameter and the best performance can be obtained when p was set to 3.
+
+25 TPCA MTPCA 20 1 2 3 4 5 6 7 8 9 10
+
+Iteration number
+Fig. 2. Mean recognition rates (%) our transfer subspace learning approach versus different number of iterations under the F2C setting.
+
+6. Conclusions and future work We have investigated in this paper the problem of cross-dataset facial expression recognition. Since the training and testing samples are not independent and identically distributed in many real
+
+facial expression recognition applications, we have proposed a new transfer subspace learning approach to learn a feature space which transfers the knowledge gained from the training set to the target (testing) data to improve the recognition performance under cross-dataset scenarios. Following this idea, we have formulated four new transfer subspace learning methods, i.e.,
+
+Please cite this article as: H. Yan, Transfer subspace learning for cross-dataset facial expression recognition, Neurocomputing (2016), http://dx.doi.org/10.1016/j.neucom.2015.11.113i
+
+8
+
+H. Yan / Neurocomputing â (ââââ) âââââââ [20] R. Xiao, Q. Zhao, D. Zhang, P. Shi, Facial expression recognition on multiple manifolds, Pattern Recognit. 44 (1) (2011) 107â116. [21] J. Pan, Q. Yang, A survey on transfer learning, IEEE Trans. Knowl. Data Eng. 22 (10) (2010) 1345â1359. [22] S. Si, D. Tao, B. Geng, Bregman divergence-based regularization for transfer subspace learning, IEEE Trans. Knowl. Data Eng. 22 (7) (2010) 929â942. [23] Y. Su, Y. Fu, Q. Tian, X. Gao, Cross-database age estimation based on transfer learning, Proceedings of International Conference on Acoustics, Speech and Signal Processing, 2010, pp. 1270â1273. [24] S.T. Roweis, L.K. Saul, Nonlinear dimensionality reduction by locally linear embedding, Science 290 (2000) 2323â2326. [25] M.J. Lyons, S. Akamatsu, M. Kamachi, J. Gyoba, Coding facial expressions with Gabor wavelets, in: Proceedings of IEEE International Conference on Automatic Face and Gesture Recognition, 1998, pp. 200â220. [26] M.J. Lyons, J. Budynek, S. Akamatsu, Automatic classiï¬cation of single facial images, IEEE Trans. Pattern Anal. Mach. Intell. 21 (12) (1999) 1357â1362. [27] T. Kanade, J. Cohn, Y.L. Tian, Comprehensive database for facial expression analysis, in: Proceedings of IEEE International Conference on Face and Gesture Analysis, 2000, pp. 46â53. [28] F. Wallhoff, Facial expressions and memotion database, â©Available at http:// www.mmk.ei.tum.de/waf/fgnet/feedtum.htmlâª. [29] J. Lu, Y.-P. Tan, A doubly weighted approach for appearance-based subspace learning methods, IEEE Trans. Inf. Forensics Secur. 5 (1) (2010) 71â81. [30] J. Lu, Y.-P. Tan, Regularized locality preserving projections and its extensions for face recognition, IEEE Trans. Syst. Man Cybern.-Part B Cybern. 40 (3) (2010) 958â963. [31] H. Yan, M.H. Ang, A.N. Poo, Cross-dataset facial expression recognition, in: IEEE International Conference on Robotics and Automation, 2011, pp. 5985â5990. [32] Y. Fu, L. Cao, G. Guo, T.S. Huang, Multiple feature fusion by subspace learning, in: ACM International Conference on Image and Video Retrieval, 2008, pp. 127â134. [33] J. Lu, X. Zhou, Y.-P. Tan, Y. Shang, J. Zhou, Neighborhood repulsed metric learning for kinship veriï¬cation, IEEE Trans. Pattern Anal. Mach. Intell. 36 (2) (2014) 331â345. [34] T. Ahonen, A. Hadid, M. Pietikainen, Face description with local binary patterns: application to face recognition, IEEE Trans. Pattern Anal. Mach. Intell. 28 (12) (2006) 2037â2041. [35] X. Zhou, J. Hu, J. Lu, Y. Shang, Y. Guan, Kinship veriï¬cation from facial images under uncontrolled conditions, in: ACM International Conference on Multimedia, 2011, pp. 953â956. [36] D. Lowe, Distinctive image features from scale-invariant keypoints, Int. J. Comput. Vis. 60 (2) (2004) 91110. [37] J. Lu, V.E. Liong, X. Zhou, J. Zhou, Learning compact binary face descriptor for face recognition, IEEE Trans. Pattern Anal. Mach. Intell. 37 (10) (2015) 2041â2256. [38] J. Lu, Y.P. Tan, G. Wang, Discriminative multimanifold analysis for face recognition from a single training sample per person, IEEE Trans. Pattern Anal. Mach. Intell. 35 (1) (2013) 39â51. [39] J. Lu, G. Wang, P. Moulin, Human identity and gender recognition from gait sequences with arbitrary walking directions, IEEE Trans. Inf. Forensics Secur. 9 (1) (2014) 41â51. [40] J. Lu, Y.P. Tan, Cost-sensitive subspace analysis and extensions for face recognition, IEEE Trans. Inf. Forensics Secur. 8 (3) (2013) 510â519. [41] Y. Yan, E. Ricci, G. Liu, N. Sebe, Egocentric daily activity recognition via multitask clustering, IEEE Trans. Image Process. 24 (10) (2015) 2984â2995. [42] Y. Yan, Y. Yang, D. Meng, G. Liu, W. Tong, A. Hauptmann, N. Sebe, Event oriented dictionary learning for complex event detection, IEEE Trans. Image Process. 24 (6) (2015) 1867â1878. [43] Y. Yan, E. Ricci, R. Subramanian, G. Liu, N. Sebe, Multi-task linear discriminant analysis for multi-view action recognition, IEEE Trans. Image Process. 23 (12) (2014) 5599â5611. [44] Y. Yan, E. Ricci, R. Subramanian, O. Lanz, N. Sebe, No matter where you are: ï¬exible graph-guided multi-task learning for multi-view head pose classiï¬cation under target motion, in: IEEE International Conference on Computer Vision, 2013. [45] Y. Yan, H. Shen, G. Liu, Z. Ma, C. Gao, N. Sebe, Glocal tells you more: Coupling glocal structural for feature selection with sparsity for image and video classiï¬cation, Comput. Vis. Image Understand. 125 (7) (2014) 99â109. [46] Q. Zhao, D. Meng, Z. Xu, W. Zuo, Y. Yan, L1-Norm low-rank matrix factorization by variational bayes, IEEE Trans. Neural Netw. Learn. Syst. 26 (4) (2014) 825â839. [47] J. Lu, V.E. Liong, J. Zhou, Cost-sensitive local binary feature learning for facial age estimation, IEEE Trans. Image Process. 24 (12) (2015) 5356â5368. [48] J. Lu, G. Wang, P. Moulin, Localized multi-feature metric learning for image set based face recognition, IEEE Trans. Circuits Syst. Video Technol. (2015), accepted. [49] J. Lu, G. Wang, W. Deng, K. Jia, Reconstruction-based metric learning for unconstrained face veriï¬cation, IEEE Trans. Inf. Forensics Secur. 10 (1) (2015) 79â89. [50] J. Lu, Y.-P. Tan, G. Wang, G. Yang, Image-to-set face recognition using locality repulsion projections and sparse reconstruction-based similarity measure, IEEE Trans. Circuits Syst. Video Technol. 23 (6) (2013) 1070â1080. [51] J. Lu, Y.-P. Tan, Ordinary preserving manifold analysis for human age and head pose estimation, IEEE Trans. Hum.âMach. Syst. 43 (2) (2013) 249â258. [52] J. Lu, X. Zhou, Y.-P. Tan, Y. Shang, J. Zhou, Cost-sensitive semi-supervised discriminant analysis for face recognition, IEEE Trans. Inf. Forensics Secur. 7 (3) (2012) 944â953. [53] J. Lu, V.E. Liong, G. Wang, P. Moulin, Joint feature learning for face recognition, IEEE Trans. Inf. Forensics Secur. 10 (7) (2015) 1371â1383.
+
+transfer PCA (TPCA), transfer LDA (TLDA), transfer LPP (TLPP), and transfer ONPP (TONPP) for cross-dataset facial expression recognition. To better exploit more complementary information for multiple feature representations of face images, we have developed a multi-view transfer subspace learning approach where multiple different yet related subspaces are learned to transfer information from the source domain to the target domain, where four multi-view transfer subspace learning methods, namely multi-view transfer PCA (MTPCA), multi-view transfer LDA (MTLDA), multi-view transfer LPP (MTLPP), and multi-view transfer ONPP (MTONPP) are introduced. Experimental results have demonstrated the efï¬cacy of the proposed methods. 1. In this work, a linear model is employed to transfer information exploited in the source domain to the target domain. For future work, we are interested in using a nonlinear model for transfer learning. 2. In this work, a linear combination of multi-view data is employed in our multi-view transfer subspace learning approach. It is interesting to apply a nonlinear combination model to better exploit the complementary information of different views. 3. It is interesting to apply our proposed methods to cross-dataset visual recognition applications such as cross-domain person reidentiï¬cation and object recognition to further demonstrate their effectiveness. References
+[1] M. Pantic, L.J.M. Rothkrantz, Automatic analysis of facial expressions: the state of the art, IEEE Trans. Pattern Anal. Mach. Intell. 22 (12) (2000) 1424â1445. [2] B. Fasel, J. Luettin, Automatic facial expression analysis: a survey, Pattern Recognit. 36 (2003) 259â275. [3] Z. Zeng, M. Pantic, G.I. Roisman, T. Huang, A survey of affect recognition methods: audio, visual, and spontaneous expressions, IEEE Trans. Pattern Anal. Mach. Intell. 31 (1) (2009) 39â58. [4] R. Cowie, E. Douglas-Cowie, N. Tsapatsoulis, G. Votsis, S. Kollias, W. Fwllenz, J. G. Taylor, Emotion recognition in human-computer interaction, IEEE Signal Process. Mag. 18 (1) (2001) 32â80. [5] I. Kotsia, I. Pitas, Facial expression recognition in image sequences using geometric deformation features and support vector machines, IEEE Trans. Image Process. 16 (1) (2007) 160â187. [6] Y. Gao, M.K.H. Leung, S.C. Hui, M.W. Tananda, Facial expression recognition from line-based caricatures, IEEE Trans. Syst. Man Cybern. Part A Syst. Hum. 33 (3) (2003) 407â412. [7] Y. Cheon, D. Kim, Natural facial expression recognition using differential-AAM and manifold learning, Pattern Recognit. 42 (2009) 1340â1350. [8] B. Raducanu, F. Dornaika, Dynamic facial expression recognition using Laplacian eigenmaps-based manifold learning, Proceedings of IEEE International Conference on Robotics and Automation, 2010, pp. 156â161. [9] C. Shan, S. Gong, P.W. McOwan, A comprehensive empirical study on linear subspace methods for facial expression analysis, in: Proceedings of IEEE International Conference on Computer Vision and Pattern Recognition Workshop, 2006, pp. 153â158. [10] C. Shan, S. Gong, P.W. McOwan, Appearance manifold of facial expression, Lecture Notes in Computer Science 3766 (2005) 221â230. [11] S. Zafeiriou, I. Pitas, Discriminant graph structures for facial expression recognition, IEEE Trans. Multimedia 10 (8) (2008) 1528â1540. [12] R. Zhi, Q. Ruan, Discriminant spectral analysis for facial expression recognition, in: Proceedings of IEEE International Conference on Image Processing, 2008, pp. 1924â1927. [13] C. Shan, S. Gong, P.W. McOwan, Facial expression recognition based on local binary patterns: a comprehensive study, Image Vis. Comput. 27 (2009) 803â816. [14] G. Zhao, M. Pietikainen, Boosted multi-resolution spatiotemporal descriptors for facial expression recognition, Pattern Recognit. Lett. 30 (2009) 1117â1127. [15] W. Zheng, X. Zhou, C. Zou, L. Zhao, Facial expression recognition using kernel canonical correlation analysis (KCCA), IEEE Trans. Neural Netw. 17 (1) (2006) 233â238. [16] M. Turk, A. Pentland, Eigenfaces for recognition, J. Cogn. Neurosci. 3 (1) (1991) 71â86. [17] P.N. Belhumenur, J.P. Hepanha, D.J. Kriegman, Eigenfaces vs. ï¬sherfaces: recognition using class speciï¬c linear projection, IEEE Trans. Pattern Anal. Mach. Intell. 19 (7) (1997) 711â720. [18] X. He, S. Yan, Y. Hu, P. Niyogi, H.-J. Zhang, Face recognition using laplacian faces, IEEE Trans. Pattern Anal. Mach. Intell. 27 (3) (2005) 328â340. [19] E. Kokiopoulou, Y. Saad, Orthogonal neighborhood preserving projections, in: Proceedings of International Conference on Data Mining, 2005, pp. 234â241.
+
+Please cite this article as: H. Yan, Transfer subspace learning for cross-dataset facial expression recognition, Neurocomputing (2016), http://dx.doi.org/10.1016/j.neucom.2015.11.113i
+
+H. Yan / Neurocomputing â (ââââ) âââââââ [54] H. Yan, J. Lu, X. Zhou, Prototype-based discriminative feature learning for kinship veriï¬cation, IEEE Trans. Cybern. 45 (11) (2015) 2535â2545. [55] H. Yan, J. Lu, W. Deng, X. Zhou, Discriminative multimetric learning for kinship veriï¬cation, IEEE Trans. Inf. Forensics Secur. 9 (7) (2014) 1169â1178. [56] J. Lu, Y.-P. Tan, Nearest feature space analysis for classiï¬cation, IEEE Signal Process. Lett. 18 (1) (2011) 55â58. [57] J. Lu, Y.-P. Tan, Uncorrelated discriminant nearest feature line analysis for face recognition, IEEE Signal Process. Lett. 17 (2) (2010) 185â188. [58] J. Lu, E. Zhang, Gait recognition for human identiï¬cation based on ICA and fuzzy SVM through multiple views fusion, Pattern Recognit. Lett. 28 (16) (2007) 2401â2411.
+
+9
+
+Haibin Yan received the B.Eng. and M.Eng. degrees from the Xi'an University of Technology, Xi'an, China, in 2004 and 2007, and the Ph.D. degree from the National University of Singapore, Singapore, in 2013, all in mechanical engineering. Now, she is an assistant professor in the School of Automation, Beijing University of Posts and Telecommunications, Beijing, China. From October 2013 to July 2015, she was a research fellow at the Department of Mechanical Engineering, National University of Singapore, Singapore. Her research interests include social robotics and computer vision.
+
+Please cite this article as: H. Yan, Transfer subspace learning for cross-dataset facial expression recognition, Neurocomputing (2016), http://dx.doi.org/10.1016/j.neucom.2015.11.113i
+

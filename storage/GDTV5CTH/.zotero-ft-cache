@@ -1,0 +1,397 @@
+Neurocomputing 157 (2015) 11–21
+
+Contents lists available at ScienceDirect
+
+Neurocomputing
+journal homepage: www.elsevier.com/locate/neucom
+
+DLANet: A manifold-learning-based discriminative feature learning network for scene classiﬁcation
+Ziyong Feng a, Lianwen Jin a,n, Dapeng Tao b,c, Shuangping Huang d
+a
+
+School of Electronic and Information Engineering, South China University of Technology, Guangzhou, China Shenzhen Institutes of Advanced Technology, Chinese Academy of Sciences, China c The Chinese University of Hong Kong, Hong Kong, China d College of Engineering, South China Agricultural University, Guangzhou, China
+b
+
+art ic l e i nf o
+Article history: Received 20 August 2014 Received in revised form 12 December 2014 Accepted 21 January 2015 Communicated by X. Gao Available online 3 February 2015 Keywords: Convolution neural network Manifold learning DLA Network Scene classiﬁcation
+
+a b s t r a c t
+This paper presents Discriminative Locality Alignment Network (DLANet), a novel manifold-learningbased discriminative learnable feature, for wild scene classiﬁcation. Based on a convolutional structure, DLANet learns the ﬁlters of multiple layers by applying DLA and exploits the block-wise histograms of the binary codes of feature maps to generate the local descriptors. A DLA layer maximizes the margin between the inter-class patches and minimizes the distance of the intra-class patches in the local region. In particular, we construct a two-layer DLANet by stacking two DLA layers and a feature layer. It is followed by a popular framework of scene classiﬁcation, which combines Locality-constrained Linear Coding–Spatial Pyramid Matching (LLC–SPM) and linear Support Vector Machine (SVM). We evaluate DLANet on NYU Depth V1, Scene-15 and MIT Indoor-67. Experiments show that DLANet performs well on depth image. It outperforms the carefully tuned features, including SIFT and is also competitive to the other reported methods. & 2015 Elsevier B.V. All rights reserved.
+
+1. Introduction Scene classiﬁcation is an important research task in robotics and computer vision. It plays a key role for various practical applications, e.g., robotics place recognition [1], robotics path planning [2,3], semantic recognition [4], and content-based image retrieval [5]. However, scene classiﬁcation is very challenging due to the wide variety of intra-class scene, sophistication of lighting and background, even different view angles. For example, a natural scene dataset collected by Vogel and Schiele [5] contains 6 categories (coast, forest, mountain, open country, river and sky/cloud). A mountain overlaid with green grass is very different from that covered by snow because of the variation of color. But the green grass overlaid mountain is easily confused with forest because of the similar color and texture. Another dataset organized by Oliva and Torralba [6] includes both the natural scenes and man-made scenes, which enrich the semantic of scene. By contrast to the outdoor scene datasets described above, the indoor scene recognition is similar to multiple objects recognition. A living room may include bed, chairs, night table and people. Furthermore, the non-rigid deformation and occlusion with these objects will be observed in an indoor scene, which increase the difﬁculty of recognition. Clearly, adding the 3D information can help recognizing scene [7].
+
+n
+
+Corresponding author. Tel.: þ 86 20 87113540 E-mail address: lianwen.jin@gmail.com (L. Jin).
+
+Therefore, some datasets contain regular color images and the corresponding depth maps captured by Microsoft Kinect, e.g., NYU Depth V1 [7], NYU DepthV2 [8] and SUN3D [9]. Kinect uses structured light method to capture the accurate depth map of a scene, which can be aligned with the device's VGA camera easily. However, Kinect works reliably only on indoor scenes because the effective range of the depth camera does not apply to bad lighting conditions. Remarkably, since a limited number of scene categories cannot simulate the daily life, Xiao et al. [10] established a huge dataset to capture the richness and diversity of environments. To solve this comprehensive problem, a large number of approaches have been proposed. These approaches can be divided into two categories according to the literature [11]. The one category is that using the global low level features to represent a scene image. In general, representative global color features, e.g., HSV color histogram [12], color coherence vectors [13] and color moment [14], are the most employed thanks to the invariant of scaling, rotation, perspective, and occlusion. Although color features perform better than texture and shape, texture and shape features are also used for scene classiﬁcation as another cue. They can encode the edge information like the straight horizontal and vertical edges in an urban scene. However the global low level features fail to work in spite of large changes in viewing conditions, occlusions and clutters. Normally only a small number of scene categories problem use global low level features [15]. The other category represent scene images associated with detected interest points (or image blocks) based on some descriptors.
+
+http://dx.doi.org/10.1016/j.neucom.2015.01.043 0925-2312/& 2015 Elsevier B.V. All rights reserved.
+
+12
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21
+
+Then a codebook is constructed by these descriptors obtained from training images. Thus an image is represented by a histogram of the codebook, which transfers low level features to high level features, also called coding. The Bag of Words (BOW) model is a classical coding method for scene classiﬁcation. The BOW model and its variations can provide the more representative features for the images. Instead of using BOW model, sparse coding is employed as the coding method which has lower reconstruction error and sparse representation. Generally the codes from an image would be pooled to form an image feature. Finally, the features are used to train a classiﬁer for scene classiﬁcation. However the low level features play an important role in the classiﬁcation system. Lots of efforts have been made to design low level features for classiﬁcation tasks at hand. In the past few years, Deep Neural Networks (DNNs) have received intensive attentions, because they can automatically and simultaneously discover low level and high level features, and achieved astonishing results on various databases. For example, a deep neural networks conducted by stacking Restricted Boltzmann Machines (RBMs) [40] and regularized autoencoders [44] perform much better than traditional neural networks. Moreover, for considering the topological structure, Convolutional Neural Networks (CNNs) [45] constructed by convolutional and pooling operation is more suitable for computer vision tasks. Therefore, on various database, CNN obtained the-state-of-art performance [53–55]. But there are lots of parameters in a deep CNN to be tune given the enormous data, which leads to high computation even using extremely fast GPU implementation on GPU [52]. To design a simple deep learning network, Chan et al. [56] proposed a convolutional neural network without active function and pooling layers. Instead of BP algorithm, they adopted PCA or LDA to learn the bases and treat the bases as ﬁlters in CNN, called PCANet and LDANet, respectively. In the output stage, binary quantization and block-wise histogram operator of the binary codes are employed to generate the output features. The experiments show that a two-layer PCANet is superior to the state-ofthe-art features for some image classiﬁcation tasks. In this paper, we deploy the structure of PCANet to learn the local features but explore ﬁlters learnt by Discriminative Locality Alignment (DLA) [57], which can project the patches closer intra-class and further otherwise. It is found that DLA can cope with the nonlinearity of the distribution of samples while preserving the discriminative information and enhance the importance of marginal samples for discriminative subspace selection [57]. The advantages of DLA will beneﬁt the classiﬁcation tasks. We train the ﬁlters in CNN with the manifold assumption and it is expected that the features learnt by DLA Network (DLANet) contain more effective discriminative information. Then the features computed by the learnt DLANet are fed into LLC–SPM to represent the images. Eventually, to classify scenes, we utilize linear SVM because it is more suitable for LLC. To evaluate the effectiveness of the proposed DLANet feature, we compare it with other scene classiﬁcation algorithm on NYU Depth V1 [7], Scene-15 [25] and MIT Indoor-67 [26]. Compare with the classiﬁcation system using PCANet/LDANet in [65], we learn the ﬁlters by DLA and use the DLANet features to generate a more efﬁcient image representation with coding and spatial pooling. The ﬂow diagram of our classiﬁcation system is illustrated in Fig. 1. The main contribution
+
+of this paper is the newly developed DLANet feature learning algorithm, a novel manifold-based discriminative feature learning algorithm, for scene classiﬁcation. The rest of the paper is organized as follows. In Section 2, we review related work on feature learning. Then we introduce the proposed DLANet feature learning algorithm in detail in Section 3. Section 4 shows the experimental results on the NYU Depth V1, Scene-15 and MIT Indoor-67. We conclude the paper in Section 5.
+
+2. Related work 2.1. Low level local features Features play an essential role in classiﬁcation tasks. Numerous efforts have been made to design low level features for classiﬁcation tasks at hand. Some hand-crafted features for scene classiﬁcation will be introduced in this section. Scale Invariant Feature Transform (SIFT) [34] feature and descriptor are popularized in the computer vision community, which are originally designed for recognizing the same object appearing under different conditions. Because of the high discriminative power, SIFT is adopted for scene classiﬁcation widely 35][17,22,33,35]. The Histograms of Oriented Edges (HOG) [36] descriptor is widely used for pedestrian and object detection. A variant of HOG [37] computes instead both directed and undirected gradients as well as a four dimensional texture-energy feature, but projects the feature onto a 31-dimensional space. The experimental results [10] show that this variant of HOG gains the decent performances among various features. For recognizing topological places and scene classiﬁcation, Wu et al. [1] introduced Census Transform Histogram (CENTRIST) which has several important advantages, e.g., no parameter to tune, extremely fast, and easy to implement. However the above low level features are designed manually for some speciﬁc data and tasks. Designing effective features for new data and tasks usually requires new domain knowledge and the original features are not suitable for new problems. For instance, the depth images acquired by the Kinect sensor receive intensive attentions. It is unclear how this depth information can be exploited using existing features. Naturally a depth image is treated as a gray level intensity image and existing features e.g. SIFT [35] are applied. Histogram of Oriented Normal Vectors (HONV) [38] is designed speciﬁcally to capture the local 3D geometric characteristics for the purpose of object recognition in a depth image. Motivated by kernel-based feature learning, Bo et al. [39] present a set of kernel features on depth images that describe size, shape and edges in a uniﬁed framework. The kernel features measure the local descriptors in kernel space instead of original linear space. The kernel descriptors constructed by projecting the inﬁnite-dimensional feature vectors to the learned basis vectors have more appropriate similarity measure for local patches and signiﬁcantly outperform the handcrafted features. However, designing effective features for new data and tasks usually requires domain knowledge. Because of the limitation of hand-crafted features, learning features from data becomes hot. In recent years, DNN becomes a powerful tool to learn features, in
+
+Our Classification System Raw Image DLANet Features
+Learning filters by DLA based on the data manifold.
+
+Coding
+
+Spatial Pooling
+
+SVM
+
+Constructing more efficient image representation by coding-pooling scheme.
+
+Fig. 1. The ﬂow diagram of our classiﬁcation system.
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21
+
+13
+
+which layer-wise unsupervised pretraining is key stage for initializing a DNN. This pretraining procedure can be deemed as using the unsupervised feature learning to learn a new transformation to extract effective features. For example, Restricted Boltzmann Machines (RBMs) [40] minimize the energy function, which are trained by the Contract Diversity (CD) [41] algorithm in an approximate way. Autoencoder [42] jointly deﬁnes an encoding function and the corresponding decoding function, which are simultaneously trained by minimizing the reconstruction error. The encoding function is regarded as feature-extracting function. Recently variants of regularized autoencoders are developed to improve the generalization, e.g., Contractive Autoencoders (CAEs) [43] and Denoising Autoencoders (DAEs) [44]. Although these methods achieve promising results, they ignore the topological structure of the input data in computer vision tasks. Convolutional Neural Networks (CNNs) [45] are popular, because they deﬁne local receptive ﬁelds [46] so that each low-level feature will be computed from only a subset of the input. The convolutional operation ensures that an output unit only associates with the input units in a receptive ﬁeld. Commonly, it is followed by the max-pooling, which can pool feature layer some degree of invariance to input translations. However the typical CNN is trained in the supervised manner. Hence to train a convolutional layer in an unsupervised fashion, an intuitive method is that collecting the patches from training set randomly and applying several feature learners [47]. Coates and Ng [47] found that simple k-means clustering is superior to many sophisticated feature learners. Convolutional versions of RBM [48,49] were proposed to directly train the entire convolutional layers utilizing an unsupervised criterion. Several methods combine the sparse coding with CNN, e.g., Predictive Sparse Decomposition (PSD) [50] and Deconvolutional Networks [51]. To design a simple DNN, Chan et al. [56] presented PCA Network and its variations, LDA Network and random network. They apply PCA or LDA to learn the bases and treat the bases as ﬁlters in CNN. PCA calculates the principal components, which are a subset of the orthonormal bases carrying the most principal energy and projects the data points onto the subspace spanned by principal components. PCA is suitable for reconstruction of Gaussian distributed data but not for classiﬁcation. On the other hand, LDA is a linear dimension reduction algorithm that can make use of the discriminative information. It tries to maximize the distance of inter-class data and minimize the distance of intra-class data in a low dimension space. However LDA cannot discover the nonlinear structure hidden in the high dimensional non-Gaussian distributed data and assume that each sample makes an equivalent contribution to discriminative dimension reduction. Manifold learning algorithms efﬁciently reduce the dimensionality. For example, Locally Linear Embedding (LLE) [58] ﬁnds a low-dimensional, neighborhood-preserving embedding of the high-dimensional data in an unsupervised fashion. ISOMap [59] considers the geodesic distance between samples, which can discover the nonlinearity of the high dimensional data. Discriminative Locality Alignment (DLA) [57] projects the patches closer intra-class and further otherwise, which is superior to LLE and ISOMap for classiﬁcation tasks because it considers the discriminative information. Patch Alignment Framework (PAF) [60] uniﬁes the existing dimension reduction algorithms. Many DLA variants are proposed in recent years. Guan et al. [61] presented Non-negative Discriminative Locality Alignment (NDLA) which is incorporated by non-negative constraints on both the bases and the coordinates. Manifold Elastic Net (MEN) [62] expects to minimize the classiﬁcation errors explicitly and obtains a sparse projection matrix by adding the lasso penalty. To extend the original DLA to tensor space, Mu et al. [63] proposed the threeway DLA (TWDLA) for C1 third-order tensor feature. Zhang et al. [64] also presented tensor extension of conventional DLA (TDLA) for hyperspectral image spectral-spatial feature extraction.
+
+2.2. Features coding The coding process transfers low level features to high level features. The typically encoding is based on Vector Quantization (VQ), hard assigning each descriptor to the closest codeword in the codebook learning by a clustering algorithm such as k-means. Therefore the hard assignment is a coarse estimation of the descriptor distribution. Soft assignment is a method that assigns one descriptor to several codewords proposed to achieve sophisticated estimation and less information loss. Kernel codebook [16] is a soft assignment encoding which estimates the distribution by kernel density to allow a degree of ambiguity in assigning codewords to descriptors. Yang et al. [17] replaced the VQ with Sparse Coding (SC) which can obtain nonlinear codes. Yu et al. [18] empirically found that SC results tend to be local – active coefﬁcients are often assigned to codewords close to the descriptor encoded. Hence they presented Local Coordinate Coding (LCC) [18] modiﬁed by SC, which explicitly encourages the coding to be local, and pointed out that under manifold assumptions locality is more important than sparsity in practice, for successful nonlinear function learning using the learned codebook. LCC which is similar to SC should optimize a weighted LASSO, which is computational expensive. Thus a variation of LCC, called Locality-constrained Linear Coding (LLC) [19], project each descriptor into its local-coordinate system with lower computational complexity because it has a closed form solution. Combined with a linear Support Vector Machine (SVM), LLC achieves encouraging accuracy for image classiﬁcation. In addition, they utilized K-nearest-neighbor (K-NN) search and constrained least squares ﬁtting to approximate the solution of LLC, which further reduces the computational complexity. Alternatively Fisher Vectors (FV) [20,21], an extension of the VQ, encode the average ﬁrst and second order differences between the descriptors and the centers of a Gaussian Mixture Model (GMM). Thanks to the ﬁner estimation, FV performs better than other encoding technique [22]. Recently supervised encoding methods reported that learning a discriminative codebook improves the classiﬁcation performance [23,24].
+
+2.3. Spatial pooling Spatial Pyramid Matching (SPM) [25] is employed to represent the whole image for the subsequent recognition. Because SPM encodes the descriptor spatial layout, it has been widely utilized in the recent state-of-the-art image classiﬁcation systems [17,22]. The image is partitioned into increasingly ﬁner spatial sub-regions and computes histograms of local features from each sub-region. Empirically, 1 Â 1, 2 Â 2, and 4 Â 4 sub-regions (typical Spatial Pyramid) are used in the Caltech-101 data. Another partition scheme is 1 Â 1, 2 Â 2, and 3 Â 1 sub-regions, which is suitable for the images with “sky” on top and/or “ground” on bottom. To pool the codes in the sub-regions, various pooling functions, e.g., average-pooling, max-pooling [17,19], Geometric ℓp -norm Pooling (GLP) [27], or Geometric Phrase Pooling (GPP) [32], are introduced. If VQ codes are employed, averagepooling amounts to the histogram of each sub-region. However, SC and LLC prefer max-pooling inspired by the visual cortex (V1). Boureau et al. [28] theoretically analyzed the pooling methods and discussed the inﬂuence of average-pooling and max-pooling on the different encoding schemes. How to partition an image is based on the priority empirically and the partition scheme is ﬁxed on a database. Recently a few works [29,30] attempt to learn and design the pooling regions, which also improve the classiﬁcation performance but increase computational complexity. Lin et al. [31] proposed a model that can learn important spatial pooling regions (ISPRs) and discriminative part appearance together. Compared to traditional SPM, Orientational Pyramid Matching (OPM) [33] uses the 3D orientations to index the image blocks and form the pyramid in the orientational space. The experiments show that OPM is an effective complement of SPM.
+
+14
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21
+
+Input layer
+
+Patch mean subtraction
+
+DLA layer 1
+
+Patch mean subtraction
+
+DLA layer 2
+
+Binarization
+
+Histogram
+
+Dimension reduction
+
+Fig. 2. The illustration of two-layered DLANet feature learning scheme. In the ﬁrst DLA layer, a gray scale image is convolved with four ﬁlters (four colors) learnt by DLA. In the second DLA layer, each feature map is convolved with four ﬁlters (four colors from dark to light). (For interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+
+3. DLANet feature learning In this section, we introduce a novel manifold-learning-based discriminative feature learning algorithm, DLANet. The diagram of the proposed DLANet is shown in Fig. 2. DLANet adopts the structure of PCANet that learns the convolutional ﬁlter bank through PCA [56]. However, the shortcomings of PCA will affect the performance of the network. To avoid these disadvantages and improve the network, DLA is utilized to construct the DLANet in this paper. Therefore we apply it to learn the ﬁlter bank in the network and hope the more effective features can be discovered automatically. 3.1. The ﬁrst DLA layer Given N training scene images fXi gN¼ 1 of size m Â n, each image i has the corresponding class label yi ¼ 1; 2; …; k, where k is the category number. We successively take image blocks of size l Â l of each image and then each block will be vectorized. For the ith 2 image, we have data matrix Pi ¼ ðpi;1 ; pi;2 ; …; pi;mn Þ A ℝl Âmn , where pi;j is the jth vectorized block. For normalization, each block will subtract its mean and then we obtain the normalized data matrix: À Á Pi ¼ Pi;1 ; Pi;2 ; …; Pi;mn ; ð1Þ where pi;j is the normalized block which has zero mean and its class label is the same as that of the corresponding image, i.e., yi ¼ yi 1mn , where 1mn ¼ ð1; …; 1ÞT A ℝmn . For all training images, we concatenate their corresponding normalized data matrices to a large matrix: À Á 2 ð2Þ P ¼ P1 ; P2 ; …; PN A ℝl ÂNmn : Thus we have Nmn samples of l dimensionality. For convenient description, we rewrite it as the concatenation of vectors with À Á successive index, i.e., P ¼ p1 ; p2 ; …; pNmn . We want to ﬁnd a 2 projection matrix U A ℝl ÂD1 to linearly map samples from the 2 high-dimensional space ℝl to a low-dimensional subspace ℝD1 , 2 with D1 o l , where Di is the dimensionality to be reduce to in layer i. It is noted that Di is also the number of ﬁlters in layer i and 2 because of the constraint Di o l , we cannot set the number of ﬁlters in layer i larger than the block size. Based on the above discussions, we employ DLA to ﬁnd the projection matrix U. We illustrate the feature learning procedure in Fig. 3. For the ith sample pi , i ¼ 1; 2; …; Nmn, we can categorize the samples into the intra-class samples and inter-class samples. The k1 closest intra-class samples pi1 ; pi2 ; …; pik1 , the k2 closest interclass samples pi1 ; pi2 ; …; pik and the given sample pi form a subset 2 of the entire sample set, which is   2 ^ Pi ¼ pi ; pi1 ; pi2 ; …; pik1 ; pi1 ; pi2 ; …; pik A ℝl Âðk1 þ k2 þ 1Þ : ð3Þ
+2
+
+Intra-class maps
+
+Inter-class maps
+
+DLA
+
+Fig. 3. Learning DLA ﬁlters from neighbor patches. Orange triangles denote the intra-class samples and green shapes denote the inter-class samples. (For interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+
+intra-class samples zi ; zi1 ; zi2 ; …; zik1 in the low dimensional space, we expect that distances between zi and intra-class neighbor samples zi1 ; zi2 ; …; zik1 are as small as possible, so the distance is M 1 ðzi Þ ¼
+k1 X j¼1
+
+2
+
+j j zi À zij j j 2 :
+
+ð4Þ
+
+Simultaneously, we expect that distances between zi and interclass neighbor samples zi1 ; zi2 ; …; zik are as small as possible, the 2 distance is M 2 ðzi Þ ¼
+k2 X p¼1
+
+j j zi À zip j j 2 :
+
+ð5Þ
+
+Based on the manifold assumption [57], the part discriminator can be obtained by linearly combining (4) and (5): À Á argmin M 1 ðzi Þ À γ M 2 ðzi Þ
+zi
+
+0 ¼ argmin@
+zi
+
+k1 X
+
+^ The corresponding low-dimensional representation of Pi   after transformation is Zi ¼ zi ; zi1 ; zi2 ; …; zik1 ; zi1 ; zi2 ; …; zik 2 A ℝD1 Âðk1 þ k2 þ 1Þ . The corresponding index set is deﬁned as 1 2 k1 Si ¼ fi; i ; i ; …; i ; i1 ; i2 ; …; ik2 g. To minimize the distance of the
+
+j¼1
+
+j j zi À zij j j À γ
+2
+
+k2 X p¼1
+
+1 j j zi À zip j j
+2A
+
+;
+
+ð6Þ
+
+where γ A ½0; 1 is a tuning parameter to balance the contributions of M 1 and M 2 . To simplify the part objective function (6), we deﬁne
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21
+
+15
+
+the coefﬁcients vector: 0 1T k1 k2 zﬄﬄﬄﬄ}|ﬄﬄﬄﬄ{ zﬄﬄﬄﬄﬄﬄﬄﬄ}|ﬄﬄﬄﬄﬄﬄﬄﬄ{C B wi ¼ @1; …; 1; À γ ; …; À γ A ; then the part objective function (6) transforms to 0 1 k1 k2 X X 2 2 @ argmin j j zi À zij j j ðwi Þj þ j j zi À zip j j ðwi Þk1 þ p A
+zi j¼1
+
+¼ argmin tr Z
+Z
+
+N mn X i¼1
+
+! Si mi Li ST i Z
+T
+
+!
+
+ð7Þ
+
+  ¼ argmin tr ZLZT ;
+Z Nmn
+
+ð15Þ
+
+where L ¼ Σ i ¼ 1 Si mi Li ST A ℝNmnÂNmn is the alignment matrix. i Since DLA is a linear dimension reduction algorithm, we substitute Z ¼ UT P into the objective function (15) and have   arg min tr UT PLPT U s:t: UT U ¼ I D1 :
+U
+
+0
+
+p¼1
+
+¼ argmin@
+zi
+
+kX2 1 þk j¼1
+
+1
+
+j j zSi f1g À zSi fj þ 1g j j 2 ðwi Þj A À 1T1 þ k2 k ! À Á diagðwi Þ À1k1 þ k2 ; I k1 þ k2 ZT i !
+
+ð16Þ
+
+¼ argmintr Zi
+Zi
+
+Similar to PCA, DLA obtains an orthonormal projection matrix. Therefore we can solve the objective function (16) by using the standard eigen-value decomposition: PLPT u ¼ λu: ð8Þ ð17Þ
+
+I k1 þ k2   T ¼ argmintr Zi Li Zi ;
+Zi
+
+where 1k1 þ k2 ¼ ð1; …; 1ÞT A ℝk1 þ k2 , I k1 þ k2 ¼ diagð1k1 þ k2 Þ is the identity matrix of size k1 þk2 , tr ( Á ) is the trace operator, and Li includes both the local geometry and the discriminative information, which is given by ! À 1T1 þ k2 À Á k Li ¼ ð9Þ diagðwi Þ À 1k1 þ k2 ; I k1 þ k2 : I k1 þ k2 For classiﬁcation, samples close to the classiﬁcation boundary tend to be misclassiﬁed. Hence the samples close to classiﬁcation boundary is more important for ﬁnding the subspace for classiﬁcation. For considering the inﬂuence of these samples and evaluating the importance for solving the problem, margin degree mi was proposed [57]. For the ith sample pi , margin degree is deﬁned as ! 1 Á ; mi ¼ exp À À ð10Þ ni þ δ t where ni is the number of inter-class samples which fall in the given region around pi , δ is a regularization parameter, and t is a scaling factor. The larger ni is, the larger mi will be. This means sample pi is much closer to the classiﬁcation boundary. Margin degree is an effective measure for evaluating the importance of a sample in the whole objective function. If no inter-class sample lies around pi , ni is equal to zero and mi ¼ expð À 1=δtÞ is the minimum of margin degree mi according to (10). To encode the importance of sample pi , the part objective function (6) is weighted by the margin degree mi . So we have the weighted part objective function:     ð11Þ arg minmi tr Zi Li ZT ¼ arg min tr Zi mi Li ZT : i i
+Zi Zi
+
+The eigenvectors u1 ; u2 ; …; uD1 are the solutions of (16) and the corresponding eigenvalues λ1 ; λ2 ; …; λD1 are ordered in a descending order. Finally, we have the projection matrix U ¼ ðu1 ; u2 ; …; uD1 Þ. In practice, PCA is suggested before DLA, because it can reduce noise in a certain degree [57]. Therefore the entire DLA will go through the following steps:
+
+ Project the data P onto the subspace by utilizing PCA with the  Compute the projection matrix UDLA for the projective data  Achieve the ﬁnal projection matrix through multiplying these
+two projection matrix, i.e., U ¼ UPCA UDLA :
+1
+
+projection matrix UPCA .
+
+UT P by employing DLA described previously. PCA
+
+ð18Þ
+
+In DLANet, the projection matrix forms the ﬁlter bank and the ﬁlters of DLANet are expressed as   ð19Þ K11 ¼ matl;l u11 ; d1 ¼ 1; 2; …; D1 ; d d where matl;l ð U Þ reshapes the column vector in ℝl to a matrix in 1 ℝlÂl and u11 is the dth column of the projection matrix U in Eq. d (18). Given the ﬁlters, we have the outputs of this layer utilizing the convolution operator. The output maps are X1 1 ¼ Xi nK11 ; d1 ¼ 1; 2; …; D1 ; i;d d ð20Þ
+2
+
+For all samples, the whole objective function is combined with all weighted part objective function together linearly, i.e., arg min
+N mn X i¼1
+
+where n is the 2D convolution with the zero-padding to keep the size of output map being equal to that of the input image. For constructing a deeper network, the output maps can be fed to the second DLA layer.
+
+Z1 ;…;ZNmn
+
+  tr Zi mi Li ZT : i
+
+ð12Þ
+
+3.2. The second DLA layer The output maps of the ﬁrst layer are regarded as input maps for the second layer. Hence we have ND1 input maps fX1 1 gN;D1¼ 1;1 i;d i;d1 with labels derived from the original input scene images fXi gN¼ 1 . i The same as the ﬁrst DLA layer, we collect the blocks from N;D1 1 fXi;d1 gi;d1 ¼ 1;1 and normalize them by subtracting their means. So 2 we have the data matrix P A ℝl ÂD1 Nmn and then the ﬁlters K22 ; d d2 ¼ 1; 2; …; D2 , are learnt by the method described in Section 3.1. For each input map X1 1 , we convolves it with K22 and get the i;d d output maps of the second DLA layer, i.e., X2 1 ;d2 ¼ X1 1 nK22 ; d2 ¼ 1; 2; …D2 : i;d i;d d ð21Þ
+
+We deﬁne a selection matrix: ( 1; if p ¼ Si fqg ðSi Þpq ¼ 0; otherwise:
+
+ð13Þ
+
+Utilizing the selection matrix Si A ℝNmnÂðk1 þ k2 þ 1Þ , Zi can be rewritten as Zi ¼ ZSi ; ð14Þ where Z is the low-dimensional representation of P, i.e., Z ¼ UT P. Thus the whole objective function (12) is rewritten as argmin
+Z N mn X i¼1
+
+trðZSi mi Li ST ZT Þ i
+
+Totally we have D1D2 output maps in the second layer. They can be used as the input of the third DLA layer. Repeat the above process if more layers can boost the performance.
+
+16
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21
+
+3.3. Feature layer Unlike the traditional CNN ﬂatting the original output maps as the feature, a special block-wise histogram feature which offers translation, rotation and scale invariance [56] is applied to the output maps of the last DLA layer. Given the output maps of the ith image for the second DLA layer, we have D2 maps X2 1 ;1 ; X2 1 ;2 ; …; X2 1 ; , which are from the i;d i;d i;d same input map X1 1 . To binarize the output maps, we deﬁne: i;d ( BðxÞ ¼ 0; 1; xo0 xZ0
+
+4. Experimental results In this section, we use the proposed DLANet features as the low level local feature under the LLC–SPM frame [19]. We evaluate the performance of the frame with the proposed DLANet features on three kinds of scene dataset, NYU Depth V1 [7], Scene-15 [25] and MIT Indoor-67 [26]. We also compare our method with some widely used hand-craft features, e.g., SIFT [34], HOG [36] and GIST [6], and learnable features, e.g., PCANet and LDANet [56]. We describe our experimental settings now. First, all images are convert to gray scale and various features are extracted in grayed RGB images for comparison. On NYU Depth V1, we also extract these features in depth images. For local features, local image block is set to 16 Â 16 with stride 8, according to [35]. We will discuss later in detail. Second, we employ LLC–SPM to generate image representation. The codebook is computed by utilizing kmeans clustering on local block descriptors randomly sampled from training set. The centers of k-means clustering algorithm are initialized through selecting k descriptors randomly. We terminate the iteration when it reaches the max iteration 100 or the centers change slightly. In our experiments, the codebook size is k ¼1024. SPM can pool the codes togeher to represent the images. Max pooling is highly recommended for LLC and three-layered spatial pyramid, 1 Â 1, 2 Â 2 and 4 Â 4, is used. Hence the dimension of the representation of an image is (1 þ22 þ42) Â 1024¼ 21504. Specially, we concatenate the representation of RGB images and depth images as the ﬁnal representation of the RGBD image pairs on NYU Depth V1 dataset. Eventually, a linear SVM [67] is trained for classiﬁcation, which is more suitable for LLC–SPM [19]. In addition, we use IFV [21] on Scene-15 and MIT Indoor-67. We employed GMM with 256 components and two-layered average pooling. For comparison, we evaluate various features on the NYU Depth V1 dataset and the Scene-15 dataset, including SIFT, HOG, GIST, PCANet, LDANet and DLANet. We introduce them as follows. SIFT: Dense SIFT descriptors are widely used. Typically a SIFT descriptor is extracted from a 16 Â 16 block partitioned to 4 Â 4 subregion. For each subregion, histogram with magnitude and orientation is computed with 8 bins. Thus we have a 128 dimensional feature vector formed by 4 Â 4 histograms. To enhance the invariance to illumination, the feature vector is normalized. HOG: The Histogram of Oriented Edges (HOG) descriptors are originally design for pedestrian detection. HOG is similar to SIFT. The histogram of magnitude and orientation are computed with 8 bins in the local image block. In [10], histograms from multiple HOG cells are stacked to provide more descriptive features which signiﬁcantly improve the performance empirically. Inspired by their experiments, we generate multiple HOG cells by using three-layered spatial pyramid. We have pyramid HOG features of (1 þ22 þ42) Â 8¼ 168 dimensions. GIST: GIST uses Gabor-like ﬁlters with 8 orientations and 4 scales. The images are divided to 4 Â 4 subregions. For each subregion, the responses of one orientation and one scale are averaged as the output. Therefore the representation of an image is an 8 Â 4 Â 16¼512 dimensional descriptor. Since GIST is a global feature, this descriptor is fed to linear SVM without applying LCC–SPM. PCANet and LDANet [56]: PCANet and LDANet are multi-layer features which are simple and efﬁcient. In the convolutional architecture, PCA and LDA are adopted to learn the projection matrix as ﬁlters. There is an extra output layer instead of nonlinearity and max pooling between tow convolutional layers in the network. The features are reduced by WPCA. The same as the settings in [56], the PCANet is trained with D1 ¼D2 ¼8 number of ﬁlters with size l¼7. But the number of ﬁlters in LDANet is 6 because the reduced dimensionality must be less than the number of classes.
+
+;
+
+ð22Þ
+
+which is an element-wise function for a matrix. The pixels at the same location are treated as a D2 bits vector and then the vector is converted to a decimal number. Thus we get the output decimal map: Fi;d1 ¼
+D2 X d2 ¼ 1
+
+2d2 À 1 BðX2 1 ;d2 Þ: i;d
+
+ð23Þ
+
+The range of elements in Fi;d1 is ½0; 2D2 À 1 . After the binarization operation, the number of output maps of one scene image reduces from D1 D2 to D1 . For each decimal map Fi;d1 of the ith image, we take the blocks for computing histogram. We compute the histogram with 2D2 bins which are divided ½0; 2D2 À 1  into 2D2 this in each block. Because we need the local descriptor, we concatenate D1 histograms at the same position into a feature vector: fi
+ðx;yÞ
+
+      T ¼ hist pðx;yÞ ; hist pðx;yÞ ; …; hist pðx;yÞ ; i;1 i;2 i;D1
+
+ð24Þ
+
+where histð U Þ is the histogram operator, pðx;yÞ A ℝBf ÂBf is the block of i;d1 size Bf Â Bf taken at the coordinate ðx; yÞ of the d1 th decimal map Fi;d1 of the ith scene image. Therefore we have a local DLANet feature D2 ðx;yÞ descriptor f i A ℝD1 U 2 , and its dimension depends on the number of ﬁlters D1 and D2. The dimensionality of the DLANet features grows up with D2 exponentially but increases with D1 linearly. In order to avoid extremely high computation and storage, we only vary the parameter D1 to evaluate the inﬂuence of performance in experiments. Inspired by other local features, e.g., SIFT, HOG, we set the size of blocks Bf ¼ 16 with stride Sf ¼ 8, which means that half region of a block is overlapped by the next block. Although the DLANet feature descriptors can be encoded by using LLC, LLC based on a given overcomplete basis requires that the codebook size is much larger than the dimension of the descriptors. If we set D1 ¼ 8 and D2 ¼8, the descriptor dimensionality is 8 Â 28 ¼2048. The general settings of the codebook size is less than or equal to 2048 for scene classiﬁcation tasks [17,35], so we have to reduce the dimensionality of DLANet feature descriptors. PCA is a common method for dimension reduction without using the discriminative information. In addition, Ke and Sukthankar [65] applied PCA to SIFT. They demonstrated that the PCA–SIFT is more distinctive, more robust to image deformations, and more compact than the standard SIFT. In [56], whitening PCA (WPCA) is applied alternately for dimensionality reduction. PCA bases are weighted by the inverse of the corresponding square-root eigenvalues, i.e., UWPCA ¼ Λ
+À 1=2
+
+UPCA ;
+À 1=2 À 1=2 À 1=2
+
+ð25Þ
+
+where Λ ¼ diag ðλ1 ; λ2 ; …; λD Þ. The WPCA projection matrix UWPCA equally treats variance along all principal component axes by weighting base vectors corresponding to smaller eigenvalues more heavily and may be appropriate for discrimination [66]. Thus, we ðx;yÞ can reduce the dimensionality of the descriptor UT and encode WPCA f i it by LLC–SPM.
+
+À 1=2
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21
+
+17
+
+DLANet: The proposed DLANet is detailed in Section 3. The parameters of DLANet are set to D1 ¼D2 ¼8, l ¼7, which are the same as those of PCANet. For MIT Indoor-67, the local DLANet descriptors are extracted with size of blocks Bf ¼ 8 and stride Sf ¼ 4. Besides, the unique parameters k1 ¼ 3, k2 ¼ 2, γ ¼0.05 are empirically set for each DLA layer.
+
+4.1. NYU depth V1 The NYU Depth V1 dataset, shown in Fig. 4, is collected by the New York University. Depth information which contains both geometric information and distance of objects are added into dataset. The depth images are acquired by Microsoft Kinect, which fulﬁlled the empty regions and smooth the noise by using the cross-bilateral ﬁlter because of the defect of the infra-red laser projector in Kinect. Totally, 2347 pairs of images are labeled and they can be grouped into seven categories, including bathroom, bedroom, bookstore, cafe, kitchen, living room, and ofﬁce. Table 1 summarizes the dataset. Following the common benchmarking procedures, we repeat the experimental process 10 times with randomly selected training samples (30 samples per scene category) and test samples to obtain reliable results. The training set is used to obtain learnable features, including PCANet, LDANet and DLANet. The average and standard deviation of the recognition rates are reported. The mean accuracy and the standard deviation of different features on the NYU Depth V1 dataset are shown in Table 2 SIFT is the best feature among these three hand-craft features. Even though SIFT is designed for color images, it signiﬁcantly surpass the HOG and GIST for depth images. It is reported that GIST is not suitable for indoor environments [1] and the representations derived from coding methods is better than the simple concatenation of local descriptors. Not surprisingly, GIST is much worse than the other features, even the mean accuracy for depth images is 49.43%. Obviously, the learnable features mostly outperform the hand-craft features. For color images, the accuracies of all learnable features are slightly higher than SIFT except LDANet which is not as good as PCANet reported in [56]. However, for depth images, LDANet feature also win the SIFT about
+
+2.4%, which means that the features learned from depth images can adaptively ﬁt the dataset. It is notable that by concatenating color and depth representations, accuracies obtained by all features are improved. But only using depth images cannot achieve good performance. Hence we can use the depth information for improving scene classiﬁcation. DLANet feature for RBGD data performs best, which is not only superior over the SIFT [56] but also outperforms PCANet and LDANet. We also note that the standard deviations of the performance of DLANet feature are relatively low. Hence it is an efﬁcient and robust feature for RBGD data.
+
+Table 1 Statistics of dataset. Scene classes Bathroom Bedroom Bookstore Cafe Kitchen Living Room Ofﬁce Total Scenes 6 17 3 1 10 13 14 64 Number of samples 70 463 781 47 276 342 305 2347
+
+Table 2 Classiﬁcation accuracy on NYU Depth V1. Feature SIFT [35] HOG [10] GIST [6] PCANet [56] LDANet [56] DLANet RGB 78.1 71.7 73.54 71.76 63.53 71.26 79.66 71.54 76.91 71.67 80.3371.51 Depth 68.57 1.5 61.497 1.85 49.437 2.43 72.027 1.72 70.917 1.89 71.43 7 1.56 RGBD 79.9 71.5 76.12 71.48 70.13 71.52 81.59 71.55 80.39 71.73 82.66 71.21
+
+Best results are displayed in bold.
+
+Fig. 4. Example images in the NYU Depth V1 dataset. We display 14 paired samples in seven indoor classes. Each pair has a color image and its corresponding depth image shown in gray scale. (For interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+
+18
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21
+
+4.2. Scene-15 The Scene-15 dataset contains 15 scene categories, which extends a dataset with 13 categories provided by Fei-Fei and Perona [68] by a dataset collected by Lazebnik et al. [25]. It consists of 4485 images of average size around 300 Â 250. The number of images of each category varies between 215 and 410. All images are collected from the COREL collection, personal photographs, and Google image search. The Scene15 dataset has both indoor and outdoor scenes, man-made and natural environments, unlike the NYU Depth V1 dataset introduced in the previous section. For scene classiﬁcation task, Scene-15 is in common used for evaluating algorithms. Therefore we not only compare our proposed DLANet feature to other features as the previous section, but also compare the best result of our system to other methods, e.g., VQ– SPM [25], ScSPM [17], LLC–SPM [19], macrofeatures [23], FV–LRF [30]
+
+Table 3 Comparison on different features on Scene-15. Feature SIFT HOG GIST PCANet LDANet DLANet Best results are displayed in bold. Accuracy 82.26 70.53 75.27 70.69 66.61 70.68 82.73 70.40 84.75 70.69 85.13 70.38
+
+86
+
+85
+
+and KDES [70]. According to the suggestion in [25], we randomly select 100 images per class and repeat the training/testing for 10 times. In Table 3, we discover a similar conclusion that the learned features outperform the hand-craft features in Section 4.1. PCANet feature is slightly superior to the hand-craft feature SIFT. However, by making use of the discriminative information, LDANet feature and DLANet feature outperform the PCANet feature. But the classiﬁcation accuracy of LDANet feature for color images in Table 2 is much lower than the PCANet feature. This indicates that LDANet needs a large training set. The results of three learnable features are the best results when the parameter D1 is varied from 5 to 12. In Fig. 5, we use SIFT as the baseline whose accuracy is a constant because it is independent to the number of ﬁlters in the ﬁrst DLA layer D1. When D1 o11, the accuracy of PCANet feature is lower than SIFT. But it increases with the increasing of the number of ﬁlters in the ﬁrst DLA layer D1. However, both DLANet and LDANet features are superior to SIFT no matter what we set the parameter D1. The DLANet feature achieves its highest accuracy 85.13% at D1 ¼ 9, while LDANet feature achieves its highest accuracy 84.75% at D1 ¼ 10. We also ﬁnd that the standard deviations of DLANet feature is much lower than that of the other features. We also study the sensitivity of the parameters k1, k2, γ in DLA layers. The other settings are ﬁxed and k1, k2, γ are varied respectively. In Fig. 6(a) and (b), we vary k1, k2 from 2 to 6 and ﬁx γ as 0.05. When we vary the parameter k1 or k2, the accuracy not change a lot. But there is a peak which corresponds to k1 ¼ 3 and k2 ¼6. In Fig. 6(c), we select γ from {0.01, 0.05, 0.1, 0.5, 1} and keep k1 ¼ 3, k2 ¼ 2. We ﬁnd that the accuracy goes down when γ tends to be large. It is indicated that the parameters should be carefully selected. We also evaluate the time for learning PCANet, LDANet and DLANet. We have used 12 Â 2.4 GHz GPUs for evaluation. It took 6529.4 s to get all PCANet features of 4485 images. The run time of
+
+84
+
+Table 4 Comparison on different methods on Scene-15. Method VQ–SPM [25] ScSPM [17] LLC–SPM [19] Macrofeatures [23] KDES [69] FV–LRF [30] ISPR [31] GPP [32] ISPR þIFV [31] PCANet [56] LDANet [56] DLANet DLANet þ IFV Best results are displayed in bold. Accuracy 81.4 7 0.5 80.4 7 0.45 82.26 7 0.53 84.3 7 0.5 81.9 7 0.6 85.0 7 0.6 85.08 7 0.01 85.137 0.72 91.06 7 0.05 82.737 0.40 84.75 7 0.69 85.137 0.38 90.147 0.21
+
+Accuracy (%)
+
+83
+
+82
+
+81
+SIFT LDANet DLANet PCANet
+
+80
+
+79
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+Number of filters in the 1st DLA layer ( D1)
+
+Fig. 5. Classiﬁcation accuracy on the Scene-15 while varying the number of ﬁlters in the ﬁrst DLA layer.
+
+86
+
+85.5 85 84.5 84 83.5 2 3 4 5 6
+
+86.5 86 85.5 85 84.5 84 83.5 83
+
+87
+
+Accuracy (%)
+
+Accuracy (%)
+
+Accuracy (%)
+2 3 4 5 6
+
+86 85 84 83 0.01 0.05 0.1 0.5 1
+
+k1
+
+k2
+
+γ
+
+Fig. 6. Classiﬁcation accuracy on the Scene-15 while varying the DLA parameters k1, k2, γ.
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21
+
+19
+
+Table 5 Comparison on different methods on MIT Indoor-67. Method Object Bank [70] VQ þSPM [71] OC Kernels [72] GPP [32] ISPR [31] MCþ OBJPOOL [73] FV–LRF [30] ISPR þ IFV [31] DLANet DLANetþIFV Best results are displayed in bold. Accuracy 37.6 34.4 39.85 46.38 50.10 55.9 60.3 68.5 46.27 59.10
+
+5. Conclusion In this paper, we presented a manifold learning-based discriminative feature learning network DLANet for scene classiﬁcation. Inspired by PCANet [56], we learn the ﬁlter banks by applying Discriminative Locality Alignment (DLA) which follows the manifold assumption. In a local region of a given sample, DLA pushes the inter-class neighbor samples away and narrow the intra-class neighbor samples in projected space. For all samples, margin degree is explored to measure the importance of the corresponding sample for classiﬁcation. Through combining these two objectives, we conduct the DLA which can extract the discriminative features for classiﬁcation. By utilizing the block-wise histograms of the binary codes, we obtain efﬁcient and robust local descriptors. Employing those DLANet features, we construct the scene classiﬁcation system under the LLC–SPM framework. To verify the effectiveness of DLANet, we evaluate it on the NYU Depth V1 dataset, the Scene-15 dataset and the MIT Indoor-67 dataset. We compare the proposed DLANet with the hand-craft features, e.g., SIFT, HOG, and GIST, and learnable features, PCANet and LDANet. Not surprisingly, almost all learnable features outperform the hand-craft features on color images, but they overwhelmingly won the hand-craft features on depth images. In addition, we examine the inﬂuence of the parameter setting of PCANet, LDANet and DLANet and achieve the highest accuracy when choosing an appropriate D1. Experimental results show that PCANet, LDANet and DLANet always outperform SIFT. Finally, we compare the DLANet feature combined with the LLC–SPM scheme with other methods and show DLANet with LLC–SPM is competitive to other approaches. Therefore, DLANet feature is an efﬁcient and robust learnable feature for scene classiﬁcation.
+
+LDANet and DLANet are 6499.0 s and 6879.4 s respectively. The main difference between PCANet, LDANet and DLANet is in the ﬁlter learning stages. For PCANet and LDANet, we should compute covariance matrix and its eigenvectors. For DLANet, we have to ﬁnd top k1 nearest intra-class neighbors and top k2 nearest interclass neighbors in the whole sample space of each samples for constructing the alignment matrix ﬁrstly. Although we use k–d tree instead of the exhaustive search method, the computation of DLANet is still slightly higher than PCANet and LDANet. Since the Scene-15 dataset is widely-used, we compare the proposed DLANet feature based LLC–SPM with other methods which all belong to the encoding framework. The codebook sizes of all methods are set equally to 1024 for fair comparison. As shown in Table 4, DLANet feature outperforms all the other methods. ScSPM, LLC–SPM and macro features utilize sparse coding or its variation in encoding stage. Macro features group the neighbor SIFT descriptors as a local feature getting a fairly high accuracy 84.3%, which is also a method for modifying the low level feature. KDES can be considered as a learnable feature, but it learns the feature in kernel space. Note that we reference its result achieve by combining color, gradient and shape kernel descriptors. FV–LRF is different to other method, which apply Fisher vector encoding instead of sparse coding and changing pooling region adaptively. Similarly, both ISPR [31] and GPP [32] focus on modifying the spatial pooling method. GPP further encodes the LLC by the Geometric Phrase Pooling [32] algorithm which calculates a codeword from itself and its neighbors. In [32], early fusion features of SIFT and Edge-SIFT are used to capture texture and shape features together. The weighted spatial pooling is also proposed to ﬁlter the noises from the descriptors not on the objects that we want to recognize. ISPR model [31] can jointly learn the important spatial pooling regions and the appearances. The DLANet achieves almost the same accuracy of GPP and slightly higher than ISPR. However, as ISPR is an excellent complementarity to IFV, the accuracy of the combination of DLANetþIFV is lower than ISPRþ IFV.
+
+Acknowledgments This research is supported in part by NSFC, China (Grant no.: 61075021, 61201348, 61472144), National Science and Technology Support plan (Grant no.: 2013BAH65F01-2013BAH65F04), GDNSF (Grant no.: S2011020000541, S2012040008016, S2013010014240), GDSTP (Grant no.: 2012A010701001), Research Fund for the Doctoral Program of Higher Education of China (Grant no.: 20120172110023), Opening Project of State Key Laboratory of Digital Publishing Technology, Shenzhen Technology Project (JCYJ20140901003939001). References
+[1] J. Wu, M. Rehg, CENTRIST: a visual descriptor for scene categorization, IEEE Trans. Pattern Anal. Mach. Intell. 33 (8) (2011) 1489–1501. [2] A. Ude, R. Dillmann, Vision-based robot path planning, Adv. Robot Kinemat. Comput. Geom. (1994) 505–512. [3] A. Pronobis, B. Caputo, P. Jensfelt, H.I. Christensen, A realistic benchmark for visual indoor place recognition, Robot. Auton. Syst. 58 (1) (2010) 81–96. [4] A. Bosch, A. Zisserman, X. Muñoz, Scene classiﬁcation using a hybrid generative/discriminative approach, IEEE Trans. Pattern Anal. Mach. Intell. 30 (4) (2008) 712–727. [5] Vogel Julia, Bernt Schiele, Semantic modeling of natural scenes for contentbased image retrieval, Int. J. Comput. Vis. 72 (2) (2007) 133–157. [6] A. Oliva, A. Torralba, Modeling the shape of the scene: a holistic representation of the spatial envelope, Int. J. Comput. Vis. 42 (3) (2001) 145–175. [7] N. Silberman, R. Fergus, Indoor scene segmentation using a structured light sensor, in: Proceedings of ICCV Workshop 3-D Representation and Recognition, November 2011, pp. 601–608. [8] N. Silberman, D. Hoiem, P. Kohli, R. Fergus, Indoor segmentation and support inference from RGBD images, in: Proceedings of European Conference on Computer Vision, 2012. [9] J. Xiao, A. Owens, A. Torralba, Sun3d: a database of big spaces reconstructed using SFM and Object labels, in: ICCV, 2013. [10] J. Xiao, K.A. Ehinger, J. Hays, A. Torralba, A. Oliva, SUN database: exploring a large collection of scene categories, Int. J. Comput. Vis. (2014) 1–20. [11] A. Bosch, X. Muñoz, R. Marti, A review: which is the best way to organize/ classify images by content, Image Vis. Comput. 25 (6) (2007) 778–791. [12] M.J. Swain, D.H. Ballard, Color indexing, Int. J. Comput. Vis. 7 (1) (1991) 11–32.
+
+4.3. MIT Indoor-67 The MIT Indoor-67 dataset [26] contains 67 indoor scenes and totally 15,620 images. We used the original splits in [26], which used 80 images per class for training and 20 images for testing. For learning the features efﬁciently, we resized the images to be no bigger than 300 Â 300 pixels with preserved aspect ratio. In Table 5, we show that the accuracies of different methods vary from 37.6% to 68.5%. The proposed method is slightly worse than GPP [32] but have a large gap of ISPR [31] and MC þOBJPOOL [73]. After fusing the ﬁsher vector, FV–LRF [30] and ISPRþIFV [31] achieve much higher accuracies. Similarly, the performance of DLANet is improved by fusing the ﬁsher vector, which is close to FV–LRF [30], but inferior to ISPRþ IFV.
+
+20
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21
+
+[13] G. Pass, R. Zabih, J. Miller, Comparing images using color coherence vectors, in: Proceedings of ACM International Conference on Multimedia, 1996, pp. 65–73. [14] F. Mindru, T. Tuytelaars, L. Van Gool, T. Moons, Moment invariants for recognition under changing viewpoint and illumination, Proc. Comput. Vis. Image Understand. 94 (1–3) (2004) 3–27. [15] A. Vailaya, A. Figueiredo, A. Jain, H. Zhang, Image classiﬁcation for contentbased indexing, IEEE Trans. Image Process. 10 (2001) 117–129. [16] J.C. van Gemert, J.M. Geusebroek, C.J. Veenman, A.W.M. Smeulders, Kernel codebooks for scene categorization, in: Proceedings of European Conference on Computer Vision, 2008. [17] J. Yang, K. Yu, Y. Gong, T. Huang, Linear spatial pyramid matching using sparse coding for image classiﬁcation, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2009, pp. 1794–1801. [18] K. Yu, T. Zhang, Y. Gong, Nonlinear learning using local coordinate coding, in: Proceedings of Information and Processing Systems, 2009. [19] J. Wang, J. Yang, K. Yu, F. Lv, T. Huang, Y. Gong, Locality-constrained linear coding for image classiﬁcation, in: Proceedings of IEEE International Conference on Computer Vision Pattern Recognition, June 2010, pp. 3360–3367. [20] F. Perronnin, C.R. Dance, Fisher kernels on visual vocabularies for image categorization, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2007, pp. 1. [21] F. Perronnin, J. Sanchez, T. Mensink, Improving the ﬁsher kernel for large-scale image classiﬁcation, in: IEEE Conference on Computer Vision Pattern Recognition, 2010. [22] K. Chatﬁeld, V. Lempitsky, A. Vedaldi, A. Zisserman, The devil is in the details: an evaluation of recent feature encoding methods, in: Proceedings of BMVC, 2011. [23] Y. Boureau, F. Bach, Y. LeCun, J. Ponce, Learning mid-level features for recognition, in: IEEE Conference on Computer Vision Pattern Recognition, 2010, pp. 2559–2566. [24] Z. Jiang, Z. Lin, L.S. Davis, Learning a discriminative dictionary for sparse coding via label consistent k-svd, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2011, pp. 1697–1704. [25] S. Lazebnik, C. Schmid, J. Ponce, Beyond bags of features: spatial pyramid matching for recognizing natural scene categories, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, June 2006, pp. 2167–2178. [26] A. Quattoni, A. Torralba, Recognizing indoor scenes, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2009, pp. 413–420. [27] J. Feng, B. Ni, Q. Tian, S. Yan, Geometric lp-norm feature pooling for image classiﬁcation, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2011. [28] Boureau, Y-Lan, Jean Ponce, Yann LeCun, A theoretical analysis of feature pooling in visual recognition, in: Proceedings of the 27th International Conference on Machine Learning (ICML-10), 2010. [29] Y. Jia, C. Huang, T. Darrell, Beyond spatial pyramids: receptive ﬁeld learning for pooled image features, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2012, pp. 3370–3377. [30] C. Xu, N. Vasconcelos, Learning receptive ﬁelds for pooling from tensors of feature response, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2014. [31] D. Lin, C. Lu, R. Liao, J. Jia, Learning important spatial pooling regions for scene classiﬁcation, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2014. [32] L. Xie, Q. Tian, M. Wang, B. Zhang, Spatial pooling of heterogeneous features for image classiﬁcation, IEEE Trans. Image Process. 23 (5) (2014) 1994–2008. [33] L. Xie, J. Wang, B. Guo, B. Zhang, Q. Tian, Orientational pyramid matching for recognizing indoor scenes, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2014. [34] D.G. Lowe, Distinctive image features from scale-invariant keypoints, Int. J. Comput. Vis. 60 (2) (2004) 91–110. [35] D. Tao, L. Jin, Z. Yang, X. Li, Rank preserving sparse learning for kinect based scene classiﬁcation, IEEE Trans. Cybern. 43 (5) (2013) 1406–1417. [36] N. Dalal, B. Triggs, Histograms of oriented gradients for human detection, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2005, pp. 886–893. [37] P.F. Felzenszwalb, R.B. Girshick, D. McAllester, D. Ramanan, Object detection with discriminatively trained part-based models, IEEE Trans. Pattern Anal. Mach. Intell. 32 (9) (2010) 1627–1645. [38] S. Tang, X. Wang, X. Lv, X. Han, J. Keller, Z. He, M. Skubic, S. Lao Histogram of oriented normal vectors for object recognition with a depth sensor, in: Computer Vision – ACCV 2012, 2013, pp. 525–538. [39] L. Bo, X. Ren, D. Fox, Depth kernel descriptors for object recognition, in: Intelligent Robots and Systems (IROS), September 2011, pp. 821–826. [40] G.E. Hinton, R. Salakhutdinov, Reducing the dimensionality of data with neural networks, Science 313 (5786) (2006) 504–507. [41] G.E. Hinton, S. Osindero, Y. Teh, A fast learning algorithm for deep belief nets, Neural Comput. 18 (2006) 1527–1554. [42] G.E. Hinton, R.S. Zemel, Autoencoders, minimum description length, and Helmholtz free energy, in: Proceedings of Neural Information and Processing Systems, 1993. [43] S. Rifai, P. Vincent, X. Muller, X. Glorot, Y. Bengio, Contractive auto-encoders: explicit invariance during feature extraction, in: Proceedings of International Conference on Machine Learning, 2011. [44] P. Vincent, H. Larochelle, Y. Bengio, P.-A. Manzagol, Extracting and composing robust features with denoising autoencoders, in: Proceedings of International Conference on Machine Learning, 2008.
+
+[45] Y. LeCun, L. Bottou, Y. Bengio, P. Haffner, Gradient based learning applied to document recognition, Proc. IEEE 86 (11) (1998) 2278–2324. [46] D.H. Hubel, T.N. Wiesel, Receptive ﬁelds of single neurons in the cat's striate cortex, J. Physiol. 148 (1959) 574–591. [47] A. Coates, A.Y. Ng, The importance of encoding versus training with sparse coding and vector quantization, in: Proceedings of International Conference on Machine Learning, 2011. [48] M. Norouzi, M. Ranjbar, G. Mori, Stacks of convolutional restricted Boltzmann machines for shift-invariant feature learning, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2009, pp. 2735–2742. [49] H. Lee, R. Grosse, R. Ranganath, A.Y. Ng, Convolutional deep belief networks for scalable unsupervised learning of hierarchical representations, in: Proceedings of International Conference on Machine Learning, 2009. [50] M. Henaff, K. Jarrett, K. Kavukcuoglu, Y. LeCun, Unsupervised learning of sparse features for scalable audio classiﬁcation, in: Proceedings of International Conference on Music Information Retrieva, 2011. [51] M. Zeiler, D. Krishnan, G. Taylor,R. Fergus, Deconvolutional networks, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2010. [52] A. Krizhevsky, I. Sutskever, G. Hinton, ImageNet classiﬁcation with deep convolutional neural networks, in: Proceedings of Neural Information and Processing Systems, 2012. [53] D. Ciresan, U. Meier, J. Schmidhuber, Multi-column deep neural networks for image classiﬁcation, in: Proceedings of Neural Information and Processing Systems, 2012, pp. 3642–3649. [54] C. Farabet, C. Couprie, L. Najman, Y. LeCun, Learning hierarchical features for scene labeling, IEEE Trans. Pattern Anal. Mach. Intell. 35 (8) (2013) 1915–1929. [55] Y. Sun, X. Wang, X. Tang, Deep learning face representation by joint identiﬁcation-veriﬁcation, arXiv preprint arXiv:1406.4773, 2014. [56] T.H. Chan, K. Jia, S. Gao, J. Lu, Z. Zeng, Y. Ma, PCANet: a simple deep learning baseline for image classiﬁcation? arXiv preprint arXiv:1404.3606, 2014. [57] T. Zhang, D. Tao, J. Yang Discriminative locality alignment, in: Proceedings of European Conference on Computer Vision, pp. 725–738, 2008. [58] S.T. Roweis, L.K. Saul, Nonlinear dimensionality reduction by locally linear embedding, Science 290 (5500) (2000) 2323–2326. [59] J. Tenenbaum, V. Silva, J. Langford, A global geometric framework for nonlinear dimensionality reduction, Science 290 (2000) 2319–2323. [60] T. Zhang, D. Tao, X. Li, J. Yang, Patch alignment for dimensionality reduction, IEEE Trans. Knowl. Data Eng. 21 (9) (2009) 1299–1313. [61] N. Guan, D. Tao, Z. Luo, B. Yuan, Non-negative patch alignment framework, IEEE Trans. Neural Netw. 22 (8) (2011) 1218–1230. [62] T. Zhou, D. Tao, X. Wu, Manifold elastic net: a uniﬁed framework for sparse dimension reduction, Data Min. Knowl. Disc 22 (3) (2011) 340–371. [63] Y. Mu, D. Tao, X. Li, Biologically inspired tensor features, Cogn. Comput. 1 (4) (2009) 327–341. [64] L. Zhang, L. Zhang, D. Tao, X. Huang, Tensor discriminative locality alignment for hyperspectral image spectral-spatial feature extraction, IEEE Trans. Geosci. Remote Sens. 51 (1) (2013) 242–256. [65] Y. Ke, R. Sukthankar, PCA-SIFT: a more distinctive representation for local image descriptors, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2004. [66] H.V. Nguyen, L. Bai, L. Shen, Local gabor binary pattern whitened PCA: a novel approach for face recognition from single image per person, Adv. Biom. 5558 (2009) 269–278. [67] C.-C. Chang, C.-J. Lin, LIBSVM: a library for support vector machines [Online]. Available: 〈http://www.csie.ntu.edu.tw/ $ cjlin/libsvm〉, 2001. [68] L. Fei-Fei, P. Perona A Bayesian hierarchical model for learning natural scene categories, in: Proceedings of IEEE Conference on Computer Vision Pattern Recognition, 2005. [69] L. Bo, X. Ren, D. Fox, Kernel descriptors for visual recognition, in: Proceedings of Neural Information and Processing Systems, 2010, pp. 244–252. [70] L. -J. Li, H. Su, Y. Lim, L. Fei-Fei, Object bank: a high-level image representation for scene classiﬁcation & semantic feature sparsiﬁcation, in: Proceedings of Neural Information and Processing Systems, 2010, pp. 1378–1386. [71] M. Pandey, S. Lazebnik, Scene recognition and weakly supervised object localization with deformable part-based models, in: ICCV, 2011, pp. 1307–1314. [72] L. Zhang, X. Zhen, L. Shao, Learning object-to-class kernels for scene classiﬁcation, IEEE Trans. Image Process. 23 (8) (2014) 3241–3253. [73] A. Bergamo, L. Torresani, Classemes and other classiﬁer-based features for efﬁcient object categorization, IEEE Trans. Pattern Anal. Mach. Intell. 36 (10) (2014) 1988–2001.
+
+Ziyong Feng received the B.S. degree from the College of Engineering at South China Agricultural University, Guangzhou, China. He is currently pursuing the Ph.D. degree in information and communication engin;eering at the South China University of Technology, Guangzhou, China. His current research interests include machine learning, computer vision.
+
+Z. Feng et al. / Neurocomputing 157 (2015) 11–21 Lianwen Jin (M’98) received the B.S. degree from the University of Science and Technology of China, Anhui, China, and the Ph.D. degree from the South China University of Technology, Guangzhou, China, in 1991 and 1996, respectively. He is currently a Professor with the School of Electronic and Information Engineering, South China University of Technology. He is the author of more than 100 scientiﬁc papers. His current research interests include image processing, handwriting analysis and recognition, machine learning, cloud computing, and intelligent systems. Dr. Jin is a member of the China Image and Graphics Society and the Cloud Computing Experts Committee of the China Institute of Communications. He was a recipient of the award of New Century Excellent Talent Program of MOE in 2006 and the Guangdong Pearl River Distinguished Professor Award in 2011. He served as a Program Committee member for a number of international conferences, including ICMLC2007$ 2011, ICFHR2008-2012, ICDAR2009, ICDAR2013, ICPR2010, ICPR2012, ICMLA2012, etc. His research interests include image processing, handwriting analysis and recognition, machine learning, cloud computing, and intelligent systems.
+
+21 Shuangping Huang received M.S. degree sand Ph.D. degree from the South China University of Technology in 2005 and 2011, respectively. She is currently a lecturer in the College of Engineering at South China Agricultural University, Guangzhou, China. Her research interests include machine learning, computer vision and data mining.
+
+Dapeng Tao received the B.S. degree in electronics and information engineering from Northwestern Polytechnical University, Xi'an, China. He is currently pursuing the Ph.D. degree in information and communication engineering at the South China University of Technology, Guangzhou, China. His current research interests include machine learning, computer vision, and cloud computing.
+

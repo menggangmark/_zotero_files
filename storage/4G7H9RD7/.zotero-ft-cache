@@ -1,0 +1,237 @@
+Learning Bundle Manifold by Double Neighborhood Graphs
+Chun-guang Li, Jun Guo, and Hong-gang Zhang
+PRIS lab., School of Information and Communication Engineering, Beijing University of Posts and Telecommunications, 100876 Beijing, China {lichunguang,guojun,zhhg}@bupt.edu.cn
+
+Abstract. In this paper, instead of the ordinary manifold assumption, we introduced the bundle manifold assumption that imagines data points lie on a bundle manifold. Under this assumption, we proposed an unsupervised algorithm, named as Bundle Manifold Embedding (BME), to embed the bundle manifold into low dimensional space. In BME, we construct two neighborhood graphs that one is used to model the global metric structure in local neighborhood and the other is used to provide the information of subtle structure, and then apply the spectral graph method to obtain the low-dimensional embedding. Incorporating some prior information, it is possible to ﬁnd the subtle structures on bundle manifold in an unsupervised manner. Experiments conducted on benchmark datasets demonstrated the feasibility of the proposed BME algorithm, and the diﬀerence compared with ISOMAP, LLE and Laplacian Eigenmaps.
+
+1
+
+Introduction
+
+In the past decade manifold learning has attracted a surge of interest in machine learning and a number of algorithms are proposed, including ISOMAP[1], LLE[2,3], Laplacian Eigenmap[4], Hessian LLE[5], Charting[6], LTSA[7], MVU[8], Diﬀusion Map[9] and etc. All these focus on ﬁnding a nonlinear low dimensional embedding of high dimensional data. So far, these methods have mostly been used for the task of exploratory data analysis such as data visualization, and also been successfully applied to semi-supervised classiﬁcation problem[10,11]. Under the assumption that the data points lie close to a low dimensional manifold embedded in high dimensional Euclidean space, manifold learning algorithms learn the low dimensional embedding by constructing a weighted graph to capture local structure of data. Let G(V, E, W ) be the weighted graph, where the vertex set V corresponds to data points in data set, the edge set E denotes neighborhood relationships between vertices, and W is the weight matrix. The diﬀerent methods to choose the weight matrix W will lead to diﬀerent algorithms. In the case of multiple manifolds co-exist in dataset, one should tune neighborhood size parameter (i.e. k in k − nn rule, in -rule) to guarantee the constructed neighborhood graph to be connected, or to deal with each connected
+H. Zha, R.-i. Taniguchi, and S. Maybank (Eds.): ACCV 2009, Part III, LNCS 5996, pp. 321–330, 2010. c Springer-Verlag Berlin Heidelberg 2010
+
+322
+
+C.-g. Li, J. Guo, and H.-g. Zhang
+
+components individually. Neighborhood graph can be viewed as discretized representation of the underlying manifolds and the neighborhood size parameter controls the ﬁtness to the true manifolds. Constructing neighborhood graph by a larger neighborhood size parameter will result in losing ’the details’ of the underlying manifolds, due to the occurrence of ’short-cut’ connections between diﬀerent manifolds or the diﬀerent parts of the same manifold (when the manifold with high curvature). On the other hand, treating each connected component individually will lose the information of correspondence between diﬀerent components so that the panorama of the global geometry of observation data set cannot be obtained. In this paper, instead of the global manifold assumption, we suggest that it is more appropriate to imagine data points to lie on a bundle manifold, when one faces the task to visualize the image dataset in which may consists of multiple classes. For example, facial images of a certain person, under the pose changing and expression variation, in which the diﬀerent expressions relate to diﬀerent classes, span a bundle manifold. Under the bundle manifold assumption, to make the embedding faithful, it is needed to preserve the subtle local metric structures. We propose a naive way to visualize the subtle structure of bundle manifold, named as Bundle Manifold Embedding (BME). By incorporating the intrinsic dimension as apriori information, BME can discover the subtle substructure in an unsupervised manner. Experiments conducted on benchmark datasets validated the existence of subtle structure, and demonstrated the feasibility and diﬀerence of the proposed BME algorithm compared with ISOMAP, LLE and Laplacian Eigenmaps. 1.1 The Related Work
+
+In computer vision, object images with continuous pose variations can be imagined to lie close to a Lie group[12]. Ham et al.[13] reported that diﬀerent databases may share the same low-dimensional manifold and the correspondence relationship between diﬀerent data sets can be learned by constructing unit decomposition. Lim et al.[14] presented a geometric framework on the basis of quotient space for clustering images with continuous pose variation. Recently, Ham and Lee[15] assumed a global principal bundle as the model of face appearance manifold for facial image data set with diﬀerent expressions and pose variation. And they also proposed a factorized isometric embedding algorithm to extract the substructure of facial expressions and the pose change separately. In this paper, following the way consistent with Ham and Lee[15], we suppose that in some multi-class dataset data points lie on bundle manifold and each class-speciﬁc manifold relates to an orbit. Under the bundle manifold assumption, we will discuss how to develop manifold learning algorithm to discover the subtle substructure of bundle manifold.
+
+2
+
+The Proposed Algorithm: Bundle Manifold Embedding
+
+The principle of learning manifold is to preserve the local metric structure when obtain the low dimensional embedding. In the case of bundle manifold assumption,
+
+Learning Bundle Manifold by Double Neighborhood Graphs
+
+323
+
+Fig. 1. Illustration for the proposed BME algorithm
+
+however, there are extra subtle substructures, that is, the orbit structure. Therefore the local metric structures on bundle manifold consist of two aspects: (a) local metric between diﬀerent orbits, and (b) local metric within each orbit. To obtain the faithful embedding of bundle manifold, two kinds of local metric need to be preserved as much as possible. We propose to construct two neighborhood graphs: NBGB and NBGF , where NBGB is used to represent the local metric structure between orbits, and NBGF is used to capture the subtle substructure for each orbit (an orbit is likely corresponding to data points within each class, also can be viewed as ﬁbre manifold). By means of spectral graph approach on combination of the weight matrices of two neighborhood graphs, the low dimensional embedding can be obtained. Given data set X = {xi , xi ∈ Rm , i = 1, ..., n}, where m is the dimensionality of the observation space and n is the number of data points in data set X. First of all, we need to interpret a little of the two concepts: extrinsic neighbors and intrinsic neighbors, denoted as Nextrinsic and Nintrinsic , respectively. An illustration is given in Fig. 1 (a) and (b). For a data point xi ∈ X, its extrinsic neighbors Nextrinsic (xi ) can be selected by the ambient space metric, that is, Euclidean metric; whereas the intrinsic neighbors Nintrinsic (xi ) of xi ∈ X are deﬁned to be able to capture the subtle substructure of each orbit. In fact the extrinsic neighbors are the same as in the common manifold learning algorithms; whereas the intrinsic neighbors need to be selected along each orbit. The later is the key to discover the subtle structure of bundle manifold. The proposed bundle manifold embedding algorithm consists of four steps as illustrated in Fig. 1, and will be depicted in the next subsections. 2.1 Find Extrinsic Neighbors and Construct Extrinsic Neighborhood Graph NBGB
+
+For each data point xi ∈ X, we select the extrinsic neighbors Nextrinsic (xi ) by Euclidean distance. We prefer to choose k − nn rules rather than ball rule for its simplicity to determine the local scale parameter. And then a weighted graph
+
+324
+
+C.-g. Li, J. Guo, and H.-g. Zhang
+
+with n nodes, one for each of data points, and a set of edges connecting each of extrinsic neighbors, is constructed. Denoted the extrinsic neighborhood graph as NBGB (V, EB , W ), where the vertex set V correspond to data points, the undirected edges set EB denote neighborhood relationships between the vertices and the weight Wij on each edge is the similarity between the two vertexes. We make use of the Gaussian kernel Wij = e− xi −xj /σi σj with adaptive scale parameter σi = xi − xk and σj = xj − xk , where xk and xk are the k-th i j i j nearest neighbors of xi and xj , respectively. The neighborhood graph NBGB (V, EB , W ) is constructed to oﬀer the background information for discovering the subtle structure of orbits, instead of to directly calculate the local metric information between diﬀerent orbits. Therefore the neighborhood scale parameter k need to be large enough to guarantee the connectivity of extrinsic neighborhood graph NBGB (V, EB , W ). The neighborhood relationship deﬁned by Euclidean distance can be used to preserve the ’global structure’ within local neighborhood1 , see Fig. 1(a). 2.2 Find Intrinsic Neighbors and Construct Intrinsic Neighborhood Graph NBGF
+
+The subtle substructure in bundle manifold is orbits (also called ﬁbers) of the structure group. For multi-class data set, Euclidean distance cannot distinguish such a subtle local metric structure, so that it often failed to ﬁnd the orbit structure. In order to select intrinsic neighbors in an unsupervised way, we need a new metric, which can discern the subtle diﬀerence between diﬀerent orbits. Under the bundle manifold assumption, each orbit is controlled by structure group (a Lie group), and it is also a smooth manifold. Therefore we can suppose that each data point and its neighbors lie on a locally linear patch of the smooth manifold within each orbit and deﬁne the intrinsic neighbors by local linear structure. Based on neighborhood graph NBGB (V, EB , W ), we characterize the local geometry of these patches by nonnegative linear coeﬃcients that reconstruct each data point xi from its k neighbors xj where j ∈ Nextrinsic (xi ), i Nextrinsic (xi ) is the index set of k extrinsic neighbors of xi . Here we need to solve a set of quadratic programming problems: for xi ∈ X, i = 1, . . . , n min ε(aij ) = xi −
+aij j∈Nextrinsic (xi )
+
+aij xj i
+
+2
+
+s.t.
+
+aij ≥ 0
+
+j∈Nextrinsic (xi )
+
+aij = 1
+
+(1)
+
+where aij are the nonnegative local linear reconstructing coeﬃcients. For j ∈ Nextrinsic (xi ), aij are set to zero. Notice that weight matrix A constructed in such a manner is consistent with convex LLE[3].
+1
+
+Under the bundle manifold assumption, the local subtle structure is orbit structure. Euclidean distance cannot distinguish the subtle orbit structure. Therefore, the neighborhood computed by Euclidean distance can be used as reference information to capture the global structure of neighborhood.
+
+Learning Bundle Manifold by Double Neighborhood Graphs
+
+325
+
+Given the nonnegative reconstructing coeﬃcients matrix A, constructing the intrinsic neighborhood graph NBGF (V, EF , A) is straightforward. Taking the intrinsic dimension d of data set as apriori information, we keep the d + 1 largest nonnegative reconstructing coeﬃcients and set those minor coeﬃcients to zero. This is our recipe to ﬁnd the exact intrinsic neighbors. The nonnegative coeﬃcients are treated as aﬃnity measure to ﬁnd the intrinsic neighbors and those dominant coeﬃcients indicate a reliable subtle neighborhood relationship of each orbit. In fact, the intrinsic neighborhood graph NBGF (V, EF , A) is reﬁnement of the extrinsic neighborhood graph and can be derived from NBGB (V, EB , W ) by removing those edges related to minor reconstructing coeﬃcients aij . The remaining d+1 dominant positive coeﬃcients will span simplex with dimension d. These simplex can reveal the subtle intrinsic structure hiding in bundle manifold, that is, help us to reveal those orbit structures or class-speciﬁc manifolds. In the virtue of this recipe, the obtained intrinsic neighborhood graph can distinguish the subtle local structures. 2.3 Construct the Generalized Graph Laplacian
+
+We denote LB as the normalized graph Laplacian of NBGB (V, EB , W ), where LB = D−1/2 (D − W )D−1/2 , D is diagonal matrix with entries Dii = j Wij . On the other hand, we denote LA = AT A, in which LA is a nonnegative symmetric matrix for capturing the subtle substructure from NBGF (V, EF , A). To obtain the faithful embedding of bundle manifold, both the local metric within each orbit, and the local metric between diﬀerent orbits need to be preserved. Therefore we need to make use of both information from NBGB (V, EB , W ) and NBGF (V, EF , A) to form an aﬃnity relationship matrix. For simplicity, we linearly combine the normalized graph Laplacian matrix LB and the nonnegative symmetric matrix LA as follows: U = (1 − γ)LB + γLA (2)
+
+where γ(0 ≤ γ < 1) is a tradeoﬀ parameter. In the extreme case, γ = 0, it turned out to be Laplacian Eigenmap[4], in which the subtle substructure information from orbit is ignored. The more γ tends to 1, the more the subtle substructure is emphasized. The matrix U is nonnegative, symmetric2 , and carries two aspects of local metric information. We treat U as aﬃnity weight matrix to construct a gener˜ alized graph Laplacian L for embedding the data points into low dimensional ˜ = U − D and D is diagonal matrix with entries Dii = ˜ ˜ ˜ space, in which L j Uij . 2.4 Embed into Low Dimensional Space
+
+Under the assumption that data points lie on bundle manifold, mapping data points from high-dimensional space into low dimensional space must keep the
+2
+
+The weight matrix W need to be symmetric.
+
+326
+
+C.-g. Li, J. Guo, and H.-g. Zhang
+
+local metric both on orbits and between orbits as much as possible. The con˜ structed generalized graph Laplacian L above is ready for such a purpose. Suppose that the embedding is given by the n × q matrix Y = [y1 , y2 , . . . , yn ]T where the i-th row provides the embedding coordinates of the i-th data point. As in Laplacian Eigenmap[4], we formulated a quadratic optimization problem as following: minε(Y ) =
+1 2 i,j
+
+{Uij yi − yj
+
+2
+
+˜ } = trace(Y T LY ) (3)
+
+˜ s.t. Y T DY = I ˜ Y T D1 = 0
+
+where yi ∈ Rq is q-dimensional row vector, I is identity matrix, 1 = [1, 1, . . . , 1]T and 0 = [0, 0, . . . , 0]T . Apparently, the optimization problem in (3) is a generalized eigenvector problem as: ˜ ˜ Lf = λDf (4) Let f0 , f1 , . . . , fq be the solution of equation (4), and ordered them according to their eigenvalues in ascending order: ˜ ˜ Lf0 = λ0 Df0 ˜ ˜ Lf1 = λ1 Df1 ··· ˜ ˜ q = λq Dfq Lf
+
+(5)
+
+where 0 = λ0 ≤ λ1 ≤ . . . ≤ λq . We remove the eigenvector f0 corresponding to eigenvalue 0 and employ the next q eigenvectors to obtain the embedding Y as Y = [y1 , y2 , . . . , yn ]T = [f1 , f2 , . . . , fq ] in q-dimensional Euclidean space.
+
+3
+
+Experimental Results
+
+In this section we will demonstrate data visualization experiments on the benchmark data sets. The proposed BME algorithm is compared with ISOMAP, LLE, and Laplacian Eigenmaps. The parameter k is chose k = 20 for all algorithms in all experiments and the intrinsic dimension d used in BME is set to d = 1. The ﬁrst set of experiments are conducted on a selected data subset COIL-4, which consists of image samples from four classes (i. e. object-3, object-5,object6 and object-19) of COIL-20[16]. The four classes of objects are the most similar four classes of object images in COIL-20. The manifold embedded in each class of COIL-20 is homeomorphism to circle (i.e. S 1 ). As can be seen from Fig. 2 in panels (a), (b) and (c), ISOMAP, LLE, and Laplacian Eigenmap all failed to ﬁnd the subtle class-speciﬁc manifold substructures. The results obtained by the proposed BME algorithm are given in Fig. 2 panels (d), (e) and (f) with diﬀerent tradeoﬀ parameter γ = 0.90, 0.95, 0.99. It is obvious that the subtle class-speciﬁc manifold substructures are discovered by BME algorithm.
+
+Learning Bundle Manifold by Double Neighborhood Graphs
+
+327
+
+In Fig. 2 panel (d) and (e), however, it can be observed that data points of the three classes of object-3, object-6 and object-19 are still piled together. We gathered those piled data points of the three classes (object-3, object-6 and
+(a) ISOMAP 4000 2000 0 −2000 −4000 −5000 4 2 0 −2 −4 −2 −0.5 −0.5 0 (b) LLE 0.5 (c) Laplacian Eigenmap
+
+0
+
+5000
+
+0
+
+2
+
+4
+
+0
+
+0.5
+
+(d) BME(gamma=0.9) 4 2 0 −2 −4 −4 4 2 0 −2 −4 −4
+
+(e) BME(gamma=0.95) 4 2 0 −2 −4 −2
+
+(f) BME(gamma=0.99)
+
+−2
+
+0
+
+2
+
+−2
+
+0
+
+2
+
+0
+
+2
+
+object3 objec5 object6 4 object19
+
+Fig. 2. Data visualization results that compared the proposed BME with ISOMAP, LLE, Laplacian Eigenmap on COIL-4 data set (where k=20 is used for all algorithms)
+
+(a) ISOMAP 4000 2000 0 0 −2000 −4000 −5000 −1 0 5000 −2 −2 3 2 1
+
+(b) LLE 0.6 0.4 0.2 0 −0.2 0 2 4
+
+(c) Laplacian Eigenmap
+
+−0.4 −0.5
+
+0
+
+0.5
+
+(d) BME(gamma=0.9) 3 2 1 0 0 −1 −2 −2 0 2 −2 −4 −5 4 2
+
+(e) BME(gamma=0.95)
+
+(f) BME(gamma=0.99) object3 object6 object19
+
+1 0 −1 −2 −2
+
+0
+
+5
+
+−1
+
+0
+
+1
+
+Fig. 3. Data visualization results that compared the proposed BME with ISOMAP, LLE, Laplacian Eigenmap on COIL-3 (where k=20 is used for all algorithms)
+
+328
+
+C.-g. Li, J. Guo, and H.-g. Zhang
+(a) ISOMAP 500 6 4 2 0 0 −2 −500 −1000 −500 0 500 −4 −5 0 (e) BME(gamma=0.9) 6 4 2 0 −2 −5 2 0 −2 −4 −6 −5 anger normal 0 5 5 −1 −1.5 −1 −0.5 (b) LLE 0.5 0 (c) Laplacian Eigenmap
+
+−0.5
+
+0
+
+0.5
+
+(d) BME(gamma=0.85) 6 4 2 0 −2 −5
+
+(f) BME(gamma=0.95)
+
+0
+
+5
+
+0
+
+5
+
+Fig. 4. Data visualization results that compared the proposed BME with ISOMAP, LLE, Laplacian Eigenmap on FreyfaceExpression-2 data set (where k=20 is used for all algorithms)
+
+object-19) in Fig. 2 panel (d) and (e) to form data set COIL-3. It is interesting to further visualize the data in COIL-3. Therefore we conduct the second set of experiments on dataset COIL-3. The results are presented in Fig. 3. The ISOMAP, LLE and Laplacian Eigenmap still failed; whereas the proposed BME algorithm can reveal the subtle substructures distinctly. From the data visualization results above, we can draw the conclusion that the tradeoﬀ parameter γ controls the clearness of the discovered subtle substructure. The larger the parameter γ is, the more consideration is taken into the intrinsic neighborhood graph, and it will lead to focusing on subtle substructure much more. The smaller parameter γ corresponds to take into consideration more the background information, that is, from the extrinsic neighborhood graph. An over-large γ, however, will degrade the corresponding relationship between diﬀerent class-speciﬁc manifolds, and will result in losing the faithfulness of the obtained subtle substructure. Strictly speaking, the global geometric structure hiding in the COIL-4 and COIL-3 data sets may not be exactly a principal bundle manifold, but then using such an assumption will remind us to capture the true geometric structure carefully and help us to explore the ’real feature’ of data set. The third set of experiments are conducted on Frey face data set3 . We manually sorted the Frey face dataset into ﬁve expressions categories (’anger’, ’happy’, ’sad’, ’tongue out’ and ’normal’) and choose the two most similar classes of expressions (’anger’ and ’normal’) as the FreyfaceExpression-2 dataset for data
+3
+
+http://www.cs.toronto.edu/∼ roweis/data.html, B. Frey and S. Roweis
+
+Learning Bundle Manifold by Double Neighborhood Graphs
+
+329
+
+visualization. There are continuous pose variation in both ’anger’ and ’normal’ expressions. Therefore the two expression manifolds will share the similar onedimensional subtle structure. The experimental results are displayed in Fig. 4. We can ﬁnd that the BME is superior to the other algorithms that it can reveal the subtle substructure. Finally we need to mention about the parameters k, d and γ in BME. The neighborhood scale parameter k need to be large enough to guarantee the connectivity of extrinsic neighborhood graph to provide reference information. For the explorative data analysis task, one can try the intrinsic dimension d from one to the estimated intrinsic dimension by those signiﬁcant nonnegative local linear reconstruction coeﬃcients. In addition, the parameter γ may be selected from some typical values, such as 0.85, 0.90, 0.95, 0.99 and etc.
+
+4
+
+Concluding Remarks and Discussion
+
+In this paper we suggest that the true global geometric structure of some datasets is likely bundle manifold, not a single manifold, and also presented a naive unsupervised algorithm, BME, for visualizing the subtle structure. Experiments on benchmark data sets demonstrated the feasibility of the proposed BME algorithm. We believe that the principal bundle manifold assumption and the proposed bundle manifold embedding algorithm are beneﬁcial to deeply understand the global intrinsic geometry of some image datasets. Under bundle manifold assumption, an interesting question arose that what is the exact meaning of the estimated intrinsic dimensionality. Perhaps we need redeﬁne the task of intrinsic dimension estimation due to the exitance of orbit structures. In the proposed algorithm, however, the information used is only the local metric at each of orbits and the locality on bundle manifold. The sharing intrinsic structure among orbits has not been employed yet. Therefore the more sophisticated means to learning the bundle manifold will be investigated in future. Acknowledgments. This work was partially supported by National High-Tech Research and Development Plan of China under Grant No. 2007AA01Z417 and the 111 project under grand No.B08004.
+
+References
+1. Tenenbaum, J.B., Silva, V., Langford, J.C.: A global geometric framework for nonlinear dimensionality reduction. Science 290(5500), 2319–2323 (2000) 2. Roweis, S.T., Saul, L.K.: Nonlinear dimensionality reduction by locally linear embedding. Science 290(5500), 2323–2326 (2000) 3. Saul, L.K., Roweis, S.T.: Think globally, ﬁt locally: unsupervised learning of low dimensional manifolds. Journal of Machine Learning Research 4, 119–155 (2003) 4. Belkin, M., Niyogi, P.: Laplacian eigenmaps for dimensionality reduction and data representation. Neural Computation 15(6), 1373–1396 (2003)
+
+330
+
+C.-g. Li, J. Guo, and H.-g. Zhang
+
+5. Donoho, D.L., Grimes, C.: Hessian eigenmaps: Locally linear embedding techniques for high-dimensional data. Proc. Natl. Acad. Sci. USA 100(10), 5591–5596 (2003) 6. Brand, M.: Charting a manifold. In: NIPS, vol. 15. MIT Press, Cambridge (2003) 7. Zhang, Z., Zha, H.: Principal manifolds and nonlinear dimensionality reduction by local tangent space alignment. SIAM Journal of Scientiﬁc Computing 26(1), 313–338 (2004) 8. Weinberger, K., Packer, B., Saul, L.: Unsupervised learning of image manifolds by semideﬁnite programming. In: CVPR 2004, vol. 2, pp. 988–995 (2004) 9. Coifman, R.R., Lafon, S., Lee, A.B., Maggioni, M., Nadler, B., Warner, F., Zucker, S.W.: Geometric diﬀusions as a tool for harmonic analysis and structure deﬁnition of data: Diﬀusion maps. Proc. of the Natl. Academy of Sciences 102, 7426–7431 (2005) 10. Belkin, M., Niyogi, P.: Semi-supervised learning on riemannian manifolds. Machine Learning 56(1-3), 209–239 (2004) 11. Wang, F., Zhang, C.: Label propagation through linear neighborhoods. IEEE Transactions on Knowledge and Data Engineering 20(1), 55–67 (2008) 12. Rao, R., Ruderman, D.: Learning lie groups for invariant visual perception. In: NIPS, vol. 11. MIT Press, Cambridge (1999) 13. Ham, J., Lee, D., Saul, L.: Semisupervised alignment of manifolds. In: AI & STAT, pp. 120–127 (2005) 14. Lim, J., Ho, J., Yang, M.-H., Lee, K.-C., Kriegman, D.J.: Image clustering with metric, local linear structure and aﬃne symmetry. In: Pajdla, T., Matas, J.G. (eds.) ECCV 2004. LNCS, vol. 3021, pp. 456–468. Springer, Heidelberg (2004) 15. Hamm, J., Lee, D.D.: Separating pose and expression in face images: A manifold learning approach. Neural Information Processing – Reviews and Letters 11, 91– 100 (2007) 16. Nene, S.A., Nayar, S.K., Murase, H.: Columbia object image library (coil-20). Technical Report CUCS-005-96, Columbia University (1996)
+

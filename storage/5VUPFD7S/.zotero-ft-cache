@@ -1,0 +1,1263 @@
+An Introduction to Transfer Learning and Domain Adaptation
+Amaury Habrard
+Laboratoire Hubert Curien, UMR CNRS 5516, Universit´ de Saint-Etienne e
+
+EPAT 2014
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+1 / 95
+
+Some resources
+List of transfer learning papers http://www1.i2r.a-star.edu.sg/~jspan/conferenceTL.htm List of available softwares http://www.cse.ust.hk/TL/index.html Surveys
+Patel, Gopalan, Chellappa. Visual Domain Adaptation: An Overview of Recent Advances. Tech report, 2014. Qi Li. Literature Survey: Domain Adaptation Algorithms for Natural Language Processing, Tech report, 2012 Margolis. A Literature Review of Domain Adaptation with Unlabeled Data. Tech report 2011. Pan and Yang. A survey on Transfer Learning’, TKDE 2010. J. Quionero-Candela and M. Sugiyama and A. Schwaighofer and N.D. Lawrence. Dataset Shift in Machine Learning. MIT Press.
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+2 / 95
+
+Credits and acknowledgments
+Documents used for this talk: D. Xu, K. Saenko, I. Tsang. Tutorial on Domain Transfer Learning for Vision Applications, CVPR’12. S. Pan, Q. Yang and W. Fan. Tutorial: Transfer Learning with Applications, IJCAI’13. S. Ben-David. Towards Theoretical Understanding of Domain Adaptation Learning, workshop LNIID at ECML’09. F. Sha and B. Kingsbury. Domain Adaptation in Machine Learning and Speech Recognition, Tutorial - Interspeech 2012. K. Grauman. Adaptation for Objects and Attributes, workshop VisDA at ICCV’13 J. Blitzer and H. Daum´III. Domain Adaptation, Tutorial - ICML 2010. e A. Habrard, JP Peyrache, M. Sebban. Iterative Self-labeling Domain Adaptation for Linear Structured Image Classiﬁcation, IJAIT 2013. A. Habrard, JP Peyrache, M. Sebban. Boosting for unsupervised domain adaptation, ECML 2013 Acknowledegments: B. Fernando, P. Germain, E. Morvant, JP Peyrache, M. Sebban.
+(LaHC) Domain Adaptation - EPAT’14 3 / 95
+
+Transfer Learning
+Deﬁnition [Pan, TL-IJCAI’13 tutorial]
+Ability of a system to recognize and apply knowledge and skills learned in previous domains/tasks to novel domains/tasks
+
+An example
+• We have labeled images from a Web image corpus • Is there a Person in unlabeled images from a Video corpus ?
+
+?
+
+Person
+(LaHC)
+
+no Person
+Domain Adaptation - EPAT’14
+
+Is there a Person?
+4 / 95
+
+Outline
+Introduction/Motivation Reweighting/Instance based methods Theoretical frameworks Feature/projection based methods Adjusting/Iterative methods A quick word on model selection
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+5 / 95
+
+Introduction
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+6 / 95
+
+Settings
+
+?
+from the same domain
+
+?
+from different domains
+
+Domains are modeled as probability distributions over an instance space Tasks associated to a domain (classiﬁcation, regression, clustering, ...) Objective: From source to target ⇒ Improve a target predictive function in the target domain using knowledge from the source domain
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+7 / 95
+
+A Taxonomy of Transfer Learning
+
+“A survey on Transfer Learning” [Pan and Yang, TKDE 2010]
+(LaHC) Domain Adaptation - EPAT’14 8 / 95
+
+In this presentation
+
+We will make a focus on domain adaptation We will focus on classiﬁcation tasks ⇒ How can we learn, using labeled data from a source distribution, a low-error classiﬁer for another related target distribution? ⇒ “Hot topic” - tutorials at ICML 2010, CVPR 2012, Interspeech 2012, workshops at ICCV 2013, NIPS 2013,ECML 2014 ⇒ Motivating examples
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+9 / 95
+
+A toy problem: Inter-twinning moons
+
+(a) 10◦
+
+(b) 20◦
+
+(c) 30◦
+
+(d) 40◦
+(LaHC)
+
+(e) 50◦
+Domain Adaptation - EPAT’14
+
+(f) 70◦
+10 / 95
+
+Intuition and motivation from a CV perspective
+
+“Can we train classiﬁers with Flickr photos, as they have already been collected and annotated, and hope the classiﬁers still work well on mobile camera images?” [Gonq et al., CVPR 2012] “object classiﬁers optimized on benchmark dataset often exhibit signiﬁcant degradation in recognition accuracy when evaluated on another one” [Gonq et al.,ICML 2013, Torralba et al., CVPR 2011, Perronnin et al., CVPR 2010] “Hot topic” -Visual domain adaptation [Tutorial CVPR’12, ICCV’13]
+(LaHC) Domain Adaptation - EPAT’14 11 / 95
+
+Brief recap on computer vision issues [Slides from J. Sivic]
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+12 / 95
+
+Brief recap on computer vision issues (2) [Slides from J. Sivic]
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+13 / 95
+
+Brief recap on computer vision issues (3) [Slides from J. Sivic]
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+14 / 95
+
+Brief recap on computer vision issues (4) [Slides from J. Sivic]
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+15 / 95
+
+Brief recap on computer vision issues (5) [Slides from J. Sivic]
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+16 / 95
+
+Problems with data representations
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+17 / 95
+
+Hard to predict what will change in the new domain
+
+[Xu,Saenko,Tsang, Domain Transfer Tutorial - CVPR’12]
+(LaHC) Domain Adaptation - EPAT’14 18 / 95
+
+Natural Language Processing
+Text are represented by “words” (Bag of Words) Part of Speech Tagging: Adapt a tagger learned from medical papers to a journal (Wall Street Journal) - Newsgroup
+
+Spam detection: Adapt a classiﬁer from one mailbox to another
+
+Sentiment analysis:
+(LaHC) Domain Adaptation - EPAT’14 19 / 95
+
+Domain Adaptation for sentiment analysis
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+20 / 95
+
+Domain Adaptation for sentiment analysis - ex [Pan-IJCAI’13 tutorial]
+Electronics (1) Compact; easy to operate; very good picture quality; looks sharp! (3) I purchased this unit from Circuit City and I was very excited about the quality of the picture. It is really nice and sharp. (5) It is also quite blurry in very dark settings. I will never buy HP again. Video games (2) A very good game! It is action packed and full of excitement. I am very much hooked on this game. (4) Very realistic shooting action and good plots. We played this and were hooked. (6) It is so boring. I am extremely unhappy and will probably never buy UbiSoft again.
+
+Source speciﬁc: compact, sharp, blurry. Target speciﬁc: hooked, realistic, boring. Domain independent: good, excited, nice, never buy, unhappy.
+(LaHC) Domain Adaptation - EPAT’14 21 / 95
+
+Other applications
+
+Speech recognition [Tutorial at Interspeech’12] Medecine Biology Time series Wiﬁ localization
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+22 / 95
+
+Notations
+Notations
+X ⊆ Rd input space, Y = {−1, +1} output space PS source domain: distribution over X × Y DS marginal distribution over X PT target domain: diﬀerent distribution over X × Y DT marginal distribution over X H ⊆ Y X : hypothesis class Expected error of a hypothesis h : X → Y RPS (h) = RPT (h) =
+(xs ,y s )∼PS (xt ,y t )∼P
+
+E
+
+I h(xs ) = y s source domain error I h(xt ) = y t target domain error
+
+E
+
+T
+
+Domain Adaptation: ﬁnd h ∈ H with RPT small from data ∼ DT and PS
+(LaHC) Domain Adaptation - EPAT’14 23 / 95
+
+Classical result in supervised learning
+Empirical error
+RS = {(xs , yis )}ms ∼ (PS )ms a labeled sample drawn i.i.d. from PS i i=1 Associated empirical error of an hypothesis h: m 1 s RS (h) = I h(xs ) = yis i ms
+i=1
+
+Classical PAC result: From the same distribution
+RPS (h) ≤ RS (h) + O( ⇒ Occam razor principle What about RPT if we have no or very few labeled data? → try to make use of source information
+(LaHC) Domain Adaptation - EPAT’14 24 / 95
+
+complexity (h) ) √ ms
+
+Domain Adaptation
+Setting
+
+Labeled Source Sample S = {(xi , yi )}ms Source sample drawn i.i.d. from PS i=1 Unlabeled Target Sample T = {xj }mt Target Sample drawn i.i.d. from DT j=1 optionnal: a few labeled target examples If h is learned from source domain, how does it perform on target domain?
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+25 / 95
+
+Domain Adaptation
+Setting
+
+Labeled Source Sample S = {(xi , yi )}ms Source sample drawn i.i.d. from PS i=1 Unlabeled Target Sample T = {xj }mt Target Sample drawn i.i.d. from DT j=1 optionnal: a few labeled target examples If h is learned from source domain, how does it perform on target domain?
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+25 / 95
+
+Illustration settings
+Classical supervised learning
+Apprentissage supervisé
+
+Dis tribution P S Échantillon étiqueté i.i.d. selon PS
+
+Apprentissage
+
+Modèle
+
+Domain adaptation
+Distribution différente PT Dis tribution P S Échantillon étiqueté i.i.d. selon PS
+(LaHC)
+Adaptation de domaine
+
+Échantillon non étiqueté i.i.d. selon D T
+Apprentissage
+
+Modèle
+26 / 95
+
+Domain Adaptation - EPAT’14
+
+A bit of vocabulary
+Unsupervised Transfer Learning
+No labels
+
+Unsupervised DA
+Presence of source labels, no target labels
+
+Semi-supervised DA
+Presence of source labels, few target labels and a lot of unlabeled data
+
+= Semi-supervised learning
+No distribution shift, few labeled data and a lot of unlabeled data from the same domain
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+27 / 95
+
+Some key points
+
+Estimating of the distribution shift
+
+Deriving generalization guarantees RPT (h) ≤?RPS (h)?+?
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+28 / 95
+
+Some key points
+
+Estimating of the distribution shift
+
+Deriving generalization guarantees RPT (h) ≤?RPS (h)?+? Characterizing when the adaptation is possible
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+28 / 95
+
+Some key points
+Estimating of the distribution shift
+
+Deriving generalization guarantees RPT (h) ≤?RPS (h)?+? Characterizing when the adaptation is possible
+
+Deﬁning algorithms Underlying idea: Try to move closer the two distributions
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+28 / 95
+
+Some key points
+Estimating of the distribution shift
+
+Deriving generalization guarantees RPT (h) ≤?RPS (h)?+? Characterizing when the adaptation is possible
+
+Deﬁning algorithms Underlying idea: Try to move closer the two distributions Applying model selection principle How to tune hyperparameters with no labeled information from target
+(LaHC) Domain Adaptation - EPAT’14 28 / 95
+
+Much rec
+Correcting sampling bias 3 main classes of algorithms
++ Reweighting/Instance-based- methods ++ [Sethy et al., ’09] [Sugiyama et al., ’08]
+
+Correcting[This work] sampling
+[Pan et al., ’09] [Muandet et al., ’13] [Gopalan et al., ’11]
+
+[Huang Correct Correctet al., Bickel et al., ’07] by reweightingal,source[Gong et al., ’12]data: a sample bias labeled [Argyriou et ’08] [Sethy et al., ’06] Inferring [Chen al., source instances close to target instances are more etal.,’12] [Daumé III, ’07] [Sethy etimportant. ’09] [Shimodaira, ’00] [Blitzer et al., ’06]
+
+domaininvariant [Sethy e [Evgeniou and Pontil, ’05] [Sugiyama e [Huang representation spaces Feature-based methods/Find newet al., Bickel et al., ’07] + features Bickel e [Duan et al., ’09] [Huang et al., +
+[Sugiyama et al., ’08] [Sethy et al., ’06] Find + common space et al., Daumé III et al., Saenkotarget are close a -[Duan where source and et al., ’10] -+ + [Kulis et al., Chen et al., ’11] (projection, new features, etc) -+ [Shimodaira, ’00] Adjusting mismatched models
+
++ -+ -
+
++
+
+--++ [Sethy e +[Daumé
+
+[Arg
+
+[Blitzer et al., ’0 [Shimod
+
+Ajustement/Iterative methods
+
++ ’09] Modify the model by incorporating pseudo-labeled information [Duan et al., (LaHC) Domain Adaptation - EPAT’14
+
++ + + --
+
+- [Duan et al., Daumé III et
+
+[Evgeniou and Ponti
+
++ +
+
+29 95 [Kulis et al., Chen et al.,/’11]
+
+Reweighting/Instance based Methods
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+30 / 95
+
+Context
+
+Motivation
+Domains share the same support (i.e. bag of words) Distribution shift is caused by sampling bias/shift between marginals
+
+Idea
+Reweight or select instances to reduce the discrepancy between source and target domains.
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+31 / 95
+
+A ﬁrst analysis
+
+RPT (h) =
+
+(xt ,y t )∼PT
+
+E
+
+I h(xt ) = y t
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+32 / 95
+
+A ﬁrst analysis
+
+RPT (h) = =
+
+(xt ,y t )∼PT
+
+E
+
+I h(xt ) = y t PS (xt , y t ) I h(xt ) = y t PS (xt , y t )
+
+(xt ,y t )∼PT
+
+E
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+32 / 95
+
+A ﬁrst analysis
+
+RPT (h) = =
+
+(xt ,y t )∼PT
+
+E E
+
+I h(xt ) = y t
+
+PS (xt , y t ) I h(xt ) = y t (xt ,y t )∼PT PS (xt , y t ) PS (xt , y t ) I h(xt ) = y t = PT (xt , y t ) PS (xt , y t ) t t
+(x ,y )
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+32 / 95
+
+A ﬁrst analysis
+
+RPT (h) = =
+
+(xt ,y t )∼PT
+
+E E
+
+I h(xt ) = y t
+
+PS (xt , y t ) I h(xt ) = y t t ,y t )∼P PS (xt , y t ) (x T PS (xt , y t ) I h(xt ) = y t = PT (xt , y t ) PS (xt , y t ) t t
+(x ,y )
+
+=
+
+(xt ,y t )∼PS
+
+E
+
+PT (xt , y t ) I h(xt ) = y t PS (xt , y t )
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+32 / 95
+
+Covariate shift [Shimodaira,’00]
+⇒ Assume similar tasks, PS (y |x) = PT (y |x), then: DT (xt )PT (y t |xt ) I h(xt ) = y t t ,y t )∼P DS (xt )PS (y t |xt ) (x S DT (xt ) I h(xt ) = y t = E (xt ,y t )∼PS DS (xt ) DT (xt ) = E E }I h(xt ) = y t (xt )∼DS DS (xt ) y t ∼PS (y t |xt ) = E ⇒ weighted error on the source domain: ω(x t ) =
+DT (xt ) DS (xt )
+
+Idea reweight labeled source data according to an estimate of ω(x t ): E ω(xt )I h(xt ) = y t
+(xt ,y t )∼PS
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+33 / 95
+
+Illustration
+No Bias
+DS (x) = DT (x) ⇒ ω(x) = 1
+
+With Bias
+DS (x) = DT (x) ⇒ ω(x) = 1
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+34 / 95
+
+Diﬃcult case
+
+No shared support
+∃x, DS (x) = 0 and DT (x) = 0
+
+Shared support
+DS (x) = 0 if and only if DT (x) = 0 Intuition: the quality of the adaptation depends on the magnitude on the weights
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+35 / 95
+
+How to deal with the sample selection bias?
+Setting
+A source sample S = {(xs , yis )}ms and a target sample T = {xt }mt i j j=1 i=1
+
+Estimate new weights without using labels
+ˆ Pr T (xs ) i ω (xs ) = ˆ i ˆ Pr S (xs )
+i
+
+Much rece
+++ -[Pa
+36 / 95
+
+Learn a classiﬁer on the classiﬁer w.r.t. ω ˆ
+ω (xs )I [h(xs ) = yis ] ˆ i i
+(xs ,yis )∈S i
+
+Correcting sampling bia
++
+[Sugiyama et al., ’08]
+
+[Sethy et al., ’09] (Other losses: margin-based hinge-loss, least-square) [Huang et al., Bickel et al., ’07]
+(LaHC) Domain Adaptation - EPAT’14
+
+Illustration
+
++
+
++
+
+-
+
++ ++ + +
+
++
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+37 / 95
+
+Illustration
+
++
+
++
+
+-
+
++ ++ + +
+
++
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+37 / 95
+
+Illustration
+
++
+
++
+
+-
+
++ ++ + +
+
++
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+37 / 95
+
+Illustration
+
++
+
++
+
+-
+
++ ++ + +
+
++
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+37 / 95
+
+Illustration
+
++
+
++
+
+-
+
++ ++ + +
+
++
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+37 / 95
+
+Some existing approaches (1/2)
+Density estimators
+Build density estimators for source and target domains and estimate the ratio between them - Ex [Sugiyama et al.,NIPS’07]: ω (x) = ˆ
+b l=1 αl ψl (x)
+
+Learning: argminα KL(ˆ DS , DT ) ω
+
+Learn the weights discriminatively [Bickel et al.,ICML’07]
+Assume
+DT (xi ) DS (xi )
+
+∝
+
+1 p(q=1|x,θ)
+
+ˆ Label source with label 1, target with label 0 and train a classiﬁer (θ) to classify examples 1 or 0 (e.g. with logistic regression) 1 Compute the new weights ω (xs ) = ˆ i ˆ p(q = 1|xs ; θ)
+i
+(LaHC) Domain Adaptation - EPAT’14 38 / 95
+
+Some existing approaches (2/2)
+Kernel Mean Matching [Huang et al.,NIPS’06]
+Maximum Mean Discrepancy ms 1 MMD(S, T ) = mS i=1 φ(xs ) − i minβ 1 mS
+ms 1 mt mt j=1
+
+φ(xt ) j
+H
+
+H
+
+β(xs )φ(xs ) − i i
+i=1
+
+1 mS
+ms i=1
+
+mt
+
+φ(xt ) j
+j=1
+
+1 s.t. β(xs ) ∈ [0, B] and | mS i
+
+β(xs ) − 1| < i
+ms i=1
+
+1 minβ β T KT β − κT s.t. βi ∈ [0, B] and | S,T 2
+
+β(xs ) − ms | < ms i
+
+Guarantees [Gretton et al.,2008] - Under covariate shift assumptions
+|RPT (h) − weighted(RS (h))| < 1 mS
+ms mt
+
+O(1/δ) + O(maxx ω(x)2 ) + C and ms φ(xt ) ≤ O((1/δ) j
+2 ωmax /ms + 1/mt
+
+ω(xs )φ(xs ) − i i
+i=1 (LaHC)
+
+1 mt
+
+j=1 Domain Adaptation - EPAT’14 39 / 95
+
+Bad news
+DA is hard, even under covariate shift [Ben-David et al.,ALT’12] ⇒ To learn a classiﬁer the number of examples depend on |H| (ﬁnite) or exponentially on the dimension of X Covariate shift assumption may fail: Tasks are not similar in general PS (y |x) = PT (y |x)
+
+We did not consider the hypothesis space. Can deﬁne a general theory about DA?
+(LaHC) Domain Adaptation - EPAT’14 40 / 95
+
+Theoretical frameworks for Domain Adaptation
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+41 / 95
+
+A keypoint: estimating the distribution shift
+
+First idea: Total variation measure
+dL1 (DS , DT ) = supB⊆X |DS (B) − DT (B)| Subset of points maximizing the divergence
+
+But: Not computable in general, and thus not estimable from ﬁnite samples
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+42 / 95
+
+A keypoint: estimating the distribution shift
+First idea: Total variation measure
+dL1 (DS , DT ) = supB⊆X |DS (B) − DT (B)| Subset of points maximizing the divergence But: Not computable in general, and thus not estimable from ﬁnite samples Not related to the hypothesis class Do not characterize the diﬃculty of the problem for H
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+42 / 95
+
+The H∆H-divergence [Ben-David et al.,NIPS’06;MLJ’10]
+
+Deﬁnition
+dH∆H (DS , DT ) = = sup
+(h,h )∈H2
+
+RDT (h, h ) − RDS (h, h ) E I h(xt ) = h (xt ) − s E
+x ∼DS
+
+t (h,h )∈H2 x ∼DT
+
+sup
+
+I h(xs ) = h (xs )
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+43 / 95
+
+The H∆H-divergence [Ben-David et al.,NIPS’06;MLJ’10]
+Deﬁnition
+dH∆H (DS , DT ) = = sup
+(h,h )∈H2
+
+RDT (h, h ) − RDS (h, h ) E I h(xt ) = h (xt ) − s E
+x ∼DS
+
+t (h,h )∈H2 x ∼DT
+
+sup
+
+I h(xs ) = h (xs )
+
+Illustration with only 2 hypothesis in H h and h
+
+Note: With a larger H, the distance will be high since we can easily ﬁnd two hypothesis able to distinguish the two domains
+(LaHC) Domain Adaptation - EPAT’14 43 / 95
+
+Computable from samples
+Consider two samples S, T of size m from DS and DT dH∆H (DS , DT ) ≤ dH∆H (S, T ) + O(complexity(H)
+log(m) m )
+
+complexity(H): VC-dimension [Ben-david et al.,06;’10], Rademacher [Mansour et al.,’09]
+
+Empirical estimation
+ 
+x:h(x)=−1
+
+ 1 I [x ∈ S] + m I [x ∈ T ]
+x:h(x)=1
+
+1 ˆ dH∆H (S, T ) = 2 1 − minh∈H  m
+
+⇒ Already seen: label source examples as -1, target ones as +1 and try to learn a classiﬁer in H minimizing the associated empirical error
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+44 / 95
+
+Going to a generalization bound
+Preliminaries
+RPT (h, h ) = E
+(x,y )∼PS
+
+I [h(x) = h (x)] = E
+
+x∼DT
+
+I [h(x) = h (x)]
+
+RPT (RPS ) fulﬁlls the triangle inequality |RPT (h, h ) − RPS (h, h )| ≤ 1 dH∆H (DS , DT ) 2 since dH∆H (DS , DT ) = 2 sup(h,h )∈H2 RDT (h, h ) − RDS (h, h )
+∗ hS = argminh∈H RPS (h): best on source ∗ hT = argminh∈H RPT (h): best on target
+
+Ideal joint hypothesis
+h∗ = argminh∈H RPS (h) + RPT (h) ; λ = RPS (h∗ ) + RPT (h∗ )
+(LaHC) Domain Adaptation - EPAT’14 45 / 95
+
+A ﬁrst bound
+
+RPT (h) ≤
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+46 / 95
+
+A ﬁrst bound
+
+RPT (h) ≤ RPT (h∗ ) + RPT (h, h∗ )
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+46 / 95
+
+A ﬁrst bound
+
+RPT (h) ≤ RPT (h∗ ) + RPT (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + RPT (h, h∗ ) − RPS (h, h∗ )
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+46 / 95
+
+A ﬁrst bound
+
+RPT (h) ≤ RPT (h∗ ) + RPT (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + RPT (h, h∗ ) − RPS (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + |RPT (h, h∗ ) − RPS (h, h∗ )|
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+46 / 95
+
+A ﬁrst bound
+
+RPT (h) ≤ RPT (h∗ ) + RPT (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + RPT (h, h∗ ) − RPS (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + |RPT (h, h∗ ) − RPS (h, h∗ )| 1 ≤ RPT (h∗ ) + RPS (h, h∗ ) + dH∆H (DS , DT ) 2
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+46 / 95
+
+A ﬁrst bound
+
+RPT (h) ≤ RPT (h∗ ) + RPT (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + RPT (h, h∗ ) − RPS (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + |RPT (h, h∗ ) − RPS (h, h∗ )| 1 ≤ RPT (h∗ ) + RPS (h, h∗ ) + dH∆H (DS , DT ) 2 1 ∗ ≤ RPT (h ) + RPS (h) + RPS (h∗ ) + dH∆H (DS , DT ) 2
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+46 / 95
+
+A ﬁrst bound
+
+RPT (h) ≤ RPT (h∗ ) + RPT (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + RPT (h, h∗ ) − RPS (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + |RPT (h, h∗ ) − RPS (h, h∗ )| 1 ≤ RPT (h∗ ) + RPS (h, h∗ ) + dH∆H (DS , DT ) 2 1 ∗ ≤ RPT (h ) + RPS (h) + RPS (h∗ ) + dH∆H (DS , DT ) 2 1 ≤ RPS (h) + dH∆H (DS , DT ) + λ 2
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+46 / 95
+
+A ﬁrst bound
+
+RPT (h) ≤ RPT (h∗ ) + RPT (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + RPT (h, h∗ ) − RPS (h, h∗ ) ≤ RPT (h∗ ) + RPS (h, h∗ ) + |RPT (h, h∗ ) − RPS (h, h∗ )| 1 ≤ RPT (h∗ ) + RPS (h, h∗ ) + dH∆H (DS , DT ) 2 1 ≤ RPT (h∗ ) + RPS (h) + RPS (h∗ ) + dH∆H (DS , DT ) 2 1 ≤ RPS (h) + dH∆H (DS , DT ) + λ 2 1 log(m) ≤ RS (h) + dH∆H (S, T ) + O(complexity(H) )+λ 2 m
+(LaHC) Domain Adaptation - EPAT’14 46 / 95
+
+Main theoretical bound Theorem [Ben-David et al.,MLJ’10,NIPS’06]
+Let H a symmetric hypothesis space. If DS and DT are respectively the marginal distributions of source and target instances, then for all δ ∈ (0, 1], with probability at least 1 − δ : ∀h ∈ H, RPT (h) ≤ RPS (h) + 1 dH∆H (DS , DT ) + λ 2
+
+Formalizes a natural approach: Move closer the two distributions while ensuring a low error on the source domain. Justiﬁes many algorithms: reweighting methods, feature-based methods, adjusting/iterative methods.
+(LaHC) Domain Adaptation - EPAT’14 47 / 95
+
+Another analysis [Mansour et al.,COLT’09]
+
+RPT (h) ≤
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+48 / 95
+
+Another analysis [Mansour et al.,COLT’09]
+
+∗ ∗ ∗ ∗ RPT (h) ≤ RPT (h, hS ) + RPT (hS , hT ) + RPT (hT )
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+48 / 95
+
+Another analysis [Mansour et al.,COLT’09]
+
+∗ ∗ ∗ ∗ RPT (h) ≤ RPT (h, hS ) + RPT (hS , hT ) + RPT (hT ) ∗ = RPT (h, hS ) + ν
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+48 / 95
+
+Another analysis [Mansour et al.,COLT’09]
+
+∗ ∗ ∗ ∗ RPT (h) ≤ RPT (h, hS ) + RPT (hS , hT ) + RPT (hT ) ∗ = RPT (h, hS ) + ν ∗ ∗ ∗ ≤ RPS (h, hS ) + RPT (h, hS ) − RPS (h, hS ) + ν
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+48 / 95
+
+Another analysis [Mansour et al.,COLT’09]
+
+∗ ∗ ∗ ∗ RPT (h) ≤ RPT (h, hS ) + RPT (hS , hT ) + RPT (hT ) ∗ = RPT (h, hS ) + ν ∗ ∗ ∗ ≤ RPS (h, hS ) + RPT (h, hS ) − RPS (h, hS ) + ν ∗ ∗ ∗ ≤ RPS (h, hS ) + |RPT (h, hS ) − RPS (h, hS )| + ν
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+48 / 95
+
+Another analysis [Mansour et al.,COLT’09]
+
+∗ ∗ ∗ ∗ RPT (h) ≤ RPT (h, hS ) + RPT (hS , hT ) + RPT (hT ) ∗ = RPT (h, hS ) + ν ∗ ∗ ∗ ≤ RPS (h, hS ) + RPT (h, hS ) − RPS (h, hS ) + ν ∗ ∗ ∗ ≤ RPS (h, hS ) + |RPT (h, hS ) − RPS (h, hS )| + ν 1 ∗ ≤ RPS (h, hS )) + dH∆H (DS , DT ) + ν 2
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+48 / 95
+
+Another analysis [Mansour et al.,COLT’09]
+
+∗ ∗ ∗ ∗ RPT (h) ≤ RPT (h, hS ) + RPT (hS , hT ) + RPT (hT ) ∗ = RPT (h, hS ) + ν ∗ ∗ ∗ ≤ RPS (h, hS ) + RPT (h, hS ) − RPS (h, hS ) + ν
+
+∗ ∗ ∗ ≤ RPS (h, hS ) + |RPT (h, hS ) − RPS (h, hS )| + ν 1 ∗ ≤ RPS (h, hS )) + dH∆H (DS , DT ) + ν 2 1 ∗ ∗ (≤ RPS (h) + dH∆H (DS , DT ) + RPS (hS ) + ν) if hS is not the true lab 2
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+48 / 95
+
+Another analysis [Mansour et al.,COLT’09]
+∗ ∗ ∗ ∗ RPT (h) ≤ RPT (h, hS ) + RPT (hS , hT ) + RPT (hT ) ∗ = RPT (h, hS ) + ν ∗ ∗ ∗ ≤ RPS (h, hS ) + RPT (h, hS ) − RPS (h, hS ) + ν
+
+∗ ∗ ∗ ≤ RPS (h, hS ) + |RPT (h, hS ) − RPS (h, hS )| + ν 1 ∗ ≤ RPS (h, hS )) + dH∆H (DS , DT ) + ν 2 1 ∗ ∗ (≤ RPS (h) + dH∆H (DS , DT ) + RPS (hS ) + ν) if hS is not the true lab 2
+
+This analysis can lead to smaller when adaptation is possible Leads to the same type of bound, just the constant changes .....
+(LaHC) Domain Adaptation - EPAT’14 48 / 95
+
+Characterization of the possibility of domain adaptation
+
+Constants characterize when adaptation is possible
+λ = RPS (h∗ ) + RPT (h∗ ), h∗ = argminh∈H RPS (h) + RPT (h) There must exist an ideal joint hypothesis with small error
+∗ ∗ ∗ ν = RPT (hS , hT ) + RPT (hT ) there must exist a very good hypothesis on the target and the best hypothesis on source must be close to the best on target w.r.t to DT
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+49 / 95
+
+Other settings
+Discrepancy [Mansour et al.,COLT’09]
+instead of the 0-1 loss, more general loss functions (i.e. Lp norms) disc (DS , DT ) = suph,h ∈H |RDS (h, h ) − RDT (h, h )| This discrepancy can be minimized and used as a reweighting method ([Mansour et al.,COLT’09] - polynomial for L2 norm for example)
+
+Using some target labeled data
+Weighting the empirical source and target risks [Ben David et al.,2010] Using a divergence taking into account target labels [Zhang et al.,NIPS’12] (a divergence must take into account marginals over X and Y , the λ constant counts for Y )
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+50 / 95
+
+Other settings
+
+Averaged quantities [Germain et al.,ICML’13]
+Consider a probability distribution ρ (posterior) over H to learn and the following risk: E RPT (h)
+h∼ρ
+
+Deﬁnition of an averaged distance dis(DS , DT ) =
+h,h ∼ρ2
+
+E [RDT (h, h ) − RDS (h, h )]
+
+Similar generalization bound E RPT (h) ≤ E RPS (h) + dis(DS , DT ) + λρ∗
+h∼ρ h∼ρ
+
+Estimation from samples controlled by PAC-Bayesian theory Bound tighter without a supremum
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+51 / 95
+
+Feature/Projection based Approaches
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+52 / 95
+
+Idea
+Change the feature representation X to better represent shared characteristics between the two domains
+some features are domain-speciﬁc, others are generalizable or there exist mappings from the original space
+
+⇒ Make source and target domain explicitely similar ⇒ Learn a new feature space by embedding or projection
+Source
+T arget
+
+joint feature space (smaller or higher dimension)
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+53 / 95
+
+Metric Learning [Kulis et al.,’11;Saenko et al.,’10]
+
+2 Mahalanobis: dW (x, x ) = (x − x )T W(x − x )
+
+PSD matrix W = LT L, L projection space of dimension Rrank(W)×d (Lx − Lx )T (Lx − Lx ) Pair-wise constraints: source ex. (xs , yis ) and target (xt , yjt ) j i
+2 dW (xs , xt ) ≤ u if yis = yjt (source and target must be similar) i j 2 dW (xs , xt ) ≥ l if yis = yjt (source and target must be dissimilar) i j
+
+Require some target labels
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+54 / 95
+
+Metric Learning [Kulis et al.,CVPR’11;Saenko et al.,ECCV’10]
+
+[Saenko et al.,ECCV’10]
+
+Formulation (based on ITML [Davis et al.,ICML’07])
+minW
+0
+
+Tr (W) − log detW
+2 dW (xs , xt ) ≤ u, ∀(xs , xt ) ∈ SimilarSet j i j i 2 dW (xs , xt ) ≥ l, ∀(xs , xt ) ∈ DissimilarSet i j i j
+
+s.t.
+
+⇒ Can be kernelized
+(LaHC) Domain Adaptation - EPAT’14 55 / 95
+
+(Simple) Feature augmentation [Daume III et al.,’07;’10]
+φ(x) =< x, x, 0 > for source instances φ(x) =< x, 0, x > for target instances ⇒ Share some relevant features and not irrelevant ones (e.g. in text sentiment analysis: ﬁnd shared words) ⇒ a way to allow the existency of the ideal joint hypothesis h∗
+
+Learn in the new space φ
+Require target labels Bound: RDT ≤ 1 1 2 (RT + RS ) + O(complexity ) + ( ms +
+1 1 mt )O( δ )
+
++ O(dH∆H (DS , DT ))
+
+Kernelized and semi-supervised versions [add: (+1, < 0, x, −x >) and (−1, < 0, x, −x >) to learning sample]
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+56 / 95
+
+Find latent spaces - Structural Correspondence Learning [Blitzer et al.,’07]
+Identify shared features
+
+Sentiment analysis - Bag of words (bigrams) Choose K pivot features (frequent words in both domains, highly correlated with labels) Learn K classiﬁers to predict pivot features from remaining features For each feature add K new features Represents source and target data with these features
+(LaHC) Domain Adaptation - EPAT’14 57 / 95
+
+Find latent spaces - Structural Correspondence Learning [Blitzer et al.,’07]
+Apply PCA source+target new features to get a low rank latent representation Learn a classiﬁer in the new projection space deﬁned by PCA
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+58 / 95
+
+Manifold-based methods
+
+Assume X ⊆ RN Apply PCA on source data ⇒ matrix S1 of rank d Apply PCA on target data ⇒ matrix S2 of rank d Geodesic path on the Grassman manifold GN,d (d-dimensional vector subspaces ⊂ RN ) between S1 and S2
+(LaHC) Domain Adaptation - EPAT’14 59 / 95
+
+Manifold-based methods
+
+[Gopalan et al.,’10] Use of an exponential ﬂow ψ(t ) = Qexp(t B)J with Q N × N matrix with determinant 1 s.t. QT S1 = J and JT = [Id 0N−d,d ] intermediate subspaces are obtained by computing B (skew block-diagonal matrix) and varying t between 0 and 1 Take a collection S of l subspaces between S1 and S2 on the manifold Project the data on S and learn in that new space
+(LaHC) Domain Adaptation - EPAT’14 60 / 95
+
+A simpler approach - Subspace alignment [Fernando et al.,ICCV’13]
+
+Move closer PCA-based representations Totally unsupervised
+(LaHC) Domain Adaptation - EPAT’14 61 / 95
+
+Subspace alignment algorithm
+Algorithm 1: Subspace alignment DA algorithm
+Data: Source data S, Target data T , Source labels YS , Subspace dimension d Result: Predicted target labels YT S1 ← PCA(S, d) (source subspace deﬁned by the ﬁrst d eigenvectors) ; S2 ← PCA(T , d) (target subspace deﬁned by the ﬁrst d eigenvectors); Xa ← S1 S1 S2 (operator for aligning the source subspace to the target one); Sa = SXa (new source data in the aligned space); TT = T S 2 (new target data in the aligned space); YT ← Classiﬁer (Sa , TT , YS ) ;
+
+M∗ = S1 S2 corresponds to the “subspace alignment matrix”: M∗ = argminM S1 M − S2 Xa = S1 S1 S2 = S1 M∗ projects the source data to the target subspace A natural similarity: Sim(xs , xt ) = xs S1 M∗ S1 xt = xs Axt
+(LaHC) Domain Adaptation - EPAT’14 62 / 95
+
+Some results
+
+Adaptation from Oﬃce/Caltech-10 datasets (four domains to adapt) is used as source and one as target Comparisons
+Baseline 1: projection on the source subspace Baseline 2: projection on the target subspace 2 related methods : GFK [Gong et al., CVPR’12] and GFS [Gopalan et al.,ICCV’11]
+(LaHC) Domain Adaptation - EPAT’14 63 / 95
+
+Some results
+• Oﬃce/Caltech-10 datasets with 4 domains A, B, C ,D
+
+• Divergences
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+64 / 95
+
+Feature-based method
+Feature-based approaches are very popular Many other (SVM/kernel-based, MKL, deep learning [Glorot et al.,ICML’11], ...) methods not covered here, Subspace-based methods ⇒ “hot topic” Embed similarity map: deﬁne feature as similarity to landmarks points - labeled source instances distributed similarly to the target domain
+
+⇒ [Grauman,VisDA-WS ICCV’13] → subsampling: work with instances facilitating adaptation or use distances to headphones as a representation < k(·, x1 ), k(·, x2 ), k(·, x3 ), k(·, x4 ), k(·, x5 ), ... >, ...
+(LaHC) Domain Adaptation - EPAT’14 65 / 95
+
+Adjusting/Iterative methods
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+66 / 95
+
+Principle
+
+Integrate some information about the target samples iteratively ⇒ use of pseudo-labels “Move” closer distributions ⇒ Remove/add some instances ⇒ take into account a divergence measure Repeat the process until convergence or no remaining instances
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+67 / 95
+
+DASVM [Bruzzone et al.,’10]
+A brief recap on SVM
+Learning sample LS = {(xi , yi )}n i=1 Learn a classiﬁer h(x) = w, x + b Formulation: min
+w,b,ξ 1 2 i( 2 2 n i=1 ξi
+
+w
+
++ C
+
+subject to
+
+w, xi + b) ≥ 1 − ξi , 1 ≤ i ≤ n ξ 0
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+68 / 95
+
+DASVM principle
+1 2 3
+
+LS = S Learn a classiﬁer h0 from the learning sample LS Repeat until stopping criterion
+Select the ﬁrst k target examples xt s.t. 0 < h(xt ) < 1 with highest margin and aﬀect the pseudo-label −1 Select the ﬁrst k target examples xt s.t. −1 < h(xt ) < 0 with highest margin and aﬀect them the pseudo-label +1 Add these 2k examples (pseudo-labeled) to LS Remove from LS the ﬁrst k positive and k negative source instances with highest margin
+
+4
+
+Output the last classiﬁer
+
+Algorithm stops when the number of selected instances at each step downs to a threshold.
+(LaHC) Domain Adaptation - EPAT’14 69 / 95
+
+DASVM - graphical illustration
+
++
+
++ + + + +
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+70 / 95
+
+DASVM - graphical illustration
+
++
+
++ + + + +
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+70 / 95
+
+DASVM - graphical illustration
+
++
+
++ ++
+
++ + + + +
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+70 / 95
+
+DASVM - graphical illustration
+
++
+
++ ++
+
++ +
+
+(LaHC)
+
+Domain Adaptation - EPAT’14
+
+70 / 95
+

@@ -1,0 +1,2706 @@
+<html class="ve-not-available">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="wpd_version" content="0.2">
+<meta name="wpd_baseurl" content="https://en.wikipedia.org/wiki/Dot_product">
+<meta name="wpd_url" content="https://en.wikipedia.org/wiki/Dot_product">
+<meta name="wpd_date" content="2016-08-11T14:20Z">
+
+<meta charset="UTF-8">
+<title>Dot product - Wikipedia, the free encyclopedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Dot_product","wgTitle":"Dot product","wgCurRevisionId":736609693,"wgRevisionId":736609693,"wgArticleId":157093,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles containing proofs","Bilinear forms","Linear algebra","Vectors (mathematics and physics)","Analytic geometry","Tensors"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Dot_product","wgRelevantArticleId":157093,"wgRequestId":"V9VTPApAAEEAAHT8XNQAAAAS","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"preview":false,"publish":false},"wgBetaFeaturesFeatures":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","usePageImages":true,"usePageDescriptions":true},"wgPreferredVariant":"en","wgMFDisplayWikibaseDescriptions":{"search":true,"nearby":true,"watchlist":true,"tagline":false},"wgRelatedArticles":null,"wgRelatedArticlesUseCirrusSearch":true,"wgRelatedArticlesOnlyUseCirrusSearch":false,"wgULSCurrentAutonym":"English","wgNoticeProject":"wikipedia","wgCentralNoticeCookiesToDelete":[],"wgCentralNoticeCategoriesUsingLegacy":["Fundraising","fundraising"],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgWikibaseItemId":"Q181365","wgCentralAuthMobileDomain":false,"wgVisualEditorToolbarScrollOffset":0,"wgEditSubmitButtonLabelPublish":false});mw.loader.state({"ext.globalCssJs.user.styles":"ready","ext.globalCssJs.site.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","user.cssprefs":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.cite.styles":"ready","ext.math.styles":"ready","wikibase.client.init":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.nojs":"ready","ext.tmh.thumbnail.styles":"ready","ext.wikimediaBadges":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready","ext.globalCssJs.user":"ready","ext.globalCssJs.site":"ready"});mw.loader.implement("user.options",function($,jQuery,require,module){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/;
+
+});mw.loader.load(["mediawiki.page.startup","mediawiki.legacy.wikibits","ext.centralauth.centralautologin","mmv.head","ext.visualEditor.desktopArticleTarget.init","ext.uls.interface","ext.quicksurveys.init","mw.MediaWikiPlayer.loader","mw.PopUpMediaTransform","skins.vector.js"]);});</script>
+
+<script async="" src="load.php"></script>
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+<meta name="generator" content="MediaWiki 1.28.0-wmf.18">
+<meta name="referrer" content="origin-when-cross-origin">
+<link rel="alternate" href="android-app://org.wikipedia/http/en.m.wikipedia.org/wiki/Dot_product">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit">
+<link rel="edit" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit">
+<link rel="apple-touch-icon" href="https://en.wikipedia.org/static/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="https://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="canonical" href="https://en.wikipedia.org/wiki/Dot_product">
+<link rel="dns-prefetch" href="https://login.wikimedia.org/">
+<link rel="dns-prefetch" href="https://meta.wikimedia.org/">
+<script src="load_001.php"></script><script src="load_001.php"></script>
+<link rel="stylesheet" type="text/css" href="Dot_product.css" media="all">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Dot_product rootpage-Dot_product skin-vector action-view feature-page-action-bar-v2">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+							<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --></div>
+						<div class="mw-indicators">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">Dot product</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"></div>
+												<div id="jump-to-nav" class="mw-jump">
+
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><div role="note" class="hatnote">"Scalar product" redirects here. For the abstract scalar product, see <a href="https://en.wikipedia.org/wiki/Inner_product_space" title="Inner product space">Inner product space</a>. For the product of a vector and a scalar, see <a href="https://en.wikipedia.org/wiki/Scalar_multiplication" title="Scalar multiplication">Scalar multiplication</a>.</div>
+<p>In <a href="https://en.wikipedia.org/wiki/Mathematics" title="Mathematics">mathematics</a>, the <b>dot product</b> or <b>scalar product</b><sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup> (sometimes <b>inner product</b> in the context of <a href="https://en.wikipedia.org/wiki/Euclidean_space" title="Euclidean space">Euclidean space</a>, or rarely <b>projection product</b> for emphasizing the <a href="https://en.wikipedia.org/wiki/Vector_projection" title="Vector projection">geometric significance</a>), is an algebraic operation that takes two equal-length sequences of numbers (usually <a href="https://en.wikipedia.org/wiki/Coordinate_vector" title="Coordinate vector">coordinate vectors</a>) and returns a single number. This operation can be defined either algebraically or geometrically. Algebraically, it is the sum of the <a href="https://en.wikipedia.org/wiki/Product_(mathematics)" title="Product (mathematics)">products</a> of the corresponding entries of the two sequences of numbers. Geometrically, it is the product of the <a href="https://en.wikipedia.org/wiki/Euclidean_vector#Length" title="Euclidean vector">Euclidean magnitudes</a> of the two vectors and the <a href="https://en.wikipedia.org/wiki/Cosine" class="mw-redirect" title="Cosine">cosine</a> of the angle between them. The name "dot product" is derived from the <a href="https://en.wikipedia.org/wiki/Dot_operator" class="mw-redirect" title="Dot operator">centered dot</a> "&nbsp;<b>·</b>&nbsp;" that is often used to designate this operation; the alternative name "scalar product" emphasizes that the result is a <a href="https://en.wikipedia.org/wiki/Scalar_(mathematics)" title="Scalar (mathematics)">scalar</a> (rather than a <a href="https://en.wikipedia.org/wiki/Euclidean_vector" title="Euclidean vector">vector</a>).</p>
+<p>In <a href="https://en.wikipedia.org/wiki/Three-dimensional_space" title="Three-dimensional space">three-dimensional space</a>, the dot product contrasts with the <a href="https://en.wikipedia.org/wiki/Cross_product" title="Cross product">cross product</a> of two vectors, which produces a <a href="https://en.wikipedia.org/wiki/Pseudovector" title="Pseudovector">pseudovector</a> as the result. The dot product is directly related to the cosine of the angle between two vectors in Euclidean space of any number of dimensions.</p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Definition"><span class="tocnumber">1</span> <span class="toctext">Definition</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Algebraic_definition"><span class="tocnumber">1.1</span> <span class="toctext">Algebraic definition</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="#Geometric_definition"><span class="tocnumber">1.2</span> <span class="toctext">Geometric definition</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="#Scalar_projection_and_first_properties"><span class="tocnumber">1.3</span> <span class="toctext">Scalar projection and first properties</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Equivalence_of_the_definitions"><span class="tocnumber">1.4</span> <span class="toctext">Equivalence of the definitions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Properties"><span class="tocnumber">2</span> <span class="toctext">Properties</span></a>
+<ul>
+<li class="toclevel-2 tocsection-7"><a href="#Application_to_the_law_of_cosines"><span class="tocnumber">2.1</span> <span class="toctext">Application to the law of cosines</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-8"><a href="#Triple_product_expansion"><span class="tocnumber">3</span> <span class="toctext">Triple product expansion</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#Physics"><span class="tocnumber">4</span> <span class="toctext">Physics</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="#Generalizations"><span class="tocnumber">5</span> <span class="toctext">Generalizations</span></a>
+<ul>
+<li class="toclevel-2 tocsection-11"><a href="#Complex_vectors"><span class="tocnumber">5.1</span> <span class="toctext">Complex vectors</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="#Inner_product"><span class="tocnumber">5.2</span> <span class="toctext">Inner product</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="#Functions"><span class="tocnumber">5.3</span> <span class="toctext">Functions</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="#Weight_function"><span class="tocnumber">5.4</span> <span class="toctext">Weight function</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="#Dyadics_and_matrices"><span class="tocnumber">5.5</span> <span class="toctext">Dyadics and matrices</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="#Tensors"><span class="tocnumber">5.6</span> <span class="toctext">Tensors</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-17"><a href="#Computation"><span class="tocnumber">6</span> <span class="toctext">Computation</span></a>
+<ul>
+<li class="toclevel-2 tocsection-18"><a href="#Algorithms"><span class="tocnumber">6.1</span> <span class="toctext">Algorithms</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="#Libraries"><span class="tocnumber">6.2</span> <span class="toctext">Libraries</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="#See_also"><span class="tocnumber">7</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="#References"><span class="tocnumber">8</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="#External_links"><span class="tocnumber">9</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Definition">Definition</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=1" title="Edit section: Definition">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The dot product may be defined algebraically or geometrically. The geometric definition is based on the notions of angle and distance (magnitude of vectors). The equivalence of these two definitions relies on having a <a href="https://en.wikipedia.org/wiki/Cartesian_coordinate_system" title="Cartesian coordinate system">Cartesian coordinate system</a> for Euclidean space.</p>
+<p>In modern presentations of <a href="https://en.wikipedia.org/wiki/Euclidean_geometry" title="Euclidean geometry">Euclidean geometry</a>, the points of space are defined in terms of their <a href="https://en.wikipedia.org/wiki/Cartesian_coordinates" class="mw-redirect" title="Cartesian coordinates">Cartesian coordinates</a>, and <a href="https://en.wikipedia.org/wiki/Euclidean_space" title="Euclidean space">Euclidean space</a> itself is commonly identified with the <a href="https://en.wikipedia.org/wiki/Real_coordinate_space" title="Real coordinate space">real coordinate space</a> <b>R</b><sup><i>n</i></sup>. In such a presentation, the notions of length and angles are not primitive. They are defined by means of the dot product: the length of a vector is defined as the <a href="https://en.wikipedia.org/wiki/Square_root" title="Square root">square root</a> of the dot product of the vector by itself, and the <a href="https://en.wikipedia.org/wiki/Cosine" class="mw-redirect" title="Cosine">cosine</a> of the (non oriented) angle of two vectors of length one is defined as their dot product. So the equivalence of the two definitions of the dot product is a part of the equivalence of the classical and the modern formulations of Euclidean geometry.</p>
+<h3><span class="mw-headline" id="Algebraic_definition">Algebraic definition</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=2" title="Edit section: Algebraic definition">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The dot product of two vectors <span class="nowrap"><b>A</b> = [<i>A</i><sub>1</sub>, <i>A</i><sub>2</sub>, ..., <i>A</i><sub><i>n</i></sub>]</span> and <span class="nowrap"><b>B</b> = [<i>B</i><sub>1</sub>, <i>B</i><sub>2</sub>, ..., <i>B</i><sub><i>n</i></sub>]</span> is defined as:<sup id="cite_ref-Lipschutz2009_2-0" class="reference"><a href="#cite_note-Lipschutz2009-2">[2]</a></sup></p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>=</mo>
+        <munderover>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>1</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </munderover>
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>B</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>B</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>+</mo>
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>2</mn>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>B</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>2</mn>
+          </mrow>
+        </msub>
+        <mo>+</mo>
+        <mo>⋯<!-- ⋯ --></mo>
+        <mo>+</mo>
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>B</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot \mathbf {B} =\sum _{i=1}^{n}A_{i}B_{i}=A_{1}B_{1}+A_{2}B_{2}+\cdots +A_{n}B_{n}}</annotation>
+  </semantics>
+</math></span><img src="af37e403a991bc025d1393175c48da59f50db69b" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.005ex; width: 49.312ex; height: 7.009ex;" alt="{\displaystyle \mathbf {A} \cdot \mathbf {B} =\sum _{i=1}^{n}A_{i}B_{i}=A_{1}B_{1}+A_{2}B_{2}+\cdots +A_{n}B_{n}}"></span></dd>
+</dl>
+<p>where Σ denotes <a href="https://en.wikipedia.org/wiki/Summation" title="Summation">summation notation</a> and <i>n</i> is the dimension of the <a href="https://en.wikipedia.org/wiki/Vector_space" title="Vector space">vector space</a>. For instance, in <a href="https://en.wikipedia.org/wiki/Three-dimensional_space_(mathematics)" class="mw-redirect" title="Three-dimensional space (mathematics)">three-dimensional space</a>, the dot product of vectors <span class="nowrap">[1, 3, −5]</span> and <span class="nowrap">[4, −2, −1]</span> is:</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mtable columnalign="right left right left right left right left right left right left" rowspacing="3pt" columnspacing="0em 2em 0em 2em 0em 2em 0em 2em 0em 2em 0em" displaystyle="true">
+            <mtr>
+              <mtd>
+                <mtext>&nbsp;</mtext>
+                <mo stretchy="false">[</mo>
+                <mn>1</mn>
+                <mo>,</mo>
+                <mn>3</mn>
+                <mo>,</mo>
+                <mo>−<!-- − --></mo>
+                <mn>5</mn>
+                <mo stretchy="false">]</mo>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mo stretchy="false">[</mo>
+                <mn>4</mn>
+                <mo>,</mo>
+                <mo>−<!-- − --></mo>
+                <mn>2</mn>
+                <mo>,</mo>
+                <mo>−<!-- − --></mo>
+                <mn>1</mn>
+                <mo stretchy="false">]</mo>
+              </mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <mo stretchy="false">(</mo>
+                <mn>1</mn>
+                <mo stretchy="false">)</mo>
+                <mo stretchy="false">(</mo>
+                <mn>4</mn>
+                <mo stretchy="false">)</mo>
+                <mo>+</mo>
+                <mo stretchy="false">(</mo>
+                <mn>3</mn>
+                <mo stretchy="false">)</mo>
+                <mo stretchy="false">(</mo>
+                <mo>−<!-- − --></mo>
+                <mn>2</mn>
+                <mo stretchy="false">)</mo>
+                <mo>+</mo>
+                <mo stretchy="false">(</mo>
+                <mo>−<!-- − --></mo>
+                <mn>5</mn>
+                <mo stretchy="false">)</mo>
+                <mo stretchy="false">(</mo>
+                <mo>−<!-- − --></mo>
+                <mn>1</mn>
+                <mo stretchy="false">)</mo>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd></mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <mn>4</mn>
+                <mo>−<!-- − --></mo>
+                <mn>6</mn>
+                <mo>+</mo>
+                <mn>5</mn>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd></mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <mn>3.</mn>
+              </mtd>
+            </mtr>
+          </mtable>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\begin{aligned}\ [1,3,-5]\cdot [4,-2,-1]&amp;=(1)(4)+(3)(-2)+(-5)(-1)\\&amp;=4-6+5\\&amp;=3.\end{aligned}}}</annotation>
+  </semantics>
+</math></span><img src="629382754039a54ee103d63949c15eb3bbb082a3" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -4.005ex; width: 54.607ex; height: 9.009ex;" alt="{\begin{aligned}\ [1,3,-5]\cdot [4,-2,-1]&amp;=(1)(4)+(3)(-2)+(-5)(-1)\\&amp;=4-6+5\\&amp;=3.\end{aligned}}"></span></dd>
+</dl>
+<h3><span class="mw-headline" id="Geometric_definition">Geometric definition</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=3" title="Edit section: Geometric definition">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>In <a href="https://en.wikipedia.org/wiki/Euclidean_space" title="Euclidean space">Euclidean space</a>, a <a href="https://en.wikipedia.org/wiki/Euclidean_vector" title="Euclidean vector">Euclidean vector</a> is a geometrical object that possesses both a magnitude and a direction. A vector can be pictured as an arrow. Its magnitude is its length, and its direction is the direction that the arrow points. The magnitude of a vector <b>A</b> is denoted by <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\|\mathbf {A} \right\|}</annotation>
+  </semantics>
+</math></span><img src="169597352ea3faee7f5c6d5bf0e60096d63a85af" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 4.376ex; height: 2.843ex;" alt="\left\|\mathbf {A} \right\|"></span>. The dot product of two Euclidean vectors <b>A</b> and <b>B</b> is defined by<sup id="cite_ref-Spiegel2009_3-0" class="reference"><a href="#cite_note-Spiegel2009-3">[3]</a></sup><sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>=</mo>
+        <mo>∥<!-- ∥ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>∥<!-- ∥ --></mo>
+        <mtext>&nbsp;</mtext>
+        <mo>∥<!-- ∥ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>∥<!-- ∥ --></mo>
+        <mi>cos</mi>
+        <mo>⁡<!-- ⁡ --></mo>
+        <mo stretchy="false">(</mo>
+        <mi>θ<!-- θ --></mi>
+        <mo stretchy="false">)</mo>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot \mathbf {B} =\|\mathbf {A} \|\ \|\mathbf {B} \|\cos(\theta ),}</annotation>
+  </semantics>
+</math></span><img src="e6c94733992f42b0576562b7936e4a160b058089" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 25.072ex; height: 2.843ex;" alt="{\displaystyle \mathbf {A} \cdot \mathbf {B} =\|\mathbf {A} \|\ \|\mathbf {B} \|\cos(\theta ),}"></span></dd>
+</dl>
+<p>where θ is the <a href="https://en.wikipedia.org/wiki/Angle" title="Angle">angle</a> between <b>A</b> and <b>B</b>.</p>
+<p>In particular, if <b>A</b> and <b>B</b> are <a href="https://en.wikipedia.org/wiki/Orthogonal" class="mw-redirect" title="Orthogonal">orthogonal</a>, then the angle between them is 90° and</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>=</mo>
+        <mn>0.</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot \mathbf {B} =0.}</annotation>
+  </semantics>
+</math></span><img src="409422cabf491c548f0741bce1176a4dd95587a5" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 10.57ex; height: 2.176ex;" alt="\mathbf {A} \cdot \mathbf {B} =0."></span></dd>
+</dl>
+<p>At the other extreme, if they are codirectional, then the angle between them is 0° and</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>=</mo>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mspace width="thinmathspace"></mspace>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">B</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot \mathbf {B} =\left\|\mathbf {A} \right\|\,\left\|\mathbf {B} \right\|}</annotation>
+  </semantics>
+</math></span><img src="edfd09f423a59559d1025b3528dca10dfb4f8bbd" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 18.147ex; height: 2.843ex;" alt="\mathbf {A} \cdot \mathbf {B} =\left\|\mathbf {A} \right\|\,\left\|\mathbf {B} \right\|"></span></dd>
+</dl>
+<p>This implies that the dot product of a vector <b>A</b> by itself is</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>=</mo>
+        <msup>
+          <mrow>
+            <mo>∥</mo>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="bold">A</mi>
+            </mrow>
+            <mo>∥</mo>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>2</mn>
+          </mrow>
+        </msup>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot \mathbf {A} =\left\|\mathbf {A} \right\|^{2},}</annotation>
+  </semantics>
+</math></span><img src="4684ec0ed118a6ed4e12a43c1fb4a8cc8ef41c06" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 14.953ex; height: 3.343ex;" alt="\mathbf {A} \cdot \mathbf {A} =\left\|\mathbf {A} \right\|^{2},"></span></dd>
+</dl>
+<p>which gives</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="bold">A</mi>
+            </mrow>
+            <mo>⋅<!-- ⋅ --></mo>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="bold">A</mi>
+            </mrow>
+          </msqrt>
+        </mrow>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\|\mathbf {A} \right\|={\sqrt {\mathbf {A} \cdot \mathbf {A} }},}</annotation>
+  </semantics>
+</math></span><img src="fe745b1cea69ef9ae8521459848b55624b7936f9" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 15.838ex; height: 3.176ex;" alt="\left\|\mathbf {A} \right\|={\sqrt {\mathbf {A} \cdot \mathbf {A} }},"></span></dd>
+</dl>
+<p>the formula for the <a href="https://en.wikipedia.org/wiki/Euclidean_length" class="mw-redirect" title="Euclidean length">Euclidean length</a> of the vector.</p>
+<h3><span class="mw-headline" id="Scalar_projection_and_first_properties">Scalar projection and first properties</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=4" title="Edit section: Scalar projection and first properties">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<div class="thumb tright">
+<div class="thumbinner" style="width: 222px;"><a href="https://en.wikipedia.org/wiki/File:Dot_Product.svg" class="image"><img alt="" src="220px-Dot_Product.svg.png" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Dot_Product.svg/330px-Dot_Product.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Dot_Product.svg/440px-Dot_Product.svg.png 2x" data-file-width="300" data-file-height="240" height="176" width="220"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="https://en.wikipedia.org/wiki/File:Dot_Product.svg" class="internal" title="Enlarge"></a></div>
+Scalar projection</div>
+</div>
+</div>
+<p>The <a href="https://en.wikipedia.org/wiki/Scalar_projection" title="Scalar projection">scalar projection</a> (or scalar component) of a Euclidean vector <b>A</b> in the direction of a Euclidean vector <b>B</b> is given by</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mi>cos</mi>
+        <mo>⁡<!-- ⁡ --></mo>
+        <mi>θ<!-- θ --></mi>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle A_{B}=\left\|\mathbf {A} \right\|\cos \theta ,}</annotation>
+  </semantics>
+</math></span><img src="64b5cfe80ea4a39874f8e22ff8705c96921b7605" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 16.4ex; height: 2.843ex;" alt="A_{B}=\left\|\mathbf {A} \right\|\cos \theta ,"></span></dd>
+</dl>
+<p>where θ is the angle between <b>A</b> and <b>B</b>.</p>
+<p>In terms of the geometric definition of the dot product, this can be rewritten</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi mathvariant="bold">B</mi>
+              </mrow>
+              <mo>^<!-- ^ --></mo>
+            </mover>
+          </mrow>
+        </mrow>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle A_{B}=\mathbf {A} \cdot {\widehat {\mathbf {B} }},}</annotation>
+  </semantics>
+</math></span><img src="014aa6fee0e38aa18d6e199fb8e3a1d8467368d2" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 12.638ex; height: 3.343ex;" alt="A_{B}=\mathbf {A} \cdot {\widehat {\mathbf {B} }},"></span></dd>
+</dl>
+<p>where <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi mathvariant="bold">B</mi>
+              </mrow>
+              <mo>^<!-- ^ --></mo>
+            </mover>
+          </mrow>
+        </mrow>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mo>/</mo>
+        </mrow>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">B</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\widehat {\mathbf {B} }}=\mathbf {B} /\left\|\mathbf {B} \right\|}</annotation>
+  </semantics>
+</math></span><img src="1929bbd070425934408c17578a315147e51299ce" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 12.749ex; height: 3.509ex;" alt="{\widehat {\mathbf {B} }}=\mathbf {B} /\left\|\mathbf {B} \right\|"></span> is the <a href="https://en.wikipedia.org/wiki/Unit_vector" title="Unit vector">unit vector</a> in the direction of <b>B</b>.</p>
+<div class="thumb tright">
+<div class="thumbinner" style="width: 222px;"><a href="https://en.wikipedia.org/wiki/File:Dot_product_distributive_law.svg" class="image"><img alt="" src="220px-Dot_product_distributive_law.svg.png" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Dot_product_distributive_law.svg/330px-Dot_product_distributive_law.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Dot_product_distributive_law.svg/440px-Dot_product_distributive_law.svg.png 2x" data-file-width="155" data-file-height="120" height="170" width="220"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="https://en.wikipedia.org/wiki/File:Dot_product_distributive_law.svg" class="internal" title="Enlarge"></a></div>
+Distributive law for the dot product</div>
+</div>
+</div>
+<p>The dot product is thus characterized geometrically by<sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>=</mo>
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>B</mi>
+          </mrow>
+        </msub>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">B</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mo>=</mo>
+        <msub>
+          <mi>B</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>A</mi>
+          </mrow>
+        </msub>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot \mathbf {B} =A_{B}\left\|\mathbf {B} \right\|=B_{A}\left\|\mathbf {A} \right\|.}</annotation>
+  </semantics>
+</math></span><img src="56c612db4c48d9555e0171d8cb705523388e4096" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 28.788ex; height: 2.843ex;" alt="\mathbf {A} \cdot \mathbf {B} =A_{B}\left\|\mathbf {B} \right\|=B_{A}\left\|\mathbf {A} \right\|."></span></dd>
+</dl>
+<p>The dot product, defined in this manner, is homogeneous under scaling in each variable, meaning that for any scalar <i>α</i>,</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo stretchy="false">(</mo>
+        <mi>α<!-- α --></mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>=</mo>
+        <mi>α<!-- α --></mi>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mo stretchy="false">(</mo>
+        <mi>α<!-- α --></mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle (\alpha \mathbf {A} )\cdot \mathbf {B} =\alpha (\mathbf {A} \cdot \mathbf {B} )=\mathbf {A} \cdot (\alpha \mathbf {B} ).}</annotation>
+  </semantics>
+</math></span><img src="74c446de7c87b933402bfcde4806ef72a0efa64e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 33.753ex; height: 2.843ex;" alt="(\alpha \mathbf {A} )\cdot \mathbf {B} =\alpha (\mathbf {A} \cdot \mathbf {B} )=\mathbf {A} \cdot (\alpha \mathbf {B} )."></span></dd>
+</dl>
+<p>It also satisfies a <a href="https://en.wikipedia.org/wiki/Distributive_law" class="mw-redirect" title="Distributive law">distributive law</a>, meaning that</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>+</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">C</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>+</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">C</mi>
+        </mrow>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot (\mathbf {B} +\mathbf {C} )=\mathbf {A} \cdot \mathbf {B} +\mathbf {A} \cdot \mathbf {C} .}</annotation>
+  </semantics>
+</math></span><img src="6c018d5480b2b3557daa78c6a2d82cec54fa8f9c" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 30.163ex; height: 2.843ex;" alt="\mathbf {A} \cdot (\mathbf {B} +\mathbf {C} )=\mathbf {A} \cdot \mathbf {B} +\mathbf {A} \cdot \mathbf {C} ."></span></dd>
+</dl>
+<p>These properties may be summarized by saying that the dot product is a <a href="https://en.wikipedia.org/wiki/Bilinear_form" title="Bilinear form">bilinear form</a>. Moreover, this bilinear form is <a href="https://en.wikipedia.org/wiki/Positive_definite_bilinear_form" class="mw-redirect" title="Positive definite bilinear form">positive definite</a>, which means that <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot \mathbf {A} }</annotation>
+  </semantics>
+</math></span><img src="0884b8c35379b4822886d3c09ab75f87ebe366fd" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 5.749ex; height: 2.176ex;" alt="\mathbf {A} \cdot \mathbf {A} "></span> is never negative and is zero if and only if <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mn mathvariant="bold">0</mn>
+        </mrow>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} =\mathbf {0} .}</annotation>
+  </semantics>
+</math></span><img src="a8ebf3ac233c67ae535b385f0879aa4500f63eb5" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 7.143ex; height: 2.176ex;" alt="\mathbf {A} =\mathbf {0} ."></span></p>
+<h3><span class="mw-headline" id="Equivalence_of_the_definitions">Equivalence of the definitions</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=5" title="Edit section: Equivalence of the definitions">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>If <b>e</b><sub>1</sub>, ..., <b>e</b><sub><i>n</i></sub> are the <a href="https://en.wikipedia.org/wiki/Standard_basis" title="Standard basis">standard basis vectors</a> in <b>R</b><sup><i>n</i></sup>, then we may write</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mtable columnalign="right left right left right left right left right left right left" rowspacing="3pt" columnspacing="0em 2em 0em 2em 0em 2em 0em 2em 0em 2em 0em" displaystyle="true">
+            <mtr>
+              <mtd>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">A</mi>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <mo stretchy="false">[</mo>
+                <msub>
+                  <mi>A</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>1</mn>
+                  </mrow>
+                </msub>
+                <mo>,</mo>
+                <mo>…<!-- … --></mo>
+                <mo>,</mo>
+                <msub>
+                  <mi>A</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>n</mi>
+                  </mrow>
+                </msub>
+                <mo stretchy="false">]</mo>
+                <mo>=</mo>
+                <munder>
+                  <mo>∑<!-- ∑ --></mo>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>i</mi>
+                  </mrow>
+                </munder>
+                <msub>
+                  <mi>A</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>i</mi>
+                  </mrow>
+                </msub>
+                <msub>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi mathvariant="bold">e</mi>
+                  </mrow>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>i</mi>
+                  </mrow>
+                </msub>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">B</mi>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <mo stretchy="false">[</mo>
+                <msub>
+                  <mi>B</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>1</mn>
+                  </mrow>
+                </msub>
+                <mo>,</mo>
+                <mo>…<!-- … --></mo>
+                <mo>,</mo>
+                <msub>
+                  <mi>B</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>n</mi>
+                  </mrow>
+                </msub>
+                <mo stretchy="false">]</mo>
+                <mo>=</mo>
+                <munder>
+                  <mo>∑<!-- ∑ --></mo>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>i</mi>
+                  </mrow>
+                </munder>
+                <msub>
+                  <mi>B</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>i</mi>
+                  </mrow>
+                </msub>
+                <msub>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi mathvariant="bold">e</mi>
+                  </mrow>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mi>i</mi>
+                  </mrow>
+                </msub>
+                <mo>.</mo>
+              </mtd>
+            </mtr>
+          </mtable>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\begin{aligned}\mathbf {A} &amp;=[A_{1},\dots ,A_{n}]=\sum _{i}A_{i}\mathbf {e} _{i}\\\mathbf {B} &amp;=[B_{1},\dots ,B_{n}]=\sum _{i}B_{i}\mathbf {e} _{i}.\end{aligned}}}</annotation>
+  </semantics>
+</math></span><img src="414df0bac187f69a0fa911ec2f565e9cbdb04631" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -5.005ex; width: 30.394ex; height: 11.176ex;" alt="{\begin{aligned}\mathbf {A} &amp;=[A_{1},\dots ,A_{n}]=\sum _{i}A_{i}\mathbf {e} _{i}\\\mathbf {B} &amp;=[B_{1},\dots ,B_{n}]=\sum _{i}B_{i}\mathbf {e} _{i}.\end{aligned}}"></span></dd>
+</dl>
+<p>The vectors <b>e</b><sub><i>i</i></sub> are an <a href="https://en.wikipedia.org/wiki/Orthonormal_basis" title="Orthonormal basis">orthonormal basis</a>, which means that they have unit length and are at right angles to each other. Hence since these vectors have unit length</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">e</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>⋅<!-- ⋅ --></mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">e</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mn>1</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {e} _{i}\cdot \mathbf {e} _{i}=1}</annotation>
+  </semantics>
+</math></span><img src="e968dd877c8aa0c60a2832ff9a9a4ef841f9c80a" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 10.057ex; height: 2.509ex;" alt="\mathbf {e} _{i}\cdot \mathbf {e} _{i}=1"></span></dd>
+</dl>
+<p>and since they form right angles with each other, if <span class="nowrap"><i>i</i> ≠ <i>j</i></span>,</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">e</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>⋅<!-- ⋅ --></mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">e</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mn>0.</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {e} _{i}\cdot \mathbf {e} _{j}=0.}</annotation>
+  </semantics>
+</math></span><img src="ba6c4baae0f5df2f41e9f97879178b41f3ffce71" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width: 10.824ex; height: 2.843ex;" alt="\mathbf {e} _{i}\cdot \mathbf {e} _{j}=0."></span></dd>
+</dl>
+<p>Thus in general we can say that:</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">e</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>⋅<!-- ⋅ --></mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">e</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <msub>
+          <mi>δ<!-- δ --></mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {e} _{i}\cdot \mathbf {e} _{j}=\delta _{ij}.}</annotation>
+  </semantics>
+</math></span><img src="5b6e1f8ff9fe54a9056668d71d7fa2829250a66b" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width: 12.186ex; height: 3.009ex;" alt="\mathbf {e} _{i}\cdot \mathbf {e} _{j}=\delta _{ij}."></span></dd>
+</dl>
+<p>Where δ <sub>ij</sub> is the <a href="https://en.wikipedia.org/wiki/Kronecker_delta" title="Kronecker delta">Kronecker delta</a>.</p>
+<p>Also, by the geometric definition, for any vector <b>e</b><sub><i>i</i></sub> and a vector <b>A</b>, we note</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">e</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mspace width="thinmathspace"></mspace>
+        <mrow>
+          <mo>∥</mo>
+          <msub>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="bold">e</mi>
+            </mrow>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+            </mrow>
+          </msub>
+          <mo>∥</mo>
+        </mrow>
+        <mi>cos</mi>
+        <mo>⁡<!-- ⁡ --></mo>
+        <mi>θ<!-- θ --></mi>
+        <mo>=</mo>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mi>cos</mi>
+        <mo>⁡<!-- ⁡ --></mo>
+        <mi>θ<!-- θ --></mi>
+        <mo>=</mo>
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot \mathbf {e} _{i}=\left\|\mathbf {A} \right\|\,\left\|\mathbf {e} _{i}\right\|\cos \theta =\left\|\mathbf {A} \right\|\cos \theta =A_{i},}</annotation>
+  </semantics>
+</math></span><img src="c463c6016f63abf80a18a9e167066321da099731" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 42.256ex; height: 2.843ex;" alt="\mathbf {A} \cdot \mathbf {e} _{i}=\left\|\mathbf {A} \right\|\,\left\|\mathbf {e} _{i}\right\|\cos \theta =\left\|\mathbf {A} \right\|\cos \theta =A_{i},"></span></dd>
+</dl>
+<p>where <i>A</i><sub><i>i</i></sub> is the component of vector <b>A</b> in the direction of <b>e</b><sub><i>i</i></sub>.</p>
+<p>Now applying the distributivity of the geometric version of the dot product gives</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </munder>
+        <msub>
+          <mi>B</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">e</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </munder>
+        <msub>
+          <mi>B</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">e</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </munder>
+        <msub>
+          <mi>B</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {A} \cdot \mathbf {B} =\mathbf {A} \cdot \sum _{i}B_{i}\mathbf {e} _{i}=\sum _{i}B_{i}(\mathbf {A} \cdot \mathbf {e} _{i})=\sum _{i}B_{i}A_{i},}</annotation>
+  </semantics>
+</math></span><img src="7ada57de9d2f55a9abf11cc727733fb70eae3bef" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.005ex; width: 50.532ex; height: 5.509ex;" alt="\mathbf {A} \cdot \mathbf {B} =\mathbf {A} \cdot \sum _{i}B_{i}\mathbf {e} _{i}=\sum _{i}B_{i}(\mathbf {A} \cdot \mathbf {e} _{i})=\sum _{i}B_{i}A_{i},"></span></dd>
+</dl>
+<p>which is precisely the algebraic definition of the dot product. So the (geometric) dot product equals the (algebraic) dot product.</p>
+<h2><span class="mw-headline" id="Properties">Properties</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=6" title="Edit section: Properties">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The dot product fulfills the following properties if <b>a</b>, <b>b</b>, and <b>c</b> are real <a href="https://en.wikipedia.org/wiki/Vector_(geometry)" class="mw-redirect" title="Vector (geometry)">vectors</a> and <i>r</i> is a <a href="https://en.wikipedia.org/wiki/Scalar_(mathematics)" title="Scalar (mathematics)">scalar</a>.<sup id="cite_ref-Lipschutz2009_2-1" class="reference"><a href="#cite_note-Lipschutz2009-2">[2]</a></sup><sup id="cite_ref-Spiegel2009_3-1" class="reference"><a href="#cite_note-Spiegel2009-3">[3]</a></sup></p>
+<ol>
+<li><b><a href="https://en.wikipedia.org/wiki/Commutative" class="mw-redirect" title="Commutative">Commutative</a>:</b>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {a} \cdot \mathbf {b} =\mathbf {b} \cdot \mathbf {a} ,}</annotation>
+  </semantics>
+</math></span><img src="23da9e9ff4be4e3c6abcc7b7678f63383423a47d" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 12.757ex; height: 2.509ex;" alt="\mathbf {a} \cdot \mathbf {b} =\mathbf {b} \cdot \mathbf {a} ,"></span></dd>
+<dd>which follows from the definition (<i>θ</i> is the angle between <b>a</b> and <b>b</b>):</dd>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>=</mo>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">a</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">b</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mi>cos</mi>
+        <mo>⁡<!-- ⁡ --></mo>
+        <mi>θ<!-- θ --></mi>
+        <mo>=</mo>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">b</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mrow>
+          <mo>∥</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">a</mi>
+          </mrow>
+          <mo>∥</mo>
+        </mrow>
+        <mi>cos</mi>
+        <mo>⁡<!-- ⁡ --></mo>
+        <mi>θ<!-- θ --></mi>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {a} \cdot \mathbf {b} =\left\|\mathbf {a} \right\|\left\|\mathbf {b} \right\|\cos \theta =\left\|\mathbf {b} \right\|\left\|\mathbf {a} \right\|\cos \theta =\mathbf {b} \cdot \mathbf {a} .}</annotation>
+  </semantics>
+</math></span><img src="88b573eb991220abffbfacc70ee1431f2306f2f3" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 44.778ex; height: 2.843ex;" alt="\mathbf {a} \cdot \mathbf {b} =\left\|\mathbf {a} \right\|\left\|\mathbf {b} \right\|\cos \theta =\left\|\mathbf {b} \right\|\left\|\mathbf {a} \right\|\cos \theta =\mathbf {b} \cdot \mathbf {a} ."></span></dd>
+</dl>
+</li>
+<li><b><a href="https://en.wikipedia.org/wiki/Distributive_property" title="Distributive property">Distributive</a> over vector addition:</b>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>+</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">c</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>+</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">c</mi>
+        </mrow>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {a} \cdot (\mathbf {b} +\mathbf {c} )=\mathbf {a} \cdot \mathbf {b} +\mathbf {a} \cdot \mathbf {c} .}</annotation>
+  </semantics>
+</math></span><img src="5f483a3722bee6d25aaee76359d3c80a15898086" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 25.685ex; height: 2.843ex;" alt="\mathbf {a} \cdot (\mathbf {b} +\mathbf {c} )=\mathbf {a} \cdot \mathbf {b} +\mathbf {a} \cdot \mathbf {c} ."></span></dd>
+</dl>
+</li>
+<li><b><a href="https://en.wikipedia.org/wiki/Bilinear_form" title="Bilinear form">Bilinear</a></b>:
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mo stretchy="false">(</mo>
+        <mi>r</mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>+</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">c</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mi>r</mi>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>+</mo>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">c</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {a} \cdot (r\mathbf {b} +\mathbf {c} )=r(\mathbf {a} \cdot \mathbf {b} )+(\mathbf {a} \cdot \mathbf {c} ).}</annotation>
+  </semantics>
+</math></span><img src="b9f53cbee56949f939497c8b5ed0ceb9a2f25912" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 31.464ex; height: 2.843ex;" alt="\mathbf {a} \cdot (r\mathbf {b} +\mathbf {c} )=r(\mathbf {a} \cdot \mathbf {b} )+(\mathbf {a} \cdot \mathbf {c} )."></span></dd>
+</dl>
+</li>
+<li><b><a href="https://en.wikipedia.org/wiki/Scalar_multiplication" title="Scalar multiplication">Scalar multiplication</a>:</b>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>c</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>c</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>2</mn>
+          </mrow>
+        </msub>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <msub>
+          <mi>c</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>c</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>2</mn>
+          </mrow>
+        </msub>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle (c_{1}\mathbf {a} )\cdot (c_{2}\mathbf {b} )=c_{1}c_{2}(\mathbf {a} \cdot \mathbf {b} ).}</annotation>
+  </semantics>
+</math></span><img src="8d167dd8c90f29a915bf474aa78c34fd29ab75f8" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 26.563ex; height: 2.843ex;" alt="(c_{1}\mathbf {a} )\cdot (c_{2}\mathbf {b} )=c_{1}c_{2}(\mathbf {a} \cdot \mathbf {b} )."></span></dd>
+</dl>
+</li>
+<li><b>Not <a href="https://en.wikipedia.org/wiki/Associative" class="mw-redirect" title="Associative">associative</a></b> because the dot product between a scalar (<b>a ⋅ b</b>) and a vector (<b>c</b>) is not defined, which means that the expressions involved in the associative property, (<b>a ⋅ b</b>) ⋅ <b>c</b> or <b>a</b> ⋅ (<b>b ⋅ c</b>) are both ill-defined.<sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[6]</a></sup> Note however that the previously mentioned scalar multiplication property is sometimes called the "associative law for scalar and dot product"<sup id="cite_ref-BanchoffWermer1983_7-0" class="reference"><a href="#cite_note-BanchoffWermer1983-7">[7]</a></sup> or one can say that "the dot product is associative with respect to scalar multiplication" because <i>c</i> (<b>a</b> ⋅ <b>b</b>) = (<i>c</i> <b>a</b>) ⋅ <b>b</b> = <b>a</b> ⋅ (<i>c</i> <b>b</b>).<sup id="cite_ref-BedfordFowler2008_8-0" class="reference"><a href="#cite_note-BedfordFowler2008-8">[8]</a></sup></li>
+<li><b><a href="https://en.wikipedia.org/wiki/Orthogonal" class="mw-redirect" title="Orthogonal">Orthogonal</a>:</b>
+<dl>
+<dd>Two non-zero vectors <b>a</b> and <b>b</b> are <i>orthogonal</i> <a href="https://en.wikipedia.org/wiki/If_and_only_if" title="If and only if">if and only if</a> <span class="nowrap"><b>a</b> ⋅ <b>b</b> = 0</span>.</dd>
+</dl>
+</li>
+<li><b>No <a href="https://en.wikipedia.org/wiki/Cancellation_law" class="mw-redirect" title="Cancellation law">cancellation</a>:</b>
+<dl>
+<dd>Unlike multiplication of ordinary numbers, where if <span class="nowrap"><i>ab</i> = <i>ac</i></span>, then <i>b</i> always equals <i>c</i> unless <i>a</i> is zero, the dot product does not obey the <a href="https://en.wikipedia.org/wiki/Cancellation_law" class="mw-redirect" title="Cancellation law">cancellation law</a>:</dd>
+<dd>If <span class="nowrap"><b>a</b> ⋅ <b>b</b> = <b>a</b> ⋅ <b>c</b></span> and <span class="nowrap"><b>a</b> ≠ <b>0</b></span>, then we can write: <span class="nowrap"><b>a</b> ⋅ (<b>b</b> − <b>c</b>) = 0</span> by the <a href="https://en.wikipedia.org/wiki/Distributive_law" class="mw-redirect" title="Distributive law">distributive law</a>; the result above says this just means that <b>a</b> is perpendicular to <span class="nowrap">(<b>b</b> − <b>c</b>)</span>, which still allows <span class="nowrap">(<b>b</b> − <b>c</b>) ≠ <b>0</b></span>, and therefore <span class="nowrap"><b>b</b> ≠ <b>c</b></span>.</dd>
+</dl>
+</li>
+<li><b><a href="https://en.wikipedia.org/wiki/Product_Rule" class="mw-redirect" title="Product Rule">Product Rule</a>:</b> If <b>a</b> and <b>b</b> are <a href="https://en.wikipedia.org/wiki/Function_(mathematics)" title="Function (mathematics)">functions</a>, then the derivative (<a href="https://en.wikipedia.org/wiki/Notation_for_differentiation#Lagrange.27s_notation" title="Notation for differentiation">denoted by a prime</a> ′) of <span class="nowrap"><b>a</b> ⋅ <b>b</b></span> is <span class="nowrap"><b>a</b>′ ⋅ <b>b</b> + <b>a</b> ⋅ <b>b</b>′</span>.</li>
+</ol>
+<h3><span class="mw-headline" id="Application_to_the_law_of_cosines">Application to the law of cosines</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=7" title="Edit section: Application to the law of cosines">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<div class="thumb tright">
+<div class="thumbinner" style="width: 102px;"><a href="https://en.wikipedia.org/wiki/File:Dot_product_cosine_rule.svg" class="image"><img alt="" src="100px-Dot_product_cosine_rule.svg.png" class="thumbimage" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/51/Dot_product_cosine_rule.svg/150px-Dot_product_cosine_rule.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/5/51/Dot_product_cosine_rule.svg/200px-Dot_product_cosine_rule.svg.png 2x" data-file-width="106" data-file-height="135" height="127" width="100"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="https://en.wikipedia.org/wiki/File:Dot_product_cosine_rule.svg" class="internal" title="Enlarge"></a></div>
+Triangle with vector edges <b>a</b> and <b>b</b>, separated by angle <i>θ</i>.</div>
+</div>
+</div>
+<div role="note" class="hatnote">Main article: <a href="https://en.wikipedia.org/wiki/Law_of_cosines" title="Law of cosines">Law of cosines</a></div>
+<p>Given two vectors <b>a</b> and <b>b</b> separated by angle <i>θ</i> (see image right), they form a triangle with a third side <span class="nowrap"><b>c</b> = <b>a</b> − <b>b</b></span>. The dot product of this with itself is:</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mtable columnalign="right left right left right left right left right left right left" rowspacing="3pt" columnspacing="0em 2em 0em 2em 0em 2em 0em 2em 0em 2em 0em" displaystyle="true">
+            <mtr>
+              <mtd>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">c</mi>
+                </mrow>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">c</mi>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <mo stretchy="false">(</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>−<!-- − --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+                <mo stretchy="false">)</mo>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mo stretchy="false">(</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>−<!-- − --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+                <mo stretchy="false">)</mo>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd></mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>−<!-- − --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+                <mo>−<!-- − --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>+</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd></mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <msup>
+                  <mi>a</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>2</mn>
+                  </mrow>
+                </msup>
+                <mo>−<!-- − --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+                <mo>−<!-- − --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+                <mo>+</mo>
+                <msup>
+                  <mi>b</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>2</mn>
+                  </mrow>
+                </msup>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd></mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <msup>
+                  <mi>a</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>2</mn>
+                  </mrow>
+                </msup>
+                <mo>−<!-- − --></mo>
+                <mn>2</mn>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>⋅<!-- ⋅ --></mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+                <mo>+</mo>
+                <msup>
+                  <mi>b</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>2</mn>
+                  </mrow>
+                </msup>
+              </mtd>
+            </mtr>
+            <mtr>
+              <mtd>
+                <msup>
+                  <mi>c</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>2</mn>
+                  </mrow>
+                </msup>
+              </mtd>
+              <mtd>
+                <mi></mi>
+                <mo>=</mo>
+                <msup>
+                  <mi>a</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>2</mn>
+                  </mrow>
+                </msup>
+                <mo>+</mo>
+                <msup>
+                  <mi>b</mi>
+                  <mrow class="MJX-TeXAtom-ORD">
+                    <mn>2</mn>
+                  </mrow>
+                </msup>
+                <mo>−<!-- − --></mo>
+                <mn>2</mn>
+                <mi>a</mi>
+                <mi>b</mi>
+                <mi>cos</mi>
+                <mo>⁡<!-- ⁡ --></mo>
+                <mi>θ<!-- θ --></mi>
+              </mtd>
+            </mtr>
+          </mtable>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\begin{aligned}\mathbf {c} \cdot \mathbf {c} &amp;=(\mathbf {a} -\mathbf {b} )\cdot (\mathbf {a} -\mathbf {b} )\\&amp;=\mathbf {a} \cdot \mathbf {a} -\mathbf {a} \cdot \mathbf {b} -\mathbf {b} \cdot \mathbf {a} +\mathbf {b} \cdot \mathbf {b} \\&amp;=a^{2}-\mathbf {a} \cdot \mathbf {b} -\mathbf {a} \cdot \mathbf {b} +b^{2}\\&amp;=a^{2}-2\mathbf {a} \cdot \mathbf {b} +b^{2}\\c^{2}&amp;=a^{2}+b^{2}-2ab\cos \theta \\\end{aligned}}}</annotation>
+  </semantics>
+</math></span><img src="a14da08716c02ec9f0d1a7f14eecb51f6703bb03" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -7.338ex; width: 34.48ex; height: 15.843ex;" alt="{\begin{aligned}\mathbf {c} \cdot \mathbf {c} &amp;=(\mathbf {a} -\mathbf {b} )\cdot (\mathbf {a} -\mathbf {b} )\\&amp;=\mathbf {a} \cdot \mathbf {a} -\mathbf {a} \cdot \mathbf {b} -\mathbf {b} \cdot \mathbf {a} +\mathbf {b} \cdot \mathbf {b} \\&amp;=a^{2}-\mathbf {a} \cdot \mathbf {b} -\mathbf {a} \cdot \mathbf {b} +b^{2}\\&amp;=a^{2}-2\mathbf {a} \cdot \mathbf {b} +b^{2}\\c^{2}&amp;=a^{2}+b^{2}-2ab\cos \theta \\\end{aligned}}"></span></dd>
+</dl>
+<p>which is the <a href="https://en.wikipedia.org/wiki/Law_of_cosines" title="Law of cosines">law of cosines</a>.</p>
+<div style="clear: both;"></div>
+<h2><span class="mw-headline" id="Triple_product_expansion">Triple product expansion</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=8" title="Edit section: Triple product expansion">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div role="note" class="hatnote">Main article: <a href="https://en.wikipedia.org/wiki/Triple_product" title="Triple product">Triple product</a></div>
+<p>This is an identity (also known as <b>Lagrange's formula</b>) involving the dot- and <a href="https://en.wikipedia.org/wiki/Cross_product" title="Cross product">cross-products</a>. It is written as:<sup id="cite_ref-Lipschutz2009_2-2" class="reference"><a href="#cite_note-Lipschutz2009-2">[2]</a></sup><sup id="cite_ref-Spiegel2009_3-2" class="reference"><a href="#cite_note-Spiegel2009-3">[3]</a></sup></p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>×<!-- × --></mo>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>×<!-- × --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">c</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">c</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>−<!-- − --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">c</mi>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {a} \times (\mathbf {b} \times \mathbf {c} )=\mathbf {b} (\mathbf {a} \cdot \mathbf {c} )-\mathbf {c} (\mathbf {a} \cdot \mathbf {b} ),}</annotation>
+  </semantics>
+</math></span><img src="49847886c6207da1a9ae0e0dde5db964cc2d9224" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 33.201ex; height: 2.843ex;" alt="\mathbf {a} \times (\mathbf {b} \times \mathbf {c} )=\mathbf {b} (\mathbf {a} \cdot \mathbf {c} )-\mathbf {c} (\mathbf {a} \cdot \mathbf {b} ),"></span></dd>
+</dl>
+<p>which <a href="https://en.wikipedia.org/wiki/Mnemonic" title="Mnemonic">may be remembered</a> as "BAC minus CAB", keeping in mind which vectors are dotted together. This formula finds application in simplifying vector calculations in <a href="https://en.wikipedia.org/wiki/Physics" title="Physics">physics</a>.</p>
+<h2><span class="mw-headline" id="Physics">Physics</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=9" title="Edit section: Physics">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>In <a href="https://en.wikipedia.org/wiki/Physics" title="Physics">physics</a>, vector magnitude is a <a href="https://en.wikipedia.org/wiki/Scalar_(physics)" title="Scalar (physics)">scalar</a> in the physical sense, i.e. a <a href="https://en.wikipedia.org/wiki/Physical_quantity" title="Physical quantity">physical quantity</a> independent of the coordinate system, expressed as the <a href="https://en.wikipedia.org/wiki/Product_(mathematics)" title="Product (mathematics)">product</a> of a <a href="https://en.wikipedia.org/wiki/Number" title="Number">numerical value</a> and a <a href="https://en.wikipedia.org/wiki/Physical_unit" class="mw-redirect" title="Physical unit">physical unit</a>, not just a number. The dot product is also a scalar in this sense, given by the formula, independent of the coordinate system. Examples include:<sup id="cite_ref-Riley2010_9-0" class="reference"><a href="#cite_note-Riley2010-9">[9]</a></sup><sup id="cite_ref-10" class="reference"><a href="#cite_note-10">[10]</a></sup></p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Mechanical_work" class="mw-redirect" title="Mechanical work">Mechanical work</a> is the dot product of <a href="https://en.wikipedia.org/wiki/Force" title="Force">force</a> and <a href="https://en.wikipedia.org/wiki/Displacement_(vector)" title="Displacement (vector)">displacement</a> vectors.</li>
+<li><a href="https://en.wikipedia.org/wiki/Magnetic_flux" title="Magnetic flux">Magnetic flux</a> is the dot product of the <a href="https://en.wikipedia.org/wiki/Magnetic_field" title="Magnetic field">magnetic field</a> and the <a href="https://en.wikipedia.org/wiki/Vector_area" title="Vector area">vector area</a>.</li>
+</ul>
+<h2><span class="mw-headline" id="Generalizations">Generalizations</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=10" title="Edit section: Generalizations">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<h3><span class="mw-headline" id="Complex_vectors">Complex vectors</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=11" title="Edit section: Complex vectors">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>For vectors with <a href="https://en.wikipedia.org/wiki/Complex_number" title="Complex number">complex</a> entries, using the given definition of the dot product would lead to quite different properties. For instance the dot product of a vector with itself would be an arbitrary complex number, and could be zero without the vector being the zero vector (such vectors are called <a href="https://en.wikipedia.org/wiki/Isotropic_quadratic_form" title="Isotropic quadratic form">isotropic</a>); this in turn would have consequences for notions like length and angle. Properties such as the positive-definite norm can be salvaged at the cost of giving up the symmetric and bilinear properties of the scalar product, through the alternative definition<sup id="cite_ref-Lipschutz2009_2-3" class="reference"><a href="#cite_note-Lipschutz2009-2">[2]</a></sup></p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>=</mo>
+        <mo>∑<!-- ∑ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msub>
+            <mi>a</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+            </mrow>
+          </msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>b</mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>i</mi>
+                </mrow>
+              </msub>
+              <mo accent="false">¯<!-- ¯ --></mo>
+            </mover>
+          </mrow>
+        </mrow>
+        <mo>,</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {a} \cdot \mathbf {b} =\sum {a_{i}{\overline {b_{i}}}},}</annotation>
+  </semantics>
+</math></span><img src="9c8d893fa3b6381a9cc5614370687dd737c6d8e4" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.338ex; width: 15.991ex; height: 4.009ex;" alt="\mathbf {a} \cdot \mathbf {b} =\sum {a_{i}{\overline {b_{i}}}},"></span></dd>
+</dl>
+<p>where <span style="text-decoration: overline;"><i>b</i></span><i><sub>i</sub></i> is the <a href="https://en.wikipedia.org/wiki/Complex_conjugate" title="Complex conjugate">complex conjugate</a> of <i>b<sub>i</sub></i>. Then the scalar product of any vector with itself is a non-negative real number, and it is nonzero except for the zero vector. However this scalar product is thus <a href="https://en.wikipedia.org/wiki/Sesquilinear" class="mw-redirect" title="Sesquilinear">sesquilinear</a> rather than bilinear: it is <a href="https://en.wikipedia.org/wiki/Conjugate_linear" class="mw-redirect" title="Conjugate linear">conjugate linear</a> and not linear in <b>b</b>, and the scalar product is not symmetric, since</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">a</mi>
+        </mrow>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">b</mi>
+        </mrow>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mover>
+            <mrow>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi mathvariant="bold">b</mi>
+              </mrow>
+              <mo>⋅<!-- ⋅ --></mo>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi mathvariant="bold">a</mi>
+              </mrow>
+            </mrow>
+            <mo accent="false">¯<!-- ¯ --></mo>
+          </mover>
+        </mrow>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {a} \cdot \mathbf {b} ={\overline {\mathbf {b} \cdot \mathbf {a} }}.}</annotation>
+  </semantics>
+</math></span><img src="c8f01d7bb3c93db4eaf7f4c6b2d0babf70df843a" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 12.872ex; height: 3.009ex;" alt="\mathbf {a} \cdot \mathbf {b} ={\overline {\mathbf {b} \cdot \mathbf {a} }}."></span></dd>
+</dl>
+<p>The angle between two complex vectors is then given by</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>cos</mi>
+        <mo>⁡<!-- ⁡ --></mo>
+        <mi>θ<!-- θ --></mi>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mfrac>
+            <mrow>
+              <mi>Re</mi>
+              <mo>⁡<!-- ⁡ --></mo>
+              <mo stretchy="false">(</mo>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi mathvariant="bold">a</mi>
+              </mrow>
+              <mo>⋅<!-- ⋅ --></mo>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi mathvariant="bold">b</mi>
+              </mrow>
+              <mo stretchy="false">)</mo>
+            </mrow>
+            <mrow>
+              <mrow>
+                <mo>∥</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">a</mi>
+                </mrow>
+                <mo>∥</mo>
+              </mrow>
+              <mspace width="thinmathspace"></mspace>
+              <mrow>
+                <mo>∥</mo>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi mathvariant="bold">b</mi>
+                </mrow>
+                <mo>∥</mo>
+              </mrow>
+            </mrow>
+          </mfrac>
+        </mrow>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \cos \theta ={\frac {\operatorname {Re} (\mathbf {a} \cdot \mathbf {b} )}{\left\|\mathbf {a} \right\|\,\left\|\mathbf {b} \right\|}}.}</annotation>
+  </semantics>
+</math></span><img src="68372b6042c927805585091d5a49c873f86b5f24" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.671ex; width: 18.322ex; height: 6.509ex;" alt="\cos \theta ={\frac {\operatorname {Re} (\mathbf {a} \cdot \mathbf {b} )}{\left\|\mathbf {a} \right\|\,\left\|\mathbf {b} \right\|}}."></span></dd>
+</dl>
+<p>This type of scalar product is nevertheless useful, and leads to the notions of <a href="https://en.wikipedia.org/wiki/Hermitian_form" class="mw-redirect" title="Hermitian form">Hermitian form</a> and of general <a href="https://en.wikipedia.org/wiki/Inner_product_space" title="Inner product space">inner product spaces</a>.</p>
+<h3><span class="mw-headline" id="Inner_product">Inner product</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=12" title="Edit section: Inner product">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<div role="note" class="hatnote">Main article: <a href="https://en.wikipedia.org/wiki/Inner_product_space" title="Inner product space">Inner product space</a></div>
+<p>The inner product generalizes the dot product to <a href="https://en.wikipedia.org/wiki/Vector_space" title="Vector space">abstract vector spaces</a> over a <a href="https://en.wikipedia.org/wiki/Field_(mathematics)" title="Field (mathematics)">field</a> of <a href="https://en.wikipedia.org/wiki/Scalar_(mathematics)" title="Scalar (mathematics)">scalars</a>, being either the field of <a href="https://en.wikipedia.org/wiki/Real_number" title="Real number">real numbers</a> <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="double-struck">R</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbb {R} }</annotation>
+  </semantics>
+</math></span><img src="786849c765da7a84dbc3cce43e96aad58a5868dc" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.689ex; height: 2.176ex;" alt="\mathbb {R} "></span> or the field of <a href="https://en.wikipedia.org/wiki/Complex_number" title="Complex number">complex numbers</a> <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="double-struck">C</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbb {C} }</annotation>
+  </semantics>
+</math></span><img src="f9add4085095b9b6d28d045fd9c92c2c09f549a7" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.689ex; height: 2.176ex;" alt="\mathbb {C} "></span>. It is usually denoted by <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>⟨</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">a</mi>
+          </mrow>
+          <mspace width="thinmathspace"></mspace>
+          <mo>,</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">b</mi>
+          </mrow>
+          <mo>⟩</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\langle \mathbf {a} \,,\mathbf {b} \right\rangle }</annotation>
+  </semantics>
+</math></span><img src="cd499eaede342b362c9933cbf9192139b62dc9c3" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 6.067ex; height: 2.843ex;" alt="\left\langle \mathbf {a} \,,\mathbf {b} \right\rangle "></span>.</p>
+<p>The inner product of two vectors over the field of complex numbers is, in general, a complex number, and is <a href="https://en.wikipedia.org/wiki/Sesquilinear_form" title="Sesquilinear form">sesquilinear</a> instead of bilinear. An inner product space is a <a href="https://en.wikipedia.org/wiki/Normed_vector_space" title="Normed vector space">normed vector space</a>, and the inner product of a vector with itself is real and positive-definite.</p>
+<h3><span class="mw-headline" id="Functions">Functions</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=13" title="Edit section: Functions">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The dot product is defined for vectors that have a finite number of <a href="https://en.wikipedia.org/wiki/Coordinate_vector" title="Coordinate vector">entries</a>. Thus these vectors can be regarded as <a href="https://en.wikipedia.org/wiki/Discrete_function" class="mw-redirect" title="Discrete function">discrete functions</a>: a length-<span class="texhtml"><i>n</i></span> vector <span class="texhtml"><i>u</i></span> is, then, a function with <a href="https://en.wikipedia.org/wiki/Domain_of_a_function" title="Domain of a function">domain</a> <span class="texhtml">{<i>k</i> ∈ ℕ ∣ 1 ≤ <i>k</i> ≤ <i>n</i></span>}, and <span class="texhtml"><i>u</i><sub><i>i</i></sub></span> is a notation for the image of <span class="texhtml"><i>i</i></span> by the function/vector <span class="texhtml"><i>u</i></span>.</p>
+<p>This notion can be generalized to <a href="https://en.wikipedia.org/wiki/Continuous_function" title="Continuous function">continuous functions</a>: just as the inner product on vectors uses a sum over corresponding components, the inner product on functions is defined as an integral over some <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)" title="Interval (mathematics)">interval</a> <span class="texhtml"><i>a</i> ≤ <i>x</i> ≤ <i>b</i></span> (also denoted <span class="texhtml">[<i>a</i>, <i>b</i>]</span>):<sup id="cite_ref-Lipschutz2009_2-4" class="reference"><a href="#cite_note-Lipschutz2009-2">[2]</a></sup></p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>⟨</mo>
+          <mi>u</mi>
+          <mo>,</mo>
+          <mi>v</mi>
+          <mo>⟩</mo>
+        </mrow>
+        <mo>=</mo>
+        <msubsup>
+          <mo>∫<!-- ∫ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>a</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>b</mi>
+          </mrow>
+        </msubsup>
+        <mi>u</mi>
+        <mo stretchy="false">(</mo>
+        <mi>x</mi>
+        <mo stretchy="false">)</mo>
+        <mi>v</mi>
+        <mo stretchy="false">(</mo>
+        <mi>x</mi>
+        <mo stretchy="false">)</mo>
+        <mi>d</mi>
+        <mi>x</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\langle u,v\right\rangle =\int _{a}^{b}u(x)v(x)dx}</annotation>
+  </semantics>
+</math></span><img src="208028bf169619615596426f33c6a21932a56d83" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.338ex; width: 23.654ex; height: 6.343ex;" alt="\left\langle u,v\right\rangle =\int _{a}^{b}u(x)v(x)dx"></span></dd>
+</dl>
+<p>Generalized further to <a href="https://en.wikipedia.org/wiki/Complex_function" class="mw-redirect" title="Complex function">complex functions</a> <span class="texhtml"><i>ψ</i>(<i>x</i>)</span> and <span class="texhtml"><i>χ</i>(<i>x</i>)</span>, by analogy with the complex inner product above, gives<sup id="cite_ref-Lipschutz2009_2-5" class="reference"><a href="#cite_note-Lipschutz2009-2">[2]</a></sup></p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow>
+          <mo>⟨</mo>
+          <mi>ψ<!-- ψ --></mi>
+          <mo>,</mo>
+          <mi>χ<!-- χ --></mi>
+          <mo>⟩</mo>
+        </mrow>
+        <mo>=</mo>
+        <msubsup>
+          <mo>∫<!-- ∫ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>a</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>b</mi>
+          </mrow>
+        </msubsup>
+        <mi>ψ<!-- ψ --></mi>
+        <mo stretchy="false">(</mo>
+        <mi>x</mi>
+        <mo stretchy="false">)</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mover>
+            <mrow>
+              <mi>χ<!-- χ --></mi>
+              <mo stretchy="false">(</mo>
+              <mi>x</mi>
+              <mo stretchy="false">)</mo>
+            </mrow>
+            <mo accent="false">¯<!-- ¯ --></mo>
+          </mover>
+        </mrow>
+        <mi>d</mi>
+        <mi>x</mi>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \left\langle \psi ,\chi \right\rangle =\int _{a}^{b}\psi (x){\overline {\chi (x)}}dx.}</annotation>
+  </semantics>
+</math></span><img src="b772a00673716489328974cfe2dee1f10d646cc3" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.338ex; width: 25.448ex; height: 6.343ex;" alt="\left\langle \psi ,\chi \right\rangle =\int _{a}^{b}\psi (x){\overline {\chi (x)}}dx."></span></dd>
+</dl>
+<h3><span class="mw-headline" id="Weight_function">Weight function</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=14" title="Edit section: Weight function">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Inner products can have a <a href="https://en.wikipedia.org/wiki/Weight_function" title="Weight function">weight function</a>, i.e. a function which weight each term of the inner product with a value.</p>
+<h3><span class="mw-headline" id="Dyadics_and_matrices">Dyadics and matrices</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=15" title="Edit section: Dyadics and matrices">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p><a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)" title="Matrix (mathematics)">Matrices</a> have the <a href="https://en.wikipedia.org/wiki/Frobenius_inner_product" class="mw-redirect" title="Frobenius inner product">Frobenius inner product</a>, which is analogous to the vector inner product. It is defined as the sum of the products of the corresponding components of two matrices <b>A</b> and <b>B</b> having the same size:</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+        </mrow>
+        <mo>:</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">B</mi>
+          </mrow>
+        </mrow>
+        <mo>=</mo>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </munder>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </munder>
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mover>
+            <msub>
+              <mi>B</mi>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi>i</mi>
+                <mi>j</mi>
+              </mrow>
+            </msub>
+            <mo accent="false">¯<!-- ¯ --></mo>
+          </mover>
+        </mrow>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="normal">t</mi>
+          <mi mathvariant="normal">r</mi>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <msup>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">B</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">H</mi>
+            </mrow>
+          </mrow>
+        </msup>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="normal">t</mi>
+          <mi mathvariant="normal">r</mi>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <msup>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">B</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">H</mi>
+            </mrow>
+          </mrow>
+        </msup>
+        <mo stretchy="false">)</mo>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\mathbf {A}}:{\mathbf {B}}=\sum _{i}\sum _{j}A_{ij}{\overline {B_{ij}}}=\mathrm {tr} (\mathbf {B} ^{\mathrm {H} }\mathbf {A} )=\mathrm {tr} (\mathbf {A} \mathbf {B} ^{\mathrm {H} }).}</annotation>
+  </semantics>
+</math></span><img src="607e72cb4f7f65023161c492b56cb158a756c545" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.338ex; width: 48.167ex; height: 6.009ex;" alt="{\mathbf {A}}:{\mathbf {B}}=\sum _{i}\sum _{j}A_{ij}{\overline {B_{ij}}}=\mathrm {tr} (\mathbf {B} ^{\mathrm {H} }\mathbf {A} )=\mathrm {tr} (\mathbf {A} \mathbf {B} ^{\mathrm {H} })."></span></dd>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+        </mrow>
+        <mo>:</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">B</mi>
+          </mrow>
+        </mrow>
+        <mo>=</mo>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </munder>
+        <munder>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </munder>
+        <msub>
+          <mi>A</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>B</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="normal">t</mi>
+          <mi mathvariant="normal">r</mi>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <msup>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">B</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">T</mi>
+            </mrow>
+          </mrow>
+        </msup>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="normal">t</mi>
+          <mi mathvariant="normal">r</mi>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">A</mi>
+        </mrow>
+        <msup>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">B</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">T</mi>
+            </mrow>
+          </mrow>
+        </msup>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="normal">t</mi>
+          <mi mathvariant="normal">r</mi>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <msup>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">T</mi>
+            </mrow>
+          </mrow>
+        </msup>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="normal">t</mi>
+          <mi mathvariant="normal">r</mi>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">B</mi>
+        </mrow>
+        <msup>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">A</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">T</mi>
+            </mrow>
+          </mrow>
+        </msup>
+        <mo stretchy="false">)</mo>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\mathbf {A}}:{\mathbf {B}}=\sum _{i}\sum _{j}A_{ij}B_{ij}=\mathrm {tr} (\mathbf {B} ^{\mathrm {T} }\mathbf {A} )=\mathrm {tr} (\mathbf {A} \mathbf {B} ^{\mathrm {T} })=\mathrm {tr} (\mathbf {A} ^{\mathrm {T} }\mathbf {B} )=\mathrm {tr} (\mathbf {B} \mathbf {A} ^{\mathrm {T} }).}</annotation>
+  </semantics>
+</math></span><img src="4346c53f2373a4d057752d6609c2dc7dc3bc8ef3" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.338ex; width: 72.248ex; height: 5.843ex;" alt="{\mathbf {A}}:{\mathbf {B}}=\sum _{i}\sum _{j}A_{ij}B_{ij}=\mathrm {tr} (\mathbf {B} ^{\mathrm {T} }\mathbf {A} )=\mathrm {tr} (\mathbf {A} \mathbf {B} ^{\mathrm {T} })=\mathrm {tr} (\mathbf {A} ^{\mathrm {T} }\mathbf {B} )=\mathrm {tr} (\mathbf {B} \mathbf {A} ^{\mathrm {T} })."></span> (For real matrices)</dd>
+</dl>
+<p><a href="https://en.wikipedia.org/wiki/Dyadics" title="Dyadics">Dyadics</a> have a dot product and "double" dot product defined on them, see <a href="https://en.wikipedia.org/wiki/Dyadics#Product_of_dyadic_and_dyadic" title="Dyadics">Dyadics (Product of dyadic and dyadic)</a> for their definitions.</p>
+<h3><span class="mw-headline" id="Tensors">Tensors</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=16" title="Edit section: Tensors">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The inner product between a <a href="https://en.wikipedia.org/wiki/Tensor" title="Tensor">tensor</a> of order <i>n</i> and a tensor of order <i>m</i> is a tensor of order <span class="nowrap"><i>n</i> + <i>m</i> − 2</span>, see <a href="https://en.wikipedia.org/wiki/Tensor_contraction" title="Tensor contraction">tensor contraction</a> for details.</p>
+<h2><span class="mw-headline" id="Computation">Computation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=17" title="Edit section: Computation">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<h3><span class="mw-headline" id="Algorithms">Algorithms</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=18" title="Edit section: Algorithms">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The straightforward algorithm for calculating a floating-point dot product of vectors can suffer from <a href="https://en.wikipedia.org/wiki/Catastrophic_cancellation" class="mw-redirect" title="Catastrophic cancellation">catastrophic cancellation</a>. To avoid this, approaches such as the <a href="https://en.wikipedia.org/wiki/Kahan_summation_algorithm" title="Kahan summation algorithm">Kahan summation algorithm</a> are used.</p>
+<h3><span class="mw-headline" id="Libraries">Libraries</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=19" title="Edit section: Libraries">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>A dot product function is included in <a href="https://en.wikipedia.org/wiki/BLAS" class="mw-redirect" title="BLAS">BLAS</a> level 1.</p>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=20" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Cauchy%E2%80%93Schwarz_inequality" title="Cauchy–Schwarz inequality">Cauchy–Schwarz inequality</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cross_product" title="Cross product">Cross product</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Matrix_multiplication" title="Matrix multiplication">Matrix multiplication</a></li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=21" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">The term <i>scalar product</i> is often also used more generally to mean a <a href="https://en.wikipedia.org/wiki/Symmetric_bilinear_form" title="Symmetric bilinear form">symmetric bilinear form</a>, for example for a <a href="https://en.wikipedia.org/wiki/Pseudo-Euclidean_space" title="Pseudo-Euclidean space">pseudo-Euclidean space</a>.</span></li>
+<li id="cite_note-Lipschutz2009-2"><span class="mw-cite-backlink">^ <a href="#cite_ref-Lipschutz2009_2-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Lipschutz2009_2-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-Lipschutz2009_2-2"><sup><i><b>c</b></i></sup></a> <a href="#cite_ref-Lipschutz2009_2-3"><sup><i><b>d</b></i></sup></a> <a href="#cite_ref-Lipschutz2009_2-4"><sup><i><b>e</b></i></sup></a> <a href="#cite_ref-Lipschutz2009_2-5"><sup><i><b>f</b></i></sup></a></span> <span class="reference-text"><cite class="citation book">S. Lipschutz; M. Lipson (2009). <i>Linear Algebra (Schaum’s Outlines)</i> (4th ed.). McGraw Hill. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-07-154352-1" title="Special:BookSources/978-0-07-154352-1">978-0-07-154352-1</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.au=M.+Lipson&amp;rft.au=S.+Lipschutz&amp;rft.btitle=Linear+Algebra+%28Schaum%99s+Outlines%29&amp;rft.date=2009&amp;rft.edition=4th&amp;rft.genre=book&amp;rft.isbn=978-0-07-154352-1&amp;rft.pub=McGraw+Hill&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Spiegel2009-3"><span class="mw-cite-backlink">^ <a href="#cite_ref-Spiegel2009_3-0"><span class="cite-accessibility-label">Jump up to: </span><sup><i><b>a</b></i></sup></a> <a href="#cite_ref-Spiegel2009_3-1"><sup><i><b>b</b></i></sup></a> <a href="#cite_ref-Spiegel2009_3-2"><sup><i><b>c</b></i></sup></a></span> <span class="reference-text"><cite class="citation book">M.R. Spiegel; S. Lipschutz; D. Spellman (2009). <i>Vector Analysis (Schaum’s Outlines)</i> (2nd ed.). McGraw Hill. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-07-161545-7" title="Special:BookSources/978-0-07-161545-7">978-0-07-161545-7</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.au=D.+Spellman&amp;rft.au=M.R.+Spiegel&amp;rft.au=S.+Lipschutz&amp;rft.btitle=Vector+Analysis+%28Schaum%99s+Outlines%29&amp;rft.date=2009&amp;rft.edition=2nd&amp;rft.genre=book&amp;rft.isbn=978-0-07-161545-7&amp;rft.pub=McGraw+Hill&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="#cite_ref-4"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book">A I Borisenko; I E Taparov (1968). <i>Vector and tensor analysis with applications</i>. Translated by Richard Silverman. Dover. p.&nbsp;14.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.au=A+I+Borisenko&amp;rft.au=I+E+Taparov&amp;rft.btitle=Vector+and+tensor+analysis+with+applications&amp;rft.date=1968&amp;rft.genre=book&amp;rft.pages=14&amp;rft.pub=Dover&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book">Arfken, G. B.; Weber, H. J. (2000). <i>Mathematical Methods for Physicists</i> (5th ed.). Boston, MA: <a href="https://en.wikipedia.org/wiki/Academic_Press" title="Academic Press">Academic Press</a>. pp.&nbsp;14–15. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-12-059825-0" title="Special:BookSources/978-0-12-059825-0">978-0-12-059825-0</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.aufirst=G.+B.&amp;rft.aulast=Arfken&amp;rft.au=Weber%2C+H.+J.&amp;rft.btitle=Mathematical+Methods+for+Physicists&amp;rft.date=2000&amp;rft.edition=5th&amp;rft.genre=book&amp;rft.isbn=978-0-12-059825-0&amp;rft.pages=14-15&amp;rft.place=Boston%2C+MA&amp;rft.pub=Academic+Press&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span>.</span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="#cite_ref-6"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text">Weisstein, Eric W. "Dot Product." From MathWorld--A Wolfram Web Resource. <a rel="nofollow" class="external free" href="http://mathworld.wolfram.com/DotProduct.html">http://mathworld.wolfram.com/DotProduct.html</a></span></li>
+<li id="cite_note-BanchoffWermer1983-7"><span class="mw-cite-backlink"><b><a href="#cite_ref-BanchoffWermer1983_7-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book">T. Banchoff; J. Wermer (1983). <i>Linear Algebra Through Geometry</i>. Springer Science &amp; Business Media. p.&nbsp;12. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-1-4684-0161-5" title="Special:BookSources/978-1-4684-0161-5">978-1-4684-0161-5</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.au=J.+Wermer&amp;rft.au=T.+Banchoff&amp;rft.btitle=Linear+Algebra+Through+Geometry&amp;rft.date=1983&amp;rft.genre=book&amp;rft.isbn=978-1-4684-0161-5&amp;rft.pages=12&amp;rft.pub=Springer+Science+%26+Business+Media&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-BedfordFowler2008-8"><span class="mw-cite-backlink"><b><a href="#cite_ref-BedfordFowler2008_8-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book">A. Bedford; Wallace L. Fowler (2008). <i>Engineering Mechanics: Statics</i> (5th ed.). Prentice Hall. p.&nbsp;60. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-13-612915-8" title="Special:BookSources/978-0-13-612915-8">978-0-13-612915-8</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.au=A.+Bedford&amp;rft.au=Wallace+L.+Fowler&amp;rft.btitle=Engineering+Mechanics%3A+Statics&amp;rft.date=2008&amp;rft.edition=5th&amp;rft.genre=book&amp;rft.isbn=978-0-13-612915-8&amp;rft.pages=60&amp;rft.pub=Prentice+Hall&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-Riley2010-9"><span class="mw-cite-backlink"><b><a href="#cite_ref-Riley2010_9-0"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book">K.F. Riley; M.P. Hobson; S.J. Bence (2010). <i>Mathematical methods for physics and engineering</i> (3rd ed.). Cambridge University Press. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-521-86153-3" title="Special:BookSources/978-0-521-86153-3">978-0-521-86153-3</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.au=K.F.+Riley&amp;rft.au=M.P.+Hobson&amp;rft.au=S.J.+Bence&amp;rft.btitle=Mathematical+methods+for+physics+and+engineering&amp;rft.date=2010&amp;rft.edition=3rd&amp;rft.genre=book&amp;rft.isbn=978-0-521-86153-3&amp;rft.pub=Cambridge+University+Press&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-10"><span class="mw-cite-backlink"><b><a href="#cite_ref-10"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book">M. Mansfield; C. O’Sullivan (2011). <i>Understanding Physics</i> (4th ed.). John Wiley &amp; Sons. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-47-0746370" title="Special:BookSources/978-0-47-0746370">978-0-47-0746370</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.au=C.+O%99Sullivan&amp;rft.au=M.+Mansfield&amp;rft.btitle=Understanding+Physics&amp;rft.date=2011&amp;rft.edition=4th&amp;rft.genre=book&amp;rft.isbn=978-0-47-0746370&amp;rft.pub=John+Wiley+%26+Sons&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+</ol>
+</div>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit&amp;section=22" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><cite id="CITEREFHazewinkel2001" class="citation">Hazewinkel, Michiel, ed. (2001), <a rel="nofollow" class="external text" href="http://www.encyclopediaofmath.org/index.php?title=p/i051240">"Inner product"</a>, <i><a href="https://en.wikipedia.org/wiki/Encyclopedia_of_Mathematics" title="Encyclopedia of Mathematics">Encyclopedia of Mathematics</a></i>, <a href="https://en.wikipedia.org/wiki/Springer_Science%2BBusiness_Media" title="Springer Science+Business Media">Springer</a>, <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-1-55608-010-4" title="Special:BookSources/978-1-55608-010-4">978-1-55608-010-4</a></cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.atitle=Inner+product&amp;rft.btitle=Encyclopedia+of+Mathematics&amp;rft.date=2001&amp;rft.genre=bookitem&amp;rft_id=http%3A%2F%2Fwww.encyclopediaofmath.org%2Findex.php%3Ftitle%3Dp%2Fi051240&amp;rft.isbn=978-1-55608-010-4&amp;rft.pub=Springer&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></li>
+<li><span class="citation mathworld" id="Reference-Mathworld-Dot_product"><cite class="citation web"><a href="https://en.wikipedia.org/wiki/Eric_W._Weisstein" title="Eric W. Weisstein">Weisstein, Eric W.</a> <a rel="nofollow" class="external text" href="http://mathworld.wolfram.com/DotProduct.html">"Dot product"</a>. <i><a href="https://en.wikipedia.org/wiki/MathWorld" title="MathWorld">MathWorld</a></i>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3ADot+product&amp;rft.atitle=Dot+product&amp;rft.au=Weisstein%2C+Eric+W.&amp;rft.genre=unknown&amp;rft_id=http%3A%2F%2Fmathworld.wolfram.com%2FDotProduct.html&amp;rft.jtitle=MathWorld&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+</ul>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://www.mathreference.com/la,dot.html">Explanation of dot product including with complex vectors</a></li>
+<li><a rel="nofollow" class="external text" href="http://demonstrations.wolfram.com/DotProduct/">"Dot Product"</a> by Bruce Torrence, <a href="https://en.wikipedia.org/wiki/Wolfram_Demonstrations_Project" title="Wolfram Demonstrations Project">Wolfram Demonstrations Project</a>, 2007.</li>
+</ul>
+<div role="navigation" class="navbox" aria-labelledby="Linear_algebra" style="padding: 3px;">
+<table id="collapsibleTable0" class="nowraplinks collapsible autocollapse navbox-inner" style="border-spacing: 0px; background: transparent none repeat ; 0%; color: inherit;">
+<tbody><tr>
+<th scope="col" class="navbox-title" colspan="2"><span class="collapseButton">[<a href="#" id="collapseButton0">show</a>]</span>
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="https://en.wikipedia.org/wiki/Template:Linear_algebra" title="Template:Linear algebra"><abbr title="View this template" style="background: transparent none repeat ; 0%; border: medium none;">v</abbr></a></li>
+<li class="nv-talk"><a href="https://en.wikipedia.org/wiki/Template_talk:Linear_algebra" title="Template talk:Linear algebra"><abbr title="Discuss this template" style="background: transparent none repeat ; 0%; border: medium none;">t</abbr></a></li>
+<li class="nv-edit"><a class="external text" href="https://en.wikipedia.org/w/index.php?title=Template:Linear_algebra&amp;action=edit"><abbr title="Edit this template" style="background: transparent none repeat ; 0%; border: medium none;">e</abbr></a></li>
+</ul>
+</div>
+<div id="Linear_algebra" style="font-size: 114%;"><a href="https://en.wikipedia.org/wiki/Linear_algebra" title="Linear algebra">Linear algebra</a></div>
+</th>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group">Basic concepts</th>
+<td class="navbox-list navbox-odd hlist" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Scalar_(mathematics)" title="Scalar (mathematics)">Scalar</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Euclidean_vector" title="Euclidean vector">Vector</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Vector_space" title="Vector space">Vector space</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Vector_projection" title="Vector projection">Vector projection</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Linear_span" title="Linear span">Linear span</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Linear_map" title="Linear map">Linear map</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Projection_(linear_algebra)" title="Projection (linear algebra)">Linear projection</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Linear_independence" title="Linear independence">Linear independence</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Linear_combination" title="Linear combination">Linear combination</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Basis_(linear_algebra)" title="Basis (linear algebra)">Basis</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Column_space" class="mw-redirect" title="Column space">Column space</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Row_space" class="mw-redirect" title="Row space">Row space</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Dual_space" title="Dual space">Dual space</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Orthogonality" title="Orthogonality">Orthogonality</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Kernel_(linear_algebra)" title="Kernel (linear algebra)">Kernel</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors" title="Eigenvalues and eigenvectors">Eigenvalues and eigenvectors</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ordinary_least_squares" title="Ordinary least squares">Least squares regressions</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Outer_product" title="Outer product">Outer product</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Inner_product_space" title="Inner product space">Inner product space</a></li>
+<li><strong class="selflink">Dot product</strong></li>
+<li><a href="https://en.wikipedia.org/wiki/Transpose" title="Transpose">Transpose</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gram%E2%80%93Schmidt_process" title="Gram–Schmidt process">Gram–Schmidt process</a></li>
+<li><a href="https://en.wikipedia.org/wiki/System_of_linear_equations" title="System of linear equations">Linear equations</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group"><a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)" title="Matrix (mathematics)">Matrices</a></th>
+<td class="navbox-list navbox-even hlist" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Block_matrix" title="Block matrix">Block</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Matrix_decomposition" title="Matrix decomposition">Decomposition</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Invertible_matrix" title="Invertible matrix">Invertible</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Minor_(linear_algebra)" title="Minor (linear algebra)">Minor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Matrix_multiplication" title="Matrix multiplication">Multiplication</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Rank_(linear_algebra)" title="Rank (linear algebra)">Rank</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Transformation_matrix" title="Transformation matrix">Transformation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cramer%27s_rule" title="Cramer's rule">Cramer's rule</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gaussian_elimination" title="Gaussian elimination">Gaussian elimination</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group"><a href="https://en.wikipedia.org/wiki/Numerical_linear_algebra" title="Numerical linear algebra">Numerical</a></th>
+<td class="navbox-list navbox-odd hlist" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Floating_point" title="Floating point">Floating point</a></li>
+<li><a href="https://en.wikipedia.org/wiki/MATLAB" title="MATLAB">Matrix Laboratory</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Numerical_stability" title="Numerical stability">Numerical stability</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Basic_Linear_Algebra_Subprograms" title="Basic Linear Algebra Subprograms">Basic Linear Algebra Subprograms (BLAS)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Sparse_matrix" title="Sparse matrix">Sparse matrix</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Comparison_of_linear_algebra_libraries" title="Comparison of linear algebra libraries">Comparison of linear algebra libraries</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Comparison_of_numerical_analysis_software" title="Comparison of numerical analysis software">Comparison of numerical analysis software</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+<div role="navigation" class="navbox" aria-labelledby="Tensors" style="padding: 3px;">
+<table id="collapsibleTable1" class="nowraplinks hlist collapsible autocollapse navbox-inner" style="border-spacing: 0px; background: transparent none repeat ; 0%; color: inherit;">
+<tbody><tr>
+<th scope="col" class="navbox-title" colspan="2"><span class="collapseButton">[<a href="#" id="collapseButton1">show</a>]</span>
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="https://en.wikipedia.org/wiki/Template:Tensors" title="Template:Tensors"><abbr title="View this template" style="background: transparent none repeat ; 0%; border: medium none;">v</abbr></a></li>
+<li class="nv-talk"><a href="https://en.wikipedia.org/wiki/Template_talk:Tensors" title="Template talk:Tensors"><abbr title="Discuss this template" style="background: transparent none repeat ; 0%; border: medium none;">t</abbr></a></li>
+<li class="nv-edit"><a class="external text" href="https://en.wikipedia.org/w/index.php?title=Template:Tensors&amp;action=edit"><abbr title="Edit this template" style="background: transparent none repeat ; 0%; border: medium none;">e</abbr></a></li>
+</ul>
+</div>
+<div id="Tensors" style="font-size: 114%;"><a href="https://en.wikipedia.org/wiki/Tensor" title="Tensor">Tensors</a></div>
+</th>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<td class="navbox-abovebelow" colspan="2">
+<div><i><a href="https://en.wikipedia.org/wiki/Glossary_of_tensor_theory" title="Glossary of tensor theory">Glossary of tensor theory</a></i></div>
+</td>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group">Scope</th>
+<td class="navbox-list navbox-odd" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;"></div>
+<table class="nowraplinks navbox-subgroup" style="border-spacing: 0px;">
+<tbody><tr>
+<th scope="row" class="navbox-group" style="padding-left: 0px; padding-right: 0px; font-weight: normal;">
+<div style="padding: 0em 0.75em;"><a href="https://en.wikipedia.org/wiki/Mathematics" title="Mathematics">Mathematics</a></div>
+</th>
+<td class="navbox-list navbox-odd" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Coordinate_system" title="Coordinate system">coordinate system</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Multilinear_algebra" title="Multilinear algebra">multilinear algebra</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Euclidean_geometry" title="Euclidean geometry">Euclidean geometry</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tensor_algebra" title="Tensor algebra">tensor algebra</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Differential_geometry" title="Differential geometry">differential geometry</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Exterior_calculus" class="mw-redirect" title="Exterior calculus">exterior calculus</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tensor_calculus" title="Tensor calculus">tensor calculus</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height: 2px;">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style="padding-left: 0px; padding-right: 0px; font-weight: normal;">
+<div style="padding: 0em 0.75em;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Physics" title="Physics">Physics</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Engineering" title="Engineering">Engineering</a></li>
+</ul>
+</div>
+</div>
+</th>
+<td class="navbox-list navbox-even" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Continuum_mechanics" title="Continuum mechanics">continuum mechanics</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Electromagnetism" title="Electromagnetism">electromagnetism</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Transport_phenomena" title="Transport phenomena">transport phenomena</a></li>
+<li><a href="https://en.wikipedia.org/wiki/General_relativity" title="General relativity">general relativity</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Computer_vision" title="Computer vision">computer vision</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group">Notation</th>
+<td class="navbox-list navbox-odd" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Index_notation" title="Index notation">index notation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Multi-index_notation" title="Multi-index notation">multi-index notation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Einstein_notation" title="Einstein notation">Einstein notation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ricci_calculus" title="Ricci calculus">Ricci calculus</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Penrose_graphical_notation" title="Penrose graphical notation">Penrose graphical notation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Voigt_notation" title="Voigt notation">Voigt notation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Abstract_index_notation" title="Abstract index notation">abstract index notation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tetrad_(index_notation)" class="mw-redirect" title="Tetrad (index notation)">tetrad (index notation)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Van_der_Waerden_notation" title="Van der Waerden notation">Van der Waerden notation</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group">Tensor definitions</th>
+<td class="navbox-list navbox-even" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tensor_(intrinsic_definition)" title="Tensor (intrinsic definition)">tensor (intrinsic definition)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tensor_field" title="Tensor field">tensor field</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tensor_density" title="Tensor density">tensor density</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tensors_in_curvilinear_coordinates" title="Tensors in curvilinear coordinates">tensors in curvilinear coordinates</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Mixed_tensor" title="Mixed tensor">mixed tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Antisymmetric_tensor" title="Antisymmetric tensor">antisymmetric tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Symmetric_tensor" title="Symmetric tensor">symmetric tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tensor_operator" title="Tensor operator">tensor operator</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tensor_bundle" class="mw-redirect" title="Tensor bundle">tensor bundle</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group"><a href="https://en.wikipedia.org/wiki/Operation_(mathematics)" title="Operation (mathematics)">Operations</a></th>
+<td class="navbox-list navbox-odd" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Tensor_product" title="Tensor product">tensor product</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Exterior_product" class="mw-redirect" title="Exterior product">exterior product</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tensor_contraction" title="Tensor contraction">tensor contraction</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Transpose" title="Transpose">transpose (2nd-order tensors)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Raising_and_lowering_indices" title="Raising and lowering indices">raising and lowering indices</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hodge_dual" title="Hodge dual">Hodge dual</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Covariant_derivative" title="Covariant derivative">covariant derivative</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Exterior_derivative" title="Exterior derivative">exterior derivative</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Exterior_covariant_derivative" title="Exterior covariant derivative">exterior covariant derivative</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Lie_derivative" title="Lie derivative">Lie derivative</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group">Related abstractions</th>
+<td class="navbox-list navbox-even" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Dimension" title="Dimension">dimension</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Basis_(linear_algebra)" title="Basis (linear algebra)">basis</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Vector_(mathematics_and_physics)" title="Vector (mathematics and physics)">vector</a>, <a href="https://en.wikipedia.org/wiki/Vector_space" title="Vector space">vector space</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Multivector" title="Multivector">multivector</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Covariance_and_contravariance_of_vectors" title="Covariance and contravariance of vectors">covariance and contravariance of vectors</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Linear_transformation" class="mw-redirect" title="Linear transformation">linear transformation</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Matrix_(mathematics)" title="Matrix (mathematics)">matrix</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Spinor" title="Spinor">spinor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cartan_formalism_(physics)" title="Cartan formalism (physics)">Cartan formalism (physics)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Differential_form" title="Differential form">differential form</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Exterior_form" class="mw-redirect" title="Exterior form">exterior form</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Connection_form" title="Connection form">connection form</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Geodesic" title="Geodesic">geodesic</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Manifold" title="Manifold">manifold</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Fiber_bundle" title="Fiber bundle">fiber bundle</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Levi-Civita_connection" title="Levi-Civita connection">Levi-Civita connection</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Affine_connection" title="Affine connection">Affine connection</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group">Notable tensors</th>
+<td class="navbox-list navbox-odd" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;"></div>
+<table class="nowraplinks navbox-subgroup" style="border-spacing: 0px;">
+<tbody><tr>
+<th scope="row" class="navbox-group" style="padding-left: 0px; padding-right: 0px; font-weight: normal;">
+<div style="padding: 0em 0.75em;">Mathematics</div>
+</th>
+<td class="navbox-list navbox-odd" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Kronecker_delta" title="Kronecker delta">Kronecker delta</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Levi-Civita_symbol" title="Levi-Civita symbol">Levi-Civita symbol</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Metric_tensor" title="Metric tensor">metric tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Nonmetricity_tensor" title="Nonmetricity tensor">nonmetricity tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Christoffel_symbols" title="Christoffel symbols">Christoffel symbols</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ricci_curvature" title="Ricci curvature">Ricci curvature</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Riemann_curvature_tensor" title="Riemann curvature tensor">Riemann curvature tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Weyl_tensor" title="Weyl tensor">Weyl tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Torsion_tensor" title="Torsion tensor">torsion tensor</a></li>
+</ul>
+</div>
+</td>
+</tr>
+<tr style="height: 2px;">
+<td colspan="2"></td>
+</tr>
+<tr>
+<th scope="row" class="navbox-group" style="padding-left: 0px; padding-right: 0px; font-weight: normal;">
+<div style="padding: 0em 0.75em;">Physics</div>
+</th>
+<td class="navbox-list navbox-even" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Moment_of_inertia#moment_of_inertia_tensor" title="Moment of inertia">moment of inertia</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Angular_momentum#Angular_momentum_in_relativistic_mechanics" title="Angular momentum">angular momentum tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Spin_tensor" title="Spin tensor">spin tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cauchy_stress_tensor" title="Cauchy stress tensor">Cauchy stress tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Stress%E2%80%93energy_tensor" title="Stress–energy tensor">stress–energy tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Electromagnetic_tensor" title="Electromagnetic tensor">EM tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gluon_field_strength_tensor" title="Gluon field strength tensor">gluon field strength tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Einstein_tensor" title="Einstein tensor">Einstein tensor</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Metric_tensor_(general_relativity)" title="Metric tensor (general relativity)">metric tensor (GR)</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr style="height: 2px; display: none;">
+<td colspan="2"></td>
+</tr>
+<tr style="display: none;">
+<th scope="row" class="navbox-group"><a href="https://en.wikipedia.org/wiki/Mathematician" title="Mathematician">Mathematicians</a></th>
+<td class="navbox-list navbox-even" style="text-align: left; border-left-width: 2px; border-left-style: solid; width: 100%; padding: 0px;">
+<div style="padding: 0em 0.25em;">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Leonhard_Euler" title="Leonhard Euler">Leonhard Euler</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss" title="Carl Friedrich Gauss">Carl Friedrich Gauss</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Augustin-Louis_Cauchy" title="Augustin-Louis Cauchy">Augustin-Louis Cauchy</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hermann_Grassmann" title="Hermann Grassmann">Hermann Grassmann</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gregorio_Ricci-Curbastro" title="Gregorio Ricci-Curbastro">Gregorio Ricci-Curbastro</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tullio_Levi-Civita" title="Tullio Levi-Civita">Tullio Levi-Civita</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Jan_Arnoldus_Schouten" title="Jan Arnoldus Schouten">Jan Arnoldus Schouten</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Bernhard_Riemann" title="Bernhard Riemann">Bernhard Riemann</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Elwin_Bruno_Christoffel" title="Elwin Bruno Christoffel">Elwin Bruno Christoffel</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Woldemar_Voigt" title="Woldemar Voigt">Woldemar Voigt</a></li>
+<li><a href="https://en.wikipedia.org/wiki/%C3%89lie_Cartan" title="Élie Cartan">Élie Cartan</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hermann_Weyl" title="Hermann Weyl">Hermann Weyl</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Albert_Einstein" title="Albert Einstein">Albert Einstein</a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:157093-0!*!0!!en!4!*!math=5 and timestamp 20160910124638 and revision id 736609693
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>					<div class="printfooter">
+
+						Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;oldid=736609693">https://en.wikipedia.org/w/index.php?title=Dot_product&amp;oldid=736609693</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="https://en.wikipedia.org/wiki/Category:Bilinear_forms" title="Category:Bilinear forms">Bilinear forms</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Linear_algebra" title="Category:Linear algebra">Linear algebra</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Vectors_(mathematics_and_physics)" title="Category:Vectors (mathematics and physics)">Vectors (mathematics and physics)</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Analytic_geometry" title="Category:Analytic geometry">Analytic geometry</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Tensors" title="Category:Tensors">Tensors</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="https://en.wikipedia.org/wiki/Category:Articles_containing_proofs" title="Category:Articles containing proofs">Articles containing proofs</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-anonuserpage">Not logged in</li><li id="pt-anontalk"><a href="https://en.wikipedia.org/wiki/Special:MyTalk" title="Discussion about edits from this IP address [Alt+Shift+n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs"><a href="https://en.wikipedia.org/wiki/Special:MyContributions" title="A list of edits made from this IP address [Alt+Shift+y]" accesskey="y">Contributions</a></li><li id="pt-createaccount"><a href="https://en.wikipedia.org/w/index.php?title=Special:CreateAccount&amp;returnto=Dot+product" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login"><a href="https://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Dot+product" title="You're encouraged to log in; however, it's not mandatory. [Alt+Shift+o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li id="ca-nstab-main" class="selected"><span><a href="https://en.wikipedia.org/wiki/Dot_product" title="View the content page [Alt+Shift+c]" accesskey="c">Article</a></span></li>
+															<li id="ca-talk"><span><a href="https://en.wikipedia.org/wiki/Talk:Dot_product" title="Discussion about the content page [Alt+Shift+t]" accesskey="t" rel="discussion">Talk</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 tabindex="0" id="p-variants-label">
+							<span>Variants</span><a tabindex="-1" href="#"></a>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="https://en.wikipedia.org/wiki/Dot_product">Read</a></span></li>
+															<li id="ca-edit"><span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=edit" title="Edit this page [Alt+Shift+e]" accesskey="e">Edit</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div style="" id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 tabindex="0" id="p-cactions-label"><span>More</span><a tabindex="-1" href="#"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="https://en.wikipedia.org/w/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input autocomplete="off" tabindex="2" name="search" placeholder="Search" title="Search Wikipedia [Alt+Shift+f]" accesskey="f" id="searchInput" type="search"><input value="Special:Search" name="title" type="hidden"><input name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton" type="submit">							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+			<h3 id="p-navigation-label">Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main page</a></li><li id="n-contents"><a href="https://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li><li id="n-featuredcontent"><a href="https://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li><li id="n-currentevents"><a href="https://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li><li id="n-randompage"><a href="https://en.wikipedia.org/wiki/Special:Random" title="Load a random article [Alt+Shift+x]" accesskey="x">Random article</a></li><li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li><li id="n-shoplink"><a href="https://shop.wikimedia.org/" title="Visit the Wikipedia store">Wikipedia store</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+			<h3 id="p-interaction-label">Interaction</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-help"><a href="https://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li><li id="n-aboutsite"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li><li id="n-portal"><a href="https://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li><li id="n-recentchanges"><a href="https://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r">Recent changes</a></li><li id="n-contactpage"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+			<h3 id="p-tb-label">Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="https://en.wikipedia.org/wiki/Special:WhatLinksHere/Dot_product" title="List of all English Wikipedia pages containing links to this page [Alt+Shift+j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="https://en.wikipedia.org/wiki/Special:RecentChangesLinked/Dot_product" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k">Related changes</a></li><li id="t-upload"><a href="https://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [Alt+Shift+u]" accesskey="u">Upload file</a></li><li id="t-specialpages"><a href="https://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q">Special pages</a></li><li id="t-permalink"><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;oldid=736609693" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;action=info" title="More information about this page">Page information</a></li><li id="t-wikibase"><a href="https://www.wikidata.org/wiki/Q181365" title="Link to connected data repository item [Alt+Shift+g]" accesskey="g">Wikidata item</a></li><li id="t-cite"><a href="https://en.wikipedia.org/w/index.php?title=Special:CiteThisPage&amp;page=Dot_product&amp;id=736609693" title="Information on how to cite this page">Cite this page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+			<h3 id="p-coll-print_export-label">Print/export</h3>
+
+			<div class="body">
+									<ul>
+						<li id="coll-create_a_book"><a href="https://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Dot+product">Create a book</a></li><li id="coll-download-as-rdf2latex"><a href="https://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Dot+product&amp;returnto=Dot+product&amp;oldid=736609693&amp;writer=rdf2latex">Download as PDF</a></li><li id="t-print"><a href="https://en.wikipedia.org/w/index.php?title=Dot_product&amp;printable=yes" title="Printable version of this page [Alt+Shift+p]" accesskey="p">Printable version</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-wikibase-otherprojects" aria-labelledby="p-wikibase-otherprojects-label">
+			<h3 id="p-wikibase-otherprojects-label">In other projects</h3>
+
+			<div class="body">
+									<ul>
+						<li class="wb-otherproject-link wb-otherproject-commons"><a href="https://commons.wikimedia.org/wiki/Category:Scalar_product" hreflang="en">Wikimedia Commons</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span aria-haspopup="true" role="button" tabindex="0" title="Language settings" class="uls-settings-trigger"></span><span aria-haspopup="true" role="button" tabindex="0" title="Language settings" class="uls-settings-trigger"></span>
+			<h3 id="p-lang-label">Languages</h3>
+
+			<div class="body">
+									<ul>
+						<li class="interlanguage-link interwiki-am"><a href="https://am.wikipedia.org/wiki/%E1%8C%A5%E1%88%8B_%E1%89%A5%E1%8B%9C%E1%89%B5" title="ጥላ ብዜት – Amharic" hreflang="am" lang="am">አማርኛ</a></li><li class="interlanguage-link interwiki-ar"><a href="https://ar.wikipedia.org/wiki/%D8%AC%D8%AF%D8%A7%D8%A1_%D9%82%D9%8A%D8%A7%D8%B3%D9%8A" title="جداء قياسي – Arabic" hreflang="ar" lang="ar">العربية</a></li><li class="interlanguage-link interwiki-be"><a href="https://be.wikipedia.org/wiki/%D0%A1%D0%BA%D0%B0%D0%BB%D1%8F%D1%80%D0%BD%D1%8B_%D0%B7%D0%B4%D0%B0%D0%B1%D1%8B%D1%82%D0%B0%D0%BA" title="Скалярны здабытак – Belarusian" hreflang="be" lang="be">Беларуская</a></li><li class="interlanguage-link interwiki-bg"><a href="https://bg.wikipedia.org/wiki/%D0%A1%D0%BA%D0%B0%D0%BB%D0%B0%D1%80%D0%BD%D0%BE_%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5" title="Скаларно произведение – Bulgarian" hreflang="bg" lang="bg">Български</a></li><li class="interlanguage-link interwiki-bs"><a href="https://bs.wikipedia.org/wiki/Skalarni_proizvod" title="Skalarni proizvod – Bosnian" hreflang="bs" lang="bs">Bosanski</a></li><li class="interlanguage-link interwiki-ca"><a href="https://ca.wikipedia.org/wiki/Producte_escalar" title="Producte escalar – Catalan" hreflang="ca" lang="ca">Català</a></li><li class="interlanguage-link interwiki-cs"><a href="https://cs.wikipedia.org/wiki/Skal%C3%A1rn%C3%AD_sou%C4%8Din" title="Skalární součin – Czech" hreflang="cs" lang="cs">Čeština</a></li><li class="interlanguage-link interwiki-da"><a href="https://da.wikipedia.org/wiki/Skalarprodukt" title="Skalarprodukt – Danish" hreflang="da" lang="da">Dansk</a></li><li class="interlanguage-link interwiki-de"><a href="https://de.wikipedia.org/wiki/Skalarprodukt" title="Skalarprodukt – German" hreflang="de" lang="de">Deutsch</a></li><li class="interlanguage-link interwiki-et"><a href="https://et.wikipedia.org/wiki/Skalaarkorrutis" title="Skalaarkorrutis – Estonian" hreflang="et" lang="et">Eesti</a></li><li class="interlanguage-link interwiki-es"><a href="https://es.wikipedia.org/wiki/Producto_escalar" title="Producto escalar – Spanish" hreflang="es" lang="es">Español</a></li><li class="interlanguage-link interwiki-eo"><a href="https://eo.wikipedia.org/wiki/Skalara_produto" title="Skalara produto – Esperanto" hreflang="eo" lang="eo">Esperanto</a></li><li class="interlanguage-link interwiki-eu"><a href="https://eu.wikipedia.org/wiki/Biderketa_eskalar" title="Biderketa eskalar – Basque" hreflang="eu" lang="eu">Euskara</a></li><li class="interlanguage-link interwiki-fa"><a href="https://fa.wikipedia.org/wiki/%D8%B6%D8%B1%D8%A8_%D8%AF%D8%A7%D8%AE%D9%84%DB%8C" title="ضرب داخلی – Persian" hreflang="fa" lang="fa">فارسی</a></li><li class="interlanguage-link interwiki-fr"><a href="https://fr.wikipedia.org/wiki/Produit_scalaire" title="Produit scalaire – French" hreflang="fr" lang="fr">Français</a></li><li class="interlanguage-link interwiki-gl"><a href="https://gl.wikipedia.org/wiki/Produto_escalar" title="Produto escalar – Galician" hreflang="gl" lang="gl">Galego</a></li><li class="interlanguage-link interwiki-ko"><a href="https://ko.wikipedia.org/wiki/%EC%8A%A4%EC%B9%BC%EB%9D%BC%EA%B3%B1" title="스칼라곱 – Korean" hreflang="ko" lang="ko">한국어</a></li><li class="interlanguage-link interwiki-hy"><a href="https://hy.wikipedia.org/wiki/%D5%8D%D5%AF%D5%A1%D5%AC%D5%B5%D5%A1%D6%80_%D5%A1%D6%80%D5%BF%D5%A1%D5%A4%D6%80%D5%B5%D5%A1%D5%AC" title="Սկալյար արտադրյալ – Armenian" hreflang="hy" lang="hy">Հայերեն</a></li><li class="interlanguage-link interwiki-hr"><a href="https://hr.wikipedia.org/wiki/Skalarni_umno%C5%BEak" title="Skalarni umnožak – Croatian" hreflang="hr" lang="hr">Hrvatski</a></li><li class="interlanguage-link interwiki-id"><a href="https://id.wikipedia.org/wiki/Produk_skalar" title="Produk skalar – Indonesian" hreflang="id" lang="id">Bahasa Indonesia</a></li><li class="interlanguage-link interwiki-it"><a href="https://it.wikipedia.org/wiki/Prodotto_scalare" title="Prodotto scalare – Italian" hreflang="it" lang="it">Italiano</a></li><li class="interlanguage-link interwiki-he"><a href="https://he.wikipedia.org/wiki/%D7%9E%D7%9B%D7%A4%D7%9C%D7%94_%D7%A1%D7%A7%D7%9C%D7%A8%D7%99%D7%AA" title="מכפלה סקלרית – Hebrew" hreflang="he" lang="he">עברית</a></li><li class="interlanguage-link interwiki-kk"><a href="https://kk.wikipedia.org/wiki/%D0%A1%D0%BA%D0%B0%D0%BB%D1%8F%D1%80_%D0%BA%D3%A9%D0%B1%D0%B5%D0%B9%D1%82%D1%96%D0%BD%D0%B4%D1%96" title="Скаляр көбейтінді – Kazakh" hreflang="kk" lang="kk">Қазақша</a></li><li class="interlanguage-link interwiki-la"><a href="https://la.wikipedia.org/wiki/Productum_interius" title="Productum interius – Latin" hreflang="la" lang="la">Latina</a></li><li class="interlanguage-link interwiki-lv"><a href="https://lv.wikipedia.org/wiki/Skal%C4%81rais_reizin%C4%81jums" title="Skalārais reizinājums – Latvian" hreflang="lv" lang="lv">Latviešu</a></li><li class="interlanguage-link interwiki-lt"><a href="https://lt.wikipedia.org/wiki/Skaliarin%C4%97_sandauga" title="Skaliarinė sandauga – Lithuanian" hreflang="lt" lang="lt">Lietuvių</a></li><li class="interlanguage-link interwiki-hu"><a href="https://hu.wikipedia.org/wiki/Skal%C3%A1ris_szorzat" title="Skaláris szorzat – Hungarian" hreflang="hu" lang="hu">Magyar</a></li><li class="interlanguage-link interwiki-mr"><a href="https://mr.wikipedia.org/wiki/%E0%A4%AC%E0%A4%BF%E0%A4%82%E0%A4%A6%E0%A5%82_%E0%A4%97%E0%A5%81%E0%A4%A3%E0%A4%BE%E0%A4%95%E0%A4%BE%E0%A4%B0" title="बिंदू गुणाकार – Marathi" hreflang="mr" lang="mr">मराठी</a></li><li class="interlanguage-link interwiki-ms"><a href="https://ms.wikipedia.org/wiki/Hasil_darab_bintik" title="Hasil darab bintik – Malay" hreflang="ms" lang="ms">Bahasa Melayu</a></li><li class="interlanguage-link interwiki-nl"><a href="https://nl.wikipedia.org/wiki/Inwendig_product" title="Inwendig product – Dutch" hreflang="nl" lang="nl">Nederlands</a></li><li class="interlanguage-link interwiki-ja"><a href="https://ja.wikipedia.org/wiki/%E3%83%89%E3%83%83%E3%83%88%E7%A9%8D" title="ドット積 – Japanese" hreflang="ja" lang="ja">日本語</a></li><li class="interlanguage-link interwiki-no"><a href="https://no.wikipedia.org/wiki/Indreprodukt" title="Indreprodukt – Norwegian" hreflang="no" lang="no">Norsk bokmål</a></li><li class="interlanguage-link interwiki-nn"><a href="https://nn.wikipedia.org/wiki/Indreprodukt" title="Indreprodukt – Norwegian Nynorsk" hreflang="nn" lang="nn">Norsk nynorsk</a></li><li class="interlanguage-link interwiki-pms"><a href="https://pms.wikipedia.org/wiki/Prodot_%C3%ABscalar" title="Prodot ëscalar – Piedmontese" hreflang="pms" lang="pms">Piemontèis</a></li><li class="interlanguage-link interwiki-pl"><a href="https://pl.wikipedia.org/wiki/Iloczyn_skalarny" title="Iloczyn skalarny – Polish" hreflang="pl" lang="pl">Polski</a></li><li class="interlanguage-link interwiki-pt"><a href="https://pt.wikipedia.org/wiki/Produto_escalar" title="Produto escalar – Portuguese" hreflang="pt" lang="pt">Português</a></li><li class="interlanguage-link interwiki-ru"><a href="https://ru.wikipedia.org/wiki/%D0%A1%D0%BA%D0%B0%D0%BB%D1%8F%D1%80%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%B5%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5" title="Скалярное произведение – Russian" hreflang="ru" lang="ru">Русский</a></li><li class="interlanguage-link interwiki-simple"><a href="https://simple.wikipedia.org/wiki/Dot_product" title="Dot product – Simple English" hreflang="simple" lang="simple">Simple English</a></li><li class="interlanguage-link interwiki-sk"><a href="https://sk.wikipedia.org/wiki/Skal%C3%A1rny_s%C3%BA%C4%8Din" title="Skalárny súčin – Slovak" hreflang="sk" lang="sk">Slovenčina</a></li><li class="interlanguage-link interwiki-sl"><a href="https://sl.wikipedia.org/wiki/Skalarni_produkt" title="Skalarni produkt – Slovenian" hreflang="sl" lang="sl">Slovenščina</a></li><li class="interlanguage-link interwiki-sr"><a href="https://sr.wikipedia.org/wiki/%D0%A1%D0%BA%D0%B0%D0%BB%D0%B0%D1%80%D0%BD%D0%B8_%D0%BF%D1%80%D0%BE%D0%B8%D0%B7%D0%B2%D0%BE%D0%B4_%D0%B2%D0%B5%D0%BA%D1%82%D0%BE%D1%80%D0%B0" title="Скаларни производ вектора – Serbian" hreflang="sr" lang="sr">Српски / srpski</a></li><li class="interlanguage-link interwiki-sh"><a href="https://sh.wikipedia.org/wiki/Skalarni_proizvod_vektora" title="Skalarni proizvod vektora – Serbo-Croatian" hreflang="sh" lang="sh">Srpskohrvatski / српскохрватски</a></li><li class="interlanguage-link interwiki-fi"><a href="https://fi.wikipedia.org/wiki/Pistetulo" title="Pistetulo – Finnish" hreflang="fi" lang="fi">Suomi</a></li><li class="interlanguage-link interwiki-sv"><a href="https://sv.wikipedia.org/wiki/Skal%C3%A4rprodukt" title="Skalärprodukt – Swedish" hreflang="sv" lang="sv">Svenska</a></li><li class="interlanguage-link interwiki-tl"><a href="https://tl.wikipedia.org/wiki/Produktong_tuldok" title="Produktong tuldok – Tagalog" hreflang="tl" lang="tl">Tagalog</a></li><li class="interlanguage-link interwiki-ta"><a href="https://ta.wikipedia.org/wiki/%E0%AE%AA%E0%AF%81%E0%AE%B3%E0%AF%8D%E0%AE%B3%E0%AE%BF%E0%AE%AA%E0%AF%8D_%E0%AE%AA%E0%AF%86%E0%AE%B0%E0%AF%81%E0%AE%95%E0%AF%8D%E0%AE%95%E0%AE%B2%E0%AF%8D" title="புள்ளிப் பெருக்கல் – Tamil" hreflang="ta" lang="ta">தமிழ்</a></li><li class="interlanguage-link interwiki-tt"><a href="https://tt.wikipedia.org/wiki/%D0%A1%D0%BA%D0%B0%D0%BB%D1%8F%D1%80_%D1%82%D0%B0%D0%BF%D0%BA%D1%8B%D1%80%D1%87%D1%8B%D0%B3%D1%8B%D1%88" title="Скаляр тапкырчыгыш – Tatar" hreflang="tt" lang="tt">Татарча/tatarça</a></li><li class="interlanguage-link interwiki-th"><a href="https://th.wikipedia.org/wiki/%E0%B8%9C%E0%B8%A5%E0%B8%84%E0%B8%B9%E0%B8%93%E0%B8%88%E0%B8%B8%E0%B8%94" title="ผลคูณจุด – Thai" hreflang="th" lang="th">ไทย</a></li><li class="interlanguage-link interwiki-tr"><a href="https://tr.wikipedia.org/wiki/Nokta_%C3%A7arp%C4%B1m" title="Nokta çarpım – Turkish" hreflang="tr" lang="tr">Türkçe</a></li><li class="interlanguage-link interwiki-uk"><a href="https://uk.wikipedia.org/wiki/%D0%A1%D0%BA%D0%B0%D0%BB%D1%8F%D1%80%D0%BD%D0%B8%D0%B9_%D0%B4%D0%BE%D0%B1%D1%83%D1%82%D0%BE%D0%BA" title="Скалярний добуток – Ukrainian" hreflang="uk" lang="uk">Українська</a></li><li class="interlanguage-link interwiki-ur"><a href="https://ur.wikipedia.org/wiki/Dot_product" title="Dot product – Urdu" hreflang="ur" lang="ur">اردو</a></li><li class="interlanguage-link interwiki-vi"><a href="https://vi.wikipedia.org/wiki/T%C3%ADch_v%C3%B4_h%C6%B0%E1%BB%9Bng" title="Tích vô hướng – Vietnamese" hreflang="vi" lang="vi">Tiếng Việt</a></li><li class="interlanguage-link interwiki-zh"><a href="https://zh.wikipedia.org/wiki/%E6%95%B0%E9%87%8F%E7%A7%AF" title="数量积 – Chinese" hreflang="zh" lang="zh">中文</a></li>					</ul>
+				<div class="after-portlet after-portlet-lang"><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Q181365#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>			</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 28 August 2016, at 17:29.</li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/" style="display: none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="https://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="https://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="https://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="https://wikimediafoundation.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="https://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-cookiestatement"><a href="https://wikimediafoundation.org/wiki/Cookie_statement">Cookie statement</a></li>
+											<li id="footer-places-mobileview"><a href="https://en.m.wikipedia.org/w/index.php?title=Dot_product&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+							<a href="https://wikimediafoundation.org/"><img src="wikimedia-button.png" srcset="/static/images/wikimedia-button-1.5x.png 1.5x, /static/images/wikimedia-button-2x.png 2x" alt="Wikimedia Foundation" height="31" width="88"></a>						</li>
+											<li id="footer-poweredbyico">
+							<a href="https://www.mediawiki.org/"><img src="poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/static/images/poweredby_mediawiki_132x47.png 1.5x, /static/images/poweredby_mediawiki_176x62.png 2x" height="31" width="88"></a>						</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.loader.load(["ext.cite.a11y","ext.math.scripts","mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.watchlist-notice","ext.gadget.DRN-wizard","ext.gadget.charinsert","ext.gadget.refToolbar","ext.gadget.extra-toolbar-buttons","ext.gadget.switcher","ext.gadget.featured-articles-links","mmv.bootstrap.autostart","ext.visualEditor.targetLoader","ext.eventLogging.subscriber","ext.wikimediaEvents","ext.navigationTiming","ext.uls.eventlogger","ext.uls.init","ext.uls.interlanguage","ext.centralNotice.geoIP","ext.centralNotice.startUp"]);});</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set( {
+    "wgPageParseReport": {
+        "limitreport": {
+            "cputime": "0.220",
+            "walltime": "0.366",
+            "ppvisitednodes": {
+                "value": 2071,
+                "limit": 1000000
+            },
+            "ppgeneratednodes": {
+                "value": 0,
+                "limit": 1500000
+            },
+            "postexpandincludesize": {
+                "value": 56018,
+                "limit": 2097152
+            },
+            "templateargumentsize": {
+                "value": 1861,
+                "limit": 2097152
+            },
+            "expansiondepth": {
+                "value": 10,
+                "limit": 40
+            },
+            "expensivefunctioncount": {
+                "value": 1,
+                "limit": 500
+            },
+            "entityaccesscount": {
+                "value": 0,
+                "limit": 400
+            },
+            "timingprofile": [
+                "100.00%  171.927      1 -total",
+                " 35.51%   61.047      1 Template:Reflist",
+                " 33.06%   56.832      4 Template:Navbox",
+                " 27.31%   46.958      8 Template:Cite_book",
+                " 20.56%   35.343      1 Template:Tensors",
+                " 16.13%   27.728      2 Template:Navbox_subgroup",
+                " 12.39%   21.298      1 Template:Redirect",
+                "  7.08%   12.170      1 Template:Springer",
+                "  5.36%    9.208      1 Template:Citation",
+                "  5.14%    8.842      1 Template:Linear_algebra"
+            ]
+        },
+        "scribunto": {
+            "limitreport-timeusage": {
+                "value": "0.062",
+                "limit": "10.000"
+            },
+            "limitreport-memusage": {
+                "value": 3210388,
+                "limit": 52428800
+            }
+        },
+        "cachereport": {
+            "origin": "mw1274",
+            "timestamp": "20160910124638",
+            "ttl": 2592000,
+            "transientcontent": false
+        }
+    }
+} );});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":94,"wgHostname":"mw1270"});});</script>
+	
+
+<div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body>
+</html>

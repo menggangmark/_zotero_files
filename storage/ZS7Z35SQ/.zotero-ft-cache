@@ -1,0 +1,2701 @@
+Numerical Optimization
+
+Jorge Nocedal Stephen J. Wright
+
+Springer
+
+Springer Series in Operations Research
+Editors: Peter Glynn
+
+Stephen M. Robinson
+
+Springer
+New York Berlin Heidelberg Barcelona Hong Kong London Milan Paris Singapore Tokyo
+
+Jorge Nocedal
+
+Stephen J. Wright
+
+Numerical Optimization
+With 85 Illustrations
+
+13
+
+Jorge Nocedal ECE Department Northwestern University Evanston, IL 60208-3118 USA
+
+Stephen J. Wright Mathematics and Computer Science Division Argonne National Laboratory 9700 South Cass Avenue Argonne, IL 60439-4844 USA
+
+Series Editors: Peter Glynn Department of Operations Research Stanford University Stanford, CA 94305 USA
+
+Stephen M. Robinson Department of Industrial Engineering University of Wisconsin–Madison 1513 University Avenue Madison, WI 53706-1572 USA
+
+Cover illustration is from Pre-Hispanic Mexican Stamp Designs by Frederick V. Field, courtesy of Dover Publications, Inc.
+
+Library of Congress Cataloging-in-Publication Data Nocedal, Jorge. Numerical optimization / Jorge Nocedal, Stephen J. Wright. p. cm. — (Springer series in operations research) Includes bibliographical references and index. ISBN 0-387-98793-2 (hardcover) 1. Mathematical optimization. I. Wright, Stephen J., 1960– . II. Title. III. Series. QA402.5.N62 1999 519.3—dc21 99–13263
+
+© 1999 Springer-Verlag New York, Inc. All rights reserved. This work may not be translated or copied in whole or in part without the written permission of the publisher (Springer-Verlag New York, Inc., 175 Fifth Avenue, New York, NY 10010, USA), except for brief excerpts in connection with reviews or scholarly analysis. Use in connection with any form of information storage and retrieval, electronic adaptation, computer software, or by similar or dissimilar methodology now known or hereafter developed is forbidden. The use of general descriptive names, trade names, trademarks, etc., in this publication, even if the former are not especially identiﬁed, is not to be taken as a sign that such names, as understood by the Trade Marks and Merchandise Marks Act, may accordingly be used freely by anyone.
+
+ISBN 0-387-98793-2 Springer-Verlag New York Berlin Heidelberg
+
+SPIN 10764949
+
+To Our Parents: Ra´ l and Concepci´ n u o Peter and Berenice
+
+Preface
+
+This is a book for people interested in solving optimization problems. Because of the wide (and growing) use of optimization in science, engineering, economics, and industry, it is essential for students and practitioners alike to develop an understanding of optimization algorithms. Knowledge of the capabilities and limitations of these algorithms leads to a better understanding of their impact on various applications, and points the way to future research on improving and extending optimization algorithms and software. Our goal in this book is to give a comprehensive description of the most powerful, state-of-the-art, techniques for solving continuous optimization problems. By presenting the motivating ideas for each algorithm, we try to stimulate the reader’s intuition and make the technical details easier to follow. Formal mathematical requirements are kept to a minimum. Because of our focus on continuous problems, we have omitted discussion of important optimization topics such as discrete and stochastic optimization. However, there are a great many applications that can be formulated as continuous optimization problems; for instance, ﬁnding the optimal trajectory for an aircraft or a robot arm; identifying the seismic properties of a piece of the earth’s crust by ﬁtting a model of the region under study to a set of readings from a network of recording stations;
+
+viii
+
+Preface
+
+designing a portfolio of investments to maximize expected return while maintaining an acceptable level of risk; controlling a chemical process or a mechanical device to optimize performance or meet standards of robustness; computing the optimal shape of an automobile or aircraft component. Every year optimization algorithms are being called on to handle problems that are much larger and complex than in the past. Accordingly, the book emphasizes large-scale optimization techniques, such as interior-point methods, inexact Newton methods, limitedmemory methods, and the role of partially separable functions and automatic differentiation. It treats important topics such as trust-region methods and sequential quadratic programming more thoroughly than existing texts, and includes comprehensive discussion of such “core curriculum” topics as constrained optimization theory, Newton and quasi-Newton methods, nonlinear least squares and nonlinear equations, the simplex method, and penalty and barrier methods for nonlinear programming.
+
+THE AUDIENCE
+We intend that this book will be used in graduate-level courses in optimization, as offered in engineering, operations research, computer science, and mathematics departments. There is enough material here for a two-semester (or three-quarter) sequence of courses. We hope, too, that this book will be used by practitioners in engineering, basic science, and industry, and our presentation style is intended to facilitate self-study. Since the book treats a number of new algorithms and ideas that have not been described in earlier textbooks, we hope that this book will also be a useful reference for optimization researchers. Prerequisites for this book include some knowledge of linear algebra (including numerical linear algebra) and the standard sequence of calculus courses. To make the book as self-contained as possible, we have summarized much of the relevant material from these areas in the Appendix. Our experience in teaching engineering students has shown us that the material is best assimilated when combined with computer programming projects in which the student gains a good feeling for the algorithms—their complexity, memory demands, and elegance—and for the applications. In most chapters we provide simple computer exercises that require only minimal programming proﬁciency.
+
+EMPHASIS AND WRITING STYLE
+We have used a conversational style to motivate the ideas and present the numerical algorithms. Rather than being as concise as possible, our aim is to make the discussion ﬂow in a natural way. As a result, the book is comparatively long, but we believe that it can be read relatively rapidly. The instructor can assign substantial reading assignments from the text and focus in class only on the main ideas.
+
+Preface
+
+ix
+
+A typical chapter begins with a nonrigorous discussion of the topic at hand, including ﬁgures and diagrams and excluding technical details as far as possible. In subsequent sections, the algorithms are motivated and discussed, and then stated explicitly. The major theoretical results are stated, and in many cases proved, in a rigorous fashion. These proofs can be skipped by readers who wish to avoid technical details. The practice of optimization depends not only on efﬁcient and robust algorithms, but also on good modeling techniques, careful interpretation of results, and user-friendly software. In this book we discuss the various aspects of the optimization process—modeling, optimality conditions, algorithms, implementation, and interpretation of results—but not with equal weight. Examples throughout the book show how practical problems are formulated as optimization problems, but our treatment of modeling is light and serves mainly to set the stage for algorithmic developments. We refer the reader to Dantzig [63] and Fourer, Gay, and Kernighan [92] for more comprehensive discussion of this issue. Our treatment of optimality conditions is thorough but not exhaustive; some concepts are discussed more extensively in Mangasarian [154] and Clarke [42]. As mentioned above, we are quite comprehensive in discussing optimization algorithms.
+
+TOPICS NOT COVERED
+We omit some important topics, such as network optimization, integer programming, stochastic programming, nonsmooth optimization, and global optimization. Network and integer optimization are described in some excellent texts: for instance, Ahuja, Magnanti, and Orlin [1] in the case of network optimization and Nemhauser and Wolsey [179], Papadimitriou and Steiglitz [190], and Wolsey [249] in the case of integer programming. Books on stochastic optimization are only now appearing; we mention those of Kall and Wallace [139], Birge and Louveaux [11]. Nonsmooth optimization comes in many ﬂavors. The relatively simple structures that arise in robust data ﬁtting (which is sometimes based on the 1 norm) are treated by Osborne [187] and Fletcher [83]. The latter book also discusses algorithms for nonsmooth penalty functions that arise in constrained optimization; we discuss these brieﬂy, too, in Chapter 18. A more analytical treatment of nonsmooth optimization is given by Hiriart-Urruty and Lemar´ chal [137]. We omit detailed treatment of some important e topics that are the focus of intense current research, including interior-point methods for nonlinear programming and algorithms for complementarity problems.
+
+ADDITIONAL RESOURCE
+The material in the book is complemented by an online resource called the NEOS Guide, which can be found on the World-Wide Web at http://www.mcs.anl.gov/otc/Guide/ The Guide contains information about most areas of optimization, and presents a number of case studies that describe applications of various optimization algorithms to real-world prob-
+
+x
+
+Preface
+
+lems such as portfolio optimization and optimal dieting. Some of this material is interactive in nature and has been used extensively for class exercises. For the most part, we have omitted detailed discussions of speciﬁc software packages, and refer the reader to Mor´ and Wright [173] or to the Software Guide section of the NEOS e Guide, which can be found at http://www.mcs.anl.gov/otc/Guide/SoftwareGuide/ Users of optimization software refer in great numbers to this web site, which is being constantly updated to reﬂect new packages and changes to existing software.
+
+ACKNOWLEDGMENTS
+We are most grateful to the following colleagues for their input and feedback on various sections of this work: Chris Bischof, Richard Byrd, George Corliss, Bob Fourer, David Gay, Jean-Charles Gilbert, Phillip Gill, Jean-Pierre Goux, Don Goldfarb, Nick Gould, Andreas Griewank, Matthias Heinkenschloss, Marcelo Marazzi, Hans Mittelmann, Jorge Mor´ , Will e Naylor, Michael Overton, Bob Plemmons, Hugo Scolnik, David Stewart, Philippe Toint, Luis Vicente, Andreas Waechter, and Ya-xiang Yuan. We thank Guanghui Liu, who provided help with many of the exercises, and Jill Lavelle who assisted us in preparing the ﬁgures. We also express our gratitude to our sponsors at the Department of Energy and the National Science Foundation, who have strongly supported our research efforts in optimization over the years. One of us (JN) would like to express his deep gratitude to Richard Byrd, who has taught him so much about optimization and who has helped him in very many ways throughout the course of his career.
+
+FINAL REMARK
+In the preface to his 1987 book [83], Roger Fletcher described the ﬁeld of optimization as a “fascinating blend of theory and computation, heuristics and rigor.” The ever-growing realm of applications and the explosion in computing power is driving optimization research in new and exciting directions, and the ingredients identiﬁed by Fletcher will continue to play important roles for many years to come.
+Jorge Nocedal Evanston, IL Stephen J. Wright Argonne, IL
+
+Contents
+
+Preface 1 Introduction Mathematical Formulation . . . . . . . . . . Example: A Transportation Problem . . . . . Continuous versus Discrete Optimization . . . Constrained and Unconstrained Optimization Global and Local Optimization . . . . . . . . Stochastic and Deterministic Optimization . . Optimization Algorithms . . . . . . . . . . . Convexity . . . . . . . . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . .
+
+vii xxi 2 4 4 6 6 7 7 8 9 10 13 15 18
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+2
+
+Fundamentals of Unconstrained Optimization 2.1 What Is a Solution? . . . . . . . . . . . . . . . . . . . . . . . . . . . . Recognizing a Local Minimum . . . . . . . . . . . . . . . . . . . . . . Nonsmooth Problems . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+xii
+
+Contents
+
+Overview of Algorithms . . . . . . . . . . . Two Strategies: Line Search and Trust Region Search Directions for Line Search Methods . Models for Trust-Region Methods . . . . . . Scaling . . . . . . . . . . . . . . . . . . . . Rates of Convergence . . . . . . . . . . . . R-Rates of Convergence . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . 3
+
+2.2
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+19 19 21 26 27 28 29 30 30 34 36 37 41 41 43 46 47 49 51 53 55 56 58 58 61 62 64 67 69 69 70 71 74 75 77 77 78 82 84 87
+
+Line Search Methods 3.1 Step Length . . . . . . . . . . . . . . . . . . . . The Wolfe Conditions . . . . . . . . . . . . . . . The Goldstein Conditions . . . . . . . . . . . . . Sufﬁcient Decrease and Backtracking . . . . . . . 3.2 Convergence of Line Search Methods . . . . . . . 3.3 Rate of Convergence . . . . . . . . . . . . . . . . Convergence Rate of Steepest Descent . . . . . . . Quasi-Newton Methods . . . . . . . . . . . . . . Newton’s Method . . . . . . . . . . . . . . . . . Coordinate Descent Methods . . . . . . . . . . . 3.4 Step-Length Selection Algorithms . . . . . . . . . Interpolation . . . . . . . . . . . . . . . . . . . . The Initial Step Length . . . . . . . . . . . . . . . A Line Search Algorithm for the Wolfe Conditions Notes and References . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . Trust-Region Methods Outline of the Algorithm . . . . . . . . . . . . 4.1 The Cauchy Point and Related Algorithms . . . The Cauchy Point . . . . . . . . . . . . . . . . Improving on the Cauchy Point . . . . . . . . . The Dogleg Method . . . . . . . . . . . . . . . Two-Dimensional Subspace Minimization . . . Steihaug’s Approach . . . . . . . . . . . . . . . 4.2 Using Nearly Exact Solutions to the Subproblem Characterizing Exact Solutions . . . . . . . . . Calculating Nearly Exact Solutions . . . . . . . The Hard Case . . . . . . . . . . . . . . . . . . Proof of Theorem 4.3 . . . . . . . . . . . . . . 4.3 Global Convergence . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+4
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+Contents
+
+xiii
+
+Reduction Obtained by the Cauchy Point . . . . . . . . . . Convergence to Stationary Points . . . . . . . . . . . . . . Convergence of Algorithms Based on Nearly Exact Solutions 4.4 Other Enhancements . . . . . . . . . . . . . . . . . . . . Scaling . . . . . . . . . . . . . . . . . . . . . . . . . . . . Non-Euclidean Trust Regions . . . . . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5 Conjugate Gradient Methods 5.1 The Linear Conjugate Gradient Method . . . . . . . Conjugate Direction Methods . . . . . . . . . . . . Basic Properties of the Conjugate Gradient Method A Practical Form of the Conjugate Gradient Method Rate of Convergence . . . . . . . . . . . . . . . . . Preconditioning . . . . . . . . . . . . . . . . . . . Practical Preconditioners . . . . . . . . . . . . . . 5.2 Nonlinear Conjugate Gradient Methods . . . . . . The Fletcher–Reeves Method . . . . . . . . . . . . The Polak–Ribi` re Method . . . . . . . . . . . . . e Quadratic Termination and Restarts . . . . . . . . . Numerical Performance . . . . . . . . . . . . . . . Behavior of the Fletcher–Reeves Method . . . . . . Global Convergence . . . . . . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+87 89 93 94 94 96 97 97 100 102 102 107 111 112 118 119 120 120 121 122 124 124 127 131 132 134 136 139 139 141 142 143 144 145 150 151 154 154 155 156
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+6
+
+Practical Newton Methods 6.1 Inexact Newton Steps . . . . . . . . . . . . . . . . . 6.2 Line Search Newton Methods . . . . . . . . . . . . . Line Search Newton–CG Method . . . . . . . . . . . Modiﬁed Newton’s Method . . . . . . . . . . . . . . 6.3 Hessian Modiﬁcations . . . . . . . . . . . . . . . . . Eigenvalue Modiﬁcation . . . . . . . . . . . . . . . . Adding a Multiple of the Identity . . . . . . . . . . . Modiﬁed Cholesky Factorization . . . . . . . . . . . Gershgorin Modiﬁcation . . . . . . . . . . . . . . . Modiﬁed Symmetric Indeﬁnite Factorization . . . . . 6.4 Trust-Region Newton Methods . . . . . . . . . . . . Newton–Dogleg and Subspace-Minimization Methods Accurate Solution of the Trust-Region Problem . . . . Trust-Region Newton–CG Method . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+xiv
+
+Contents
+
+Preconditioning the Newton–CG Method . . . . . . . Local Convergence of Trust-Region Newton Methods Notes and References . . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7 Calculating Derivatives 7.1 Finite-Difference Derivative Approximations Approximating the Gradient . . . . . . . . . Approximating a Sparse Jacobian . . . . . . Approximating the Hessian . . . . . . . . . Approximating a Sparse Hessian . . . . . . . 7.2 Automatic Differentiation . . . . . . . . . . An Example . . . . . . . . . . . . . . . . . The Forward Mode . . . . . . . . . . . . . The Reverse Mode . . . . . . . . . . . . . . Vector Functions and Partial Separability . . Calculating Jacobians of Vector Functions . . Calculating Hessians: Forward Mode . . . . Calculating Hessians: Reverse Mode . . . . . Current Limitations . . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . Quasi-Newton Methods 8.1 The BFGS Method . . . . . . . . . . . . Properties of the BFGS Method . . . . . Implementation . . . . . . . . . . . . . 8.2 The SR1 Method . . . . . . . . . . . . . Properties of SR1 Updating . . . . . . . 8.3 The Broyden Class . . . . . . . . . . . . Properties of the Broyden Class . . . . . 8.4 Convergence Analysis . . . . . . . . . . Global Convergence of the BFGS Method Superlinear Convergence of BFGS . . . . Convergence Analysis of the SR1 Method Notes and References . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . .
+
+. . . .
+
+. . . .
+
+. . . .
+
+. . . .
+
+. . . .
+
+. . . .
+
+. . . .
+
+. . . .
+
+. . . .
+
+. . . .
+
+157 159 162 162 164 166 166 169 173 174 176 177 178 179 183 184 185 187 188 189 189 192 194 199 200 202 205 207 209 211 211 214 218 219 220 222 224 227 229
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . .
+
+8
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+. . . . . . . . . . . . .
+
+9
+
+Large-Scale Quasi-Newton and Partially Separable Optimization 9.1 Limited-Memory BFGS . . . . . . . . . . . . . . . . . . . . . . . . . . Relationship with Conjugate Gradient Methods . . . . . . . . . . . . . 9.2 General Limited-Memory Updating . . . . . . . . . . . . . . . . . . . .
+
+Contents
+
+xv
+
+Compact Representation of BFGS Updating . . . . . . . SR1 Matrices . . . . . . . . . . . . . . . . . . . . . . . . Unrolling the Update . . . . . . . . . . . . . . . . . . . 9.3 Sparse Quasi-Newton Updates . . . . . . . . . . . . . . 9.4 Partially Separable Functions . . . . . . . . . . . . . . . A Simple Example . . . . . . . . . . . . . . . . . . . . . Internal Variables . . . . . . . . . . . . . . . . . . . . . 9.5 Invariant Subspaces and Partial Separability . . . . . . . Sparsity vs. Partial Separability . . . . . . . . . . . . . . Group Partial Separability . . . . . . . . . . . . . . . . . 9.6 Algorithms for Partially Separable Functions . . . . . . . Exploiting Partial Separability in Newton’s Method . . . . Quasi-Newton Methods for Partially Separable Functions Notes and References . . . . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10 Nonlinear Least-Squares Problems 10.1 Background . . . . . . . . . . . . . . . . . . . . . . Modeling, Regression, Statistics . . . . . . . . . . . . Linear Least-Squares Problems . . . . . . . . . . . . 10.2 Algorithms for Nonlinear Least-Squares Problems . . The Gauss–Newton Method . . . . . . . . . . . . . . The Levenberg–Marquardt Method . . . . . . . . . . Implementation of the Levenberg–Marquardt Method Large-Residual Problems . . . . . . . . . . . . . . . Large-Scale Problems . . . . . . . . . . . . . . . . . 10.3 Orthogonal Distance Regression . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11 Nonlinear Equations 11.1 Local Algorithms . . . . . . . . . . . . . . Newton’s Method for Nonlinear Equations Inexact Newton Methods . . . . . . . . . Broyden’s Method . . . . . . . . . . . . . Tensor Methods . . . . . . . . . . . . . . 11.2 Practical Methods . . . . . . . . . . . . . Merit Functions . . . . . . . . . . . . . . Line Search Methods . . . . . . . . . . . . Trust-Region Methods . . . . . . . . . . . 11.3 Continuation/Homotopy Methods . . . . Motivation . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+230 232 232 233 235 236 237 240 242 243 244 244 245 247 248 250 253 253 256 259 259 262 264 266 269 271 273 274 276 281 281 284 286 290 292 292 294 298 304 304
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+. . . . . . . . . . .
+
+xvi
+
+Contents
+
+Practical Continuation Methods . . . . . . . . . . . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12 Theory of Constrained Optimization Local and Global Solutions . . . . . . . . . . . . . . . . . . Smoothness . . . . . . . . . . . . . . . . . . . . . . . . . . 12.1 Examples . . . . . . . . . . . . . . . . . . . . . . . . . . . . A Single Equality Constraint . . . . . . . . . . . . . . . . . . A Single Inequality Constraint . . . . . . . . . . . . . . . . . Two Inequality Constraints . . . . . . . . . . . . . . . . . . 12.2 First-Order Optimality Conditions . . . . . . . . . . . . . . Statement of First-Order Necessary Conditions . . . . . . . . Sensitivity . . . . . . . . . . . . . . . . . . . . . . . . . . . 12.3 Derivation of the First-Order Conditions . . . . . . . . . . . Feasible Sequences . . . . . . . . . . . . . . . . . . . . . . . Characterizing Limiting Directions: Constraint Qualiﬁcations Introducing Lagrange Multipliers . . . . . . . . . . . . . . . Proof of Theorem 12.1 . . . . . . . . . . . . . . . . . . . . . 12.4 Second-Order Conditions . . . . . . . . . . . . . . . . . . . Second-Order Conditions and Projected Hessians . . . . . . Convex Programs . . . . . . . . . . . . . . . . . . . . . . . 12.5 Other Constraint Qualiﬁcations . . . . . . . . . . . . . . . . 12.6 A Geometric Viewpoint . . . . . . . . . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13 Linear Programming: The Simplex Method Linear Programming . . . . . . . . . . . . 13.1 Optimality and Duality . . . . . . . . . . Optimality Conditions . . . . . . . . . . . The Dual Problem . . . . . . . . . . . . . 13.2 Geometry of the Feasible Set . . . . . . . . Basic Feasible Points . . . . . . . . . . . . Vertices of the Feasible Polytope . . . . . . 13.3 The Simplex Method . . . . . . . . . . . . Outline of the Method . . . . . . . . . . . Finite Termination of the Simplex Method A Single Step of the Method . . . . . . . . 13.4 Linear Algebra in the Simplex Method . . 13.5 Other (Important) Details . . . . . . . . . Pricing and Selection of the Entering Index
+
+306 310 311 314 316 317 319 319 321 324 327 327 330 331 331 336 339 341 342 348 349 350 353 356 357 360 362 364 364 365 368 368 370 372 372 374 376 377 381 381
+
+. . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+Contents
+
+xvii
+
+Starting the Simplex Method . . . . Degenerate Steps and Cycling . . . . 13.6 Where Does the Simplex Method Fit? Notes and References . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+. . . . .
+
+384 387 389 390 391 392 394 394 397 399 400 402 406 407 407 407 408 409 414 415 418 420 422 424 426 429 431 432 436 436 438 440 441 442 445 446 447 448 450
+
+14 Linear Programming: Interior-Point Methods 14.1 Primal–Dual Methods . . . . . . . . . . . . . Outline . . . . . . . . . . . . . . . . . . . . . The Central Path . . . . . . . . . . . . . . . . A Primal–Dual Framework . . . . . . . . . . Path-Following Methods . . . . . . . . . . . . 14.2 A Practical Primal–Dual Algorithm . . . . . . Solving the Linear Systems . . . . . . . . . . . 14.3 Other Primal–Dual Algorithms and Extensions Other Path-Following Methods . . . . . . . . Potential-Reduction Methods . . . . . . . . . Extensions . . . . . . . . . . . . . . . . . . . 14.4 Analysis of Algorithm 14.2 . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . .
+
+15 Fundamentals of Algorithms for Nonlinear Constrained Optimization Initial Study of a Problem . . . . . . . . . . . . . . . . . . . . . 15.1 Categorizing Optimization Algorithms . . . . . . . . . . . . . . 15.2 Elimination of Variables . . . . . . . . . . . . . . . . . . . . . . Simple Elimination for Linear Constraints . . . . . . . . . . . . General Reduction Strategies for Linear Constraints . . . . . . . The Effect of Inequality Constraints . . . . . . . . . . . . . . . . 15.3 Measuring Progress: Merit Functions . . . . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16 Quadratic Programming An Example: Portfolio Optimization . . . 16.1 Equality–Constrained Quadratic Programs Properties of Equality-Constrained QPs . . 16.2 Solving the KKT System . . . . . . . . . . Direct Solution of the KKT System . . . . Range-Space Method . . . . . . . . . . . Null-Space Method . . . . . . . . . . . . A Method Based on Conjugacy . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+. . . . . . . .
+
+xviii
+
+Contents
+
+Inequality-Constrained Problems . . . . . . . . . . . . . . Optimality Conditions for Inequality-Constrained Problems Degeneracy . . . . . . . . . . . . . . . . . . . . . . . . . . 16.4 Active-Set Methods for Convex QP . . . . . . . . . . . . . Speciﬁcation of the Active-Set Method for Convex QP . . . An Example . . . . . . . . . . . . . . . . . . . . . . . . . Further Remarks on the Active-Set Method . . . . . . . . . Finite Termination of the Convex QP Algorithm . . . . . . Updating Factorizations . . . . . . . . . . . . . . . . . . . 16.5 Active-Set Methods for Indeﬁnite QP . . . . . . . . . . . . Illustration . . . . . . . . . . . . . . . . . . . . . . . . . . Choice of Starting Point . . . . . . . . . . . . . . . . . . . Failure of the Active-Set Method . . . . . . . . . . . . . . Detecting Indeﬁniteness Using the LBLT Factorization . . 16.6 The Gradient–Projection Method . . . . . . . . . . . . . . Cauchy Point Computation . . . . . . . . . . . . . . . . . Subspace Minimization . . . . . . . . . . . . . . . . . . . 16.7 Interior-Point Methods . . . . . . . . . . . . . . . . . . . Extensions and Comparison with Active-Set Methods . . . 16.8 Duality . . . . . . . . . . . . . . . . . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17 Penalty, Barrier, and Augmented Lagrangian Methods 17.1 The Quadratic Penalty Method . . . . . . . . . . . . . . . Motivation . . . . . . . . . . . . . . . . . . . . . . . . . . Algorithmic Framework . . . . . . . . . . . . . . . . . . . Convergence of the Quadratic Penalty Function . . . . . . 17.2 The Logarithmic Barrier Method . . . . . . . . . . . . . . Properties of Logarithmic Barrier Functions . . . . . . . . Algorithms Based on the Log-Barrier Function . . . . . . . Properties of the Log-Barrier Function and Framework 17.2 Handling Equality Constraints . . . . . . . . . . . . . . . Relationship to Primal–Dual Methods . . . . . . . . . . . 17.3 Exact Penalty Functions . . . . . . . . . . . . . . . . . . . 17.4 Augmented Lagrangian Method . . . . . . . . . . . . . . . Motivation and Algorithm Framework . . . . . . . . . . . Extension to Inequality Constraints . . . . . . . . . . . . . Properties of the Augmented Lagrangian . . . . . . . . . . Practical Implementation . . . . . . . . . . . . . . . . . . 17.5 Sequential Linearly Constrained Methods . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . . . . . . . .
+
+16.3
+
+. . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . .
+
+451 452 453 455 460 461 463 464 465 468 470 472 473 473 474 475 478 479 482 482 483 484 488 490 490 492 493 498 498 503 505 507 508 510 511 512 514 517 520 522 523
+
+. . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . .
+
+Contents
+
+xix
+
+Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18 Sequential Quadratic Programming 18.1 Local SQP Method . . . . . . . . . . . . . . . . . . . . . . . SQP Framework . . . . . . . . . . . . . . . . . . . . . . . . Inequality Constraints . . . . . . . . . . . . . . . . . . . . . IQP vs. EQP . . . . . . . . . . . . . . . . . . . . . . . . . . 18.2 Preview of Practical SQP Methods . . . . . . . . . . . . . . . 18.3 Step Computation . . . . . . . . . . . . . . . . . . . . . . . Equality Constraints . . . . . . . . . . . . . . . . . . . . . . Inequality Constraints . . . . . . . . . . . . . . . . . . . . . 18.4 The Hessian of the Quadratic Model . . . . . . . . . . . . . Full Quasi-Newton Approximations . . . . . . . . . . . . . . Hessian of Augmented Lagrangian . . . . . . . . . . . . . . Reduced-Hessian Approximations . . . . . . . . . . . . . . . 18.5 Merit Functions and Descent . . . . . . . . . . . . . . . . . 18.6 A Line Search SQP Method . . . . . . . . . . . . . . . . . . 18.7 Reduced-Hessian SQP Methods . . . . . . . . . . . . . . . . Some Properties of Reduced-Hessian Methods . . . . . . . . Update Criteria for Reduced-Hessian Updating . . . . . . . . Changes of Bases . . . . . . . . . . . . . . . . . . . . . . . . A Practical Reduced-Hessian Method . . . . . . . . . . . . . 18.8 Trust-Region SQP Methods . . . . . . . . . . . . . . . . . . Approach I: Shifting the Constraints . . . . . . . . . . . . . Approach II: Two Elliptical Constraints . . . . . . . . . . . . Approach III: S 1 QP (Sequential 1 Quadratic Programming) 18.9 A Practical Trust-Region SQP Algorithm . . . . . . . . . . . 18.10 Rate of Convergence . . . . . . . . . . . . . . . . . . . . . . Convergence Rate of Reduced-Hessian Methods . . . . . . . 18.11 The Maratos Effect . . . . . . . . . . . . . . . . . . . . . . . Second-Order Correction . . . . . . . . . . . . . . . . . . . Watchdog (Nonmonotone) Strategy . . . . . . . . . . . . . . Notes and References . . . . . . . . . . . . . . . . . . . . . . . . . Exercises . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . A Background Material A.1 Elements of Analysis, Geometry, Topology Topology of the Euclidean Space I n . . . . R Continuity and Limits . . . . . . . . . . . Derivatives . . . . . . . . . . . . . . . . . Directional Derivatives . . . . . . . . . . Mean Value Theorem . . . . . . . . . . .
+
+524 526 528 529 531 531 532 534 534 536 537 538 539 540 542 545 546 547 548 549 550 551 553 554 555 558 561 563 565 568 569 571 572 574 575 575 578 579 581 582
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+. . . . . .
+
+xx
+
+Contents
+
+A.2
+
+Implicit Function Theorem . . . . . . . . . . . . . . . . . . . . Geometry of Feasible Sets . . . . . . . . . . . . . . . . . . . . . Order Notation . . . . . . . . . . . . . . . . . . . . . . . . . . Root-Finding for Scalar Equations . . . . . . . . . . . . . . . . Elements of Linear Algebra . . . . . . . . . . . . . . . . . . . . Vectors and Matrices . . . . . . . . . . . . . . . . . . . . . . . . Norms . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Subspaces . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Eigenvalues, Eigenvectors, and the Singular-Value Decomposition Determinant and Trace . . . . . . . . . . . . . . . . . . . . . . Matrix Factorizations: Cholesky, LU, QR . . . . . . . . . . . . . Sherman–Morrison–Woodbury Formula . . . . . . . . . . . . . Interlacing Eigenvalue Theorem . . . . . . . . . . . . . . . . . . Error Analysis and Floating-Point Arithmetic . . . . . . . . . . . Conditioning and Stability . . . . . . . . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+. . . . . . . . . . . . . . .
+
+583 584 589 590 591 591 592 595 596 597 598 603 603 604 606 609 623
+
+References Index
+
+Chapter
+
+1
+
+Introduction
+
+People optimize. Airline companies schedule crews and aircraft to minimize cost. Investors seek to create portfolios that avoid excessive risks while achieving a high rate of return. Manufacturers aim for maximum efﬁciency in the design and operation of their production processes. Nature optimizes. Physical systems tend to a state of minimum energy. The molecules in an isolated chemical system react with each other until the total potential energy of their electrons is minimized. Rays of light follow paths that minimize their travel time. Optimization is an important tool in decision science and in the analysis of physical systems. To use it, we must ﬁrst identify some objective, a quantitative measure of the performance of the system under study. This objective could be proﬁt, time, potential energy, or any quantity or combination of quantities that can be represented by a single number. The objective depends on certain characteristics of the system, called variables or unknowns. Our goal is to ﬁnd values of the variables that optimize the objective. Often the variables are restricted, or constrained, in some way. For instance, quantities such as electron density in a molecule and the interest rate on a loan cannot be negative. The process of identifying objective, variables, and constraints for a given problem is known as modeling. Construction of an appropriate model is the ﬁrst step—sometimes the
+
+2
+
+Chapter 1.
+
+Introduction
+
+most important step—in the optimization process. If the model is too simplistic, it will not give useful insights into the practical problem, but if it is too complex, it may become too difﬁcult to solve. Once the model has been formulated, an optimization algorithm can be used to ﬁnd its solution. Usually, the algorithm and model are complicated enough that a computer is needed to implement this process. There is no universal optimization algorithm. Rather, there are numerous algorithms, each of which is tailored to a particular type of optimization problem. It is often the user’s responsibility to choose an algorithm that is appropriate for their speciﬁc application. This choice is an important one; it may determine whether the problem is solved rapidly or slowly and, indeed, whether the solution is found at all. After an optimization algorithm has been applied to the model, we must be able to recognize whether it has succeeded in its task of ﬁnding a solution. In many cases, there are elegant mathematical expressions known as optimality conditions for checking that the current set of variables is indeed the solution of the problem. If the optimality conditions are not satisﬁed, they may give useful information on how the current estimate of the solution can be improved. Finally, the model may be improved by applying techniques such as sensitivity analysis, which reveals the sensitivity of the solution to changes in the model and data.
+
+MATHEMATICAL FORMULATION
+Mathematically speaking, optimization is the minimization or maximization of a function subject to constraints on its variables. We use the following notation: x is the vector of variables, also called unknowns or parameters; f is the objective function, a function of x that we want to maximize or minimize; c is the vector of constraints that the unknowns must satisfy. This is a vector function of the variables x. The number of components in c is the number of individual restrictions that we place on the variables. The optimization problem can then be written as ci (x) 0, i ∈ E, i ∈ I.
+
+min f (x) n
+x∈I R
+
+subject to
+
+ci (x) ≥ 0,
+
+(1.1)
+
+Here f and each ci are scalar-valued functions of the variables x, and I, E are sets of indices. As a simple example, consider the problem min (x1 − 2)2 + (x2 − 1)2
+2 x 1 − x2
+
+subject to
+
+≤ 0, ≤ 2.
+
+x1 + x2
+
+(1.2)
+
+Chapter 1.
+
+Introduction
+
+3
+
+x2 c1 c2 contours of f feasible region x*
+
+x1
+
+Figure 1.1 Geometrical representation of an optimization problem.
+
+We can write this problem in the form (1.1) by deﬁning (x1 − 2)2 + (x2 − 1)2 ,
+2 −x1 + x2
+
+f (x) c(x) c1 (x) c2 (x)
+
+x I
+
+x1 x2
+
+, E ∅.
+
+−x1 − x2 + 2
+
+,
+
+{1, 2},
+
+Figure 1.1 shows the contours of the objective function, i.e., the set of points for which f (x) has a constant value. It also illustrates the feasible region, which is the set of points satisfying all the constraints, and the optimal point x ∗ , the solution of the problem. Note that the “infeasible side” of the inequality constraints is shaded. The example above illustrates, too, that transformations are often necessary to express an optimization problem in the form (1.1). Often it is more natural or convenient to label the unknowns with two or three subscripts, or to refer to different variables by completely different names, so that relabeling is necessary to achieve the standard form. Another common difference is that we are required to maximize rather than minimize f , but we can accommodate this change easily by minimizing −f in the formulation (1.1). Good software systems perform the conversion between the natural formulation and the standard form (1.1) transparently to the user.
+
+4
+
+Chapter 1.
+
+Introduction
+
+EXAMPLE: A TRANSPORTATION PROBLEM
+A chemical company has 2 factories F1 and F2 and a dozen retail outlets R1 , . . . , R12 . Each factory Fi can produce ai tons of a certain chemical product each week; ai is called the capacity of the plant. Each retail outlet Rj has a known weekly demand of bj tons of the product. The cost of shipping one ton of the product from factory Fi to retail outlet Rj is cij . The problem is to determine how much of the product to ship from each factory to each outlet so as to satisfy all the requirements and minimize cost. The variables of the 1, 2, j 1, . . . , 12, where xij is the number of tons of the product problem are xij , i shipped from factory Fi to retail outlet Rj ; see Figure 1.2. We can write the problem as min
+ij
+
+cij xij
+
+(1.3)
+
+subject to
+12
+
+xij ≤ ai ,
+j 1 2
+
+i
+
+1, 2,
+
+(1.4a)
+
+xij ≥ bj ,
+i 1
+
+j i
+
+1, . . . , 12, 1, 2, j 1, . . . , 12.
+
+(1.4b) (1.4c)
+
+xij ≥ 0,
+
+In a practical model for this problem, we would also include costs associated with manufacturing and storing the product. This type of problem is known as a linear programming problem, since the objective function and the constraints are all linear functions.
+
+CONTINUOUS VERSUS DISCRETE OPTIMIZATION
+In some optimization problems the variables make sense only if they take on integer values. Suppose that in the transportation problem just mentioned, the factories produce tractors rather than chemicals. In this case, the xij would represent integers (that is, the number of tractors shipped) rather than real numbers. (It would not make much sense to advise the company to ship 5.4 tractors from factory 1 to outlet 12.) The obvious strategy of ignoring the integrality requirement, solving the problem with real variables, and then rounding all the components to the nearest integer is by no means guaranteed to give solutions that are close to optimal. Problems of this type should be handled using the tools of discrete optimization. The mathematical formulation is changed by adding the constraint xij ∈ Z, for all i and j ,
+
+Chapter 1.
+
+Introduction
+
+5
+
+r1 f1 x12 r
+
+2
+
+f2
+
+r3
+
+Figure 1.2 A transportation problem.
+
+to the existing constraints (1.4), where Z is the set of all integers. The problem is then known as an integer programming problem. The generic term discrete optimization usually refers to problems in which the solution we seek is one of a number of objects in a ﬁnite set. By contrast, continuous optimization problems—the class of problems studied in this book—ﬁnd a solution from an uncountably inﬁnite set—typically a set of vectors with real components. Continuous optimization problems are normally easier to solve, because the smoothness of the functions makes it possible to use objective and constraint information at a particular point x to deduce information about the function’s behavior at all points close to x. The same statement cannot be made about discrete problems, where points that are “close” in some sense may have markedly different function values. Moreover, the set of possible solutions is too large to make an exhaustive search for the best value in this ﬁnite set. Some models contain variables that are allowed to vary continuously and others that can attain only integer values; we refer to these as mixed integer programming problems. Discrete optimization problems are not addressed directly in this book; we refer the reader to the texts by Papadimitriou and Steiglitz [190], Nemhauser and Wolsey [179], Cook et al. [56], and Wolsey [249] for comprehensive treatments of this subject. We point out, however, that the continuous optimization algorithms described here are important in discrete optimization, where a sequence of continuous subproblems are often solved. For instance, the branch-and-bound method for integer linear programming problems spends much of its time solving linear program “relaxations,” in which all the variables are real. These subproblems are usually solved by the simplex method, which is discussed in Chapter 13 of this book.
+
+6
+
+Chapter 1.
+
+Introduction
+
+CONSTRAINED AND UNCONSTRAINED OPTIMIZATION
+Problems with the general form (1.1) can be classiﬁed according to the nature of the objective function and constraints (linear, nonlinear, convex), the number of variables (large or small), the smoothness of the functions (differentiable or nondifferentiable), and so on. Possibly the most important distinction is between problems that have constraints on the variables and those that do not. This book is divided into two parts according to this classiﬁcation. Unconstrained optimization problems arise directly in many practical applications. If there are natural constraints on the variables, it is sometimes safe to disregard them and to assume that they have no effect on the optimal solution. Unconstrained problems arise also as reformulations of constrained optimization problems, in which the constraints are replaced by penalization terms in the objective function that have the effect of discouraging constraint violations. Constrained optimization problems arise from models that include explicit constraints on the variables. These constraints may be simple bounds such as 0 ≤ x1 ≤ 100, more general linear constraints such as i xi ≤ 1, or nonlinear inequalities that represent complex relationships among the variables. When both the objective function and all the constraints are linear functions of x, the problem is a linear programming problem. Management sciences and operations research make extensive use of linear models. Nonlinear programming problems, in which at least some of the constraints or the objective are nonlinear functions, tend to arise naturally in the physical sciences and engineering, and are becoming more widely used in management and economic sciences.
+
+GLOBAL AND LOCAL OPTIMIZATION
+The fastest optimization algorithms seek only a local solution, a point at which the objective function is smaller than at all other feasible points in its vicinity. They do not always ﬁnd the best of all such minima, that is, the global solution. Global solutions are necessary (or at least highly desirable) in some applications, but they are usually difﬁcult to identify and even more difﬁcult to locate. An important special case is convex programming (see below), in which all local solutions are also global solutions. Linear programming problems fall in the category of convex programming. However, general nonlinear problems, both constrained and unconstrained, may possess local solutions that are not global solutions. In this book we treat global optimization only in passing, focusing instead on the computation and characterization of local solutions, issues that are central to the ﬁeld of optimization. We note, however, that many successful global optimization algorithms proceed by solving a sequence of local optimization problems, to which the algorithms described in this book can be applied. A collection of recent research papers on global optimization can be found in Floudas and Pardalos [90].
+
+Chapter 1.
+
+Introduction
+
+7
+
+STOCHASTIC AND DETERMINISTIC OPTIMIZATION
+In some optimization problems, the model cannot be fully speciﬁed because it depends on quantities that are unknown at the time of formulation. In the transportation problem described above, for instance, the customer demands bj at the retail outlets cannot be speciﬁed precisely in practice. This characteristic is shared by many economic and ﬁnancial planning models, which often depend on the future movement of interest rates and the future behavior of the economy. Frequently, however, modelers can predict or estimate the unknown quantities with some degree of conﬁdence. They may, for instance, come up with a number of possible scenarios for the values of the unknown quantities and even assign a probability to each scenario. In the transportation problem, the manager of the retail outlet may be able to estimate demand patterns based on prior customer behavior, and there may be different scenarios for the demand that correspond to different seasonal factors or economic conditions. Stochastic optimization algorithms use these quantiﬁcations of the uncertainty to produce solutions that optimize the expected performance of the model. We do not consider stochastic optimization problems further in this book, focusing instead on deterministic optimization problems, in which the model is fully speciﬁed. Many algorithms for stochastic optimization do, however, proceed by formulating one or more deterministic subproblems, each of which can be solved by the techniques outlined here. For further information on stochastic optimization, consult the books by Birge and Louveaux [11] and Kall and Wallace [139].
+
+OPTIMIZATION ALGORITHMS
+Optimization algorithms are iterative. They begin with an initial guess of the optimal values of the variables and generate a sequence of improved estimates until they reach a solution. The strategy used to move from one iterate to the next distinguishes one algorithm from another. Most strategies make use of the values of the objective function f , the constraints c, and possibly the ﬁrst and second derivatives of these functions. Some algorithms accumulate information gathered at previous iterations, while others use only local information from the current point. Regardless of these speciﬁcs (which will receive plenty of attention in the rest of the book), all good algorithms should possess the following properties: • Robustness. They should perform well on a wide variety of problems in their class, for all reasonable choices of the initial variables. • Efﬁciency. They should not require too much computer time or storage. • Accuracy. They should be able to identify a solution with precision, without being overly sensitive to errors in the data or to the arithmetic rounding errors that occur when the algorithm is implemented on a computer.
+
+8
+
+Chapter 1.
+
+Introduction
+
+These goals may conﬂict. For example, a rapidly convergent method for nonlinear programming may require too much computer storage on large problems. On the other hand, a robust method may also be the slowest. Tradeoffs between convergence rate and storage requirements, and between robustness and speed, and so on, are central issues in numerical optimization. They receive careful consideration in this book. The mathematical theory of optimization is used both to characterize optimal points and to provide the basis for most algorithms. It is not possible to have a good understanding of numerical optimization without a ﬁrm grasp of the supporting theory. Accordingly, this book gives a solid (though not comprehensive) treatment of optimality conditions, as well as convergence analysis that reveals the strengths and weaknesses of some of the most important algorithms.
+
+CONVEXITY
+The concept of convexity is fundamental in optimization; it implies that the problem is benign in several respects. The term convex can be applied both to sets and to functions. S ∈ I n is a convex set if the straight line segment connecting any two points in R S lies entirely inside S. Formally, for any two points x ∈ S and y ∈ S, we have αx + (1 − α)y ∈ S for all α ∈ [0, 1]. f is a convex function if its domain is a convex set and if for any two points x and y in this domain, the graph of f lies below the straight line connecting (x, f (x)) to (y, f (y)) in the space I n+1 . That is, we have R f (αx + (1 − α)y) ≤ αf (x) + (1 − α)f (y), for all α ∈ [0, 1].
+
+When f is smooth as well as convex and the dimension n is 1 or 2, the graph of f is bowl-shaped (See Figure 1.3), and its contours deﬁne convex sets. A function f is said to be concave if −f is convex. As we will see in subsequent chapters, algorithms for unconstrained optimization are usually guaranteed to converge to a stationary point (maximizer, minimizer, or inﬂection point) of the objective function f . If we know that f is convex, then we can be sure that the algorithm has converged to a global minimizer. The term convex programming is used to describe a special case of the constrained optimization problem (1.1) in which • the objective function is convex; • the equality constraint functions ci (·), i ∈ E, are linear; • the inequality constraint functions ci (·), i ∈ I, are concave. As in the unconstrained case, convexity allows us to make stronger claims about the convergence of optimization algorithms than we can make for nonconvex problems.
+
+Chapter 1.
+
+Introduction
+
+9
+
+Figure 1.3 The convex function f (x) 1 (x1 −6)2 + 25 (x2 −4.5)4 .
+
+NOTES AND REFERENCES
+Optimization traces its roots to the calculus of variations and the work of Euler and Lagrange. The development of linear programming in the 1940s broadened the ﬁeld and stimulated much of the progress in modern optimization theory and practice during the last 50 years. Optimization is often called mathematical programming, a term that is somewhat confusing because it suggests the writing of computer programs with a mathematical orientation. This term was coined in the 1940s, before the word “programming” became inextricably linked with computer software. The original meaning of this word (and the intended one in this context) was more inclusive, with connotations of problem formulation and algorithm design and analysis. Modeling will not be treated extensively in the book. Information about modeling techniques for various application areas can be found in Dantzig [63], Ahuja, Magnanti, and Orlin [1], Fourer, Gay, and Kernighan [92], and Winston [246].
+
+Chapter
+
+2
+
+Fundamentals of Unconstrained Optimization
+
+In unconstrained optimization, we minimize an objective function that depends on real variables, with no restrictions at all on the values of these variables. The mathematical formulation is min f (x),
+x
+
+(2.1)
+
+where x ∈ I n is a real vector with n ≥ 1 components and f : I n → I is a smooth function. R R R Usually, we lack a global perspective on the function f . All we know are the values of f and maybe some of its derivatives at a set of points x0 , x1 , x2 , . . . . Fortunately, our algorithms get to choose these points, and they try to do so in a way that identiﬁes a solution reliably and without using too much computer time or storage. Often, the information about f does not come cheaply, so we usually prefer algorithms that do not call for this information unnecessarily.
+
+12
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+y
+
+y
+
+3
+
+. . .
+t1 t2 t3
+
+y2 y1
+
+. .
+t tm
+
+Figure 2.1 Least squares data ﬁtting problem.
+
+❏ Example 2.1
+Suppose that we are trying to ﬁnd a curve that ﬁts some experimental data. Figure 2.1 plots measurements y1 , y2 , . . . , ym of a signal taken at times t1 , t2 , . . . , tm . From the data and our knowledge of the application, we deduce that the signal has exponential and oscillatory behavior of certain types, and we choose to model it by the function φ(t; x) x1 + x2 e−(x3 −t) /x4 + x5 cos(x6 t).
+2
+
+1, 2, . . . , 6, are the parameters of the model. We would like to The real numbers xi , i choose them to make the model values φ(tj ; x) ﬁt the observed data yj as closely as possible. To state our objective as an optimization problem, we group the parameters xi into a vector of unknowns x (x1 , x2 , . . . , x6 )T , and deﬁne the residuals rj (x) yj − φ(tj ; x), j 1, . . . , m, (2.2)
+
+which measure the discrepancy between the model and the observed data. Our estimate of x will be obtained by solving the problem min f (x)
+x∈I 6 R 2 2 r1 (x) + · · · + rm (x).
+
+(2.3)
+
+2.1.
+
+What Is a Solution?
+
+13
+
+This is a nonlinear least-squares problem, a special case of unconstrained optimization. It illustrates that some objective functions can be expensive to evaluate even when the number of variables is small. Here we have n 6, but if the number of measurements m is large (105 , say), evaluation of f (x) for a given parameter vector x is a signiﬁcant computation.
+
+❐
+
+Suppose that for the data given in Figure 2.1 the optimal solution of (2.3) is ap(1.1, 0.01, 1.2, 1.5, 2.0, 1.5) and the corresponding function value is proximately x ∗ 0.34. Because the optimal objective is nonzero, there must be discrepancies bef (x ∗ ) tween the observed measurements yj and the model predictions φ(tj , x ∗ ) for some (usually most) values of j —the model has not reproduced all the data points exactly. How, then, can we verify that x ∗ is indeed a minimizer of f ? To answer this question, we need to deﬁne the term “solution” and explain how to recognize solutions. Only then can we discuss algorithms for unconstrained optimization problems.
+
+2.1 WHAT IS A SOLUTION?
+Generally, we would be happiest if we found a global minimizer of f , a point where the function attains its least value. A formal deﬁnition is A point x ∗ is a global minimizer if f (x ∗ ) ≤ f (x) for all x, where x ranges over all of I n (or at least over the domain of interest to the modeler). The R global minimizer can be difﬁcult to ﬁnd, because our knowledge of f is usually only local. Since our algorithm does not visit many points (we hope!), we usually do not have a good picture of the overall shape of f , and we can never be sure that the function does not take a sharp dip in some region that has not been sampled by the algorithm. Most algorithms are able to ﬁnd only a local minimizer, which is a point that achieves the smallest value of f in its neighborhood. Formally, we say: A point x ∗ is a local minimizer if there is a neighborhood N of x ∗ such that f (x ∗ ) ≤ f (x) for x ∈ N . (Recall that a neighborhood of x ∗ is simply an open set that contains x ∗ .) A point that satisﬁes this deﬁnition is sometimes called a weak local minimizer. This terminology distinguishes it from a strict local minimizer, which is the outright winner in its neighborhood. Formally, A point x ∗ is a strict local minimizer (also called a strong local minimizer) if there is a neighborhood N of x ∗ such that f (x ∗ ) < f (x) for all x ∈ N with x x ∗ .
+
+14
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+For the constant function f (x) 2, every point x is a weak local minimizer, while the 4 function f (x) (x − 2) has a strict local minimizer at x 2. A slightly more exotic type of local minimizer is deﬁned as follows. A point x ∗ is an isolated local minimizer if there is a neighborhood N of x ∗ such that x ∗ is the only local minimizer in N . Some strict local minimizers are not isolated, as illustrated by the function f (x) x 4 cos(1/x) + 2x 4 , f (0) 0,
+
+which is twice continuously differentiable and has a strict local minimizer at x ∗ 0. However, there are strict local minimizers at many nearby points xn , and we can label these points so that xn → 0 as n → ∞. While strict local minimizers are not always isolated, it is true that all isolated local minimizers are strict. Figure 2.2 illustrates a function with many local minimizers. It is usually difﬁcult to ﬁnd the global minimizer for such functions, because algorithms tend to be “trapped” at the local minimizers. This example is by no means pathological. In optimization problems associated with the determination of molecular conformation, the potential function to be minimized may have millions of local minima. Sometimes we have additional “global” knowledge about f that may help in identifying global minima. An important special case is that of convex functions, for which every local minimizer is also a global minimizer.
+
+f
+
+x
+
+Figure 2.2 A difﬁcult case for global minimization.
+
+2.1.
+
+What Is a Solution?
+
+15
+
+RECOGNIZING A LOCAL MINIMUM
+From the deﬁnitions given above, it might seem that the only way to ﬁnd out whether a point x ∗ is a local minimum is to examine all the points in its immediate vicinity, to make sure that none of them has a smaller function value. When the function f is smooth, however, there are much more efﬁcient and practical ways to identify local minima. In particular, if f is twice continuously differentiable, we may be able to tell that x ∗ is a local minimizer (and possibly a strict local minimizer) by examining just the gradient ∇f (x ∗ ) and the Hessian ∇ 2 f (x ∗ ). The mathematical tool used to study minimizers of smooth functions is Taylor’s theorem. Because this theorem is central to our analysis throughout the book, we state it now. Its proof can be found in any calculus textbook.
+
+Theorem 2.1 (Taylor’s Theorem). Suppose that f : I n → I is continuously differentiable and that p ∈ I n . Then we have R R R that
+f (x + p) f (x) + ∇f (x + tp)T p, (2.4)
+
+for some t ∈ (0, 1). Moreover, if f is twice continuously differentiable, we have that ∇f (x + p) and that f (x + p) for some t ∈ (0, 1). Necessary conditions for optimality are derived by assuming that x ∗ is a local minimizer and then proving facts about ∇f (x ∗ ) and ∇ 2 f (x ∗ ). f (x) + ∇f (x)T p + 1 p T ∇ 2 f (x + tp)p, 2 (2.6) ∇f (x) +
+0 1
+
+∇ 2 f (x + tp)p dt,
+
+(2.5)
+
+Theorem 2.2 (First-Order Necessary Conditions). If x ∗ is a local minimizer and f is continuously differentiable in an open neighborhood ∗ of x , then ∇f (x ∗ ) 0. Proof. Suppose for contradiction that ∇f (x ∗ ) 0. Deﬁne the vector p −∇f (x ∗ ) and − ∇f (x ∗ ) 2 < 0. Because ∇f is continuous near x ∗ , there is a note that pT ∇f (x ∗ ) scalar T > 0 such that
+pT ∇f (x ∗ + tp) < 0, for all t ∈ [0, T ].
+
+16
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+¯ For any t ∈ (0, T ], we have by Taylor’s theorem that ¯ f (x ∗ + t p) ¯ f (x ∗ ) + t p T ∇f (x ∗ + tp), ¯ for some t ∈ (0, t ).
+
+¯ ¯ Therefore, f (x ∗ + t p) < f (x ∗ ) for all t ∈ (0, T ]. We have found a direction leading ∗ away from x along which f decreases, so x ∗ is not a local minimizer, and we have a contradiction. 0. According to Theorem 2.2, any local We call x ∗ a stationary point if ∇f (x ∗ ) minimizer must be a stationary point. For the next result we recall that a matrix B is positive deﬁnite if pT Bp > 0 for all p 0, and positive semideﬁnite if pT Bp ≥ 0 for all p (see the Appendix).
+
+Theorem 2.3 (Second-Order Necessary Conditions). If x ∗ is a local minimizer of f and ∇ 2 f is continuous in an open neighborhood of x ∗ , then ∇f (x ∗ ) 0 and ∇ 2 f (x ∗ ) is positive semideﬁnite. Proof. We know from Theorem 2.2 that ∇f (x ∗ ) 0. For contradiction, assume 2 ∗ that ∇ f (x ) is not positive semideﬁnite. Then we can choose a vector p such that p T ∇ 2 f (x ∗ )p < 0, and because ∇ 2 f is continuous near x ∗ , there is a scalar T > 0 such that pT ∇ 2 f (x ∗ + tp)p < 0 for all t ∈ [0, T ]. ¯ By doing a Taylor series expansion around x ∗ , we have for all t ∈ (0, T ] and some ¯) that t ∈ (0, t
+¯ f (x ∗ + t p) ¯ ¯ f (x ∗ ) + t p T ∇f (x ∗ ) + 1 t 2 p T ∇ 2 f (x ∗ + tp)p < f (x ∗ ). 2
+
+As in Theorem 2.2, we have found a direction from x ∗ along which f is decreasing, and so again, x ∗ is not a local minimizer. We now describe sufﬁcient conditions, which are conditions on the derivatives of f at the point z∗ that guarantee that x ∗ is a local minimizer.
+
+Theorem 2.4 (Second-Order Sufﬁcient Conditions). Suppose that ∇ 2 f is continuous in an open neighborhood of x ∗ and that ∇f (x ∗ ) and ∇ 2 f (x ∗ ) is positive deﬁnite. Then x ∗ is a strict local minimizer of f .
+
+0
+
+Proof. Because the Hessian is continuous and positive deﬁnite at x ∗ , we can choose a radius r > 0 so that ∇ 2 f (x) remains positive deﬁnite for all x in the open ball D {z | z − x ∗ < r}. Taking any nonzero vector p with p < r, we have x ∗ + p ∈ D and so
+f (x ∗ + p) f (x ∗ ) + p T ∇f (x ∗ ) + 1 p T ∇ 2 f (z)p 2 f (x ∗ ) + 1 p T ∇ 2 f (z)p, 2
+
+2.1.
+
+What Is a Solution?
+
+17
+
+where z x ∗ + tp for some t ∈ (0, 1). Since z ∈ D, we have pT ∇ 2 f (z)p > 0, and therefore f (x ∗ + p) > f (x ∗ ), giving the result. Note that the second-order sufﬁcient conditions of Theorem 2.4 guarantee something stronger than the necessary conditions discussed earlier; namely, that the minimizer is a strict local minimizer. Note too that the second-order sufﬁcient conditions are not necessary: A point x ∗ may be a strict local minimizer, and yet may fail to satisfy the sufﬁcient conditions. A simple example is given by the function f (x) x 4 , for which the point x ∗ 0 is a strict local minimizer at which the Hessian matrix vanishes (and is therefore not positive deﬁnite). When the objective function is convex, local and global minimizers are simple to characterize.
+
+Theorem 2.5. When f is convex, any local minimizer x ∗ is a global minimizer of f . If in addition f is differentiable, then any stationary point x ∗ is a global minimizer of f . Proof. Suppose that x ∗ is a local but not a global minimizer. Then we can ﬁnd a point z ∈ I n with f (z) < f (x ∗ ). Consider the line segment that joins x ∗ to z, that is, R
+x λz + (1 − λ)x ∗ , for some λ ∈ (0, 1]. (2.7)
+
+By the convexity property for f , we have f (x) ≤ λf (z) + (1 − λ)f (x ∗ ) < f (x ∗ ). (2.8)
+
+Any neighborhood N of x ∗ contains a piece of the line segment (2.7), so there will always be points x ∈ N at which (2.8) is satisﬁed. Hence, x ∗ is not a local minimizer. For the second part of the theorem, suppose that x ∗ is not a global minimizer and choose z as above. Then, from convexity, we have ∇f (x ∗ )T (z − x ∗ ) d f (x ∗ + λ(z − x ∗ )) |λ 0 (see the Appendix) dλ f (x ∗ + λ(z − x ∗ )) − f (x ∗ ) lim λ↓0 λ λf (z) + (1 − λ)f (x ∗ ) − f (x ∗ ) ≤ lim λ↓0 λ ∗ f (z) − f (x ) < 0.
+
+Therefore, ∇f (x ∗ )
+
+0, and so x ∗ is not a stationary point.
+
+These results, which are based on elementary calculus, provide the foundations for unconstrained optimization algorithms. In one way or another, all algorithms seek a point where ∇f (·) vanishes.
+
+18
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+NONSMOOTH PROBLEMS
+This book focuses on smooth functions, by which we generally mean functions whose second derivatives exist and are continuous. We note, however, that there are interesting problems in which the functions involved may be nonsmooth and even discontinuous. It is not possible in general to identify a minimizer of a general discontinuous function. If, however, the function consists of a few smooth pieces, with discontinuities between the pieces, it may be possible to ﬁnd the minimizer by minimizing each smooth piece individually. If the function is continuous everywhere but nondifferentiable at certain points, as in Figure 2.3, we can identify a solution by examing the subgradient, or generalized gradient, which is a generalization of the concept of gradient to the nonsmooth case. Nonsmooth optimization is beyond the scope of this book; we refer instead to Hiriart-Urruty and Lemar´ chal [137] for an extensive discussion of theory. Here, we mention only that the e minimization of a function such as the one illustrated in Figure 2.3 (which contains a jump discontinuity in the ﬁrst derivative f (x) at the minimum) is difﬁcult because the behavior of f is not predictable near the point of nonsmoothness. That is, we cannot be sure that information about f obtained at one point can be used to infer anything about f at neighboring points, because points of nondifferentiability may intervene. However, certain special nondifferentiable functions, such as functions of the form f (x) r(x) 1 , f (x) r(x)
+∞
+
+(where r(x) is the residual vector reﬁned in (2.2)), can be solved with the help of specialpurpose algorithms; see, for example, Fletcher [83, Chapter 14].
+
+f
+
+x*
+
+x
+
+Figure 2.3 Nonsmooth function with minimum at a kink.
+
+2.2.
+
+Overview of Algorithms
+
+19
+
+2.2 OVERVIEW OF ALGORITHMS
+The last thirty years has seen the development of a powerful collection of algorithms for unconstrained optimization of smooth functions. We now give a broad description of their main properties, and we describe them in more detail in Chapters 3, 4, 5, 6, 8, and 9. All algorithms for unconstrained minimization require the user to supply a starting point, which we usually denote by x0 . The user with knowledge about the application and the data set may be in a good position to choose x0 to be a reasonable estimate of the solution. Otherwise, the starting point must be chosen in some arbitrary manner. Beginning at x0 , optimization algorithms generate a sequence of iterates {xk }∞ 0 that k terminate when either no more progress can be made or when it seems that a solution point has been approximated with sufﬁcient accuracy. In deciding how to move from one iterate xk to the next, the algorithms use information about the function f at xk , and possibly also information from earlier iterates x0 , x1 , . . . , xk−1 . They use this information to ﬁnd a new iterate xk+1 with a lower function value than xk . (There exist nonmonotone algorithms that do not insist on a decrease in f at every step, but even these algorithms require f to be decreased after some prescribed number m of iterations. That is, they enforce f (xk ) < f (xk−m ).) There are two fundamental strategies for moving from the current point xk to a new iterate xk+1 . Most of the algorithms described in this book follow one of these approaches.
+
+TWO STRATEGIES: LINE SEARCH AND TRUST REGION
+In the line search strategy, the algorithm chooses a direction pk and searches along this direction from the current iterate xk for a new iterate with a lower function value. The distance to move along pk can be found by approximately solving the following one-dimensional minimization problem to ﬁnd a step length α: min f (xk + αpk ).
+α>0
+
+(2.9)
+
+By solving (2.9) exactly, we would derive the maximum beneﬁt from the direction pk , but an exact minimization is expensive and unnecessary. Instead, the line search algorithm generates a limited number of trial step lengths until it ﬁnds one that loosely approximates the minimum of (2.9). At the new point a new search direction and step length are computed, and the process is repeated. In the second algorithmic strategy, known as trust region, the information gathered about f is used to construct a model function mk whose behavior near the current point xk is similar to that of the actual objective function f . Because the model mk may not be a good approximation of f when x is far from xk , we restrict the search for a minimizer of mk to some region around xk . In other words, we ﬁnd the candidate step p by approximately
+
+20
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+solving the following subproblem: min mk (xk + p),
+p
+
+where xk + p lies inside the trust region.
+
+(2.10)
+
+If the candidate solution does not produce a sufﬁcient decrease in f , we conclude that the trust region is too large, and we shrink it and re-solve (2.10). Usually, the trust region is a ball deﬁned by p 2 ≤ , where the scalar > 0 is called the trust-region radius. Elliptical and box-shaped trust regions may also be used. The model mk in (2.10) is usually deﬁned to be a quadratic function of the form mk (xk + p) fk + pT ∇fk + 1 p T Bk p, 2 (2.11)
+
+where fk , ∇fk , and Bk are a scalar, vector, and matrix, respectively. As the notation indicates, fk and ∇fk are chosen to be the function and gradient values at the point xk , so that mk and f are in agreement to ﬁrst order at the current iterate xk . The matrix Bk is either the Hessian ∇ 2 fk or some approximation to it. 2 Suppose that the objective function is given by f (x) 10(x2 − x1 )2 + (1 − x1 )2 . At the point xk (0, 1) its gradient and Hessian are ∇fk −2 20 , ∇ 2 fk −38 0 0 20 .
+
+The contour lines of the quadratic model (2.11) with Bk ∇ 2 fk are depicted in Figure 2.4, which also illustrates the contours of the objective function f and the trust region. We have indicated contour lines where the model mk has values 1 and 12. Note from Figure 2.4 that each time we decrease the size of the trust region after failure of a candidate iterate, the step from xk to the new candidate will be shorter, and it usually points in a different direction from the previous candidate. The trust-region strategy differs in this respect from line search, which stays with a single search direction. In a sense, the line search and trust-region approaches differ in the order in which they choose the direction and distance of the move to the next iterate. Line search starts by ﬁxing the direction pk and then identifying an appropriate distance, namely the step length αk . In trust region, we ﬁrst choose a maximum distance—the trust-region radius k —and then seek a direction and step that attain the best improvement possible subject to this distance constraint. If this step proves to be unsatisfactory, we reduce the distance measure k and try again. The line search approach is discussed in more detail in Chapter 3. Chapter 4 discusses the trust-region strategy, including techniques for choosing and adjusting the size of the region and for computing approximate solutions to the trust-region problems (2.10). We now preview two major issues: choice of the search direction pk in line search methods, and choice of the Hessian Bk in trust-region methods. These issues are closely related, as we now observe.
+
+2.2.
+
+Overview of Algorithms
+
+21
+
+m = 12
+
+m =1 x p k k contours of model p k
+
+contours of f * unconstrained minimizer
+
+Figure 2.4 Two possible trust regions (circles) and their corresponding steps pk . The solid lines are contours of the model function mk .
+
+SEARCH DIRECTIONS FOR LINE SEARCH METHODS
+The steepest-descent direction −∇fk is the most obvious choice for search direction for a line search method. It is intuitive; among all the directions we could move from xk , it is the one along which f decreases most rapidly. To verify this claim, we appeal again to Taylor’s theorem (Theorem 2.1), which tells us that for any search direction p and step-length parameter α, we have f (xk + αp) f (xk ) + αp T ∇fk + 1 α 2 p T ∇ 2 f (xk + tp)p, 2 for some t ∈ (0, α)
+
+(see (2.6)). The rate of change in f along the direction p at xk is simply the coefﬁcient of α, namely, p T ∇fk . Hence, the unit direction p of most rapid decrease is the solution to the problem min p T ∇fk ,
+p
+
+subject to p
+
+1.
+
+(2.12)
+
+p ∇fk cos θ , where θ is the angle between p and ∇fk , we have from Since pT ∇fk T ∇fk cos θ , so the objective in (2.12) is minimized when cos θ p 1 that p ∇fk
+
+22
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+pk
+
+.
+
+x*
+
+xk
+
+Figure 2.5 Steepest descent direction for a function of two variables.
+
+takes on its minimum value of −1 at θ p
+
+π radians. In other words, the solution to (2.12) is −∇fk / ∇fk ,
+
+as claimed. As we show in Figure 2.5, this direction is orthogonal to the contours of the function. −∇fk at The steepest descent method is a line search method that moves along pk every step. It can choose the step length αk in a variety of ways, as we discuss in Chapter 3. One advantage of the steepest descent direction is that it requires calculation of the gradient ∇fk but not of second derivatives. However, it can be excruciatingly slow on difﬁcult problems. Line search methods may use search directions other than the steepest descent direction. In general, any descent direction—one that makes an angle of strictly less than π/2 radians with −∇fk —is guaranteed to produce a decrease in f , provided that the step length is sufﬁciently small (see Figure 2.6). We can verify this claim by using Taylor’s theorem. From (2.6), we have that f (xk + pk )
+T f (xk ) + pk ∇fk + O( 2 ).
+
+When pk is a downhill direction, the angle θk between pk and ∇fk has cos θk < 0, so that
+T pk ∇fk
+
+pk
+
+∇fk cos θk < 0.
+
+It follows that f (xk + pk ) < f (xk ) for all positive but sufﬁciently small values of . Another important search direction—perhaps the most important one of all— is the Newton direction. This direction is derived from the second-order Taylor series
+
+2.2.
+
+Overview of Algorithms
+
+23
+
+p k
+
+_
+
+f k
+
+Figure 2.6 A downhill direction pk approximation to f (xk + p), which is f (xk + p) ≈ fk + p T ∇fk + 1 p T ∇ 2 fk p 2
+def
+
+mk (p).
+
+(2.13)
+
+Assuming for the moment that ∇ 2 fk is positive deﬁnite, we obtain the Newton direction by ﬁnding the vector p that minimizes mk (p). By simply setting the derivative of mk (p) to zero, we obtain the following explicit formula:
+N pk
+
+−∇ 2 fk−1 ∇fk .
+
+(2.14)
+
+The Newton direction is reliable when the difference between the true function f (xk + p) and its quadratic model mk (p) is not too large. By comparing (2.13) with (2.6), we see that the only difference between these functions is that the matrix ∇ 2 f (xk + tp) in the third term of the expansion has been replaced by ∇ 2 fk ∇ 2 f (xk ). If ∇ 2 f (·) is sufﬁciently smooth, this difference introduces a perturbation of only O( p 3 ) into the expansion, so that when p is small, the approximation f (xk + p) ≈ mk (p) is very accurate indeed. The Newton direction can be used in a line search method when ∇ 2 fk is positive deﬁnite, for in this case we have
+N ∇fkT pk N N N −pk T ∇ 2 fk pk ≤ −σk pk
+
+2
+
+N for some σk > 0. Unless the gradient ∇fk (and therefore the step pk ) is zero, we have that N ∇fkT pk < 0, so the Newton direction is a descent direction. Unlike the steepest descent direction, there is a “natural” step length of 1 associated with the Newton direction. Most
+
+24
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+line search implementations of Newton’s method use the unit step α 1 where possible and adjust this step length only when it does not produce a satisfactory reduction in the value of f . When ∇ 2 fk is not positive deﬁnite, the Newton direction may not even be deﬁned, since ∇ 2 fk−1 may not exist. Even when it is deﬁned, it may not satisfy the descent property N ∇fkT pk < 0, in which case it is unsuitable as a search direction. In these situations, line search methods modify the deﬁnition of pk to make it satisfy the downhill condition while retaining the beneﬁt of the second-order information contained in ∇ 2 fk . We will describe these modiﬁcations in Chapter 6. Methods that use the Newton direction have a fast rate of local convergence, typically quadratic. When a neighborhood of the solution is reached, convergence to high accuracy often occurs in just a few iterations. The main drawback of the Newton direction is the need for the Hessian ∇ 2 f (x). Explicit computation of this matrix of second derivatives is sometimes, though not always, a cumbersome, error-prone, and expensive process. Quasi-Newton search directions provide an attractive alternative in that they do not require computation of the Hessian and yet still attain a superlinear rate of convergence. In place of the true Hessian ∇ 2 fk , they use an approximation Bk , which is updated after each step to take account of the additional knowledge gained during the step. The updates make use of the fact that changes in the gradient g provide information about the second derivative of f along the search direction. By using the expression (2.5) from our statement of Taylor’s theorem, we have by adding and subtracting the term ∇ 2 f (x)p that ∇f (x + p) ∇f (x) + ∇ 2 f (x)p +
+0 1
+
+∇ 2 f (x + tp) − ∇ 2 f (x) p dt. xk
+
+Because ∇f (·) is continuous, the size of the ﬁnal integral term is o( p ). By setting x and p xk+1 − xk , we obtain ∇fk+1 ∇fk + ∇ 2 fk+1 (xk+1 − xk ) + o( xk+1 − xk ).
+
+When xk and xk+1 lie in a region near the solution x ∗ , within which ∇f is positive deﬁnite, the ﬁnal term in this expansion is eventually dominated by the ∇ 2 fk (xk+1 − xk ) term, and we can write ∇ 2 fk+1 (xk+1 − xk ) ≈ ∇fk+1 − ∇fk . (2.15)
+
+We choose the new Hessian approximation Bk+1 so that it mimics this property (2.15) of the true Hessian, that is, we require it to satisfy the following condition, known as the secant equation: Bk+1 sk yk , (2.16)
+
+2.2.
+
+Overview of Algorithms
+
+25
+
+where sk xk+1 − xk , yk ∇fk+1 − ∇fk .
+
+Typically, we impose additional requirements on Bk+1 , such as symmetry (motivated by symmetry of the exact Hessian), and a restriction that the difference between successive approximation Bk to Bk+1 have low rank. The initial approximation B0 must be chosen by the user. Two of the most popular formulae for updating the Hessian approximation Bk are the symmetric-rank-one (SR1) formula, deﬁned by Bk+1 Bk + (yk − Bk sk )(yk − Bk sk )T , (yk − Bk sk )T sk (2.17)
+
+and the BFGS formula, named after its inventors, Broyden, Fletcher, Goldfarb, and Shanno, which is deﬁned by Bk+1 Bk −
+T Bk sk sk Bk yk y T + T k . T s k Bk sk yk sk
+
+(2.18)
+
+Note that the difference between the matrices Bk and Bk+1 is a rank-one matrix in the case of (2.17), and a rank-two matrix in the case of (2.18). Both updates satisfy the secant equation and both maintain symmetry. One can show that BFGS update (2.18) generates positive deﬁnite approximations whenever the initial approximation B0 is positive deﬁnite T and sk yk > 0. We discuss these issues further in Chapter 8. The quasi-Newton search direction is given by using Bk in place of the exact Hessian in the formula (2.14), that is, pk
+−1 −Bk ∇fk .
+
+(2.19)
+
+Some practical implementations of quasi-Newton methods avoid the need to factorize Bk at each iteration by updating the inverse of Bk , instead of Bk itself. In fact, the equivalent formula for (2.17) and (2.18), applied to the inverse approximation Hk Hk+1
+T T T I − ρk sk yk Hk I − ρk yk sk + ρk sk sk , def −1 Bk , is
+
+ρk
+
+1
+T y k sk
+
+.
+
+(2.20)
+
+−Hk ∇fk . This can Calculation of pk can then be performed by using the formula pk be implemented as a matrix–vector multiplication, which is typically simpler than the factorization/back-substitution procedure that is needed to implement the formula (2.19). Two variants of quasi-Newton methods designed to solve large problems—partially separable and limited-memory updating—are described in Chapter 9.
+
+26
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+The last class of search directions we preview here is that generated by nonlinear conjugate gradient methods. They have the form pk −∇f (xk ) + βk pk−1 ,
+
+where βk is a scalar that ensures that pk and pk−1 are conjugate—an important concept in the minimization of quadratic functions that will be deﬁned in Chapter 5. Conjugate gradient methods were originally designed to solve systems of linear equations Ax b, where the coefﬁcient matrix A is symmetric and positive deﬁnite. The problem of solving this linear system is equivalent to the problem of minimizing the convex quadratic function deﬁned by φ(x)
+1 T x Ax 2
+
++ bT x,
+
+so it was natural to investigate extensions of these algorithms to more general types of unconstrained minimization problems. In general, nonlinear conjugate gradient directions are much more effective than the steepest descent direction and are almost as simple to compute. These methods do not attain the fast convergence rates of Newton or quasiNewton methods, but they have the advantage of not requiring storage of matrices. An extensive discussion of nonlinear conjugate gradient methods is given in Chapter 5. All of the search directions discussed so far can be used directly in a line search framework. They give rise to the steepest descent, Newton, quasi-Newton, and conjugate gradient line search methods. All except conjugate gradients have an analogue in the trustregion framework, as we now discuss.
+
+MODELS FOR TRUST-REGION METHODS
+If we set Bk 0 in (2.11) and deﬁne the trust region using the Euclidean norm, the trust-region subproblem (2.10) becomes min fk + pT ∇fk
+p
+
+subject to p
+
+2
+
+≤
+
+k.
+
+We can write the solution to this problem in closed form as pk −
+k ∇fk
+
+∇fk
+
+.
+
+This is simply a steepest descent step in which the step length is determined by the trustregion radius; the trust-region and line search approaches are essentially the same in this case. A more interesting trust-region algorithm is obtained by choosing Bk to be the exact Hessian ∇ 2 fk in the quadratic model (2.11). Because of the trust-region restriction p 2 ≤ 2 k , there is no need to do anything special when ∇ fk is not positive deﬁnite, since the
+
+2.2.
+
+Overview of Algorithms
+
+27
+
+subproblem (2.10) is guaranteed to have a solution pk , as we see in Figure 2.4. The trust-region Newton method has proved to be highly effective in practice, as we discuss in Chapter 6. If the matrix Bk in the quadratic model function mk of (2.11) is deﬁned by means of a quasi-Newton approximation, we obtain a trust-region quasi-Newton method.
+
+SCALING
+The performance of an algorithm may depend crucially on how the problem is formulated. One important issue in problem formulation is scaling. In unconstrained optimization, a problem is said to be poorly scaled if changes to x in a certain direction produce much larger variations in the value of f than do changes to x in another direction. A simple example is 2 2 provided by the function f (x) 109 x1 + x2 , which is very sensitive to small changes in x1 but not so sensitive to perturbations in x2 . Poorly scaled functions arise, for example, in simulations of physical and chemical systems where different processes are taking place at very different rates. To be more speciﬁc, consider a chemical system in which four reactions occur. Associated with each reaction is a rate constant that describes the speed at which the reaction takes place. The optimization problem is to ﬁnd values for these rate constants by observing the concentrations of each chemical in the system at different times. The four constants differ greatly in magnitude, since the reactions take place at vastly different speeds. Suppose we have the following rough estimates for the ﬁnal values of the constants, each correct to within, say, an order of magnitude: x1 ≈ 10−10 , x2 ≈ x3 ≈ 1, x4 ≈ 105 .
+
+Before solving this problem we could introduce a new variable z deﬁned by     x2     x   3  x4 x1        10−10 0 0 0 0 1 0 0 0 0 1 0     z2   , 0   z3    z4 105 0 0  z1 
+
+and then deﬁne and solve the optimization problem in terms of the new variable z. The optimal values of z will be within about an order of magnitude of 1, making the solution more balanced. This kind of scaling of the variables is known as diagonal scaling. Scaling is performed (sometimes unintentionally) when the units used to represent variables are changed. During the modeling process, we may decide to change the units of some variables, say from meters to millimeters. If we do, the range of those variables and their size relative to the other variables will both change. Some optimization algorithms, such as steepest descent, are sensitive to poor scaling, while others, such as Newton’s method, are unaffected by it. Figure 2.7 shows the contours
+
+28
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+- fk
+
+- fk
+
+Figure 2.7 Poorly scaled and well-scaled problems, and performance of the steepest descent direction.
+
+of two convex nearly quadratic functions, the ﬁrst of which is poorly scaled, while the second is well scaled. For the poorly scaled problem, the one with highly elongated contours, the steepest descent direction (also shown on the graph) does not yield much reduction in the function, while for the well-scaled problem it performs much better. In both cases, Newton’s method will produce a much better step, since the second-order quadratic model (mk in (2.13)) happens to be a good approximation of f . Algorithms that are not sensitive to scaling are preferable to those that are not, because they can handle poor problem formulations in a more robust fashion. In designing complete algorithms, we try to incorporate scale invariance into all aspects of the algorithm, including the line search or trust-region strategies and convergence tests. Generally speaking, it is easier to preserve scale invariance for line search algorithms than for trust-region algorithms.
+
+RATES OF CONVERGENCE
+One of the key measures of performance of an algorithm is its rate of convergence. We now deﬁne the terminology associated with different types of convergence, for reference in later chapters. R Let {xk } be a sequence in I n that converges to x ∗ . We say that the convergence is Q-linear if there is a constant r ∈ (0, 1) such that xk+1 − x ∗ ≤ r, xk − x ∗ for all k sufﬁciently large. (2.21)
+
+2.2.
+
+Overview of Algorithms
+
+29
+
+This means that the distance to the solution x ∗ decreases at each iteration by at least a constant factor. For example, the sequence 1 + (0.5)k converges Q-linearly to 1. The preﬁx “Q” stands for “quotient,” because this type of convergence is deﬁned in terms of the quotient of successive errors. The convergence is said to be Q-superlinear if lim xk+1 − x ∗ xk − x ∗ 0.
+
+k→∞
+
+For example, the sequence 1 + k −k converges superlinearly to 1. (Prove this statement!) Q-quadratic convergence, an even more rapid convergence rate, is obtained if xk+1 − x ∗ ≤ M, xk − x ∗ 2 for all k sufﬁciently large,
+
+where M is a positive constant, not necessarily less than 1. An example is the sequence k 1 + (0.5)2 . The speed of convergence depends on r and (more weakly) on M, whose values depend not only on the algorithm but also on the properties of the particular problem. Regardless of these values, however, a quadratically convergent sequence will always eventually converge faster than a linearly convergent sequence. Obviously, any sequence that converges Q-quadratically also converges Q-superlinearly, and any sequence that converges Q-superlinearly also converges Q-linearly. We can also deﬁne higher rates of convergence (cubic, quartic, and so on), but these are less interesting in practical terms. In general, we say that the Q-order of convergence is p (with p > 1) if there is a positive constant M such that xk+1 − x ∗ ≤ M, xk − x ∗ p for all k sufﬁciently large.
+
+Quasi-Newton methods typically converge Q-superlinearly, whereas Newton’s method converges Q-quadratically. In contrast, steepest descent algorithms converge only at a Qlinear rate, and when the problem is ill-conditioned the convergence constant r in (2.21) is close to 1. Throughout the book we will normally omit the letter Q and simply talk about superlinear convergence, quadratic convergence, etc.
+
+R-RATES OF CONVERGENCE
+A slightly weaker form of convergence, characterized by the preﬁx “R” (for “root”), is concerned with the overall rate of decrease in the error, rather than the decrease over a single step of the algorithm. We say that convergence is R-linear if there is a sequence of
+
+30
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+nonnegative scalars {νk } such that xk − x ∗ ≤ νk for all k, and {νk } converges Q-linearly to zero. The sequence { xk − x ∗ } is said to be dominated by {νk }. For instance, the sequence xk 1 + (0.5)k , 1, k even, k odd, (2.22)
+
+(the ﬁrst few iterates are 2, 1, 1.25, 1, 1.03125, 1, . . .) converges R-linearly to 1, because it is dominated by the sequence 1 + (0.5)k , which converges Q-linearly. Likewise, we say that {xk } converges R-superlinearly to x ∗ if { xk −x ∗ } is dominated by a Q-superlinear sequence, and {xk } converges R-quadratically to x ∗ if { xk − x ∗ } is dominated by a Q-quadratic sequence. Note that in the R-linear sequence (2.22), the error actually increases at every second iteration! Such behavior occurs even in sequences whose R-rate of convergence is arbitrarily high, but it cannot occur for Q-linear sequences, which insist on a decrease at every step k, for k sufﬁciently large. Most convergence analyses of optimization algorithms are concerned with Qconvergence.
+
+NOTES AND REFERENCES
+For an extensive discussion of convergence rates see Ortega and Rheinboldt [185].
+
+✐ ✐
+
+Exercises
+2.1 Compute the gradient ∇f (x) and Hessian ∇ 2 f (x) of the Rosenbrock function f (x)
+2 100(x2 − x1 )2 + (1 − x1 )2 .
+
+(2.23)
+
+Show that x ∗ (1, 1)T is the only local minimizer of this function, and that the Hessian matrix at that point is positive deﬁnite.
+
+✐ ✐
+
+2 2 2.2 Show that the function f (x) 8x1 + 12x2 + x1 − 2x2 has only one stationary point, and that it is neither a maximum or minimum, but a saddle point. Sketch the contour lines of f .
+
+2.3 Let a be a given n-vector, and A be a given n × n symmetric matrix. Compute the gradient and Hessian of f1 (x) a T x and f2 (x) x T Ax.
+
+✐ 2.4 Write the second-order Taylor expansion (2.6) for the function cos(1/x) around a nonzero point x, and the third-order Taylor expansion of cos(x) around any point x. Evaluate the second expansion for the speciﬁc case of x 1.
+
+2.2.
+
+Overview of Algorithms
+
+31
+
+2.5 Consider the function f : I 2 → I deﬁned by f (x) R R sequence of iterates {xk } deﬁned by xk 1+ 1 2k cos k sin k
+
+✐
+
+x 2 . Show that the
+
+0, 1, 2, . . . . Show that every point on the unit circle satisﬁes f (xk+1 ) < f (xk ) for k 2 1} is a limit point for {xk }. Hint: Every value θ ∈ [0, 2π ] is a limit point of the {x | x subsequence {ξk } deﬁned by ξk k(mod 2π) k − 2π k , 2π
+
+where the operator · denotes rounding down to the next integer.
+
+✐ 2.6 Prove that all isolated local minimizers are strict. (Hint: Take an isolated local x ∗ we must have minimizer x ∗ and a neighborhood N . Show that for any x ∈ N , x f (x) > f (x ∗ ).) ✐ ✐
+2.7 Suppose that f is a convex function. Show that the set of global minimizers of f is a convex set.
+2 2.8 Consider the function f (x1 , x2 ) x1 + x2 . At the point x T (1, 0) we T consider the search direction p (−1, 1). Show that p is a descent direction and ﬁnd all minimizers of the problem (2.9). 2
+
+✐
+
+2.9 Suppose that f˜(z) Show that ∇ f˜(z)
+
+f (x), where x
+
+Sz + s for some S ∈ I n×n and s ∈ I n . R R
+
+S T ∇f (x),
+
+∇ 2 f˜(z)
+
+S T ∇ 2 f (x)S.
+
+(Hint: Use the chain rule to express d f˜/dzj in terms of df /dxi and dxi /dzj for all i, j 1, 2, . . . , n.) 2.10 Show that the symmetric rank-one update (2.17) and the BFGS update (2.18) are scale-invariant if the initial Hessian approximations B0 are chosen appropriately. That is, using the notation of the previous exercise, show that if these methods are applied to f (x) starting from x0 Sz0 + s with initial Hessian B0 , and to f˜(z) starting from z0 with initial Hessian S T B0 S, then all iterates are related by xk Szk + s. (Assume for simplicity that the methods take unit step lengths.) 2.11 Suppose that a function f of two variables is poorly scaled at the solution x ∗ . Write two Taylor expansions of f around x ∗ —one along each coordinate direction—and use them to show that the Hessian ∇ 2 f (x ∗ ) is ill-conditioned.
+
+✐
+
+✐
+
+32
+
+Chapter 2.
+
+Fundamentals of Unconstrained Optimization
+
+✐ ✐ ✐ ✐
+
+2.12 Show that the sequence xk 1/k is not Q-linearly convergent, though it does converge to zero. (This is called sublinear convergence.) 2.13 Show that the sequence xk 1 + (0.5)2 is Q–quadratically convergent to 1.
+k
+
+2.14 Does the sequence 1/(k!) converge Q-superlinearly? Q-quadratically?
+∗
+
+2.15 Consider the sequence {xk } deﬁned by xk
+k 1 2 , 4
+
+k even, k odd.
+
+(xk−1 )/k,
+
+Is this sequence Q-superlinearly convergent? Q-quadratically convergent? R-quadratically convergent?
+
+Chapter
+
+3
+
+Line Search Methods
+
+Each iteration of a line search method computes a search direction pk and then decides how far to move along that direction. The iteration is given by xk+1 xk + αk pk , (3.1)
+
+where the positive scalar αk is called the step length. The success of a line search method depends on effective choices of both the direction pk and the step length αk . Most line search algorithms require pk to be a descent direction—one for which T pk ∇fk < 0—because this property guarantees that the function f can be reduced along this direction, as discussed in the previous chapter. Moreover, the search direction often has the form pk
+−1 −Bk ∇fk ,
+
+(3.2)
+
+where Bk is a symmetric and nonsingular matrix. In the steepest descent method Bk is simply the identity matrix I , while in Newton’s method Bk is the exact Hessian ∇ 2 f (xk ). In quasi-Newton methods, Bk is an approximation to the Hessian that is updated at every
+
+36
+
+Chapter 3.
+
+Line Search Methods
+
+φ (α)
+
+first local minimizer α first stationary point
+
+global minimizer
+
+Figure 3.1 The ideal step length is the global minimizer. iteration by means of a low-rank formula. When pk is deﬁned by (3.2) and Bk is positive deﬁnite, we have
+T pk ∇fk −1 −∇fkT Bk ∇fk < 0,
+
+and therefore pk is a descent direction. In the next chapters we study how to choose the matrix Bk , or more generally, how to compute the search direction. We now give careful consideration to the choice of the step-length parameter αk .
+
+3.1 STEP LENGTH
+In computing the step length αk , we face a tradeoff. We would like to choose αk to give a substantial reduction of f , but at the same time, we do not want to spend too much time making the choice. The ideal choice would be the global minimizer of the univariate function φ(·) deﬁned by φ(α) f (xk + αpk ), α > 0, (3.3)
+
+but in general, it is too expensive to identify this value (see Figure 3.1). To ﬁnd even a local minimizer of φ to moderate precision generally requires too many evaluations of the objec-
+
+3.1.
+
+Step Length
+
+37
+
+f( x )
+
+x x1 x
+2
+
+x
+
+0
+
+Figure 3.2 Insufﬁcient reduction in f .
+
+tive function f and possibly the gradient ∇f . More practical strategies perform an inexact line search to identify a step length that achieves adequate reductions in f at minimal cost. Typical line search algorithms try out a sequence of candidate values for α, stopping to accept one of these values when certain conditions are satisﬁed. The line search is done in two stages: A bracketing phase ﬁnds an interval containing desirable step lengths, and a bisection or interpolation phase computes a good step length within this interval. Sophisticated line search algorithms can be quite complicated, so we defer a full description until the end of this chapter. We now discuss various termination conditions for the line search algorithm and show that effective step lengths need not lie near minimizers of the univariate function φ(α) deﬁned in (3.3). A simple condition we could impose on αk is that it provide a reduction in f , i.e., f (xk + αk pk ) < f (xk ). That this is not appropriate is illustrated in Figure 3.2, where the minimum is f ∗ −1, but the sequence of function values {5/k}, k 0, 1, . . ., converges to zero. The difﬁculty is that we do not have sufﬁcient reduction in f , a concept we discuss next.
+
+THE WOLFE CONDITIONS
+A popular inexact line search condition stipulates that αk should ﬁrst of all give sufﬁcient decrease in the objective function f , as measured by the following inequality: f (xk + αpk ) ≤ f (xk ) + c1 α∇fkT pk , (3.4)
+
+38
+
+Chapter 3.
+
+Line Search Methods
+
+φ (α) = f(xk+ α pk ) l( α)
+
+α
+
+acceptable
+
+acceptable
+
+Figure 3.3 Sufﬁcient decrease condition. for some constant c1 ∈ (0, 1). In other words, the reduction in f should be proportional to both the step length αk and the directional derivative ∇fkT pk . Inequality (3.4) is sometimes called the Armijo condition. The sufﬁcient decrease condition is illustrated in Figure 3.3. The right-hand-side of (3.4), which is a linear function, can be denoted by l(α). The function l(·) has negative slope c1 ∇fkT pk , but because c1 ∈ (0, 1), it lies above the graph of φ for small positive values of α. The sufﬁcient decrease condition states that α is acceptable only if φ(α) ≤ l(α). The intervals on which this condition is satisﬁed are shown in Figure 3.3. In practice, c1 is chosen to be quite small, say c1 10−4 . The sufﬁcient decrease condition is not enough by itself to ensure that the algorithm makes reasonable progress, because as we see from Figure 3.3, it is satisﬁed for all sufﬁciently small values of α. To rule out unacceptably short steps we introduce a second requirement, called the curvature condition, which requires αk to satisfy ∇f (xk + αk pk )T pk ≥ c2 ∇fkT pk , (3.5)
+
+for some constant c2 ∈ (c1 , 1), where c1 is the constant from (3.4). Note that the left-handside is simply the derivative φ (αk ), so the curvature condition ensures that the slope of φ(αk ) is greater than c2 times the gradient φ (0). This makes sense because if the slope φ (α) is strongly negative, we have an indication that we can reduce f signiﬁcantly by moving further along the chosen direction. On the other hand, if the slope is only slightly negative or even positive, it is a sign that we cannot expect much more decrease in f in this direction,
+
+3.1.
+
+Step Length
+
+39
+
+φ (α) =f(x k+α pk )
+
+desired slope tangent α
+
+acceptable
+
+acceptable
+
+Figure 3.4 The curvature condition.
+
+so it might make sense to terminate the line search. The curvature condition is illustrated in Figure 3.4. Typical values of c2 are 0.9 when the search direction pk is chosen by a Newton or quasi-Newton method, and 0.1 when pk is obtained from a nonlinear conjugate gradient method. The sufﬁcient decrease and curvature conditions are known collectively as the Wolfe conditions. We illustrate them in Figure 3.5 and restate them here for future reference: f (xk + αk pk ) ≤ f (xk ) + c1 αk ∇fkT pk , ∇f (xk + αk pk ) pk ≥
+T
+
+(3.6a) (3.6b)
+
+c2 ∇fkT pk ,
+
+with 0 < c1 < c2 < 1. A step length may satisfy the Wolfe conditions without being particularly close to a minimizer of φ, as we show in Figure 3.5. We can, however, modify the curvature condition to force αk to lie in at least a broad neighborhood of a local minimizer or stationary point of φ. The strong Wolfe conditions require αk to satisfy f (xk + αk pk ) ≤ f (xk ) + c1 αk ∇fkT pk , |∇f (xk + αk pk ) pk | ≤
+T
+
+(3.7a) (3.7b)
+
+c2 |∇fkT pk |,
+
+40
+
+Chapter 3.
+
+Line Search Methods
+
+φ (α ) = f(x k + α pk )
+
+line of sufficient decrease l(α ) desired slope α
+
+acceptable
+
+acceptable
+
+Figure 3.5 Step lengths satisfying the Wolfe conditions. with 0 < c1 < c2 < 1. The only difference with the Wolfe conditions is that we no longer allow the derivative φ (αk ) to be too positive. Hence, we exclude points that are far from stationary points of φ. It is not difﬁcult to prove that there exist step lengths that satisfy the Wolfe conditions for every function f that is smooth and bounded below.
+
+Lemma 3.1. Suppose that f : I n → I is continuously differentiable. Let pk be a descent direction at R R xk , and assume that f is bounded below along the ray {xk + αpk |α > 0}. Then if 0 < c1 < c2 < 1, there exist intervals of step lengths satisfying the Wolfe conditions (3.6) and the strong Wolfe conditions (3.7). Proof. Since φ(α) f (xk + αpk ) is bounded below for all α > 0 and since 0 < c1 < 1, the line l(α) f (xk ) + αc1 ∇fkT pk must intersect the graph of φ at least once. Let α > 0 be the smallest intersecting value of α, that is,
+f (xk + α pk ) f (xk ) + α c1 ∇fkT pk . (3.8)
+
+The sufﬁcient decrease condition (3.6a) clearly holds for all step lengths less than α . By the mean value theorem, there exists α ∈ (0, α ) such that f (xk + α pk ) − f (xk ) α ∇f (xk + α pk )T pk . (3.9)
+
+3.1.
+
+Step Length
+
+41
+
+By combining (3.8) and (3.9), we obtain ∇f (xk + α pk )T pk c1 ∇fkT pk > c2 ∇fkT pk , (3.10)
+
+since c1 < c2 and ∇fkT pk < 0. Therefore, α satisﬁes the Wolfe conditions (3.6), and the inequalities hold strictly in both (3.6a) and (3.6b). Hence, by our smoothness assumption on f , there is an interval around α for which the Wolfe conditions hold. Moreover, since the term in the left-hand side of (3.10) is negative, the strong Wolfe conditions (3.7) hold in the same interval. The Wolfe conditions are scale-invariant in a broad sense: Multiplying the objective function by a constant or making an afﬁne change of variables does not alter them. They can be used in most line search methods, and are particularly important in the implementation of quasi-Newton methods, as we see in Chapter 8.
+
+THE GOLDSTEIN CONDITIONS
+Like the Wolfe conditions, the Goldstein conditions also ensure that the step length α achieves sufﬁcient decrease while preventing α from being too small. The Goldstein conditions can also be stated as a pair of inequalities, in the following way: f (xk ) + (1 − c)αk ∇fkT pk ≤ f (xk + αk pk ) ≤ f (xk ) + cαk ∇fkT pk , (3.11)
+
+with 0 < c < 1 . The second inequality is the sufﬁcient decrease condition (3.4), whereas 2 the ﬁrst inequality is introduced to control the step length from below; see Figure 3.6 A disadvantage of the Goldstein conditions vis-` -vis the Wolfe conditions is that the a ﬁrst inequality in (3.11) may exclude all minimizers of φ. However, the Goldstein and Wolfe conditions have much in common, and their convergence theories are quite similar. The Goldstein conditions are often used in Newton-type methods but are not well suited for quasi-Newton methods that maintain a positive deﬁnite Hessian approximation.
+
+SUFFICIENT DECREASE AND BACKTRACKING
+We have mentioned that the sufﬁcient decrease condition (3.6a) alone is not sufﬁcient to ensure that the algorithm makes reasonable progress along the given search direction. However, if the line search algorithm chooses its candidate step lengths appropriately, by using a so-called backtracking approach, we can dispense with the extra condition (3.6b) and use just the sufﬁcient decrease condition to terminate the line search procedure. In its most basic form, backtracking proceeds as follows.
+
+Procedure 3.1 (Backtracking Line Search). Choose α > 0, ρ, c ∈ (0, 1); set α ← α; ¯ ¯ repeat until f (xk + αpk ) ≤ f (xk ) + cα∇fkT pk
+
+42
+
+Chapter 3.
+
+Line Search Methods
+
+φ ( α ) = f(x k+ α pk )
+
+α c f kTp k α (1 _ c) fkTp k α
+
+acceptable steplengths
+Figure 3.6 The Goldstein conditions.
+
+α ← ρα; end (repeat) Terminate with αk
+
+α.
+
+In this procedure, the initial step length α is chosen to be 1 in Newton and quasi-Newton ¯ methods, but can have different values in other algorithms such as steepest descent or conjugate gradient. An acceptable step length will be found after a ﬁnite number of trials because αk will eventually become small enough that the sufﬁcient decrease condition holds (see Figure 3.3). In practice, the contraction factor ρ is often allowed to vary at each iteration of the line search. For example, it can be chosen by safeguarded interpolation, as we describe later. We need ensure only that at each iteration we have ρ ∈ [ρlo , ρhi ], for some ﬁxed constants 0 < ρlo < ρhi < 1. The backtracking approach ensures either that the selected step length αk is some ﬁxed value (the initial choice α), or else that it is short enough to satisfy the sufﬁcient ¯ decrease condition but not too short. The latter claim holds because the accepted value αk is within striking distance of the previous trial value, αk /ρ, which was rejected for violating the sufﬁcient decrease condition, that is, for being too long.
+
+3.2.
+
+Convergence of Line Search Methods
+
+43
+
+This simple and popular strategy for terminating a line search is well suited for Newton methods (see Chapter 6) but is less appropriate for quasi-Newton and conjugate gradient methods.
+
+3.2 CONVERGENCE OF LINE SEARCH METHODS
+To obtain global convergence, we must not only have well-chosen step lengths but also wellchosen search directions pk . We discuss requirements on the search direction in this section, focusing on one key property: the angle θk between pk and the steepest descent direction −∇fk , deﬁned by cos θk −∇fkT pk . ∇fk pk (3.12)
+
+The following theorem, due to Zoutendijk, has far-reaching consequences. It shows, for example, that the steepest descent method is globally convergent. For other algorithms it describes how far pk can deviate from the steepest descent direction and still give rise to a globally convergent iteration. Various line search termination conditions can be used to establish this result, but for concreteness we will consider only the Wolfe conditions (3.6). Though Zoutendijk’s result appears, at ﬁrst, to be technical and obscure, its power will soon become evident.
+
+Theorem 3.2. Consider any iteration of the form (3.1), where pk is a descent direction and αk satisﬁes the Wolfe conditions (3.6). Suppose that f is bounded below in I n and that f is continuously R
+differentiable in an open set N containing the level set L {x : f (x) ≤ f (x0 )}, where x0 is the starting point of the iteration. Assume also that the gradient ∇f is Lipschitz continuous on N , that is, there exists a constant L > 0 such that ∇f (x) − ∇f (x) ≤ L x − x , ˜ ˜ Then cos2 θk ∇fk
+k≥0 2 def
+
+for all x, x ∈ N . ˜
+
+(3.13)
+
+< ∞.
+
+(3.14)
+
+Proof. From (3.6b) and (3.1) we have that
+(∇fk+1 − ∇fk )T pk ≥ (c2 − 1)∇fkT pk ,
+
+44
+
+Chapter 3.
+
+Line Search Methods
+
+while the Lipschitz condition (3.13) implies that (∇fk+1 − ∇fk )T pk ≤ αk L pk 2 . By combining these two relations, we obtain αk ≥ c2 − 1 ∇fkT pk . L pk 2
+
+By substituting this inequality into the ﬁrst Wolfe condition (3.6a), we obtain fk+1 ≤ fk − c1 1 − c2 (∇fkT pk )2 . L pk 2
+
+From the deﬁnition (3.12), we can write this relation as fk+1 ≤ fk − c cos2 θk ∇fk 2 , where c c1 (1 − c2 )/L. By summing this expression over all indices less than or equal to k, we obtain
+k
+
+fk+1 ≤ f0 − c
+j 0
+
+cos2 θj ∇fj
+
+2
+
+.
+
+(3.15)
+
+Since f is bounded below, we have that f0 − fk+1 is less than some positive constant, for all k. Hence by taking limits in (3.15), we obtain
+∞ k 0
+
+cos2 θk ∇fk
+
+2
+
+< ∞,
+
+which concludes the proof. Similar results to this theorem hold when the Goldstein conditions (3.11) or strong Wolfe conditions (3.7) are used in place of the Wolfe conditions. Note that the assumptions of Theorem 3.2 are not too restrictive. If the function f were not bounded below, the optimization problem would not be well-deﬁned. The smoothness assumption—Lipschitz continuity of the gradient—is implied by many of the smoothness conditions that are used in local convergence theorems (see Chapters 6 and 8) and are often satisﬁed in practice. Inequality (3.14), which we call the Zoutendijk condition, implies that cos2 θk ∇fk
+2
+
+→ 0.
+
+(3.16)
+
+3.2.
+
+Convergence of Line Search Methods
+
+45
+
+This limit can be used in turn to derive global convergence results for line search algorithms. If our method for choosing the search direction pk in the iteration (3.1) ensures that the angle θk deﬁned by (3.12) is bounded away from 90◦ , there is a positive constant δ such that cos θk ≥ δ > 0, It follows immediately from (3.16) that lim ∇fk 0. (3.18) for all k. (3.17)
+
+k→∞
+
+In other words, we can be sure that the gradient norms ∇fk converge to zero, provided that the search directions are never too close to orthogonality with the gradient. In particular, the method of steepest descent (for which the search direction pk makes an angle of zero degrees with the negative gradient) produces a gradient sequence that converges to zero, provided that it uses a line search satisfying the Wolfe or Goldstein conditions. We use the term globally convergent to refer to algorithms for which the property (3.18) is satisﬁed, but note that this term is sometimes used in other contexts to mean different things. For line search methods of the general form (3.1), the limit (3.18) is the strongest global convergence result that can be obtained: We cannot guarantee that the method converges to a minimizer, but only that it is attracted by stationary points. Only by making additional requirements on the search direction pk —by introducing negative curvature information from the Hessian ∇ 2 f (xk ), for example—can we strengthen these results to include convergence to a local minimum. See the Notes and References at the end of this chapter for further discussion of this point. Consider now the Newton-like method (3.1), (3.2) and assume that the matrices Bk are positive deﬁnite with a uniformly bounded condition number. That is, there is a constant M such that Bk
+−1 Bk ≤ M,
+
+for all k.
+
+It is easy to show from the deﬁnition (3.12) that cos θk ≥ 1/M (see Exercise 5). By combining this bound with (3.16) we ﬁnd that lim ∇fk 0. (3.20) (3.19)
+
+k→∞
+
+Therefore, we have shown that Newton and quasi-Newton methods are globally convergent if the matrices Bk have a bounded condition number and are positive deﬁnite (which is
+
+46
+
+Chapter 3.
+
+Line Search Methods
+
+needed to ensure that pk is a descent direction), and if the step lengths satisfy the Wolfe conditions. For some algorithms, such as conjugate gradient methods, we will not be able to prove the limit (3.18), but only the weaker result lim inf ∇fk
+k→∞
+
+0.
+
+(3.21)
+
+In other words, just a subsequence of the gradient norms ∇fkj converges to zero, rather than the whole sequence (see Appendix A). This result, too, can be proved by using Zoutendijk’s condition (3.14), but instead of a constructive proof, we outline a proof by contradiction. Suppose that (3.21) does not hold, so that the gradients remain bounded away from zero, that is, there exists γ > 0 such that ∇fk ≥ γ , Then from (3.16) we conclude that cos θk → 0, (3.23) for all k sufﬁciently large. (3.22)
+
+that is, the entire sequence {cos θk } converges to 0. To establish (3.21), therefore, it is enough to show that a subsequence {cos θkj } is bounded away from zero. We will use this strategy in Chapter 5 to study the convergence of nonlinear conjugate gradient methods. By applying this proof technique, we can prove global convergence in the sense of (3.20) or (3.21) for a general class of algorithms. Consider any algorithm for which (i) every iteration produces a decrease in the objective function, and (ii) every mth iteration is a steepest descent step, with step length chosen to satisfy the Wolfe or Goldstein conditions. 1 for the steepest descent steps, the result (3.20) holds. Of course, we Then since cos θk would design the algorithm so that it does something “better” than steepest descent at the other m − 1 iterates; the occasional steepest descent steps may not make much progress, but they at least guarantee overall global convergence. Note that throughout this section we have used only the fact that Zoutendijk’s condition implies the limit (3.16). In later chapters we will make use of the bounded sum condition (3.14), which forces the sequence {cos2 θk ∇fk 2 } to converge to zero at a sufﬁciently rapid rate.
+
+3.3 RATE OF CONVERGENCE
+It would seem that designing optimization algorithms with good convergence properties is easy, since all we need to ensure is that the search direction pk does not tend to become orthogonal to the gradient ∇fk , or that steepest descent steps are taken regularly. We could
+
+3.3.
+
+Rate of Convergence
+
+47
+
+simply compute cos θk at every iteration and turn pk toward the steepest descent direction if cos θk is smaller than some preselected constant δ > 0. Angle tests of this type ensure global convergence, but they are undesirable for two reasons. First, they may impede a fast rate of convergence, because for problems with an ill-conditioned Hessian, it may be necessary to produce search directions that are almost orthogonal to the gradient, and an inappropriate choice of the parameter δ may prevent this. Second, angle tests destroy the invariance properties of quasi-Newton methods. Algorithmic strategies that achieve rapid convergence can sometimes conﬂict with the requirements of global convergence, and vice versa. For example, the steepest descent method is the quintessential globally convergent algorithm, but it is quite slow in practice, as we shall see below. On the other hand, the pure Newton iteration converges rapidly when started close enough to a solution, but its steps may not even be descent directions away from the solution. The challenge is to design algorithms that incorporate both properties: good global convergence guarantees and a rapid rate of convergence. We begin our study of convergence rates of line search methods by considering the most basic approach of all: the steepest descent method.
+
+CONVERGENCE RATE OF STEEPEST DESCENT
+We can learn much about the steepest descent method by considering the ideal case, in which the objective function is quadratic and the line searches are exact. Let us suppose that f (x)
+1 T x Qx 2
+
+− bT x,
+
+(3.24)
+
+where Q is symmetric and positive deﬁnite. The gradient is given by ∇f (x) Qx − b, and the minimizer x ∗ is the unique solution of the linear system Qx b. Let us compute the step length αk that minimizes f (xk − α∇fk ). By differentiating f (xk − αgk ) with respect to α, we obtain ∇fkT ∇fk . ∇fkT Q∇fk (3.25) 1 (xk − αgk )T Q(xk − αgk ) − bT (xk − αgk ) 2
+
+αk
+
+If we use this exact minimizer αk , the steepest descent iteration for (3.24) is given by xk+1 xk − ∇fkT ∇fk ∇fkT Q∇fk ∇fk . (3.26)
+
+48
+
+Chapter 3.
+
+Line Search Methods
+
+Figure 3.7 Steepest descent steps. Since ∇fk Qxk − b, this equation yields a closed-form expression for xk+1 in terms of xk . In Figure 3.7 we plot a typical sequence of iterates generated by the steepest descent method on a two-dimensional quadratic objective function. The contours of f are ellipsoids whose axes lie along the orthogonal eigenvectors of Q. Note that the iterates zigzag toward the solution. x T Qx. To quantify the rate of convergence we introduce the weighted norm x 2 Q ∗ b, we can show easily that By using the relation Qx
+1 2
+
+x − x∗
+
+2 Q
+
+f (x) − f (x ∗ ),
+
+(3.27)
+
+so that this norm measures the difference between the current objective value and the optimal Q(xk − x ∗ ), we can derive the value. By using the equality (3.26) and noting that ∇fk equality xk+1 − x ∗
+2 Q
+
+1−
+
+∇fkT ∇fk ∇fkT Q∇fk
+
+2
+
+∇fkT Q−1 ∇fk
+
+xk − x ∗
+
+2 Q
+
+(3.28)
+
+(see Exercise 7). This expression describes the exact decrease in f at each iteration, but since the term inside the brackets is difﬁcult to interpret, it is more useful to bound it in terms of the condition number of the problem.
+
+Theorem 3.3. When the steepest descent method with exact line searches (3.26) is applied to the strongly convex quadratic function (3.24), the error norm (3.27) satisﬁes
+xk+1 − x ∗
+2 Q
+
+≤
+
+λn − λ1 λn + λ1
+
+2
+
+xk − x ∗
+
+2 Q,
+
+(3.29)
+
+3.3.
+
+Rate of Convergence
+
+49
+
+where 0 < λ1 ≤ · · · ≤ λn are the eigenvalues of Q. The proof of this result is given by Luenberger [152]. The inequalities (3.29) and (3.27) show that the function values fk converge to the minimum f∗ at a linear rate. As a special case of this result, we see that convergence is achieved in one iteration if all the eigenvalues are equal. In this case, Q is a multiple of the identity matrix, so the contours in Figure 3.7 are circles and the steepest descent direction always points at the solution. In general, as the condition number κ(Q) λn /λ1 increases, the contours of the quadratic become more elongated, the zigzagging in Figure 3.7 becomes more pronounced, and (3.29) implies that the convergence degrades. Even though (3.29) is a worst-case bound, it gives an accurate indication of the behavior of the algorithm when n > 2. The rate-of-convergence behavior of the steepest descent method is essentially the same on general nonlinear objective functions. In the following result we assume that the step length is the global minimizer along the search direction.
+
+Theorem 3.4. Suppose that f : I n → I is twice continuously differentiable, and that the iterates R R generated by the steepest descent method with exact line searches converge to a point x ∗ where the Hessian matrix ∇ 2 f (x ∗ ) is positive deﬁnite. Then
+f (xk+1 ) − f (x ∗ ) ≤ λn − λ 1 λn + λ 1
+2
+
+[f (xk ) − f (x ∗ )],
+
+where λ1 ≤ · · · ≤ λn are the eigenvalues of ∇ 2 f (x ∗ ). In general, we cannot expect the rate of convergence to improve if an inexact line search is used. Therefore, Theorem 3.4 shows that the steepest descent method can have an unacceptably slow rate of convergence, even when the Hessian is reasonably well conditioned. 1 and f (x ∗ ) 0, Theorem 3.4 suggests that the For example, if κ(Q) 800, f (x1 ) function value will still be about 0.08 after one thousand iterations of the steepest descent method.
+
+QUASI-NEWTON METHODS
+Let us now suppose that the search direction has the form pk
+−1 −Bk ∇fk ,
+
+(3.30)
+
+where the symmetric and positive deﬁnite matrix Bk is updated at every iteration by a quasiNewton updating formula. We already encountered one quasi-Newton formula, the BFGS formula, in Chapter 2; others will be discussed in Chapter 8. We assume here that the step length αk will be computed by an inexact line search that satisﬁes the Wolfe or strong Wolfe
+
+50
+
+Chapter 3.
+
+Line Search Methods
+
+conditions, with one important proviso: The line search algorithm will always try the step length α 1 ﬁrst, and will accept this value if it satisﬁes the Wolfe conditions. (We could enforce this condition by setting α 1 in Procedure 3.1, for example.) This implementation ¯ detail turns out to be crucial in obtaining a fast rate of convergence. The following result, due to Dennis and Mor´ , shows that if the search direction of a e quasi-Newton method approximates the Newton direction well enough, then the unit step length will satisfy the Wolfe conditions as the iterates converge to the solution. It also speciﬁes a condition that the search direction must satisfy in order to give rise to a superlinearly convergent iteration. To bring out the full generality of this result, we state it ﬁrst in terms of a general descent iteration, and then examine its consequences for quasi-Newton and Newton methods.
+
+Theorem 3.5. Suppose that f : I n → I is three times continuously differentiable. Consider the R R iteration xk+1 xk + αk pk , where pk is a descent direction and αk satisﬁes the Wolfe conditions 0 and (3.6) with c1 ≤ 1 . If the sequence {xk } converges to a point x ∗ such that ∇f (x ∗ ) 2 2 ∗ ∇ f (x ) is positive deﬁnite, and if the search direction satisﬁes
+lim ∇fk + ∇ 2 fk pk pk 0, (3.31)
+
+k→∞
+
+then (i) the step length αk (ii) if αk 1 is admissible for all k greater than a certain index k0 ; and
+
+1 for all k > k0 , {xk } converges to x ∗ superlinearly.
+
+It is easy to see that if c1 > 1 , then the line search would exclude the minimizer of a 2 quadratic, and unit step lengths may not be admissible. If pk is a quasi-Newton search direction of the form (3.30), then (3.31) is equivalent to lim (Bk − ∇ 2 f (x ∗ ))pk pk 0. (3.32)
+
+k→∞
+
+Hence, we have the surprising (and delightful) result that a superlinear convergence rate can be attained even if the sequence of quasi-Newton matrices Bk does not converge to ∇ 2 f (x ∗ ); it sufﬁces that the Bk become increasingly accurate approximations to ∇ 2 f (x ∗ ) along the search directions pk . An important remark is that condition (3.32) is both necessary and sufﬁcient for the superlinear convergence of quasi-Newton methods.
+
+3.3.
+
+Rate of Convergence
+
+51
+
+Theorem 3.6. Suppose that f : I n → I is three times continuously differentiable. Consider the R R xk + pk (that is, the step length αk is uniformly 1) and that pk is given by iteration xk+1 (3.30). Let us also assume that {xk } converges to a point x ∗ such that ∇f (x ∗ ) 0 and ∇ 2 f (x ∗ ) is positive deﬁnite. Then {xk } converges superlinearly if and only if (3.32) holds. Proof. We ﬁrst show that (3.32) is equivalent to
+N pk − pk
+
+o( pk ),
+
+(3.33)
+
+N where pk
+
+−∇ 2 fk−1 ∇fk is the Newton step. Assuming that (3.32) holds, we have that
+N pk − p k
+
+∇ 2 fk−1 (∇ 2 fk pk + ∇fk ) ∇ 2 fk−1 (∇ 2 fk − Bk )pk O( (∇ 2 fk − Bk )pk ) o( pk ),
+
+where we have used the fact that ∇ 2 fk−1 is bounded above for xk sufﬁciently close to x ∗ , since the limiting Hessian ∇ 2 f (x ∗ ) is positive deﬁnite. The converse follows readily if we multiply both sides of (3.33) by ∇ 2 fk and recall (3.30). For the remainder of the proof we need to look ahead to the proof of quadratic convergence of Newton’s method and, in particular, the estimate (3.37). By using this inequality together with (3.33), we obtain that
+N N xk + pk − x ∗ ≤ xk + pk − x ∗ + pk − pk
+
+O( xk − x ∗ 2 ) + o( pk ). A simple manipulation of this inequality reveals that pk O( xk − x ∗ ), so we obtain
+
+xk + pk − x ∗ ≤ o( xk − x ∗ ), giving the superlinear convergence result. We will see in Chapter 8 that quasi-Newton methods normally satisfy condition (3.32) and are superlinearly convergent.
+
+NEWTON’S METHOD
+Let us now consider the Newton iteration where the search direction is given by
+N pk
+
+−∇ 2 fk−1 ∇fk .
+
+(3.34)
+
+52
+
+Chapter 3.
+
+Line Search Methods
+
+N Since the Hessian matrix ∇ 2 fk may not always be positive deﬁnite, pk may not always be a descent direction, and many of the ideas discussed so far in this chapter no longer apply. In Chapter 6 we will describe two approaches for obtaining a globally convergent iteration based on the Newton step: a line search approach, in which the Hessian ∇ 2 fk is modiﬁed, if necessary, to make it positive deﬁnite and thereby yield descent, and a trust region approach, in which ∇ 2 fk is used to form a quadratic model that is minimized in a ball. Here we discuss just the local rate-of-convergence properties of Newton’s method. We know that for all x in the vicinity of a solution point x ∗ such that ∇ 2 f (x ∗ ) is positive deﬁnite, the Hessian ∇ 2 f (x) will also be positive deﬁnite. Newton’s method will be well-deﬁned in this region and will converge quadratically, provided that the step lengths αk are eventually always 1.
+
+Theorem 3.7. Suppose that f is twice differentiable and that the Hessian ∇ 2 f (x) is Lipschitz continuous (see (A.8)) in a neighborhood of a solution x ∗ at which the sufﬁcient conditions (Theorem 2.4) are satisﬁed. Consider the iteration xk+1 xk + pk , where pk is given by (3.34). Then
+1. if the starting point x0 is sufﬁciently close to x ∗ , the sequence of iterates converges to x ∗ ; 2. the rate of convergence of {xk } is quadratic; and 3. the sequence of gradient norms { ∇fk } converges quadratically to zero.
+
+Proof. From the deﬁnition of the Newton step and the optimality condition ∇f∗ have that
+N xk + pk − x ∗
+
+0 we
+
+xk − x ∗ − ∇ 2 fk−1 ∇fk ∇ 2 fk−1 ∇ 2 fk (xk − x ∗ ) − (∇fk − ∇f∗ ) . (3.35)
+
+Since ∇fk − ∇f∗
+0 1
+
+∇ 2 f (xk + t(x ∗ − xk ))(xk − x ∗ ) dt,
+
+we have ∇ 2 f (xk )(xk − x ∗ ) − (∇fk − ∇f (x ∗ ))
+1 0 1 0
+
+∇ 2 f (xk ) − ∇ 2 f (xk + t(x ∗ − xk )) (xk − x ∗ ) dt ∇ 2 f (xk ) − ∇ 2 f (xk + t(x ∗ − xk ))
+1 2 0
+
+≤
+
+xk − x ∗ dt (3.36)
+
+≤ xk − x ∗
+
+Lt dt
+
+1 L 2
+
+xk − x ∗ 2 ,
+
+3.3.
+
+Rate of Convergence
+
+53
+
+where L is the Lipschitz constant for ∇ 2 f (x) for x near x ∗ . Since ∇ 2 f (x ∗ ) is nonsingular, and since ∇ 2 fk → ∇ 2 f (x ∗ ), we have that ∇ 2 fk−1 ≤ 2 ∇ 2 f (x ∗ )−1 for all k sufﬁciently large. By substituting in (3.35) and (3.36), we obtain
+N xk + pk − x ∗ ≤ L ∇ 2 f (x ∗ )−1
+
+xk − x ∗
+
+2
+
+˜ L xk − x ∗ 2 ,
+
+(3.37)
+
+˜ where L L ∇ 2 f (x ∗ )−1 . Using this inequality inductively we deduce that if the starting point is sufﬁciently near x ∗ , then the sequence converges to x ∗ , and the rate of convergence is quadratic. N N By using the relations xk+1 − xk pk and ∇fk + ∇ 2 fk pk 0, we obtain that ∇f (xk+1 )
+N ∇f (xk+1 ) − ∇fk − ∇ 2 f (xk )pk
+
+1 0 1 0
+
+N N ∇ 2 f (xk + tpk )(xk+1 − xk ) dt − ∇ 2 f (xk )pk
+
+≤
+
+N ∇ 2 f (xk + tpk ) − ∇ 2 f (xk )
+
+N pk dt
+
+N ≤ 1 L pk 2
+
+2 2 2
+
+≤ 1 L ∇ 2 f (xk )−1 2 ≤ 2L ∇ 2 f (x ∗ )−1
+
+∇fk
+
+2
+
+∇fk 2 ,
+
+proving that the gradient norms converge to zero quadratically. When the search direction is given by Newton’s method, the limit (3.31) is satisﬁed (the ratio is zero for all k!), and Theorem 3.5 shows that the Wolfe conditions will accept the step length αk for all large k. The same is true of the Goldstein conditions. Thus implementations of Newton’s method using these conditions, and in which the line search always tries the unit step length ﬁrst, will set αk 1 for all large k and attain a local quadratic rate of convergence.
+
+COORDINATE DESCENT METHODS
+An approach that is frequently used in practice is to cycle through the n coordinate directions e1 , e2 , . . . , en , using each in turn as a search direction. At the ﬁrst iteration, we ﬁx all except the ﬁrst variable, and ﬁnd a new value of this variable that minimizes (or at least reduces) the objective function. On the next iteration, we repeat the process with the second variable, and so on. After n iterations, we return to the ﬁrst variable and repeat the cycle. The method is referred to as the method of alternating variables or the coordinate descent method. Though simple and somewhat intuitive, it can be quite inefﬁcient in practice, as we illustrate in Figure 3.8 for a quadratic function in two variables. Note that after a few iterations, neither the vertical nor the horizontal move makes much progress toward the solution.
+
+54
+
+Chapter 3.
+
+Line Search Methods
+
+x*
+
+x0
+
+x
+
+1
+
+Figure 3.8 Coordinate descent.
+
+In fact, the coordinate descent method with exact line searches can iterate inﬁnitely without ever approaching a point where the gradient of the objective function vanishes. (By contrast, the steepest descent method produces a sequence for which ∇fk → 0, as we showed earlier.) This observation can be generalized to show that a cyclic search along any set of linearly independent directions does not guarantee global convergence (Powell [198]). The difﬁculty that arises is that the gradient ∇fk may become more and more perpendicular to the coordinate search direction, so that cos θk approaches zero sufﬁciently rapidly that the Zoutendijk condition (3.14) is satisﬁed even when ∇fk does not approach zero. If the coordinate descent method converges to a solution, then its rate of convergence is often much slower than that of the steepest descent method, and the difference between them increases with the number of variables. However, the method may still be useful because it does not require calculation of the gradient ∇fk , and the speed of convergence can be quite acceptable if the variables are loosely coupled. Many variants of the coordinate descent method have been proposed, some of which are globally convergent. One simple variant is a “back-and-forth” approach in which we
+
+3.4.
+
+Step-Length Selection Algorithms
+
+55
+
+search along the sequence of directions e1 , e2 , . . . , en−1 , en , en−1 , . . . , e2 , e1 , e2 , . . . (repeats).
+
+Another approach, suggested by Figure 3.8, is ﬁrst to perform a sequence of coordinate descent steps and then search along the line joining the ﬁrst and last points in the cycle. Several algorithms, such as that of Hooke and Jeeves, are based on these ideas; see [104, 83].
+
+3.4 STEP-LENGTH SELECTION ALGORITHMS
+We now consider techniques for ﬁnding a minimum of the one-dimensional function φ(α) f (xk + αpk ), (3.38)
+
+or for simply ﬁnding a step length αk satisfying one of the termination conditions described in Section 3.1. We assume that pk is a descent direction—that is, φ (0) < 0—so that our search can be conﬁned to positive values of α. If f is a convex quadratic, f (x) 1 x T Qx + bT x + c, its one-dimensional minimizer 2 along the ray xk + αpk can be computed analytically and is given by αk − ∇fkT pk . T pk Qpk (3.39)
+
+For general nonlinear functions, it is necessary to use an iterative procedure. Much attention must be given to this line search because it has a major impact on the robustness and efﬁciency of all nonlinear optimization methods. Line search procedures can be classiﬁed according to the type of derivative information they use. Algorithms that use only function values can be inefﬁcient, since to be theoretically sound, they need to continue iterating until the search for the minimizer is narrowed down to a small interval. In contrast, knowledge of gradient information allows us to determine whether a suitable step length has been located, as stipulated, for example, by the Wolfe conditions (3.6) or Goldstein conditions (3.11). Often, particularly when the iterates are close to the solution, the very ﬁrst step satisﬁes these conditions, so the line search need not be invoked at all. In the rest of this section we will discuss only algorithms that make use of derivative information. More information on derivative-free procedures is given in the notes at the end of this chapter. All line search procedures require an initial estimate α0 and generate a sequence {αi } that either terminates with a step length satisfying the conditions speciﬁed by the user (for example, the Wolfe conditions) or determines that such a step length does not exist. Typical procedures consist of two phases: a bracketing phase that ﬁnds an interval [a, b] containing
+
+56
+
+Chapter 3.
+
+Line Search Methods
+
+acceptable step lengths, and a selection phase that zooms in to locate the ﬁnal step length. The selection phase usually reduces the bracketing interval during its search for the desired step length and interpolates some of the function and derivative information gathered on earlier steps to guess the location of the minimizer. We will ﬁrst discuss how to perform this interpolation. In the following discussion we let αk and αk−1 denote the step lengths used at iterations k and k − 1 of the optimization algorithm, respectively. On the other hand, we denote the trial step lengths generated during the line search by αi and αi−1 and also αj . We use α0 to denote the initial guess.
+
+INTERPOLATION
+We begin by describing a line search procedure based on interpolation of known function and derivative values of the function φ. This procedure can be viewed as an enhancement of Procedure 3.1. The aim is to ﬁnd a value of α that satisﬁes the sufﬁcient decrease condition (3.6a), without being “too small.” Accordingly, the procedures here generate a decreasing sequence of values αi such that each value αi is not too much smaller than its predecessor αi−1 . Note that we can write the sufﬁcient decrease condition in the notation of (3.38) as φ(αk ) ≤ φ(0) + c1 αk φ (0), (3.40)
+
+and that since the constant c1 is usually chosen to be small in practice (c1 10−4 , say), this condition asks for little more than descent in f . We design the procedure to be “efﬁcient” in the sense that it computes the derivative ∇f (x) as few times as possible. Suppose that the initial guess α0 is given. If we have φ(α0 ) ≤ φ(0) + c1 α0 φ (0), this step length satisﬁes the condition, and we terminate the search. Otherwise, we know that the interval [0, α0 ] contains acceptable step lengths (see Figure 3.3). We form a quadratic approximation φq (α) to φ by interpolating the three pieces of information available—φ(0), φ (0), and φ(α0 )—to obtain φq (α) φ(α0 ) − φ(0) − α0 φ (0) α 2 + φ (0)α + φ(0). 2 α0 (3.41)
+
+(Note that this function is constructed so that it satisﬁes the interpolation conditions φq (0) φ(0), φq (0) φ (0), and φq (α0 ) φ(α0 ).) The new trial value α1 is deﬁned as the minimizer of this quadratic, that is, we obtain α1 −
+2 φ (0)α0 . 2 [φ(α0 ) − φ(0) − φ (0)α0 ]
+
+(3.42)
+
+3.4.
+
+Step-Length Selection Algorithms
+
+57
+
+If the sufﬁcient decrease condition (3.40) is satisﬁed at α1 , we terminate the search. Otherwise, we construct a cubic function that interpolates the four pieces of information φ(0), φ (0), φ(α0 ), and φ(α1 ), obtaining φc (α) where a b 1 2 2 α0 α1 (α1 − α0 )
+2 α0 3 −α0 2 −α1 3 α1
+
+aα 3 + bα 2 + αφ (0) + φ(0),
+
+φ(α1 ) − φ(0) − φ (0)α1 φ(α0 ) − φ(0) − φ (0)α0
+
+.
+
+By differentiating φc (x), we see that the minimizer α2 of φc lies in the interval [0, α1 ] and is given by α2 −b + b2 − 3aφ (0) . 3a
+
+If necessary, this process is repeated, using a cubic interpolant of φ(0), φ (0) and the two most recent values of φ, until an α that satisﬁes (3.40) is located. If any αi is either too close to its predecessor αi−1 or else too much smaller than αi−1 , we reset αi αi−1 /2. This safeguard procedure ensures that we make reasonable progress on each iteration and that the ﬁnal α is not too small. The strategy just described assumes that derivative values are signiﬁcantly more expensive to compute than function values. It is often possible, however, to compute the directional derivative simultaneously with the function, at little additional cost; see Chapter 7. Accordingly, we can design an alternative strategy based on cubic interpolation of the values of φ and φ at the two most recent values of α. Cubic interpolation provides a good model for functions with signiﬁcant changes of curvature. Suppose we have an interval [a, b] known to contain desirable step lengths, and two previous step length estimates αi−1 and αi in this interval. We use a cubic function to interpolate φ(αi−1 ), φ (αi−1 ), φ(αi ), and φ (αi ). (This cubic function always exists and is unique; see, for example, Bulirsch and Stoer [29, p. 52].) The minimizer of this cubic in [a, b] is either at one of the endpoints or else in the interior, in which case it is given by αi+1 with d1 d2 φ (αi−1 ) + φ (αi ) − 3
+2 d1 − φ (αi−1 )φ (αi )
+
+αi − (αi − αi−1 )
+
+φ (αi ) + d2 − d1 , φ (αi ) − φ (αi−1 ) + 2d2
+
+(3.43)
+
+φ(αi−1 ) − φ(αi ) , αi−1 − αi
+1/2
+
+.
+
+58
+
+Chapter 3.
+
+Line Search Methods
+
+The interpolation process can be repeated by discarding the data at one of the step lengths αi−1 or αi and replacing it by φ(αi+1 ) and φ (αi+1 ). The decision on which of αi−1 and αi should be kept and which discarded depends on the speciﬁc conditions used to terminate the line search; we discuss this issue further below in the context of the Wolfe conditions. Cubic interpolation is a powerful strategy, since it can produce a quadratic rate of convergence of the iteration (3.43) to the minimizing value of α.
+
+THE INITIAL STEP LENGTH
+For Newton and quasi-Newton methods the step α0 1 should always be used as the initial trial step length. This choice ensures that unit step lengths are taken whenever they satisfy the termination conditions and allows the rapid rate-of-convergence properties of these methods to take effect. For methods that do not produce well-scaled search directions, such as the steepest descent and conjugate gradient methods, it is important to use current information about the problem and the algorithm to make the initial guess. A popular strategy is to assume that the ﬁrst-order change in the function at iterate xk will be the same as that obtained at the previous T step. In other words, we choose the initial guess α0 so that α0 ∇fkT pk αk−1 ∇fk−1 pk−1 . We therefore have α0 αk−1
+T ∇fk−1 pk−1
+
+∇fkT pk
+
+.
+
+φ (0)
+
+Another useful strategy is to interpolate a quadratic to the data f (xk−1 ), f (xk ), and ∇fkT pk and to deﬁne α0 to be its minimizer. This strategy yields α0 2(fk − fk−1 ) . φ (0) (3.44)
+
+It can be shown that if xk → x ∗ superlinearly, then the ratio in this expression converges to 1. If we adjust the choice (3.44) by setting α0 ← min(1, 1.01α0 ), we ﬁnd that the unit step length α0 1 will eventually always be tried and accepted, and the superlinear convergence properties of Newton and quasi-Newton methods will be observed.
+
+A LINE SEARCH ALGORITHM FOR THE WOLFE CONDITIONS
+The Wolfe (or strong Wolfe) conditions are among the most widely applicable and useful termination conditions. We now describe in some detail a one-dimensional search procedure that is guaranteed to ﬁnd a step length satisfying the strong Wolfe conditions (3.7)
+
+3.4.
+
+Step-Length Selection Algorithms
+
+59
+
+for any parameters c1 and c2 satisfying 0 < c1 < c2 < 1. As before, we assume that p is a descent direction and that f is bounded below along the direction p. The algorithm has two stages. This ﬁrst stage begins with a trial estimate α1 , and keeps increasing it until it ﬁnds either an acceptable step length or an interval that brackets the desired step lengths. In the latter case, the second stage is invoked by calling a function called zoom (Algorithm 3.3 below), which successively decreases the size of the interval until an acceptable step length is identiﬁed. A formal speciﬁcation of the line search algorithm follows. We refer to (3.7a) as the sufﬁcient decrease condition and to (3.7b) as the curvature condition. The parameter αmax is a user-supplied bound on the maximum step length allowed. The line search algorithm terminates with α∗ set to a step length that satisﬁes the strong Wolfe conditions.
+
+Algorithm 3.2 (Line Search Algorithm). Set α0 ← 0, choose α1 > 0 and αmax ; i ← 1; repeat Evaluate φ(αi ); if φ(αi ) > φ(0) + c1 αi φ (0) or [φ(αi ) ≥ φ(αi−1 ) and i > 1] α∗ ←zoom(αi−1 , αi ) and stop; Evaluate φ (αi ); if |φ (αi )| ≤ −c2 φ (0) set α∗ ← αi and stop; if φ (αi ) ≥ 0 set α∗ ←zoom(αi , αi−1 ) and stop; Choose αi+1 ∈ (αi , αmax ) i ← i + 1; end (repeat)
+Note that the sequence of trial step lengths {αi } is monotonically increasing, but that the order of the arguments supplied to the zoom function may vary. The procedure uses the knowledge that the interval (αi−1 , αi ) contains step lengths satisfying the strong Wolfe conditions if one of the following three conditions is satisﬁed: (i) αi violates the sufﬁcient decrease condition; (ii) φ(αi ) ≥ φ(αi−1 ); (iii) φ (αi ) ≥ 0. The last step of the algorithm performs extrapolation to ﬁnd the next trial value αi+1 . To implement this step we can use approaches like the interpolation procedures above, or we can simply set αi+1 to some constant multiple of αi . Whichever strategy we use, it is important
+
+60
+
+Chapter 3.
+
+Line Search Methods
+
+that the successive steps increase quickly enough to reach the upper limit αmax in a ﬁnite number of iterations. We now specify the function zoom, which requires a little explanation. The order of its input arguments is such that each call has the form zoom(αlo , αhi ), where (a) the interval bounded by αlo and αhi contains step lengths that satisfy the strong Wolfe conditions; (b) αlo is, among all step lengths generated so far and satisfying the sufﬁcient decrease condition, the one giving the smallest function value; and (c) αhi is chosen so that φ (αlo )(αhi − αlo ) < 0. Each iteration of zoom generates an iterate αj between αlo and αhi , and then replaces one of these endpoints by αj in such a way that the properties (a), (b), and (c) continue to hold.
+
+Algorithm 3.3 (zoom). repeat Interpolate (using quadratic, cubic, or bisection) to ﬁnd a trial step length αj between αlo and αhi ; Evaluate φ(αj ); if φ(αj ) > φ(0) + c1 αj φ (0) or φ(αj ) ≥ φ(αlo ) αhi ← αj ; else Evaluate φ (αj ); if |φ (αj )| ≤ −c2 φ (0) Set α∗ ← αj and stop; if φ (αj )(αhi − αlo ) ≥ 0 αhi ← αlo ; αlo ← αj ; end (repeat)
+If the new estimate αj happens to satisfy the strong Wolfe conditions, then zoom has served αj . Otherwise, if αj its purpose of identifying such a point, so it terminates with α∗ satisﬁes the sufﬁcient decrease condition and has a lower function value than xlo , then we set αlo ← αj to maintain condition (b). If this results in a violation of condition (c), we remedy the situation by setting αhi to the old value of αlo . The reader should sketch some graphs to illustrate the workings of zoom! As mentioned earlier, the interpolation step that determines αj should be safeguarded to ensure that the new step length is not too close to the endpoints of the interval. Practical line search algorithms also make use of the properties of the interpolating polynomials to make educated guesses of where the next step length should lie; see [27, 172]. A problem that can arise in the implementation is that as the optimization algorithm approaches the
+
+3.4.
+
+Step-Length Selection Algorithms
+
+61
+
+solution, two consecutive function values f (xk ) and f (xk−1 ) may be indistinguishable in ﬁnite-precision arithmetic. Therefore, the line search must include a stopping test if it cannot attain a lower function value after a certain number (typically, ten) of trial step lengths. Some procedures also stop if the relative change in x is close to machine accuracy, or to some user-speciﬁed threshold. A line search algorithm that incorporates all these features is difﬁcult to code. We advocate the use of one of the several good software implementations available in the public domain. See Dennis and Schnabel [69], Lemar´ chal [149], Fletcher [83], and in particular e Mor´ and Thuente [172]. e One may ask how much more expensive it is to require the strong Wolfe conditions instead of the regular Wolfe conditions. Our experience suggests that for a “loose” line search (with parameters such as c1 10−4 and c2 0.9), both strategies require a similar amount of work. The strong Wolfe conditions have the advantage that by decreasing c2 we can directly control the quality of the search by forcing the accepted value of α to lie closer to a local minimum. This feature is important in steepest descent or nonlinear conjugate gradient methods, and therefore a step selection routine that enforces the strong Wolfe conditions is of wider applicability.
+
+NOTES AND REFERENCES
+For an extensive discussion of line search termination conditions see Ortega and Rheinboldt [185]. Akaike [2] presents a probabilistic analysis of the steepest descent method with exact line searches on quadratic functions. He shows that when n > 2, the worst-case bound (3.29) can be expected to hold for most starting points. The case where n 2 can be studied in closed form; see Bazaraa, Sherali, and Shetty [7]. Some line search methods (see Goldfarb [113] and Mor´ and Sorensen [169]) compute e a direction of negative curvature, whenever it exists, to prevent the iteration from converging to nonminimizing stationary points. A direction of negative curvature p− is one that satisﬁes T p− ∇ 2 f (xk )p− < 0. These algorithms generate a search direction by combining p− with the steepest descent direction −∇f , and often perform a curvilinear backtracking line search. It is difﬁcult to determine the relative contributions of the steepest descent and negative curvature directions, and due to this, this approach fell out of favor after the introduction of trust-region methods. For a discussion on the rate of convergence of the coordinate descent method and for more references about this method see Luenberger [152]. Derivative-free line search algorithms include golden section and Fibonacci search. They share some of the features with the line search method given in this chapter. They typically store three trial points that determine an interval containing a one-dimensional minimizer. Golden section and Fibonacci differ in the way in which the trial step lengths are generated; see, for example, [58, 27]. Our discussion of interpolation follows Dennis and Schnabel [69], and the algorithm for ﬁnding a step length satisfying the strong Wolfe conditions can be found in Fletcher [83].
+
+62
+
+Chapter 3.
+
+Line Search Methods
+
+✐
+
+Exercises
+
+✐ 3.1 Program the steepest descent and Newton algorithms using the backtracking line search, Procedure 3.1. Use them to minimize the Rosenbrock function (2.23). Set the initial step length α0 1 and print the step length used by each method at each iteration. First try the initial point x0 (1.2, 1.2) and then the more difﬁcult point x0 (−1.2, 1). ✐
+3.2 Show that if 0 < c2 < c1 < 1, then there may be no step lengths that satisfy the Wolfe conditions.
+
+✐ 3.3 Show that the one-dimensional minimizer of a strongly convex quadratic function is given by (3.39). ✐ ✐
+3.4 Show that if c ≤ 1 , then the one-dimensional minimizer of a strongly convex 2 quadratic function always satisﬁes the Goldstein conditions (3.11). 3.5 Prove that Bx ≥ x / B −1 for any nonsingular matrix B. Use this to establish (3.19).
+
+✐ 3.6 Consider the steepest descent method with exact line searches applied to the convex quadratic function (3.24). Using the properties given in this chapter, show that if the initial point is such that x0 − x ∗ is parallel to an eigenvector of Q, then the steepest descent method will ﬁnd the solution in one step. ✐ 3.7 Prove the result (3.28) by working through the following steps. First, use (3.26) to show that
+xk − x ∗ where ·
+Q 2 Q
+
+− xk+1 − x ∗
+
+2 Q
+
+2 2αk ∇fkT Q(xk − x ∗ ) − αk ∇fkT Q∇fk ,
+
+is deﬁned by (3.27). Second, use the fact that ∇fk xk − x ∗
+2 Q
+
+Q(xk − x ∗ ) to obtain
+
+− xk+1 − x ∗
+
+2 Q
+
+T T (gk gk )2 2(gk gk )2 − T T (gk Qgk ) (gk Qgk )
+
+and xk − x ∗
+2 Q
+
+∇fkT Q−1 ∇fk .
+
+✐
+
+3.8 Let Q be a positive deﬁnite symmetric matrix. Prove that for any vector x, (x T x)2 4λn λ1 ≥ , T Qx)(x T Q−1 x) (x (λn + λ1 )2
+
+where λn and λ1 are, respectively, the largest and smallest eigenvalues of Q. (This relation, which is known as the Kantorovich inequality, can be used to deduce (3.29) from (3.28).
+
+3.4.
+
+Step-Length Selection Algorithms
+
+63
+
+3.9 Program the BFGS algorithm using the line search algorithm described in this T chapter that implements the strong Wolfe conditions. Have the code verify that yk sk is always positive. Use it to minimize the Rosenbrock function using the starting points given in Exercise 1. 3.10 Show that the quadratic function that interpolates φ(0), φ (0), and φ(α0 ) is given by (3.41). Then, make use of the fact that the sufﬁcient decrease condition (3.6a) is not satisﬁed at α0 to show that this quadratic has positive curvature and that the minimizer satisﬁes α1 < 1 . 2(1 − c1 )
+
+✐
+
+✐
+
+Since c1 is chosen to be quite small in practice, this indicates that α1 cannot be much greater than 1 (and may be smaller), which gives us an idea of the new step length. 2 3.11 If φ(α0 ) is large, (3.42) shows that α1 can be quite small. Give an example of a function and a step length α0 for which this situation arises. (Drastic changes to the estimate of the step length are not desirable, since they indicate that the current interpolant does not provide a good approximation to the function and that it should be modiﬁed before being trusted to produce a good step length estimate. In practice, one imposes a lower bound— ˆ ˆ typically, ρ 0.1—and deﬁnes the new step length as αi max(ραi−1 , αi ), where αi is the minimizer of the interpolant.)
+
+✐
+
+✐
+
+3.12 Suppose that the sufﬁcient decrease condition (3.6a) is not satisﬁed at the step lengths α0 , and α1 , and consider the cubic interpolating φ(0), φ (0), φ(α0 ) and φ(α1 ). By drawing graphs illustrating the two situations that can arise, show that the minimizer of the cubic lies in [0, α1 ]. Then show that if φ(0) < φ(α1 ), the minimizer is less than 2 α1 . 3
+
+Chapter
+
+4
+
+Trust-Region Methods
+
+Line search methods and trust-region methods both generate steps with the help of a quadratic model of the objective function, but they use this model in different ways. Line search methods use it to generate a search direction, and then focus their efforts on ﬁnding a suitable step length α along this direction. Trust-region methods deﬁne a region around the current iterate within which they trust the model to be an adequate representation of the objective function, and then choose the step to be the approximate minimizer of the model in this trust region. In effect, they choose the direction and length of the step simultaneously. If a step is not acceptable, they reduce the size of the region and ﬁnd a new minimizer. In general, the step direction changes whenever the size of the trust region is altered. The size of the trust region is critical to the effectiveness of each step. If the region is too small, the algorithm misses an opportunity to take a substantial step that will move it much closer to the minimizer of the objective function. If too large, the minimizer of the model may be far from the minimizer of the objective function in the region, so we may have to reduce the size of the region and try again. In practical algorithms, we choose the size of the region according to the performance of the algorithm during previous iterations. If the model is generally reliable, producing good steps and accurately predicting the behavior of the objective function along these steps, the size of the trust region is steadily increased to
+
+66
+
+Chapter 4.
+
+Trust-Region Methods
+
+Trust region Line search direction
+
+contours of m k
+
+Trust region step
+
+contours of f
+
+Figure 4.1 Trust-region and line search steps.
+
+allow longer, more ambitious, steps to be taken. On the other hand, a failed step indicates that our model is an inadequate representation of the objective function over the current trust region, so we reduce the size of the region and try again. Figure 4.1 illustrates the trust-region approach on a function f of two variables in which the current point lies at one end of a curved valley while the minimizer x ∗ lies at the other end. The quadratic model function mk , whose elliptical contours are shown as dashed lines, is based on function and derivative information at xk and possibly also on information accumulated from previous iterations and steps. A line search method based on this model searches along the step to the minimizer of mk (shown), but this direction allows only a small reduction in f even if an optimal step is taken. A trust-region method, on the other hand, steps to the minimizer of mk within the dotted circle, which yields a more signiﬁcant reduction in f and a better step. We will assume that the ﬁrst two terms of the quadratic model functions mk at each iterate xk are identical to the ﬁrst two terms of the Taylor-series expansion of f around xk . Speciﬁcally, we have
+
+mk (p)
+
+fk + ∇fkT p + 1 p T Bk p, 2
+
+(4.1)
+
+Chapter 4.
+
+Trust-Region Methods
+
+67
+
+where fk have
+
+f (xk ), ∇fk
+
+∇f (xk ), and Bk is some symmetric matrix. Since by (2.6) we
+
+f (xk + p)
+
+fk + ∇fkT p + 1 p T ∇ 2 f (xk + tp)p, 2
+
+(4.2)
+
+fk + ∇fkT p + O p 2 , the difference for some scalar t ∈ (0, 1), and since mk (p) 2 between mk (p) and f (xk + p) is O p , so the approximation error is small when p is small. When Bk is equal to the true Hessian ∇ 2 f (xk ), the model function actually agrees with the Taylor series to three terms. The approximation error is O p 3 in this case, so this model is especially accurate when p is small. The algorithm based on setting ∇ 2 f (xk ) is called the trust-region Newton method, and will be discussed further in Bk Chapter 6. In the current chapter, we emphasize the generality of the trust-region approach by assuming little about Bk except symmetry and uniform boundedness in the index k. To obtain each step, we seek a solution of the subproblem min mk (p) fk + ∇fkT p + 1 p T Bk p 2 s.t. p ≤
+k,
+
+p∈I n R
+
+(4.3)
+
+where k > 0 is the trust-region radius. For the moment, we deﬁne · to be the Euclidean ∗ norm, so that the solution pk of (4.3) is the minimizer of mk in the ball of radius k . Thus, the trust-region approach requires us to solve a sequence of subproblems (4.3) in which the objective function and constraint (which can be written as pT p ≤ 2 ) are both quadratic. k −1 When Bk is positive deﬁnite and Bk ∇fk ≤ k , the solution of (4.3) is easy to identify—it −1 B is simply the unconstrained minimum pk −Bk ∇fk of the quadratic mk (p). In this case, B we call pk the full step. The solution of (4.3) is not so obvious in other cases, but it can usually be found without too much expense. In any case, we need only an approximate solution to obtain convergence and good practical behavior.
+
+OUTLINE OF THE ALGORITHM
+The ﬁrst issue to arise in deﬁning a trust-region method is the strategy for choosing the trust-region radius k at each iteration. We base this choice on the agreement between the model function mk and the objective function f at previous iterations. Given a step pk we deﬁne the ratio ρk f (xk ) − f (xk + pk ) ; mk (0) − mk (pk ) (4.4)
+
+the numerator is called the actual reduction, and the denominator is the predicted reduction. Note that since the step pk is obtained by minimizing the model mk over a region that includes the step p 0, the predicted reduction will always be nonnegative. Thus if ρk is
+
+68
+
+Chapter 4.
+
+Trust-Region Methods
+
+negative, the new objective value f (xk + pk ) is greater than the current value f (xk ), so the step must be rejected. On the other hand, if ρk is close to 1, there is good agreement between the model mk and the function f over this step, so it is safe to expand the trust region for the next iteration. If ρk is positive but not close to 1, we do not alter the trust region, but if it is close to zero or negative, we shrink the trust region. The following algorithm describes the process.
+
+Algorithm 4.1 (Trust Region). Given ¯ > 0, 0 ∈ (0, ¯ ), and η ∈ 0, 1 : 4 for k 0, 1, 2, . . . Obtain pk by (approximately) solving (4.3); Evaluate ρk from (4.4); if ρk < 1 4 1 pk k+1 4 else if ρk > 3 and pk k 4 min(2 k , ¯ ) k+1 else k+1 k; if ρk > η xk+1 xk + pk else xk+1 xk ; end (for).
+
+Here ¯ is an overall bound on the step lengths. Note that the radius is increased only if pk actually reaches the boundary of the trust region. If the step stays strictly inside the region, we infer that the current value of k is not interfering with the progress of the algorithm, so we leave its value unchanged for the next iteration. To turn Algorithm 4.1 into a practical algorithm, we need to focus on solving (4.3). We ﬁrst describe three strategies for ﬁnding approximate solutions, which achieve at least as much reduction in mk as the reduction achieved by the so-called Cauchy point. This point is simply the minimizer of mk along the steepest descent direction −∇fk , subject to the trustregion bound. The ﬁrst approximate strategy is the dogleg method, which is appropriate when the model Hessian Bk is positive deﬁnite. The second strategy, known as two-dimensional subspace minimization, can be applied when Bk is indeﬁnite, though it requires an estimate of the most negative eigenvalue of this matrix. The third strategy, due to Steihaug, is most appropriate when Bk is the exact Hessian ∇ 2 f (xk ) and when this matrix is large and sparse. We also describe a strategy due to Mor´ and Sorensen that ﬁnds a “nearly exact” e solution of (4.3). This strategy is based on the fact that the solution p satisﬁes (Bk + λI )p −∇fk for some positive value of λ > 0. This strategy seeks the value of λ that corresponds to
+
+4.1.
+
+The Cauchy Point and Related Algorithms
+
+69
+
+the trust-region radius k and performs additional calculations in the special case in which the resulting modiﬁed Hessian (Bk + λI ) is nonsingular. Details are given below.
+
+4.1 THE CAUCHY POINT AND RELATED ALGORITHMS
+THE CAUCHY POINT
+As we saw in the previous chapter, line search methods do not require optimal step lengths to be globally convergent. In fact, only a crude approximation to the optimal step length that satisﬁes certain loose criteria is needed. A similar situation applies in trust-region methods. Although in principle we are seeking the optimal solution of the subproblem (4.3), it is enough for global convergence purposes to ﬁnd an approximate solution pk that lies within the trust region and gives a sufﬁcient reduction in the model. The sufﬁcient reduction C can be quantiﬁed in terms of the Cauchy point, which we denote by pk and deﬁne in terms of the following simple procedure:
+
+Algorithm 4.2 (Cauchy Point Calculation). S Find the vector pk that solves a linear version of (4.3), that is,
+
+S pk
+
+arg min fk + ∇fkT p n
+p∈I R
+
+s.t. p ≤
+
+k;
+
+(4.5)
+
+S Calculate the scalar τk > 0 that minimizes mk (τ pk ) subject to satisfying the trust-region bound, that is,
+
+τk
+C Set pk S τk pk .
+
+S arg min mk (τ pk )
+
+τ >0
+
+S s.t. τ pk ≤
+
+k;
+
+(4.6)
+
+In fact, it is easy to write down a closed-form deﬁnition of the Cauchy point. The solution of (4.5) is simply
+S pk
+
+−
+
+k
+
+∇fk
+
+∇fk .
+
+To obtain τk explicitly, we consider the cases of ∇fkT Bk ∇fk ≤ 0 and ∇fkT Bk ∇fk > 0 sepaS rately. For the former case, the function mk (τ pk ) decreases monotonically with τ whenever 0, so τk is simply the largest value that satisﬁes the trust-region bound, namely, ∇fk S 1. For the case ∇fkT Bk ∇fk > 0, mk (τ pk ) is a convex quadratic in τ , so τk is either τk
+
+70
+
+Chapter 4.
+
+Trust-Region Methods
+
+Trust region
+
+contours of m k pC k
+
+- gk
+
+Figure 4.2 The Cauchy point. the unconstrained minimizer of this quadratic, ∇fk 3 /( value 1, whichever comes ﬁrst. In summary, we have
+C pk
+
+T k ∇fk Bk ∇fk ),
+
+or the boundary
+
+−τk
+
+k
+
+∇fk
+
+∇fk ,
+
+(4.7)
+
+where τk 1 min ∇fk 3 /(
+T k ∇fk Bk ∇fk ), 1
+
+if ∇fkT Bk ∇fk ≤ 0; otherwise.
+
+(4.8)
+
+Figure 4.2 illustrates the Cauchy point for a subproblem in which Bk is positive deﬁnite. C In this example, pk lies strictly inside the trust region. C The Cauchy step pk is inexpensive to calculate—no matrix factorizations are required—and is of crucial importance in deciding if an approximate solution of the trust-region subproblem is acceptable. Speciﬁcally, a trust-region method will be globally convergent if its steps pk attain a sufﬁcient reduction in mk ; that is, they give a reduction in the model mk that is at least some ﬁxed multiple of the decrease attained by the Cauchy step at each iteration.
+
+IMPROVING ON THE CAUCHY POINT
+C Since the Cauchy point pk provides sufﬁcient reduction in the model function mk to yield global convergence, and since the cost of calculating it is so small, why should we look
+
+4.1.
+
+The Cauchy Point and Related Algorithms
+
+71
+
+any further for a better approximate solution of (4.3)? The reason is that by always taking the Cauchy point as our step, we are simply implementing the steepest descent method with a particular choice of step length. As we have seen in Chapter 3, steepest descent performs poorly even if an optimal step length is used at each iteration. The Cauchy point does not depend very strongly on the matrix Bk , which is used only in the calculation of the step length. Rapid convergence (superlinear, for instance) can be expected only if Bk plays a role in determining the direction of the step as well as its length. A number of algorithms for generating approximate solutions pk to the trust-region problem (4.3) start by computing the Cauchy point and then try to improve on it. The −1 B −Bk ∇fk is chosen improvement strategy is often designed so that the full step pk B whenever Bk is positive deﬁnite and pk ≤ k . When Bk is the exact Hessian ∇ 2 f (xk ) or a quasi-Newton approximation, this strategy can be expected to yield superlinear convergence. We now consider three methods for ﬁnding approximate solutions to (4.3) that have the features just described. Throughout this section we will be focusing on the internal workings of a single iteration, so we drop the subscript “k” from the quantities k , pk , and mk to simplify the notation. With this simpliﬁcation, we restate the trust-region subproblem (4.3) as follows: min m(p)
+def
+
+p∈I n R
+
+f + g T p + 1 p T Bp 2
+
+s.t. p ≤
+
+. .
+
+(4.9)
+
+We denote the solution of (4.9) by p∗ ( ), to emphasize the dependence on
+
+THE DOGLEG METHOD
+We start by examining the effect of the trust-region radius on the solution p ∗ ( ) of the subproblem (4.9). When B is positive deﬁnite, we have already noted that the unconstrained minimizer of m is the full step pB −B −1 g. When this point is feasible for (4.9), it is obviously a solution, so we have p∗ ( ) pB , when ≥ pB . (4.10)
+
+When is tiny, the restriction p ≤ ensures that the quadratic term in m has little effect on the solution of (4.9). The true solution p( ) is approximately the same as the solution we would obtain by minimizing the linear function f + g T p over p ≤ , that is, p∗ ( ) ≈ − g , g when is small. (4.11)
+
+For intermediate values of , the solution p ∗ ( ) typically follows a curved trajectory like the one in Figure 4.3. The dogleg method ﬁnds an approximate solution by replacing the curved trajectory ∗ for p ( ) with a path consisting of two line segments. The ﬁrst line segment runs from the
+
+72
+
+Chapter 4.
+
+Trust-Region Methods
+
+Trust region Optimal trajectory p (∆ )
+
+p B ( full step ) pU ( unconstrained min along − g ) -g Dogleg path
+Figure 4.3 Exact trajectory and dogleg approximation. origin to the unconstrained minimizer along the steepest descent direction deﬁned by pU − gT g g, g T Bg (4.12)
+
+while the second line segment runs from pU to pB (see Figure 4.3). Formally, we denote this trajectory by p(τ ) for τ ∈ [0, 2], where ˜ p(τ ) ˜ τ pU , p + (τ − 1)(p − p ),
+U B U
+
+0 ≤ τ ≤ 1, 1 ≤ τ ≤ 2.
+
+(4.13)
+
+The dogleg method chooses p to minimize the model m along this path, subject to the trust-region bound. In fact, it is not even necessary to carry out a search, because the dogleg path intersects the trust-region boundary at most once and the intersection point can be computed analytically. We prove these claims in the following lemma.
+
+Lemma 4.1. Let B be positive deﬁnite. Then
+(i) p(τ ) is an increasing function of τ , and ˜
+
+(ii) m(p(τ )) is a decreasing function of τ . ˜
+
+4.1.
+
+The Cauchy Point and Related Algorithms
+
+73
+
+Proof. It is easy to show that (i) and (ii) both hold for τ ∈ [0, 1], so we restrict our attention to the case of τ ∈ [1, 2]. For (i), deﬁne h(α) by
+h(α)
+1 2 1 2 1 2
+
+p(1 + α) ˜ pU
+2
+
+2 2
+
+pU + α(p B − p U )
+
++ αp U T (pB − p U ) + 1 α 2 pB − p U 2 . 2
+
+Our result is proved if we can show that h (α) ≥ 0 for α ∈ (0, 1). Now, h (α) −p U T (pU − p B ) + α p U − p B
+2
+
+≥ −p U T (pU − p B ) gT g T gT g g − T g + B −1 g T Bg g g Bg (g T g)2 gB −1 g 1− T gT g T g Bg (g Bg)(g T B −1 g) ≥ 0, where the ﬁnal inequality follows from Exercise 3. ˆ ˆ For (ii), we deﬁne h(α) m(p(1 + α)) and show that h (α) ≤ 0 for α ∈ (0, 1). ˜ Substitution of (4.13) into (4.9) and differentiation with respect to the argument leads to ˆ h (α) (pB − p U )T (g + BpU ) + α(p B − p U )T B(p B − p U ) ≤ (pB − p U )T (g + BpU + B(p B − pU )) (pB − p U )T (g + BpB ) giving the result. It follows from this lemma that the path p(τ ) intersects the trust-region boundary ˜ p at exactly one point if p B ≥ , and nowhere otherwise. Since m is decreasing along the path, the chosen value of p will be at pB if pB ≤ , otherwise at the point of intersection of the dogleg and the trust-region boundary. In the latter case, we compute the appropriate value of τ by solving the following scalar quadratic equation: pU + (τ − 1)(p B − p U )
+2 2
+
+0,
+
+.
+
+The dogleg strategy can be adapted to handle indeﬁnite B, but there is not much point in doing so because the full step p B is not the unconstrained minimizer of m in this case. Instead, we now describe another strategy, which aims to include directions of negative curvature (that is, directions d for which d T Bd < 0) in the space of candidate trust-region steps.
+
+74
+
+Chapter 4.
+
+Trust-Region Methods
+
+TWO-DIMENSIONAL SUBSPACE MINIMIZATION
+When B is positive deﬁnite, the dogleg method strategy can be made slightly more sophisticated by widening the search for p to the entire two-dimensional subspace spanned by p U and p B (equivalently, g and −B −1 g). The subproblem (4.9) is replaced by min m(p)
+p
+
+f + g T p + 1 p T Bp 2
+
+s.t. p ≤
+
+, p ∈ span[g, B −1 g].
+
+(4.14)
+
+This is a problem in two variables that can be solved without much effort (see the exercises). Clearly, the Cauchy point pC is feasible for (4.14), so the optimal solution of this subproblem yields at least as much reduction in m as the Cauchy point, resulting in global convergence of the algorithm. The two-dimensional subspace minimization strategy is obviously an extension of the dogleg method as well, since the entire dogleg path lies in span[g, B −1 g]. An advantage of this strategy is that it can be modiﬁed to handle the case of indeﬁnite B in a way that is intuitive, practical, and theoretically sound. We mention just the salient points of the handling of the indeﬁniteness here, and refer the reader to papers by Byrd, Schnabel, and Schultz (see [39] and [226]) for details. When B has negative eigenvalues, the two-dimensional subspace in (4.14) is changed to span[g, (B + αI )−1 g], for some α ∈ (−λ1 , −2λ1 ],
+
+(4.15)
+
+where λ1 denotes the most negative eigenvalue of B. (This choice of α ensures that B + αI is positive deﬁnite, and the ﬂexibility in this deﬁnition allows us to use a numerical procedure such as the Lanczos method to compute an acceptable value of α.) When (B+αI )−1 g ≤ , we discard the subspace search of (4.14), (4.15) and instead deﬁne the step to be −(B + αI )−1 g + v,
+
+p
+
+(4.16)
+
+where v is a vector that satisﬁes v T (B + αI )−1 g ≤ 0. (This condition ensures that v does not move p back toward zero, but instead continues to move roughly in the direction of −(B + αI )−1 g). When B has zero eigenvalues but no negative eigenvalues, the Cauchy step p pC is used as the approximate solution of (4.9). The reduction in model function m achieved by the two-dimensional minimization strategy often is close to the reduction achieved by the exact solution of (4.9). Most of the computational effort lies in a single factorization of B or B + αI (estimation of α and solution of (4.14) are less signiﬁcant), while strategies that ﬁnd nearly exact solutions of (4.9) typically require two or three such factorizations.
+
+4.1.
+
+The Cauchy Point and Related Algorithms
+
+75
+
+STEIHAUG’S APPROACH
+Both methods described above require the solution of a single linear system involving B or (B + αI ). When B is large, this operation may be quite costly, so we are motivated to consider other techniques for ﬁnding an approximate solution of (4.9) that do not require exact solution of a linear system but still produce an improvement on the Cauchy point. Steihaug [231] proposed a technique with these properties. Steihaug’s implementation is based on the conjugate gradient algorithm, an iterative algorithm for solving linear systems with symmetric positive deﬁnite coefﬁcient matrices. The conjugate gradient (CG) algorithm is the subject of Chapter 5, and the interested reader should look ahead to that chapter for further details. Our comments in this section focus on the differences between standard CG and Steihaug’s approach, which are essentially that the algorithm terminates when it either exits the trust region p ≤ or when it encounters a direction of negative curvature in B. Steihaug’s approach can be stated formally as follows:
+
+Algorithm 4.3 (CG–Steihaug). Given > 0; Set p0 0, r0 g, d0 −r0 ; if r0 < return p p0 ; for j 0, 1, 2, . . . T if dj Bdj ≤ 0 Find τ such that p pj + τ dj minimizes m(p) in (4.9) and satisﬁes p ; return p; T T Set αj rj rj /dj Bdj ; Set pj +1 pj + αj dj ; if pj +1 ≥ ; Find τ ≥ 0 such that p pj + τ dj satisﬁes p return p; Set rj +1 rj + αj Bdj ; if rj +1 < r0 return p pj +1 ; T T Set βj +1 rj +1 rj +1 /rj rj ; Set dj +1 rj +1 + βj +1 dj ; end (for).
+To connect this algorithm with Algorithm CG of Chapter 5, we note that m(·) takes the place of φ(·), p takes the place of x, B takes the place of A, and −g takes the place of b. The change of sign in the substitution b → −g propagates through the algorithm. Algorithm 4.3 differs from standard CG in that two extra stopping criteria are present— the ﬁrst two if statements inside the for loop. The ﬁrst if statement stops the method if its
+
+76
+
+Chapter 4.
+
+Trust-Region Methods
+
+current search direction dj is a direction of zero curvature or negative curvature along B. The second one causes termination if pj +1 violates the trust-region bound. In both cases, a ﬁnal point p is found by intersecting the current search direction with the trust-region boundary. The initialization of p0 to zero is a crucial feature of the algorithm. After the ﬁrst iteration (assuming r0 2 ≥ ), we have p1 α0 d0
+T r0 r0 d0 T d0 Bd0
+
+−
+
+gT g g, g T Bg
+
+which is exactly the Cauchy point! Since each iteration of the conjugate gradient method reduces m(·), this algorithm fulﬁlls the necessary condition for global convergence. Another crucial property of the method is that each iterate pj is larger in norm than its predecessor. This property is another consequence of the initialization p0 0. Its main implication is that it is acceptable to stop iterating as soon as the trust-region boundary is reached, because no further iterates giving a lower value of φ will be inside the trust region. We state and prove this property formally in the following theorem. (The proof makes use of the expanding subspace property of the CG algorithm, which we do not describe until Chapter 5, so it can be skipped on the ﬁrst pass.)
+
+Theorem 4.2. The sequence of vectors generated by Algorithm 4.3 satisﬁes
+0 p0
+2
+
+< · · · < pj
+
+2
+
+< pj +1
+
+2
+
+< ··· < p
+
+2
+
+≤
+
+.
+
+Proof. We ﬁrst show that the sequences of vectors generated by Algorithm 4.3 satisfy T T pj rj 0 for j ≥ 0 and pj dj > 0 for j ≥ 1. Algorithm 4.3 computes pj +1 recursively in terms of pj , but when all the terms of this recursion are written explicitly, we see that
+j −1 j −1
+
+pj since p0
+
+p0 +
+i 0
+
+αi d i
+i 0
+
+αi di ,
+
+0. Multiplying by rj and applying the expanding subspace property of CG gives
+j −1 T pj r j i 0
+
+αi diT rj
+
+0.
+
+T An induction proof establishes the relation pj dj > 0. By applying the expanding subspace property again, we obtain T p1 d1
+
+(α0 d0 )T (r1 + β1 d0 )
+
+T α0 β1 d0 d0 > 0.
+
+(4.17)
+
+4.2.
+
+Using Nearly Exact Solutions to the Subproblem
+
+77
+
+T T We now make the inductive hypothesis that pj dj > 0 and show that this implies pj +1 dj +1 > T 0. From (4.17), we have pj +1 rj +1 0, and therefore we have T pj +1 dj +1 T pj +1 (rj +1 + βj +1 dj ) T βj +1 pj +1 dj
+
+βj +1 (pj + αj dj )T dj
+T T βj +1 pj dj + αj βj +1 dj dj .
+
+Because of the inductive hypothesis, the last expression is positive. T We now prove the theorem. If the algorithm stops because dj Bdj ≤ 0 or pj +1 2 ≥ , , which is the largest possible length then the ﬁnal point p is chosen to make p 2 any point can have. To cover all other possibilities in the algorithm we must show that pj 2 < pj +1 2 when pj +1 pj + αj dj and j ≥ 1. Observe that pj +1
+2 2
+
+(pj + αj dj )T (pj + αj dj )
+
+pj
+
+2 2
+
+T 2 + 2αj pj dj + αj dj
+
+2 2.
+
+It follows from this expression and our intermediate result that pj proof is complete.
+
+2
+
+< pj +1 2 , so our
+
+From this theorem we see that the iterates of Algorithm 4.3 sweep out points pj that move on some interpolating path from p1 to p, a path in which every step increases its total distance from the start point. When B is positive deﬁnite, this path may be compared to the path of the dogleg method, because both methods move from the Cauchy step p C to the full step pB , until the trust-region boundary intervenes. A Newton trust-region method chooses B to be the exact Hessian ∇ 2 f (x), which may be indeﬁnite during the course of the iteration (hence our focus on the case of indeﬁnite B). This method has excellent local and global convergence properties, as we see in Chapter 6.
+
+4.2 USING NEARLY EXACT SOLUTIONS TO THE SUBPROBLEM
+CHARACTERIZING EXACT SOLUTIONS
+The methods discussed above make no serious attempt to seek the exact solution of the subproblem (4.9). They do, however, make some use of the information in the Hessian B, and they have advantages of low cost and global convergence, since they all generate a point that is at least as good as the Cauchy point. When the problem is relatively small (that is, n is not too large), it may be worthwhile to exploit the model more fully by looking for a closer approximation to the solution of the subproblem. In the next few pages we describe an approach for ﬁnding a good approximation at the cost of about three factorizations of the matrix B, as compared with a single
+
+78
+
+Chapter 4.
+
+Trust-Region Methods
+
+factorization for the dogleg and two-dimensional subspace minimization methods. This approach is based on a convenient characterization of the exact solution of (4.9) (we need to be able to recognize an exact solution when we see it, after all) and an ingenious application of Newton’s method in one variable. Essentially, we see that a solution p of the trust-region problem satisﬁes the formula (B + λI )p ∗ −g
+
+for some λ ≥ 0, and our algorithm for ﬁnding p∗ aims to identify the appropriate value of λ. The following theorem gives the precise characterization of the solution of (4.9).
+
+Theorem 4.3. The vector p ∗ is a global solution of the trust-region problem
+p∈I n R
+
+min m(p)
+
+f + g T p + 1 p T Bp, 2
+
+s.t. p ≤
+
+,
+
+(4.18)
+
+if and only if p∗ is feasible and there is a scalar λ ≥ 0 such that the following conditions are satisﬁed: (B + λI )p ∗ λ( − ||p ||) (B + λI )
+∗
+
+−g, 0, is positive semideﬁnite.
+
+(4.19a) (4.19b) (4.19c)
+
+We delay the proof of this result until later in the chapter, and instead discuss just its key features here with the help of Figure 4.4. The condition (4.19b) is a complementarity condition that states that at least one of the nonnegative quantities λ and ( − p ∗ ) must be zero. Hence, when the solution lies strictly inside the trust region (as it does when 1 in Figure 4.4), we must have λ 0 and so Bp∗ −g with B positive semideﬁnite, from (4.19a) ∗ , and and (4.19c), respectively. In the other cases 2 and 3 , we have p so λ is allowed to take a positive value. Note from (4.19a) that λp∗ −Bp ∗ − g −∇m(p ∗ ),
+
+that is, the solution p∗ is collinear with the negative gradient of m and normal to its contours. These properties can be seen clearly in Figure 4.4.
+
+CALCULATING NEARLY EXACT SOLUTIONS
+The characterization of Theorem 4.3 suggests an algorithm for ﬁnding the solution p of (4.18). Either λ 0 satisﬁes (4.19a) and (4.19c) with p ≤ , or else we deﬁne p(λ) −(B + λI )−1 g
+
+4.2.
+
+Using Nearly Exact Solutions to the Subproblem
+
+79
+
+∆1
+
+∆2 ∆3 contours of m k p* 1 p*
+2
+
+p*
+3
+
+Figure 4.4 Solution of trust-region subproblem for different radii
+
+1,
+
+2,
+
+3.
+
+for λ sufﬁciently large that B + λI is positive deﬁnite (see the exercises), and seek a value λ > 0 such that p(λ) . (4.20)
+
+This problem is a one-dimensional root-ﬁnding problem in the variable λ. To see that a value of λ with all the desired properties exists, we appeal to the eigendecomposition of B and use it to study the properties of p(λ) . Since B is symmetric, there is an orthogonal matrix Q and a diagonal matrix such that B Q QT , where diag(λ1 , λ2 , . . . , λn ), and λ1 ≤ λ2 ≤ · · · ≤ λn are the eigenvalues of B; see (A.46). Clearly, B + λI λI )QT , and for λ λj , we have −Q( + λI )−1 QT g
+n
+
+Q(
+
++
+
+p(λ)
+
+−
+j 1
+
+T qj g
+
+λj + λ
+
+qj ,
+
+(4.21)
+
+80
+
+Chapter 4.
+
+Trust-Region Methods
+
+where qj denotes the j th column of Q. Therefore, by orthonormality of q1 , q2 , . . . , qn , we have
+n T qj g 2
+
+p(λ)
+
+2 j 1
+
+(λj + λ)2
+
+.
+
+(4.22)
+
+This expression tells us a lot about p(λ) . If λ > −λ1 , we have λj + λ > 0 for all j 1, 2, . . . , n, and so p(λ) is a continuous, nonincreasing function of λ on the interval (−λ1 , ∞). In fact, we have that
+λ→∞ T Moreover, we have when qj g
+
+lim
+
+p(λ)
+
+0.
+
+(4.23)
+
+0 that lim p(λ) ∞. (4.24)
+
+λ→−λj
+
+These features can be seen in Figure 4.5. It is clear that the graph of p(λ) attains the value at exactly one point in the interval (−λ1 , ∞), which is denoted by λ∗ in the ﬁgure. For the case of B positive deﬁnite and B −1 g ≤ , the value λ 0 satisﬁes (4.19), so there
+
+|| p ||
+
+∆
+
+-λ
+
+3
+
+-λ 2
+
+- λ1
+
+-λ
+
+*
+
+Figure 4.5
+
+p(λ) as a function of λ.
+

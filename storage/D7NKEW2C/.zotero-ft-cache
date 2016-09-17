@@ -1,0 +1,162 @@
+第 26 卷 第 2 期 · 138 ·
+
+电子测量与仪器学报
+
+Vol. 26 No.2 2012 年 2 月
+
+JOURNAL OF ELECTRONIC MEASUREMENT AND INSTRUMENT
+
+DOI: 10.3724/SP.J.1187.2012.00138
+
+三维人脸深度图的流形学习-LOGMAP 识别方法*
+詹 曙 1 张芝华 1 叶长明 1 蒋建国 1,2 S.Ando3
+(1. 合肥工业大学计算机与信息学院, 合肥 230009; 2. 安全关键工业测控技术教育部工程研究中心, 合肥 230009; 3. 日本东京大学信息科学学院, 东京 113-8656) 摘 要: 人脸识别是生物特征识别技术最友好的身份识别方式, 而三维人脸识别由于可解决二维人脸识别中存在的光照、 姿态等局限, 成为人脸识别的研究热点, 但其特征维数过高是该领域的瓶颈, 而维数约减是解决这一问题的关键。 流形学习是一 类非线性维数约减算法, LOGMAP 是一种基于黎曼法坐标的流形学习算法, 该算法可以在保持度量信息不变的情况下, 把高维 空间的数据映射到低维空间。构建了基于流形学习的三维人脸识别框架, 并结合 LOGMAP 进行三维人脸深度图的识别。实验 结果表明, 该方法在三维深度图上可以得到良好的识别效果。 关键词: 三维深度图; 人脸识别框架; 流形学习; 黎曼法坐标; LOGMAP 中图分类号: TP391 文献标识码: A 国家标准学科分类代码: 510.4050
+
+3D facial depth map recognition based on manifold learning-LOGMAP algorithm
+Zhan Shu1 Zhang Zhihua1 Ye Changming1 Jiang Jianguo1,2 S. Ando3
+(1. School of Computer & Information, Hefei University of Technology, Hefei 230009, China; 2. Engineering Research Center of Safety Critical Industrial Measurement and Control Technology, Ministry of Education, Hefei 230009, China; 3. Department of Information Physics and Computing ,the University of Tokyo, Tokyo 113-8656, Japan)
+
+Abstract: Face recognition is the no-touch authentication technology in biometrics. 3D face recognition becomes more popular because it can solve the problems of the effect from different illumination and pose in 2D face recognition. However, how to decrease the number of feature dimension is a key technology in 3D facial recognition. In this paper, LOGMAP manifold learning algorithm based on normal coordinates recently is proposed to establish the mapping relationship between the observed and the corresponding low-dimensional data. This paper built a 3D face recognition framework based on manifold learning, and applied LOGMAP theory into 3D facial depth image recognition. The experimental results demonstrate that this method can get good effect for recognition. Keywords: 3D facial depth map; face recognition framework; manifold learning; Riemannian normal coordinates; LOGMAP
+
+1 引 言
+随着计算机技术和生物医学工程技术突飞猛进 的发展, 利用人体生物特征来鉴别个体身份的生物 识别技术已成为安全验证的首选方式。人脸识别技 术以其所具有的非接触、 非侵犯和无排斥等优势, 成 为最具发展潜力的身份验证手段之一, 引起研究者 的广泛关注。 目前基于二维图像的人脸识别技术已日渐成熟, 但二维人脸识别技术在光照、姿态和有遮挡等非理
+本文于 2011 年 10 月收到。
+
+想采样下得不到理想的识别效果, 鲁棒性较差。 三维 人脸数据以其丰富的信息量、光照不变和姿态不变 等优点解决了二维人脸数据存在的光照、姿态和表 情这三大瓶颈问题 [1], 使得越来越多的学者转向三 但三维人脸数据特征维数过高 维人脸识别[2]的研究。 又阻碍了其发展, 维数约减是解决这一问题的关键。 在模式识别领域, 维数约减已成为一个重要研 究方向, 其经典算法有主成分分析 PCA[3]和多尺度 化 MDS[4], 但这两种算法仅适于处理欧式数据, 对
+
+*基金项目: 国家自然科学基金(61174170); 教育部博士点基金(2010111110005)资助项目。
+
+第2期
+
+三维人脸深度图的流形学习-LOGMAP 识别方法
+
+· 139 ·
+
+于非欧式数据的维数约减则不适用。为了适于非欧 式数据的处理, 近年来提出了大量的流形学习算法, 包括等距特征映射 ISOMAP LLE
+[7-8] [5-6] [9]
+
+在不可能保持所有度量的情况下, 可以在某种程度 上保持测地线度量, 其几何解释如图 2 所示[9], 其中 p 是一特定点(基点), a、 c 是球面上的任意三点, 根 b、 据 p 到这三点的距离和方向信息, 把这三点用对数 映射(LOGMAP)映射到二维平面上, 得到点 a、b、 c, 这三点就是 a、b、c 在低维空间的黎曼法坐标。
+
+、局部线性嵌入
+
+、拉普拉斯特征映射 LE 、局部切线空间排
+[10]
+
+列 LTSA
+
+。 这些维数约减算法可分为全局算法和局
+
+部算法两大类, 如图 1 所示。
+
+图 1 维数约减算法分类 Fig. 1 Classification of dimension reduction algorithm LOGMAP[11]是 A.Brun 等提出的一种基于黎曼 法坐标的非线性维数约减方法, 该方法在保持数据 本质特征的情况下把高维空间的数据映射到低维空 间。本文构建了基于流形学习的三维人脸识别框架, 并结合 LOGMAP 对三维深度图识别[12]。 实验结果表 明, 该方法可以区别不同人脸之间的差别, 识别效 果良好。
+
+图 2 黎曼法坐标 Fig. 2 Riemannian normal coordinates
+
+3 LOGMAP 在三维人脸识别中的 应用
+3.1 三维人脸识别框架 三维人脸特征维数太高, 以至于无法进行有效 的分析和识别, 所以在识别前我们对原有的高维数 据进行维数约减。 人脸有基本的面部特征(如眼睛、鼻子、嘴巴) 和相似的面部动作(如眼睛的睁闭、嘴巴的开合), 即 不同人脸数据都有相似的特征, 这样不同人的人脸 图像可认为有相同的感知概念[14]。因此我们可以把 不同人脸数据映射到同一个子流形[15], 进行维数约 减。 然而人脸除了公共特征外还有个性特征, 比如眼 睛的大小、 眉毛的粗细和鼻子的高低等, 我们可以利 用这些个性特征在低维空间进行识别、区分不同的 人脸。其系统识别框架如图 3 所示。 3.2 典型维数约减算法在三维深度图应用 3.2.1 主成分分析 PCA[3] PCA 是模式识别中最常用的一种线性维数约减 算法, 其基本思想是: 在保持数据绝大部分信息的情 况下, 把高维空间的数据映射到低维空间, 达到维数 约减的目的。但该算法是线性降维算法, 而三维深度 图是典型的非线性流形, 所以PCA 不适于三维人脸的 d 识别。 =3, PCA 对三维人脸深度图降维如图 4 所示。
+
+2 数学基础
+2.1 黎曼流形定义[13] 流形: 设 M 是一个 Hausdorff(豪斯道夫)空间。 若对空间任意一点 x∈M, 都有 x 在 M 中的一个邻域 U 同胚与 m 维欧式空间 R 的一个开集, 则称 M 是一 个 m 维流形(或拓扑流形)。 黎曼流形: 若在 m 维光滑流形 M 上给定一个光 滑的处处非退化的对称二阶协变量场 G, 则称 M 是 广义黎曼流形。当 G 是正定时, 称 M 是黎曼流形。 2.2 流形学习定义
+[13] D m
+
+假设数据 X(x1, x2,…, xn), xi∈R 是均匀采样与一 个高维空间 M 的样本值, 流形学习就是从该高维数据 探测出低维流形 Y (y1,y2,…,yn), yi∈Rd,其中 d  D, 即找 到高维空间中的内蕴流形, 并求出相应的嵌入映射。 2.3 黎曼法坐标
+[11,13]
+
+流形学习从高维到低维映射的关键是要尽可能 多的保留数据的度量信息, 而黎曼法坐标的优点是:
+
+· 140 ·
+
+电子测量与仪器学报
+
+第 26 卷
+
+3.2.3 局部线性嵌入 LLE[7-8] LLE 是一种典型的局部非线性流形学习算法。 其基本思想是: 流形是局部线性的, 那么在局部邻 域, 一个样本点就可以由它的邻域点线性重构而成, 而且重构权值使得样本点与邻域点的线性重构误差 达到最小。对每个样本点都重复以上最优重构权值 的求解, 这样可以保持嵌入空间与本质空间中数据 的局部关系不变, 得到高维空间在低维空间的真实 图 3 三维人脸识别框架 Fig. 3 3D face recognition framework 嵌入。d=3、k=8, LLE 对三维深度图维数约减如图 6 所示。
+
+图 4 基于 PCA 的三维深度图维数约减 Fig. 4 Dimension reduction of 3D depth image using PCA 3.2.2 等距特征映射 ISOMAP[56] ISOMAP 是一种典型的全局非线性优化算法, 建立在 MDS 基础之上。其主要思想是: 在高维空间 与低维空间之间建立等距特征映射, 保持测地线距 离不变, 即保留了数据固有的非线性几何结构。但 ISOMAP 仅适于零高斯曲率的流形, 不适于处理有 较大内在曲率的流形, 且计算量比较大, 所以 ISOMAP 不适于三维人脸识别。 d=3、 k=14, ISOMAP 对三维深度图维数约减如图 5 所示。
+
+图 6 基于 LLE 的三维深度图维数约减 Fig. 6 Dimension reduction of 3D depth image using LEE 3.2.4 LOGMAP[11-12] LOGMAP 是基于黎曼法坐标提出的非线性流 形学习算法, 其基本思想是: 用低维空间的黎曼法 坐标来表示高维数据集上的点, 达到维数约减的目 的。其做法是在数据集 X 上选择一个基点 p, 计算其 k 最近邻表示为 B(p), 在 B(p)的外空间执行 PCA, 得 p 点的切空间 TpM, 在 TpM 上取一组标准正交基(p; e1, e2,…, ed), 以这组正交基为基准, 通过对数映射用黎 曼法坐标表示数据集 X 上的所有点。由于黎曼法坐 标的特点, p 到数据集 X 上其他点的距离和方向度量 可得到很好的保持, 这样就把高维空间的数据映射 到低维空间。 算法步骤: 1) 从流形 M 的样本值 X 中选择一个基点 p, p∈X; 2) 选择 p 的 K 最近邻点表示为 B(p), 在 B(p)的 外空间执行 PCA, 得 B(p)在低维空间的黎曼法坐标 及 p 点处切空间 TpM 的一组标准正交基(p; e1, e2,…, ed), 即在最小二乘意义下寻找一组标准正交基(p; e1, e2,…, ed)使误差函数 FPCA 最小如式(1)所示:
+
+图 5 基于 ISOMAP 的三维深度图维数约减 Fig. 5 Dimension reduction of 3D depth image using ISOMAP
+
+第2期
+N d
+
+三维人脸深度图的流形学习-LOGMAP 识别方法
+
+· 141 ·
+
+FPCA = ||xi   xi .ei）i ||2 （ e
+i =1 1 i=
+
+(1)
+
+3) 估计 B(p)上点到 X 上其他点的测地线距离。 定义一个加权无向图, 其数据点为顶点, 边缘连接 相邻点, 边缘的权值为相邻点的欧式距离, 然后用 Dijkstra 算法来寻找最短路径, 估计测地线距离 d(x, y) 其中(x, y)∈X×B(p); 4) 利用上面步骤得到的值计算 p 到 x∈X 中其他 点的方向 g, 如式(2)所示:
+g = g i ei = y d 2 ( x, y )| y =p
+
+图 8 不同人脸的灰度图像和与之相对应的深度图像 Fig. 8 Different gray-scale face images and corresponding depth images 我们进行 2 组实验: 第一组是把高维空间的数 据降到三维, 即 d=3 时, k 取不同值 LOGMAP 进行识 别, 维数约减结果如图 9, PCA、ISOMAP 和 LLE 分 别降到三维作为对比实验, 识别率如表 1 所示; 第二 组是把高维空间的数据降到二维, 即 d=2 时, k 取不 同值 LOGMAP 进行识别, 维数约减结果如图 10, PCA、ISOMAP 和 LLE 分别降到二维空间作为其对 比实验其识别率如表 2 所示。维数约减图中的每一 个点对应一幅图像, 基点(原点)对应待识别图像, 坐 标轴仅表示点与点之间的相对距离, 即不同图像的 相关性, 我们可以利用该相关性进行识别,判别待识 别的图是数据库中的哪幅图像。 在这里 LOGMAP 仅 取识别率前三的参数, 对比实验 LLE 和 ISOMA 仅取 识别率最佳的参数。
+
+(2)
+
+5) 估计样本值 X 每个点的黎曼法坐标 Y, 如式 (3)所示:
+yi =d ( x, p) g |g |
+i
+
+(3)
+
+该算法是一种黎曼流形学习算法, 可以处理非 零高斯曲率的数据, 适于三维人脸人脸识别。d=3、 k=14LOGMAP 对三维深度图降维如图 7 所示。
+
+图 7 基于 LOGMAP 的三维深度图维数约减 Fig. 7 Dimension reduction of 3D depth image using LOGMAP
+
+4 实验结果及分析
+为了验证算法的有效性,分别用 PCA、 ISOMAP、 LLE 和 LOGMAP 对 CIS 采集的三维深度图进行识别, 实验结果表明 LOGMAP 的识别结果优于其他 3 种学 习方法。 三维深度数据集包含 7 个人的 49 幅多姿态(正/ 侧面,抬头/低头)、多表情(睁/闭眼,笑/不笑)、多细节 (戴眼镜/不戴眼镜)以及多光照(亮光/暗光)的三维深 度图。如图 8 所示。其训练集和测试集为: 每个人的 前三幅图像为训练集, 训练集为 21, 后四幅图像为 测试集, 测试集为 28。
+
+图 9 深度图的 LOGMAP 维数约减结果(k=17) Fig. 9 Dimension reduction result of LOGMAP with depth images(k=17)
+
+图 10 深度图像的 LOGMAP 维数约减结果(k=3) Fig. 10 Dimension reduction result of LOGMAP with depth images(k=3)
+
+· 142 · 表 1 深度图的识别率(d=3)
+
+电子测量与仪器学报
+
+第 26 卷
+
+Table 1 Recognition rate of depth images (d=3)
+算法 PCA LLE ISOMAP LOGMAP 2 2 17 3 2 参数(k) 识别率/% 67.9 89.2 96.4 100 96.4 96.4
+
+:
+[1] 王映辉. 人脸识别—原理、方法与技术[M]. 北京: 科 学出版社, 2010: 290-292. WANG Y H. Face recognitionprinciple, method and technique[M]. Beijing: Science Press, 2010: 290-292. [2] 叶长明, 蒋建国, 詹曙, 等. 基于三维成像系统的复数 域人脸识别方法[J]. 电子测量与仪器学报, 2011, 25(5): 420-426. YE CH M, JIANG J G, ZHAN SH, et al. Face recognition in complex domain based on 3D facial imaging system.[J]. Journal of Electronic Measurement and Instrument, 2011, 25(5): 420-426. JOLLIFFE I T. Principal component analysis[M]. Springer, 1989. COX T, COX M. Multidimensional scanning[M]. Chapman and Hall, 1994. TENENBAUM J, DE SILVA V, LANGFORD J.A global geometric framework for nonlinear dimensionality reduction[J]. Science, 2000: 290: 2319-2323. LAW M H, JAIN A K. Incremental nonlinear dimensionality reduction by manifold learning[J]. IEEE Trans. on Pattern Analysis and Machine Intelligence, 2006, 28(3): 377-391. ROWEIS1 S T, SAUL L K. Nonlinear dimensionality reduction by locally linear embedding[J]. Science, 2000, 290(5500): 2323-2326. 徐雪松, 张宏, 刘凤玉. 基于核函数距离测量的 LLE 降维及其在离散聚类中的应用[J].仪器仪表学报, 2008, 29(9): 1996-2000. XU X S, ZHANG H, LIU F Y. LLE dimensionality reduction based on kernel-induced distance measurement and its application in clustring with outliers[J]. Chinese Journal of Scientific Instrument, 2008, 29(9): 1996-2000. BELKIN M, NIYOGI P. Laplacian eigenmaps for dimensionality reduction and data representation[J]. Neural Computation, 2003, 15(6): 1373-1396. ZHANG ZH Y, Zha Hongyuan. Principal manifolds and non linear dimensionality reduction via tangent S pace alignment[J]. SIAM Journal of Scientific Computing, 2004, 26(1): 313-338. BRUN A, WESTIN C F, HERBERTHSON M, et al. Fast Manifold learning based on riemannian normal coordinates[C]. Proc. of 14th Scandinavian Conon Image Analysis, 2005: 921-929. YE CH M, JIANG J G, et al. Face recognition with 3D real-time face imaging system based on LOGMAP[J]. 2011 10th International Conference on Electronic Measurement & Instruments (ICEMI), 2011: 373-376. SEUNG S H, LEE D D. The Manifold of Perception[J].
+
+实验结果表明非线性黎曼流形学习算法 LOGMAP 在三维深度图识别比其他 3 种维数约减的 识别率高, 适于三维深度图的识别, 但 LOGMAP 的 识别率受参数影响较大, 不同的参数对识别率有较 大的影响。
+表 2 深度图的识别率(d=2)
+Table 2 Rrecognition rate of depth image (d=2)
+算法 PCA LLE ISOMAP 3 2 3 LOGMAP 2 12 参数(k) 识别率/% 50 89.2 96.4 96.4 92.9 85.7
+
+[3] [4] [5]
+
+[6]
+
+[7]
+
+[8]
+
+5 结 论
+三维人脸识别是人脸识别的热门研究领域, 流 形学习是近年来提出的一类维数约减算法 , 由于其 具有非线性、直观的几何特性和收敛性等特点引起 研究者的广泛关注, 基于流形学习的三维人脸识别 本文首 可解决三维人脸识别的瓶颈问题, 意义重大。 先构建了基于流形学习的三维人脸识别框架, 并结 合 LOGMAP 用于三维人脸深度图的识别, 实验结果 表明 LOGMAP 在三维人脸深度图上可取的良好的 识别效果。 在本文的方法中也存在一些不足, 首先, LOGMAP 算法本身的距离和方向的求解不够精确, 有待改进; 其次, 在参数的设置还没有一个可靠的 理论, 仅根据经验值来确定, 选择不同的参数对识 别率有很大影响; 最后, 构建的流形学习框架仅适 于人脸这样有相同感知的图像, 反之(例如字符)则不 适用, 这些都是值得我们研究和思考的问题。
+[13] [12] [11] [10] [9]
+
+第2期
+
+三维人脸深度图的流形学习-LOGMAP 识别方法
+
+· 143 ·
+
+Science, 2000: 2268-2269. [14] ZHANG J, LI S Z, WANG J. Manifold Learning and Application in Recognition[J]. Intelligent Multimedia Processing with Soft Computing, 2005, 168: 281-300. [15] 杜海顺, 柴秀丽, 汪凤泉, 等. 一种邻域保持判别嵌入 人脸识别方法[J]. 仪器仪表学报, 2010, 31(3): 625629. DU H SH, CHAI X L, WANG F Q, et al. Face recognition method using neighborhood preserving discriminant embedding[J]. Chinese Journal of Scientific Instrument, 2010, 31(3): 625-629.
+
+主要研究方向为三维图像处理和分析、医学图像分析、模式 识别。 E-mail: shu_zhan@hfut.edu.cn Zhan Shu: born in 1968, Ph.D., associate professor in Hefei University of Technology. His research interests are 3D image processing and analysis, medical image analysis, pattern recognition. 张芝华: 1986 年出生, 毕业于安徽建筑工业学院,现为合 肥工业大学在读硕士研究生。主要研究方向为图像处理、流 形学习及其理论应用。 E-mail: zhangzhihua789@126.com Zhang Zhihua: born in 1986, graduated from Anhui University of Architecture. Now, he is a M.Sc. candidate in Hefei University of Technology. His main research direction is image processing, manifold learning and application.
+
+作者简介:
+詹 曙: 1968 年出生, 博士, 现为合肥工业大学副教授。
+
+安捷伦科技扩展任意波形发生器测试频段, 以增强其多功能性
+该仪器提供宽带宽、高精度和多功能性, 可仿真各种真实的场景
+安捷伦科技公司日前宣布为其业界领先的高分 辨率、高带宽 M8190A 任意波形发生器添加增强功 能。 增强功能可为工程师提供更大的灵活性, 从而使 用 5 到 7 GHz 频谱创建各种信号情景。 Agilent M8190A 是高保真度信号源, 能够同时 提供宽带宽、 高分辨率和高达 80 dBc 的无杂散动态 范围。这种独一无二的组合使工程师可以创建各种 信号情景, 提升设计性能, 增强分析能力。 AWG 是最全面的信号场景发生器, 提供在 8 GSa/s 14 位输出与 12 GSa/s 12 位输出之间轻松进行切换等 诸多功能, 帮助工程师处理多种应用和满足不同的 测量要求。 各种应用对信号特征的要求各不相同, 因此 Agilent M8190A 包含 3 个经优化的放大器, 以适 用于不同应用。最新的增强功能进一步提高了该仪 器的多功能性, 可支持各种输出格式, 包括 NRZ(不 归零码)、DNRZ(双不归零码)、RZ(归零码)和双重模 如欲了解关于安捷伦的详细信息, 请访问 www.agilent.com 式(doublet mode)。 从事各种应用并要求最高无杂散动态范围的工 程师, 可以使用 DNRZ 格式。对于要求最佳脉冲性 能的时域应用, 工程师可以使用 NRZ 格式。 如果他 们需要较高的频谱, 可切换到双重模式, 以便使用 5 到 7 GHz 频谱。从事射频应用的工程师, 能够在 理想的频谱之间进行选择。 安捷伦数字与光学测试部总经理 Juergen Beck 表示: “M8190A 与安捷伦专利技术相结合, 可通过 精密的信号仿真进行精确、可靠和可重复的测量。 我们现在能够更进一步, 为客户提供更佳的功能。 更 高的信号保真度可以加快深入分析设计的速度, 并 缩短测试周期。安捷伦致力于不断提供增强和创新 功能, 为客户提供获得成功的工具。”
+

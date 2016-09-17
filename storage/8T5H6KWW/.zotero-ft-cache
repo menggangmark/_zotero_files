@@ -1,0 +1,79 @@
+Deep Transfer Metric Learning
+Junlin Hu1 , Jiwen Lu2 , Yap-Peng Tan1
+1 School
+
+of Electrical and Electronic Engineering, Nanyang Technological University, Singapore. 2 Advanced Digital Sciences Center, Singapore.
+
+How to design a good similarity function plays an important role in many visual recognition tasks. Recent advances have shown that learning a distance metric directly from a set of training examples can usually achieve proposing performance than hand-crafted distance metrics [2, 3]. While many metric learning algorithms have been presented in recent years, there are still two shortcomings: 1) most of them usually seek a single linear distance to transform sample into a linear feature space, so that the nonlinear relationship of samples cannot be well exploited. Even if the kernel trick can be employed to addressed the nonlinearity issue, these methods still suffer from the scalability problem because they cannot obtain the explicit nonlinear mapping functions; 2) most of them assume that the training and test samples are captured in similar scenarios so that their distributions are assumed to be the same. This assumption doesn’t hold in many real visual recognition applications, when samples are captured across datasets. We propose a deep transfer metric learning (DTML) method for crossdataset visual recognition. Our method learns a set of hierarchical nonlinear transformations by transferring discriminative knowledge from the labeled source domain to the unlabeled target domain, under which the inter-class variations are maximized and the intra-class variations are minimized, and the distribution divergence between the source domain and the target domain at the top layer of the network is minimized, simultaneously. Figure 1 illustrates the basic idea of the proposed method.
+
+Source domain
+
+Target domain
+
+DTML
+
+Source and target data in transformed subspace
+
+Figure 1: The basic idea of the proposed DTML method. For each sample in the training sets from the source domain and the target domain, we pass it to the developed deep neural network. We enforce two constraints on the outputs of all training samples at the top of the network: 1) the interclass variations are maximized and the intra-class variations are minimized, and 2) the distribution divergence between the source domain and the target domain at the top layer of the network is minimized.
+
+Deep Metric Learning. We construct a deep neural network to compute the representations of each sample x. Assume there are M + 1 layers of the where Pi j is set as one if x j is one of k1 -intra-class nearest neighbors of xi , network and p(m) units in the mth layer, where m = 1, 2, · · · , M. The output and zero otherwise; and Qi j is set as one if x j is one of k2 -interclass nearest neighbors of xi , and zero otherwise. of x at the mth layer is computed as: (1) Deep Transfer Metric Learning. Given target domain data Xt and source domain data Xs , their probability distributions are usually different in the o(m) (m−1) (m) where W(m) ∈ R p ×p and b(m) ∈ R p are the weight matrix and bias riginal feature space when they are captured from different datasets. To of the parameters in this layer; and ϕ is a nonlinear activation function which reduce the distribution difference, we apply the Maximum Mean Discrepoperates component-wisely, e.g., tanh or sigmoid functions. The nonlinear ancy (MMD) criterion [1] to measure their distribution difference at the mth (m) layer, which is deﬁned as as follows: mapping f (m) : Rd → R p is a function parameterized by {W(i) }m and i=1 (i) }m . For the ﬁrst layer, we assume h(0) = x. {b i=1 2 1 1 Nt (m) Ns (m) Dts (Xt , Xs ) = For each pair of samples xi and x j , they can be ﬁnally represented as ∑i=1 f (xti ) − Ns ∑i=1 f (m) (xsi ) . (6) Nt 2 f (m) (xi ) and f (m) (x j ) at the mth layer of our designed network, and their distance metric can be measured by computing the squared Euclidean disBy combining (3) and (6), we formulate DTML as the following optitance between f (m) (xi ) and f (m) (x j ) at the mth layer: mization problem: d 2(m) (xi , x j ) = f (m) (xi ) − f (m) (x j ) f
+2 2
+
+f (m) (x) = h(m) = ϕ W(m) h(m−1) + b(m) ∈ R p ,
+
+(m)
+
+.
+
+(2)
+
+min J = Sc
+f (M)
+
+(M)
+
+− α Sb
+
+(M)
+
++ β Dts (Xt , Xs )
+2 F
+
+(M)
+
+Following the graph embedding framework, we enforce the marginal ﬁsher analysis criterion [4] on the output of all training samples at the top layer and formulate a strongly-supervised deep metric learning method: min J
+f (M) (M) = Sc − α (M) Sb + γ
+
++ γ ∑m=1
+
+M
+
+W(m)
+
++ b(m)
+
+2 2
+
+,
+
+(7)
+
+∑
+
+M m=1
+
+2 W(m) F
+
++
+
+2 b(m) 2
+
+,
+
+(3)
+
+where β is a regularization parameter. We employ the stochastic gradient descent algorithm to obtain W(m) and b(m) .
+
+[1] A. Gretton, K. M. Borgwardt, M. J. Rasch, B. Schölkopf, and A. J. where α (α > 0) is a free parameter which balances the important between Smola. A kernel method for the two-sample-problem. In Proc. NIPS, intra-class compactness and interclass separability; Z F denotes the Frobepages 513–520, 2006. nius norm of the matrix Z; γ (γ > 0) is a tunable positive regularization pa- [2] K. Q. Weinberger and L. K. Saul. Distance metric learning for large (m) (m) rameter; Sc and Sb deﬁne the intra-class compactness and the interclass margin nearest neighbor classiﬁcation. JMLR, 10:207–244, 2009. separability, which are deﬁned as follows: [3] E. P. Xing, A. Y. Ng, M. I. Jordan, and S. J. Russell. Distance metric learning with application to clustering with side-information. In Proc. 1 N N (m) Sc = (4) ∑i=1 ∑ j=1 Pi j d 2(m) (xi , x j ), NIPS, pages 505–512, 2002. f Nk1 [4] S. Yan, D. Xu, B. Zhang, H. Zhang, Q. Yang, and S. Lin. Graph em1 N N (m) Sb = Qi j d 2(m) (xi , x j ), (5) bedding and extensions: A general framework for dimensionality ref Nk2 ∑i=1 ∑ j=1 duction. IEEE T-PAMI, 29(1):40–51, 2007.
+This is an extended abstract. The full paper is available at the Computer Vision Foundation webpage.
+

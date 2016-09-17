@@ -1,0 +1,408 @@
+Discriminative Deep Metric Learning for Face Veriﬁcation in the Wild
+Junlin Hu1 , Jiwen Lu2∗ Yap-Peng Tan1 , 1 School of Electrical and Electronic Engineering, Nanyang Technological University, Singapore 2 Advanced Digital Sciences Center, Singapore
+jhu007@e.ntu.edu.sg, jiwen.lu@adsc.com.sg, eyptan@ntu.edu.sg
+
+Abstract
+This paper presents a new discriminative deep metric learning (DDML) method for face veriﬁcation in the wild. Different from existing metric learning-based face veriﬁcation methods which aim to learn a Mahalanobis distance metric to maximize the inter-class variations and minimize the intra-class variations, simultaneously, the proposed DDML trains a deep neural network which learns a set of hierarchical nonlinear transformations to project face pairs into the same feature subspace, under which the distance of each positive face pair is less than a smaller threshold and that of each negative pair is higher than a larger threshold, respectively, so that discriminative information can be exploited in the deep network. Our method achieves very competitive face veriﬁcation performance on the widely used LFW and YouTube Faces (YTF) datasets.
+
+Same or different
+
+2 Distance Metric: ������������ (������1 ������ 2 ) = ������1 − ������2
+
+(2)
+
+(2) 2 2
+
+������1
+
+(2)
+
+������2
+(2) (2)
+
+(2)
+
+������1
+
+(1)
+
+������2
+(1) (1)
+
+(1)
+
+������1
+
+������ 2
+
+A pair of faces
+
+1. Introduction
+Overt the past two decades, a large number of face recognition methods have been proposed in the literature [23, 41], and most of them have achieved satisfying recognition performance under controlled conditions. However, their performance drops heavily when face images are captured in the wild because large intra-class variations usually occur in this scenario. Face recognition can be mainly classiﬁed into two tasks: face identiﬁcation and face veriﬁcation. The former aims to recognize the person from a set of gallery face images or videos and ﬁnd the most similar one to the probe sample. The latter is to determine whether a given pair of face images or videos is from the same person or not. In this paper, we consider the second one where face images contain signiﬁcant variations caused by varying lighting, expression, pose, resolution, and background. Recently, many approaches have been proposed to improve the face veriﬁcation performance in unconstrained environments [6, 9, 13, 28, 34, 37], and these methods can
+∗ Corresponding
+
+Figure 1. The ﬂowchart of proposed DDML method for face veriﬁcation. For a given pair of face images x1 and x2 , we map them (2) (2) into the same feature subspace as h1 and h2 by using a set of hierarchical nonlinear transformations, where the similarity of their outputs at the most top level is computed and used to determine whether the face pair is from the same person or not.
+(1) (1)
+
+author.
+
+be roughly divided into two categories: feature descriptorbased and metric learning-based. For the ﬁrst category, a robust and discriminative descriptor is usually employed to represent each face image as a compact feature vector, where different persons are expected to be separated as much as possible in the feature space. Typical face feature descriptors include SIFT [22], LBP [1], probabilistic elastic matching (PEM) [21], and ﬁsher vector faces [28]. For the second category, a new distance metric is usually learned from the labeled training samples to effectively measure the similarity of face samples, under which the similarity of positive pairs is enlarged and that of negative 1
+
+pairs is reduced as much as possible. Representative metric learning algorithms include logistic discriminant metric learning (LDML) [9], cosine similarity metric learning (CSML) [26], pairwise constrained component analysis (PCCA) [25], and pairwise-constrained multiple metric learning (PMML) [6]. In this paper, we contribute to the second category and propose a new discriminative deep metric learning (DDML) method for face veriﬁcation in the wild, where the basic idea of our method is illustrated in Figure 1. Unlike most existing metric learning methods, our DDML builds a deep neural network which learns a set of hierarchical nonlinear transformations to project face pairs into other feature subspace, under which the distance of each positive face pair is less than a smaller threshold and that of each negative pair is higher than a larger threshold, respectively, so that discriminative information is exploited for the veriﬁcation task. Experimental results on the widely used LFW and YouTube Faces (YTF) datasets are presented to show the effectiveness of the proposed method.
+
+be mainly categorized three classes: unsupervised, supervised and semi-supervised, and they have been successfully applied to many visual analysis applications such as object recognition [27], human action recognition [15, 18], and face veriﬁcation [13]. While many attempts have been made on deep learning in feature engineering such as deep belief network [10], stacked auto-encoder [18], and convolutional neural networks [15], little progress has been made in metric learning with a deep architecture. More recently, Cai et al. [3] proposed a nonlinear metric learning method by combining the logistic regression and stacked independent subspace analysis. Differently, our proposed DDML method employs a network to learn the nonlinear distance metric where the back propagation algorithm can be used to train the model. Hence, our method is complementary to existing deep learning methods.
+
+3. Proposed Approach
+In this section, we ﬁrst brieﬂy review the conventional Mahalanobis distance metric learning, and then present the proposed DDML method, as well as its implementation details.
+
+2. Related Work
+Metric Learning: Many metric learning algorithms have been proposed over the past decade, and some of them have been successfully applied to address the problem of face veriﬁcation in the wild [3, 6, 7, 9, 29]. The common objective of these methods is to learn a good distance metric so that the distance between positive face pairs is reduced and that of negative pairs is enlarged as much as possible. However, most existing metric learning methods only learn a linear transformation to map face samples into a new feature space, which may not be powerful enough to capture the nonlinear manifold where face images usually lie on. To address this limitation, the kernel trick is usually adopted to ﬁrst map face samples into a high-dimensional feature space and then learn a discriminative distance metric in the high-dimensional space [31, 38]. However, these methods cannot explicitly obtain the nonlinear mapping functions, which usually suffer from the scalability problem. Different from these metric learning methods, our proposed DDML learns a set of hierarchical nonlinear transformations to project face pairs into one feature space in a deep architecture, where the nonlinear mappings are explicitly obtained. We also achieve the very competitive performance on the face veriﬁcation in the wild problem with two existing publicly available datasets. Deep Learning: In recent years, deep learning has received increasing interests in computer vision and machine learning, and a number of deep learning methods have been proposed in the literature [2, 10, 11, 13, 15, 18, 19, 20, 27, 30]. Generally, deep learning aims to learn hierarchical feature representations by building high-level features from low-level ones. Existing deep learning methods can 2
+
+3.1. Mahalanobis Distance Metric Learning
+Let X = [x1 , x2 , · · · , xN ] ∈ Rd×N be the training set, where xi ∈ Rd is the ith training sample and N is the total number of training samples. The conventional Mahalanobis distance metric learning aims to seek a square matrix M ∈ Rd×d from the training set X, under which the distance between any two samples xi and xj can be computed as: dM (xi , xj ) = (xi − xj )T M(xi − xj ) (1)
+
+Since dM (xi , xj ) is a distance, it should have the properties of nonnegativity, symmetry, and triangle inequality. Hence, M is symmetric and positive semi-deﬁnite, and can be decomposed by as follows: M = WT W where W ∈ R , and p ≤ d. Then, dM (xi , xj ) can be rewritten as dM (xi , xj ) = = = (xi − xj )T M(xi − xj ) (xi − xj )T WT W(xi − xj ) Wxi − Wxj
+2 p×d
+
+(2)
+
+(3)
+
+We can see from Eq. (3) that learning a Mahalanobis distance metric M is equivalent to seeking a linear transformation W which projects each sample xi into a lowdimensional subspace, under which the Euclidean distance of two samples in the transformed space is equal to the Mahalanobis distance metric in the original space.
+
+3.2. DDML
+The conventional Mahalanobis distance metric learning methods [7] only seek a linear transformation, which cannot capture the nonlinear manifold where face images usually lie on, especially when face images are captured in unconstrained environments because there are usually large variations in this scenario. To address this limitation, the kernel trick is usually employed to implicitly map face samples into a high-dimensional feature space and then learn a discriminative distance metric in the high-dimensional space [31]. However, these methods cannot explicitly obtain the nonlinear mapping functions, which usually suffer from the scalability problem. Different from these previous metric learning methods, we propose a new deep metric learning method to learn hierarchical nonlinear mappings to address the nonlinear and scalability problems simultaneously. As shown in Figure 1, we ﬁrst construct a deep neural network to compute the representations of a face pair by passing them to multiple layers of nonlinear transformations. Assume there are M + 1 layers in our designed network, and p(m) units in the mth layer, where m = 1, 2, · · · , M . For a given face sample x ∈ Rd , the output of the ﬁrst lay(1) er is h(1) = s(W(1) x + b(1) ) ∈ Rp , where W(1) ∈ (1) Rp ×d is a projection matrix to be learned in the ﬁrst lay(1) er, b(1) ∈ Rp is a bias vector, and s : R → R is a nonlinear activation function which operates componentwisely, e.g., the tanh or sigmoid function. Then, we use the output of the ﬁrst layer h(1) as the input of the second layer. Similarly, the output of the second layer can be (2) computed as h(2) = s(W(2) h(1) + b(2) ) ∈ Rp , where (2) (1) (2) W(2) ∈ Rp ×p , b(2) ∈ Rp , and s are the projection matrix, bias, and nonlinear activation function of the second layer, respectively. Similarly, the output of the mth layer is (m) h(m) = s(W(m) h(m−1) + b(m) ) ∈ Rp , and the output of the most top level can be computed as: f (x) = h(M ) = s W(M ) h(M −1) + b(M ) ∈ Rp
+(M ) (M )
+
+DDML
+
+������
+
+1 1
+Same Different
+
+Before
+
+After
+
+Figure 2. Intuitive illustration of the proposed DDML method. There are three face samples in the original feature space, which are used to generate two pairs of face images, where two of them form a positive pair (two circles) and two of them form the negative pair (one circle in the center and one triangle), respectively. In the original face feature space, the distance between the positive pair is larger than that between the negative pair which may be caused by the large intra-personal variations such as varying expressions, illuminations, and poses, especially when face images are captured in the wild. This scenario is harmful to face veriﬁcation because it causes an error. When our DDML method is applied, the distance of the positive pair is less than a smaller threshold τ1 and that of the negative pair is higher than a larger threshold τ2 of the most top level of our DDML model, respectively, so that more discriminative information can be exploited and the face pair can be easily veriﬁed.
+
+(4)
+
+posed DDML model, which is more effective to face veriﬁcation. To achieve this, we expect the distances between positive pairs are smaller than those between negative pairs and develop a large margin framework to formulate our method. Figure 2 shows the basic idea of our proposed DDML method. Speciﬁcally, DDML aims to seek a nonlinear mapping f such that the distance d2 (xi , xj ) between f xi and xj is smaller than a pre-speciﬁed threshold τ1 in the transformed space if xi and xj are from the same subject ( ij = 1), and larger than τ2 in the transformed space if samples xi and xj are from different subjects ( ij = −1), where the pairwise label ij denotes the similarity or dissimilarity between a face pair xi and xj , and τ2 > τ1 . To reduce the number of parameters in our experiments, we only employ one threshold τ (τ > 1) to connect τ1 and τ2 , and enforce the margin between d2 (xi , xj ) and τ is largf er than 1 by using the following constraint:
+ij
+
+is a parametric nonlinwhere the mapping f : Rd → Rp ear function determined by the parameters W(m) and b(m) , where m = 1, 2, · · · , M . Given a pair of face samples xi and xj , they can be ﬁ(M ) (M ) nally represented as f (xi ) = hi and f (xj ) = hj at the top level when they are passed through the M + 1-layer deep network, and their distance can be measured by computing the squared Euclidean distance between the most top level representations, which is deﬁned as follows: d2 (xi , xj ) f = f (xi ) − f (xj )
+2 . 2
+
+τ − d2 (xi , xj ) > 1. f
+
+(6)
+
+(5)
+
+where τ1 = τ − 1 and τ2 = τ + 1. With this constrain, there is a margin between each positive and negative pairs in the learned feature space, as shown in Figure 2. By applying the above constrain in Eq. (6) to each positive and negative pair in the training set, we formulate our 3
+
+It is desirable to exploit discriminative information for face representations of the most top level from our pro-
+
+DDML as the following optimization problem: arg min J
+f
+
+= J1 + J2 = 1 2 g 1−
+i,j M ij
+
+τ − d2 (xi , xj ) f
+2 F
+
++
+
+λ 2 m=1
+
+W(m)
+
++
+
+b(m)
+
+2 2
+
+(7)
+
+1 where g(z) = β log 1 + exp(βz) is the generalized logistic loss function [25], which is a smoothed approximation of the hinge loss function [z]+ = max(z, 0), β is a sharpness parameter, A F represents the Frobenius norm of the matrix A, and λ is a regularization parameter. There are two terms J1 and J2 in our objective function, where J1 deﬁnes the logistic loss and J2 represents the regularization term, respectively. To solve the optimization problem in Eq. (7), we use the stochastic sub-gradient descent scheme to obtain the parameters {W(m) , b(m) }, where m = 1, 2, · · · , M . The gradient of the objective function J with respect to the parameters W(m) and b(m) can be computed as follows:
+
+Algorithm 1: DDML Input: Training set: X = {(xi , xj , ij )}, number of network layers M + 1, threshold τ , learning rate µ, iterative number It , parameter λ, and convergence error ε. Output: Weights and biases: {W(m) , b(m) }M . m=1 // Initialization: Initialize {W(m) , b(m) }M according to Eq. (20). m=1 // Optimization by back prorogation: for t = 1, 2, · · · , It do Randomly select a sample pair (xi , xj , ij ) in X. Set hi = xi and hj = xj , respectively. // Forward propagation for m = 1, 2, · · · , M do (m) (m) Do forward propagation to get hi and hj . end // Computing gradient for m = M, M − 1, · · · , 1 do Obtain gradient by back propagation according to Eqs. (8) and (9). end // Back propagation for m = 1, 2, · · · , M do Update W(m) and b(m) according to Eqs. (16) and (17). end Calculate Jt using Eq (7). If t > 1 and |Jt − Jt−1 | < ε, go to Return. end Return: {W(m) , b(m) }M . m=1
+(0) (0)
+
+∂J ∂W(m) ∂J ∂b(m)
+(0)
+
+=
+i,j
+
+∆ij hi
+
+(m) (m−1) T
+
++ ∆ji hj
+
+(m) (m−1) T
+
++ λ W(m) =
+i,j (0) (m) ∆ij
+
+(8) +
+(m) ∆ji
+
++ λ b(m)
+
+(9)
+
+where hi = xi and hj = xj , which are from the original inputs of our network. For all other layers m = 1, 2, · · · , M − 1, we have the following updating equations: ∆ij
+(M ) (M ) (m) (m)
+
+= g (c) = g (c) = =
+
+ij ij
+
+hi
+
+(M ) (M )
+
+− hj − hi
+
+(M ) (M )
+
+s zi
+
+(M ) (M )
+
+(10) (11) (12) (13)
+
+∆ji
+
+hj
+T T
+
+s zj s zi
+(m) (m)
+
+where µ is the learning rate. Algorithm 1 summarizes the detailed procedure of the proposed DDML method.
+
+∆ij
+
+W(m+1) ∆ij
+
+(m+1) (m+1)
+
+3.3. Implementation Details
+In this subsection, we detail the nonlinear activation functions and the initializations of W(m) and b(m) , 1 ≤ m ≤ M in our proposed DDML method. Activation Function: There are many nonlinear activation functions which could be used to determine the output of the nodes in our deep metric learning network. In our experiments, we use the tanh as the activation function because it has demonstrated better performance in our experiments. The tanh function and its derivative are computed as follows: s(z) (16) (17) 4 s (z) = = ez − e−z ez + e−z tanh (z) = 1 − tanh2 (z) tanh(z) = (18) (19)
+
+∆ji
+
+W(m+1) ∆ji
+
+s zj
+
+where the operation denotes the element-wise multiplica(m) tion, and c and zi are deﬁned as follows: c
+(m) zi
+
+1−
+
+ij
+
+τ − d2 (xi , xj ) f +b
+(m)
+
+(14) (15)
+
+(m−1) W(m) hi
+
+Then, W(m) and b(m) can be updated by using the following gradient descent algorithm until convergence: W
+(m)
+
+b(m)
+
+∂J = W −µ ∂W(m) ∂J = b(m) − µ (m) ∂b
+(m)
+
+Initialization: The initializations of W(m) and b(m)
+
+(1 ≤ m ≤ M ) are important to the gradient descent based method in our deep neural networks. Random initialization and denoising autoencoder (DAE) [32] are two popular initialization methods in deep learning. In our experiments, we utilize a simple normalized random initialization method in [8], where the bias b(m) is initialized as 0, and the weight of each layer is initialized as the following uniform distribution: √ √ 6 6 (m) , (20) W ∼U − (m) + p(m−1) (m) + p(m−1) p p where p(0) is the dimension of input layer and 1 ≤ m ≤ M .
+
+• SSIFT: The SSIFT descriptors are computed at the nine ﬁxed landmarks with three different scales, and then they are concatenated into a 3456-dimensional feature vector [9]. As suggested in [16, 26, 36], we also use the square root of each feature and evaluate the performance of our DDML method when all the six different feature descriptors are combined. For each feature descriptor, we apply Whitened PCA (WPCA) to project it into a 500-dimensional feature vector to further remove the redundancy. The YTF dataset [34] contains 3425 videos of 1595 different persons collected from the YouTube website. There are large variations in pose, illumination, and expression in each video, and the average length of each video clip is 181.3 frames. In our experiments, we follow the standard evaluation protocol [34] and test our method for unconstrained face veriﬁcation with 5000 video pairs. These pairs are equally divided into 10 folds, and each fold has 250 intra-personal pairs and 250 inter-personal pairs. Similar to LFW, we also adopt the image restricted protocol to evaluate our method. For this dataset, we directly use the provided three feature descriptors [34] including LBP, Center-Symmetric LBP (CSLBP) [34] and Four-Patch LBP (FPLBP) [35]. Since all face images have been aligned by the detected facial landmarks, we average all the feature vectors within one video clip to form a mean feature vector in our experiments. Lastly, we use WPCA to project each mean vector into a 400-dimensional feature vector. For our DDML method, we train a deep network with three layers (M = 2), and the threshold τ , the learning rate µ and regularization parameter λ are empirically set as 3, 10−3 , 10−2 for all experiments, respectively. To further improve the veriﬁcation accuracy, we further fuse multiple features in the score level. Assume there are K feature descriptors extracted for each face sample, we can get K similarity scores (or distances) by our DDML method. Then, we concatenate these cores into a K-dimensional vector, and then take the mean of this vector as the ﬁnal similarity for veriﬁcation. Following the standard protocol in [14, 34], we use two measures including the mean classiﬁcation accuracy with standard error and the receiving operating characteristic (ROC) curve from the ten-fold cross validation to validate our method.
+
+4. Experiments
+To evaluate the effectiveness of our proposed DDML method, we perform unconstrained face veriﬁcation experiments on the challenging LFW [14] and YTF [34] databases. The following settings describe the details of the experiments and results.
+
+4.1. Datasets and Experimental Settings
+The LFW dataset [14] contains more than 13000 face images of 5749 subjects collected from the web with large variations in expression, pose, age, illumination, resolution, and so on. There are two training paradigms for supervised learning on this dataset: 1) image restricted and 2) image unrestricted. In our experiments, we use the image restricted setting where only the pairwise label information is required to train our method. We follow the standard evaluation protocol on the “View 2” dataset [14] which includes 3000 matched pairs and 3000 mismatched pairs. The dataset is divided into 10 folds, and each fold consists of 300 matched (positive) pairs and 300 mismatched (negative) pairs. We use two types of LFW dataset for our evaluation: the LFW-a dataset1 and “funneled” version2 . For the LFW-a dataset, we crop each image into 80 × 150 to remove the background information, and then extract two features: Dense SIFT (DSIFT) [22] and LBP [1]. Regarding the “funneled” version, we use Sparse SIFT (SSIFT) descriptors provided by [9]. These three features are summarized as follows for each face image: • DSIFT: We densely sample SIFT descriptors on each 16 × 16 patch without overlapping and obtain 45 SIFT descriptors. Then, we concatenate these SIFT descriptors to form a 5760-dimensional feature vector. • LBP: We divide each image into 8 × 15 nonoverlapping blocks, where the size of each block is 10 × 10. We extract a 59-dimensional uniform pattern LBP feature for each block and concatenate them to form a 7080-dimensional feature vector.
+1 Available: 2 Available:
+
+4.2. Experimental Comparison on LFW
+Deep vs. Shadow Metric Learning: We ﬁrst compare our method with the discriminative shadow metric learning (DSML) method. DSML means only one layer is considered in our model where M and the activation function are 1 and s(z) = z. Table 1 records the veriﬁcation rate with standard error of these two methods when different feature descriptors are used. We see that our DDML consistently outperforms DSML in terms of the mean veriﬁcation rate. 5
+
+http://www.openu.ac.il/home/hassner/data/lfwa/. http://vis-www.cs.umass.edu/lfw/.
+
+Table 1. Comparison of the mean veriﬁcation rate and standard error (%) with the shadow metric learning method on the LFW dataset under the image restricted setting.
+
+1 0.95 0.9
+
+Feature DSIFT (original) DSIFT (square root) LBP (original) LBP (square root) SSIFT (original) SSIFT (square root) All features
+
+DDML 86.78 ± 2.09 87.25 ± 1.62 85.47 ± 1.85 87.02 ± 1.62 86.98 ± 1.37 87.83 ± 0.93 90.68 ± 1.41
+
+DSML 83.68 ± 2.06 84.42 ± 1.80 81.88 ± 1.90 84.08 ± 1.21 84.02 ± 1.47 84.52 ± 1.38 87.45 ± 1.45
+
+true positive rate
+
+0.85 0.8 0.75 0.7 0.65 0.6 0.55 0.5 0 0.1 0.2 0.3 0.4 0.5 0.6
+
+Table 2. Comparisons of the mean veriﬁcation rate and standard error (%) with the state-of-the-art results on the LFW dataset under the image restricted setting, where NoD denotes the number of descriptors used in each method.
+
+CSML+SVM Multiple LE+comp LDML, funneled DML−eig combined SFRD+PMML PAF APEM (fusion) Fisher vector faces DDML (SSIFT) DDML (combined)
+0.7 0.8 0.9 1
+
+false postive rate
+
+Method PCCA (SIFT) [25] CSML+SVM [26] PAF [39] STFRD+PMML [6] Fisher vector faces [28] DDML (SSIFT) DDML (combined)
+
+NoD 1 6 1 8 1 1 6
+
+Accuracy 83.80 ± 0.40 88.00 ± 0.37 87.77 ± 0.51 89.35 ± 0.50 87.47 ± 1.49 87.83 ± 0.93 90.68 ± 1.41
+
+Figure 3. Comparisons of ROC curves between our DDML and the state-of-the-art methods on the LFW dataset under the image restricted setting. Table 3. Comparisons of the mean veriﬁcation rate and standard error (%) with different deep learning methods on the LFW dataset under the image restricted setting.
+
+This is because DDML learns hierarchical nonlinear transformations while DSML only learns a linear transformation, so that DDML can better discover the nonlinear relationship of samples in the learned distance metric. Comparison with the State-of-the-Art Methods: We compare our method with the state-of-the-art methods on the LFW dataset3 . These compared methods can be categorized two classes: 1) metric learning based methods such as LDML [9], PCCA [25], CSML+SVM [26], DML-eig combined [40], and STFRD+PMML [6]; and 2) descriptor based methods such as Multiple LE+comp [4], Pose Adaptive Filter (PAF) [39], and Fisher vector faces [28]. Table 2 lists the veriﬁcation rate with standard error and Figure 3 shows the ROC curves of different methods on this dataset, respectively. We clearly see that our DDML is very competitive with the state-of-the-art methods in terms of the mean veriﬁcation rate under the image restricted setting. Comparison with Existing Deep Learning Methods: We also compare our DDML with two recently proposed deep learning based face veriﬁcation methods: CDBN [13] and DNLML-ISA [3]. Table 3 records the performance of different deep learning methods. We see that our DDML consistently outperforms the other two deep learning methods in terms of the mean veriﬁcation rate. The reason is that CDBN is a unsupervised deep learning method and
+3 Available:
+
+Method CDBN [13] CDBN+Hand-crafted [13] DNLML-ISA (SSIFT) [3] DNLML-ISA [3] DDML (SSIFT) DDML (combined)
+
+NoD 6 12 1 8 1 6
+
+Accuracy 86.88 ± 0.62 87.77 ± 0.62 86.17 ± 0.40 88.50 ± 0.40 87.83 ± 0.93 90.68 ± 1.41
+
+our method is supervised, such that more discriminative information can be exploited in our DDML. Compared with DNLML-ISA which uses a stacked architecture, our DDML adopts a convolutional architecture to design the network, which can explore better hierarchical information.
+
+4.3. Experimental Comparison on YTF
+Deep vs. Shadow Metric Learning: We also compare our method with the DSML method on the YTF dataset. Table 4 records the veriﬁcation rates with standard error of these two methods when different feature descriptors are compared. We see that our DDML consistently outperforms DSML in terms of the mean veriﬁcation rate. Comparison with the State-of-the-Art Methods: We compare our method with the state-of-the-art methods on the YTF dataset4 . These compared methods include Matched Background Similarity (MBGS) [34], APEM [21], STFRD+PMML [6], MBGS+SVM [37], VSOF+OSS (Adaboost) [24], and PHL+SILD [16]. Table 5 and Figure 4 show the mean veriﬁcation rate with the standard
+4 Available:
+
+http://vis-www.cs.umass.edu/lfw/results.html.
+
+http://www.cs.tau.ac.il/ wolf/ytfaces/results.html.
+
+6
+
+Table 4. Comparisons of the mean veriﬁcation rate and standard error (%) with the shadow metric learning method on the YTF dataset under the image restricted setting.
+
+Table 6. Comparisons of the mean veriﬁcation rate and standard error (%) with the existing video-based face veriﬁcation methods on the YTF dataset under the image restricted setting.
+
+Feature CSLBP FPLBP LBP All features
+
+DDML 75.98 ± 0.89 76.60 ± 1.71 81.26 ± 1.63 82.34 ± 1.47
+
+DSML 73.26 ± 0.99 73.46 ± 1.66 78.14 ± 0.94 79.36 ± 1.22
+
+Table 5. Comparisons of the mean veriﬁcation rate and standard error (%) with the state-of-the-art results on the YTF dataset under the image restricted setting.
+
+Method SANP [12] MMD [33] CHISD [5] AHISD [5] DCC [17] DDML (LBP) DDML (combined)
+
+Accuracy 63.74 ± 1.69 64.96 ± 1.00 66.24 ± 1.70 66.50 ± 2.03 70.84 ± 1.57 81.26 ± 1.63 82.34 ± 1.47
+
+Method MBGS (LBP) [34] APEM (LBP) [21] APEM (fusion) [21] STFRD+PMML [6] MBGS+SVM (LBP) [37] VSOF+OSS (Adaboost) [24] PHL+SILD (LBP) [16] DDML (LBP) DDML (combined)
+
+Accuracy 76.40 ± 1.80 77.44 ± 1.46 79.06 ± 1.51 79.48 ± 2.52 79.48 ± 2.52 79.70 ± 1.80 80.20 ± 1.30 81.26 ± 1.63 82.34 ± 1.47
+
+Table 7. Comparisons of the proposed DDML method with different activation functions on the LFW and YTF datasets under the image restricted setting.
+
+Dataset LFW YTF
+
+sigmoid 77.18 ± 1.82 70.20 ± 1.26
+
+ns-sigmoid 85.80 ± 1.39 80.78 ± 1.15
+
+tanh 87.83 ± 0.93 81.26 ± 1.63
+
+1
+
+0.9
+
+true positive rate
+
+0.8
+
+0.7
+
+F dataset. These methods are Discriminant-analysis of Canonical Correlations (DCC) [17], Manifold-Manifold Distance (MMD) [33], Afﬁne Hull based Image Set Distance (AHISD) [5], Convex Hull based Image Set Distance (CHISD) [5], and Sparse Approximated Nearest Points (SANP) [12]. Table 6 tabulates the mean veriﬁcation rate with the standard error of our DDML and existing videobased face recognition methods on the YTF dataset. As seen in this table, our DDML signiﬁcantly outperforms these video-based face recognition methods.
+
+0.6
+
+4.4. Effect of the Activation Function
+MBGS (LBP) APEM (fusion) SFRD+PMML VSOF+OSS (Adaboost) DDML (LBP) DDML (combined)
+0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1
+
+0.5
+
+0.4
+
+0.3
+
+false postive rate
+
+Figure 4. Comparisons of ROC curves between our work and the state-of-the-art methods on the image restricted YTF dataset.
+
+error and ROC curves of our DDML and the state-of-theart methods on the YTF dataset, respectively. We observe that the performance of our DDML with the LBP feature is 81.26 ± 1.63, which improves the current state-of-the-art method (PHL+SILD) by 1.0% in the gain of the mean veriﬁcation rate. Moreover, the gain can be further improved 1.08% when three similarity scores are combined. Comparison with Existing Video-based Face Recognition Methods: Lastly, we compare our DDML with existing video-based face recognition methods on the YT7
+
+In this subsection, we analyze the effect of the activation function in our DDML method. We compare the tanh function with two other popular activation functions: sigmoid and non-saturating sigmoid (ns-sigmoid)5 . Table 7 lists the performance of our DDML method with different activation functions on the LFW and YTF datasets, where the SSIFT (square root) feature and LBP feature are used for the LFW and YTF datasets, respectively. We see from this table that the tanh function performs the best and the sigmoid function performs the worse in our DDML method.
+
+4.5. Computational Time
+Lastly, we report the computational time of our DDML method. Our hardware conﬁguration comprises a 3.2-GHz CPU and a 8GB RAM. For each fold, the training time of our DDML are 33.8 and 27.4 seconds, and the testing time
+5 The sigmoid function is deﬁned as s(z) = 1/1 + e−z , and the nssigmoid function is deﬁned as z = s3 (z)/3 + s(z).
+
+are 0.1 and 0.1 seconds on the LFW and YTF datasets6 , respectively. Compared with most existing deep learning methods in [11, 13, 15, 18, 20], our deep learning method is more efﬁcient, especially the training time of our model is much faster. Hence, our DDML complements well to the existing deep learning methods.
+
+[15] [16]
+
+[17]
+
+5. Conclusion
+In this paper, we have presented a new discriminative deep metric learning (DDML) method for face veriﬁcation in the wild. Our method achieves the very competitive veriﬁcation performance on the widely used LFW and YTF datasets. How to apply our DDML method to other visual applications such as image classiﬁcation and activity recognition is an interesting direction of future work.
+
+[18]
+
+[19]
+
+[20]
+
+[21]
+
+Acknowledgement
+Jiwen Lu is partially supported by the research grant for the Human Sixth Sense Program (HSSP) at the Advanced Digital Sciences Center (ADSC) from the Agency for Science, Technology and Research (A*STAR) of Singapore.
+
+[22] [23]
+
+[24]
+
+[25]
+
+References
+[1] T. Ahonen, S. Member, A. Hadid, M. Pietikanen, and S. Member. Face description with local binary patterns: Application to face recognition. PAMI, 28:2037–2041, 2006. [2] Y. Bengio. Learning deep architectures for ai. Foundations and trends R in Machine Learning, 2(1):1–127, 2009. [3] X. Cai, C. Wang, B. Xiao, X. Chen, and J. Zhou. Deep nonlinear metric learning with independent subspace analysis for face veriﬁcation. In ACM MM, pages 749–752, 2012. [4] Z. Cao, Q. Yin, X. Tang, and J. Sun. Face recognition with learningbased descriptor. In CVPR, page 27072714, 2010. [5] H. Cevikalp and B. Triggs. Face recognition based on image sets. In CVPR, pages 2567–2573, 2010. [6] Z. Cui, W. Li, D. Xu, S. Shan, and X. Chen. Fusing robust face region descriptors via multiple metric learning for face recognition in the wild. In CVPR, pages 3554–3561, 2013. [7] J. V. Davis, B. Kulis, P. Jain, S. Sra, and I. S. Dhillon. Informationtheoretic metric learning. In ICML, pages 209–216, 2007. [8] X. Glorot and Y. Bengio. Understanding the difﬁculty of training deep feedforward neural networks. In AISTATS, pages 249–256, 2010. [9] M. Guillaumin, J. Verbeek, and C. Schmid. Is that you? metric learning approaches for face identiﬁcation. In ICCV, pages 498–505, 2009. [10] G. E. Hinton, S. Osindero, and Y.-W. Teh. A fast learning algorithm for deep belief nets. Neural Computation, 18(7):1527–1554, 2006. [11] G. E. Hinton and R. R. Salakhutdinov. Reducing the dimensionality of data with neural networks. Science, 313(5786):504–507, 2006. [12] Y. Hu, A. S. Mian, and R. A. Owens. Sparse approximated nearest points for image set classiﬁcation. In CVPR, pages 121–128, 2011. [13] G. B. Huang, H. Lee, and E. G. Learned-Miller. Learning hierarchical representations for face veriﬁcation with convolutional deep belief networks. In CVPR, pages 2518–2525, 2012. [14] G. B. Huang, M. Ramesh, T. Berg, and E. Learned-Miller. Labeled faces in the wild: A database for studying face recognition in uncon6 We use the SSIFT (square root) and LBP feature for the LFW and YTF
+
+[26] [27]
+
+[28] [29]
+
+[30] [31] [32]
+
+[33]
+
+[34]
+
+[35] [36] [37] [38] [39] [40] [41]
+
+datasets to compute the computational time of our method, respectively.
+
+strained environments. Technical Report 07-49, University of Massachusetts, Amherst, 2007. S. Ji, W. Xu, M. Yang, and K. Yu. 3d convolutional neural networks for human action recognition. PAMI, 35(1):221–231, 2013. M. Kan, D. Xu, S. Shan, W. Li, and X. Chen. Learning prototype hyperplanes for face veriﬁcation in the wild. TIP, 22(8):3310–3316, 2013. T.-K. Kim, J. Kittler, and R. Cipolla. Discriminative learning and recognition of image set classes using canonical correlations. PAMI, 29(6):1005–1018, 2007. Q. V. Le, W. Y. Zou, S. Y. Yeung, and A. Y. Ng. Learning hierarchical invariant spatio-temporal features for action recognition with independent subspace analysis. In CVPR, pages 3361–3368, 2011. Y. LeCun, L. Bottou, Y. Bengio, and P. Haffner. Gradient-based learning applied to document recognition. Proceedings of the IEEE, 86(11):2278–2324, 1998. H. Lee, R. Grosse, R. Ranganath, and A. Y. Ng. Convolutional deep belief networks for scalable unsupervised learning of hierarchical representations. In ICML, pages 609–616, 2009. H. Li, G. Hua, Z. Lin, J. Brandt, and J. Yang. Probabilistic elastic matching for pose variant face veriﬁcation. In CVPR, pages 3499– 3506, 2013. D. G. Lowe. Distinctive image features from scale-invariant keypoints. IJCV, 60(2):91–110, 2004. J. Lu, Y.-P. Tan, and G. Wang. Discriminative multimanifold analysis for face recognition from a single training sample per person. IEEE Trans. Pattern Anal. Mach. Intell., 35(1):39–51, 2013. H. Mendez-Vazquez, Y. Martinez-Diaz, and Z. Chai. Volume structured ordinal features with background similarity measure for video face recognition. In ICB, pages 1–6, 2013. A. Mignon and F. Jurie. Pcca: A new approach for distance learning from sparse pairwise constraints. In CVPR, pages 2666–2672, 2012. H. V. Nguyen and L. Bai. Cosine similarity metric learning for face veriﬁcation. In ACCV, pages 709–720, 2010. M. Ranzato, F. J. Huang, Y.-L. Boureau, and Y. Lecun. Unsupervised learning of invariant feature hierarchies with applications to object recognition. In CVPR, pages 1–8, 2007. K. Simonyan, O. M. Parkhi, A. Vedaldi, and A. Zisserman. Fisher vector faces in the wild. In BMVC, 2013. M. K. stinger, M. Hirzer, P. Wohlhart, P. M. Roth, and H. Bischof. Large scale metric learning from equivalence constraints. In CVPR, pages 2288–2295, 2012. G. W. Taylor, R. Fergus, Y. LeCun, and C. Bregler. Convolutional learning of spatio-temporal features. In ECCV, pages 140–153. 2010. I. W. Tsang, J. T. Kwok, C. Bay, and H. Kong. Distance metric learning with kernels. In ICANN, pages 126–129, 2003. P. Vincent, H. Larochelle, Y. Bengio, and P.-A. Manzagol. Extracting and composing robust features with denoising autoencoders. In ICML, pages 1096–1103, 2008. R. Wang, S. Shan, X. Chen, and W. Gao. Manifold-manifold distance with application to face recognition based on image set. In CVPR, pages 1–8, 2008. L. Wolf, T. Hassner, and I. Maoz. Face recognition in unconstrained videos with matched background similarity. In CVPR, pages 529– 534, 2011. L. Wolf, T. Hassner, and Y. Taigman. Descriptor based methods in the wild. In ECCVW, 2008. L. Wolf, T. Hassner, and Y. Taigman. Similarity scores based on background samples. In ACCV, pages 88–97, 2009. L. Wolf and N. Levy. The svm-minus similarity score for video face recognition. In CVPR, pages 3523–3530, 2013. D.-Y. Yeung and H. Chang. A kernel approach for semisupervised metric learning. TNN, 18(1):141–149, 2007. D. Yi, Z. Lei, and S. Z. Li. Towards pose robust face recognition. In CVPR, pages 3539–3545, 2013. Y. Ying and P. Li. Distance metric learning with eigenvalue optimization. JMLR, 13:1–26, 2012. W.-Y. Zhao, R. Chellappa, P. J. Phillips, and A. Rosenfeld. Face recognition: A literature survey. ACM Computer Surveys, 35(4):399– 458, 2003.
+
+8
+

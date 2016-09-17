@@ -1,0 +1,355 @@
+37 2014
+
+5 10
+Chinese Journal of Electron Devices
+
+Vol． 37 No． 5 Oct． 2014
+
+A Novel Data Classification Algorithm and Application Ｒesearch Based on Modified Depth Data Manifold*
+SONG Quanyou1* LIU Xiaole2 HAN Zhonghua3
+C1． Department of Traffic Engineering Henan Vocational and Technical College of Communications Zhengzhou 450052 Chinab 2． Computer College Henan Institute of Engineering Henan 451191 Chinab 3． Shenyang Institute of Automationg SIAL Chinese Academy of Sciences Shenyang 110016 ChinaL
+
+AbstractBFor the localization of data classification a novel data classification algorithm based on modified data manifold is proposed． It is used as the method of face recognition． Firstly the depth information of images are coldimensional lected by Kinect and the sparse representation can be used to do the denoising． Secondly the threeface data base can be established by the colour information and depth information． The dimension of data sets is reduced by the analysis of the data manifold and optimal results of data dimension reduction can be gotten． The training and test sets are gotten by the principle of ten cross validation and data classifier can be gotten by the support vector machine． Finally the test sets are inputted and the face data classification can be achieved． The two classes of data sets are selected as the experimental data which consist of OＲL and Yale． The comparison experiments can be achieved by the two data sets and the experiment results show that the proposed method not only has a higher classification accuracy rate but it has a great effect to achieve face recognition． Key wordsBdata classification． face recognition． data manifold． depth． dimension reduction． support vector machine EEACCB 6210C doiB 3969 / j． issn． 1005 －9490． 2014． 05． 010 10．
+
+*
+1* 2 3
+
+C1． 3．
+
+450052． 2． 110016h
+
+451191．
+
+V
+
+。
+
+。 。 。
+
+OＲL、 Yale
+
+TP391． 41
+
+BA
+
+B 1005 －9490i 2014l 05 －0844 －06 CHOGh
+3
+
+。 ’ SVM h
+4 6
+
+。 CLDAh ’ PCAh
+V V 2014－01－06
+1 5
+
+CKLDAh 。
+
+。
+
+CKPCAh
+
+2
+
+C61272253h V 2014－02－18
+
+5 Ｒoweis
+8
+
+V
+7
+
+845 0 D Gabor ． MP OMP BP 。 。 ．ε D D ^ α 。 。 ^ α
+
+Gabor KPCA
+
+9
+
+。
+10
+
+1． 2 L1 。 。
+
+。LAＲSLasso SVM 。 OＲL 。 Yale 1． 3
+
+11
+
+。
+
+1
+1． 1 。 。
+n
+
+。 argmin ‖w －Dα‖2 " s． t． ‖α i ‖0 ≤T0 2
+D α
+
+C4h 0
+
+w bα 。 。
+
+bD T0
+
+b=
+
+∑ x i αi = Ax i=1
+b 。 。
+
+g1h
+
+。
+
+x = Cx1 x2 … x n L A n
+
+。 D0 w = á w1 w2 … w n－1 " A'
+
+。 ’ 2h w = w m +w r = Dα +w r w w 。 α 。 σ3h D wm w α wr g2h wr
+
+= fg A απ ’ 1h C2h g3h ． C3h σ4h g5h k = k +1 ’ 6h C6h k=0
+
+T。 D = D0 ． T k ＜n
+
+V C3h = argmin‖α‖0 s． t． ‖w k －D k α‖≤ε αk
+α
+
+^ α = min‖α‖0 s． t． ‖w －Dα‖2 ≤ε ^ α w b ‖α‖0 L0
+
+VD k+1 = fg D k α k L C2h D = Dk 。
+
+。
+
+846 w ^ α w 1 。 k Step 2V
+N k
+
+37
+
+3 Step 1V k 。
+
+V k 。
+
+。
+
+maxεσWL = x ijg j = 1 2 … kL x ij W
+i jm
+
+∑ i=1
+xi
+
+| x i － ∑ w ij x ij |
+j=1
+
+C5h w ij xi
+
+k
+k
+
+∑ w ij = 1。 j=1
+y Q = Cx i －x ij L Cx i －x ij L
+k T
+
+g6h
+
+C2h
+
+∑ w ij = 1 j=1
+。
+k －1 ∑ CQi L jm m=1 k k i －1 pq
+
+w ij =
+
+g7h
+
+∑ ∑ CQ L p=1 q=1
+Qi
+1
+
+Qi r
+
+y Q i = Q i +rI g8h k ×k 。 I V
+N k
+
+2
+12－15
+
+n n
+
+n
+
+Step 3V
+
+maxεσYL = 。 N Y 2 V X 2 。 ε σY L y ijg j = 1 2 … kL y
+N
+
+∑ i=1
+yi
+
+yi －
+
+∑ w ij y ij j=1
+yi xi
+
+g9h
+
+k 1 N
+N
+
+∑ i=1
+I NL V m×m
+
+yi = 0
+
+∑ yi yT = I i i=1
+。 W w ij g i = 1 2 … xj xi
+
+N ×N W ij = w
+i j
+
+W ij = 0
+N N
+
+maxεσYL = M
+
+∑ ∑ M ij y T y i i i=1 j=1
+Y M
+
+g10h y g11h
+
+N ×N M = CI －WL TCI －WL 。
+
+m M
+2
+
+1 1 。
+
+5 2～ m+1 。
+
+V 3 。
+
+847
+
+3
+3． 1 Kinect w 2 D ^ α D ^ α 。 ε ε = kσ
+2
+
+w
+
+。 k = 1． 05 σ C12h σ13h 。 nt
+i i a i = Ca1 a2
+
+。 ^ = argmin‖α‖0 s． t． ‖w －Dα‖2 ≤ε = kσ2 α 2
+α
+
+^ ^ w = Dα C12h 、 ’ 13h 3． 2 3． 1 … a in L T
+i i b i = Cb1 b2 … b in L T i i i i C i = Ca1 b1 a2 b2 … a in b in L T
+
+3
+
+OＲL
+
+nc nt ×100% nc 、 HOG 1
+1 OＲL /% KPCA 50 93． 6 92． 7 93． 4 93． 2 92． 8 93． 9 83． 93 84． 13 84． 73 84． 17 84． 60 84． 75 PCA 81． 8 82． 3 83． 6 81． 5 82． 6 83． 4 HOG 82． 6 83． 4 81． 8 83． 9 84． 2 82． 6 LLE 85． 8 86． 9 86． 8 87． 1 85． 6 86． 8
+
+p=
+
+g15h
+
+PCA C14h
+
+、 KPCA
+
+、 LLE
+
+。
+
+3 C14h w 。
+
+4
+InterCＲh CoreCTMh Duo －E7500 6G Windows 7 CSVMh OＲL 4． 2 Yale 4 CPU
+
+100 150 200 250 300
+
+1 。 4． 1 OＲL OＲL 40 。 10 AT＆T 400 。 93% LLE KPCA
+
+OＲL PCA HOG
+
+84% 81% 、 82% 、 86%
+
+848 4． 2 10 576 4 。 93． 1% 89． 3% 。
+1 2
+
+37 Yale Yale 5 760 OＲL V 。OＲL Yale Yale
+
+Ｒencher A C Christensen W F． Methods of Multivariate Analysis M ． Third Edition HobokenVWiley Press 2012V 405－433． Wang J Zhou Y S Du X J et al． Personal Credit Assessment Based on KPCA and SVM C / / Proceedings of International Conference on Business Intelligence and Financial Engineering BeijingVIEEE Press 2012V 25－28．
+
+3
+
+Dalai N Triggs B． Histograms of Oriented Gradients for Human Detection C / / Proceedings of IEEE Conference on Computer Vision and Pattern Ｒecognition San DiegoVIEEE Press 2005V 886－893．
+
+4
+
+Gentle J E Hrdle W K Mori Y C． Handbook of Computational StatisticsVConcepts and Methods M ． Second Edition GermanyV Springer Press 2012V 883－926．
+
+5
+
+Iosifidis A Tefas A Nikolaidis N et al． MultiView Human Movement Ｒecognition Based on Fuzzy Distances and Linear Discriminant Analysis J ． Computer Vision and Image Understanding 2012 116C3h V 347－360．
+
+4
+
+Yale
+
+4． 1 KPCA 、 HOG 2
+2 Yale
+
+Yale PCA 、 LLE 。
+7
+
+、
+
+6
+
+Zafeiriou S Tzimiropoulos G Petrou M et al． Ｒegularized Kernel Discriminant Analysis with a Ｒobust Kernel for Face Ｒecognition and Verification J ． IEEE Transactions on Neural Networks and Learning Systems 2012 23C3h V 526－534． Ｒoweis S T Saul L K． Nonlinear Dimensionality Ｒeduction by Locally Linear Embedding J ． Science 2000 290 C5500 h V 2323 － 2326．
+
+/% KPCA 500 1000 1500 2000 2500 3000 90． 8 91． 2 88． 4 87． 5 88． 1 89． 8 86． 1 85． 7 85． 9 86． 3 85． 9 86． 1 PCA 85． 1 84． 9 85． 3 85． 1 85． 3 85． 1 HOG 83． 9 84． 1 84． 7 84． 1 84． 6 84． 7 LLE 82． 9 83． 5 83． 2 83． 7 83． 4 83． 7
+12 10 8
+
+． J ． ． J ． J ．
+
+Gabor
+
+2012 35C6h V 687－681． 2011 38C10h V 98－102． ． 2009 30C9h V 1886－1890．
+
+9
+
+11
+
+Osborne M Ｒ Presnell B Turlach B A． A New Approach to Variable Selection in Least Squares Problems J ． IMA Journal of Numerical Analysis 2000 20C3h V 389－403． Pan Jun Kong Fansheng Wang Ｒuiqin． Locality Sensitive Discriminant Transductive Learning J ． Journal of Zhejiang University CEngineering Scienceh 2012 46C6h V 987－994．
+
+2
+
+Yale 89． 3% KPCA OＲL Yale 。 5%
+
+13
+
+Kim W Crawford M M． Adaptive Classification for Hyperspectral Image Data Using Manifold Ｒegularization Kernel Machines J ． IEEE Transactions on Geoscience and Ｒemote Sensing 2010 48 C11h V 4110－4121．
+
+5
+
+14
+
+Zhao Xiaoming Zhang Shiqing． Facial Expression Ｒecognition Using Local Binary Patterns and Discriminant Kernel Locally Linear Embedding J ． EUＲASIP Journal on Advances in Signal Processing 2012 2012C1h V 1－9．
+
+。
+
+15
+
+Cherigui S Guillemot C Thoreau D et al． MapAided Locally
+
+5
+
+V
+2909－2912． Press 2012V
+
+849
+
+Linear Embedding Methods for Image Prediction C / / Proceedings of IEEE International Conference on Image Processing IEEE
+
+C1963－h 61915600@ 163． com。
+

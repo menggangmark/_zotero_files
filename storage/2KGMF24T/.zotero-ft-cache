@@ -1,0 +1,1078 @@
+Learning Algorithms from Data
+by Wojciech Zaremba
+
+a dissertation submitted in partial fulfillment of the requirements for the degree of Doctor of Philosophy Computer Science New York University May, 2016
+
+Rob Fergus
+
+© Wojciech Zaremba all rights reserved, 2016
+
+Dedication
+
+I dedicate this thesis to the love of my life, Laura Florescu.
+
+iv
+
+Acknowledgments
+
+Pursuing a Ph.D. was one of the best decisions of my life. During the last several years, I had an opportunity to meet extremely creative and passionate people, who made my Ph.D. experience profound. Ilya Sutskever is one of them. He helped me learn what are the right questions to ask and how to answer them quickly. His invaluable advice was to solve tasks that are on the brink of insanity and sanity while staying on the sane side. Another person to whom I owe a lot is Rob Fergus. Rob taught me how to express my thoughts, how to organize them, and how to present them. Communication is a critical skill in conveying ideas. There are many others I would like to thank: Geoffrey Hinton, Yann LeCun, Joan Bruna, Emily Denton, Howard Zhou, the Facebook AI Research and the Google Brain teams. On the personal side, I am very grateful to my girlfriend Laura Florescu for her love, support, and being an getaway for me. Furthermore, several people shaped me as a human being and gave me a lot of inspiration at the very early stages of my scientific career. My parents, Irena and Franciszek Zaremba, gave me a lot of love and mental space, which were critical prerequisites for my development. My brothers Michał and Maciej Zaremba inspired me by pursuing their own dreams: developing a comv
+
+puter game, skydiving, leading a large Scouts organization and many others. Several early stage teachers ignited my passion and led me to where I am today. The list includes Jadwiga Grodzicka, Zygmunt Turczyn, Wojciech Zbadyński and Piotr Pawlikowski. Furthermore, I greatly appreciate the help given by the Polish Children’s Fund where I met many scientists and talented children, with emphasis on the scientist Wojciech Augustyniak. Finally, I am thankful to the members of OpenAI for letting me be a part of this incredible organization. OpenAI’s environment allows me to redefine the limits of my creativity.
+
+vi
+
+Abstract
+
+Statistical machine learning is concerned with learning models that describe observations. We train our models from data on tasks like machine translation or object recognition because we cannot explicitly write down programs to solve such problems. A statistical model is only useful when it generalizes to unseen data. Solomonoff 114 has proved that one should choose the model that agrees with the observed data, while preferring the model that can be compressed the most, because such a choice guarantees the best possible generalization. The size of the best possible compression of the model is called the Kolmogorov complexity of the model. We define an algorithm as a function with small Kolmogorov complexity. This Ph.D. thesis outlines the problem of learning algorithms from data and shows several partial solutions to it. Our data model is mainly neural networks as they have proven to be successful in various domains like object recognition 67,109,122 , language modelling 90 , speech recognition 48,39 and others. First, we examine empirical trainability limits for classical neural networks. Then, we extend them by providing interfaces, which provide a way to read memory, access the input, and postpone predictions. The model learns how to use them with reinforcement learning techniques like REINFORCE and Q-learning. Next, we exvii
+
+amine whether contemporary algorithms such as convolution layer can be automatically rediscovered. We show that it is possible indeed to learn convolution as a special case in a broader range of models. Finally, we investigate whether it is directly possible to enumerate short programs and find a solution to a given problem. This follows the original line of thought behind the Solomonoff induction. Our approach is to learn a prior over programs such that we can explore them efficiently.
+
+viii
+
+Contents
+
+Dedication Acknowledgments Abstract 1 Introduction 1.1 Background - neural networks as function approximators . . . . . 1.1.1 1.1.2 1.1.3 Convolutional neural network (CNN) . . . . . . . . . . . . Recurrent neural networks (RNN) . . . . . . . . . . . . . . Long Short-Term Memory (LSTM) . . . . . . . . . . . . .
+
+iv v vii 1 8 13 14 17 19 24 26 29 31 32 33
+
+2 Related work 3 Limits of trainability for neural networks 3.1 3.2 3.3 3.4 Tasks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Curriculum Learning . . . . . . . . . . . . . . . . . . . . . . . . . Input delivery . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Experiments . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3.4.1 Results on the Copy Task . . . . . . . . . . . . . . . . . . ix
+
+3.4.2 3.4.3 3.5 3.6
+
+Results on the Addition Task . . . . . . . . . . . . . . . . Results on Program Evaluation . . . . . . . . . . . . . . .
+
+35 35 37 40 43 45 48 51 54 55 57 71 76 82 84 87 88 88 89 92 92 93
+
+Hidden State Allocation Hypothesis . . . . . . . . . . . . . . . . . Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+4 Neural networks with external interfaces 4.1 4.2 4.3 4.4 Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Tasks . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . Supervised Experiments . . . . . . . . . . . . . . . . . . . . . . . No Supervision over actions . . . . . . . . . . . . . . . . . . . . . 4.4.1 4.4.2 4.4.3 4.4.4 4.5 Notation . . . . . . . . . . . . . . . . . . . . . . . . . . . . REINFORCE Algorithm . . . . . . . . . . . . . . . . . . . Q-learning . . . . . . . . . . . . . . . . . . . . . . . . . . . Experiments . . . . . . . . . . . . . . . . . . . . . . . . .
+
+Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+5 Learning the convolution algorithm 5.1 Spatial Construction . . . . . . . . . . . . . . . . . . . . . . . . . 5.1.1 5.1.2 5.1.3 5.2 Locality via W . . . . . . . . . . . . . . . . . . . . . . . . Multiresolution Analysis on Graphs . . . . . . . . . . . . . Deep Locally Connected Networks . . . . . . . . . . . . .
+
+Spectral Construction . . . . . . . . . . . . . . . . . . . . . . . . 5.2.1 5.2.2 Harmonic Analysis on Weighted Graphs . . . . . . . . . . Extending Convolutions via the Laplacian Spectrum . . .
+
+x
+
+5.2.3 5.2.4 5.2.5 5.3
+
+Rediscovering standard CNN’s . . . . . . . . . . . . . . . O (1) construction with smooth spectral multipliers . . . . Multigrid . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+95 96 98 99 99
+
+Numerical Experiments . . . . . . . . . . . . . . . . . . . . . . . . 5.3.1 5.3.2 Subsampled MNIST . . . . . . . . . . . . . . . . . . . . .
+
+MNIST on the sphere . . . . . . . . . . . . . . . . . . . . 102
+
+5.4
+
+Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 106 107
+
+6 Learning algorithms in attribute grammar 6.1 6.2 6.3 6.4 A toy example
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . 109
+
+Problem Statement . . . . . . . . . . . . . . . . . . . . . . . . . . 110 Attribute Grammar . . . . . . . . . . . . . . . . . . . . . . . . . . 111 Representation of Symbolic Expressions . . . . . . . . . . . . . . 112 6.4.1 6.4.2 Numerical Representation . . . . . . . . . . . . . . . . . . 112 Learned Representation . . . . . . . . . . . . . . . . . . . 113
+
+6.5 6.6
+
+Linear Combinations of Trees . . . . . . . . . . . . . . . . . . . . 117 Search Strategy . . . . . . . . . . . . . . . . . . . . . . . . . . . . 117 6.6.1 6.6.2 6.6.3 Random Strategy . . . . . . . . . . . . . . . . . . . . . . . 119 n-gram . . . . . . . . . . . . . . . . . . . . . . . . . . . . 119 Recursive Neural Network . . . . . . . . . . . . . . . . . . 119
+
+6.7
+
+Experiments . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 120 6.7.1 6.7.2 6.7.3 Expression Classification using Learned Representation . . 120 Efficient Identity Discovery . . . . . . . . . . . . . . . . . 121 ∑ Learnt solutions to ( AAT )k . . . . . . . . . . . . . . . 124 xi
+
+6.7.4 6.7.5 6.8
+
+Learnt solutions to (RBM-1)k . . . . . . . . . . . . . . . 125 Learnt solutions to (RBM-2)k . . . . . . . . . . . . . . . 127
+
+Discussion . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 130 132
+
+7 Conclusions 7.1 7.2
+
+Summary of Contributions . . . . . . . . . . . . . . . . . . . . . . 132 Future Directions . . . . . . . . . . . . . . . . . . . . . . . . . . . 135 155
+
+Bibliography
+
+xii
+
+1
+Introduction
+Statistical machine learning (ML) is a field concerned with learning patterns from data without explicitly programming them 110 . A typical problem in this field is to learn a parametrized function f . Such a function could map images to object identities (object recognition 67,53,109,122,121 ), voice recordings to their transcriptions (speech recognition 40,47,94,39 ), or an English sentence to a foreign language translation (machine translation 118,4,18,81 ). ML techniques allow us to train computers to solve such problems without requiring explicit programming by developers. In 1964, Solomonoff 114 (further formalized by Levine et al. 77 , and more re1
+
+cently by Li and Vitányi 78 ) proved that the function f should be chosen based on its Kolmogorov complexity, which is the length of the shortest program that completely specifies it. For instance, the sequence {1, 2, . . . , 10000} has a low Kolmogorov complexity, because the program that describes it is short:
+[i for i in range (10000) ]
+
+This line of thought reappears under different incarnations across statistical machine learning. Regularization 11 , Bayesian inference 13 , minimum description length 101 , VC dimension 127 and the Occam’s Razor 52,34 principle, all support choosing the simplest function that fits data well. Many of these concepts regardless of their precision are difficult to be applied. For instance, the VC dimension of neural-networks is infinite; therefore, one pays an infinite cost for using a neural network as the model of data. Moreover, some of the choices in these techniques are arbitrary. For instance, the prior in case of Bayesian inference, regularization, or Turing machine is an arbitrary choice that has to be made. The aforementioned concepts can be considered as equivalent 130 , and in this thesis we choose to focus on Solomonoff induction and Kolmogorov complexity. Solomonoff proved that choosing the learning function f based on its Kolmogorov complexity guarantees the best possible generalization. The goal of statistical machine learning is generalization, so machine learning methods should explore functions according to the length of the program that specifies them. We define an algorithm to be any function that can be expressed with a short program. An example of an algorithm is the multi-digit addition process taught 2
+
+in elementary school. This algorithm maps two multi-digit numbers to their sum. The addition algorithm requires (1) memorizing how to perform singledigit addition, (2) knowing how to pass the carry, and (3) knowing where to look up the input data. Since this sequence of steps can be expressed by a short program, addition is an algorithm. Moreover, classical algorithms such as Dijkstra, Bubble sort and the Fourier transform can be expressed with short programs, and therefore, they are algorithms as well. Even a cooking recipe is an example of a short program, and hence, an algorithm. An example of a nonalgorithm is a database of users and their passwords. Such a database cannot be characterized in a simple way without the loss of the user information. Another example of a non-short program a procedure that translates Polish words into English. The English-Polish word correspondence requires storing information about every individual word; hence, it is not an algorithm. Since problems such as machine translation have high Kolmogorov complexities, it is natural to ask why is it important to learn concepts with low Kolmogorov complexities. The machine translation function requires storing information about the meaning of many words, and, therefore, cannot have small Kolmogorov complexity. Nonetheless, the optimal model, in regard to Kolmogorov complexity, should store the smallest number of facts. Such a model should share the parameters used to represent words such as “teaching” and “teach”. Similarly, it should understand relationships between affirmative and interrogative sentences and share the parameters used to represent them, while at the same time being able to translate between all such sentences. The procedure
+
+3
+
+for turning a verb into its progressive tense (to its “+ing” version) is an algorithm, as is the procedure for turning an affirmative sentence into a question. A highly performing model should internally employ such algorithms while translating sentences. This is because, the amount of incompressible data that the model stores determines how well the model generalizes. Given two models with the same training accuracy, Solomonoff’s 114 work shows that the one with the smaller Kolmogorov complexity generalizes better. Therefore, the optimal model for machine translation should make use of many such algorithms, so as to minimize the amount of information that needs to be stored. One can argue that these ideas are partially useful, because one has to choose Turing machine in order for computation to be valid. In fact, techniques in Bayesian inference and regularization have the same issues. One has to choose either a prior, or a regularizer. However, our main interest is in regimes when the amount of data becomes infinite. We examine whether our statistical models are able to learn a perfect, deterministic rule which generates data. Finding such a rule would mean that, through training, neural networks can express different Turing machines with a finite number of symbols versus needing an infinite number of symbols to express other concepts. For me, this distinction is the distinction between understanding and memorizing. Therefore, this is fundamental in order to determine intelligence. This thesis investigates the use of statistical machine learning methods to learn algorithms from data. Since the best-generalizing models must learn functions with small Kolmogorov complexity, the focus is on developing models that
+
+4
+
+can express algorithms. For example, we examine training a neural network to learn multi-digit addition based on examples (e.g. input: 12 + 5, target: 17), where the measure of the success of the addition algorithm is the correctness of the model’s answers for inputs outside the support of the training distribution. We do not know the function expressing machine translation because its Kolmogorov complexity is not small. Consequently, we are unable to verify whether a given model makes the best possible use of training data to learn this function. However, the addition function is known; this allows us to verify whether the model has indeed learned the desired function, rather than simply memorized millions of examples. Since the Kolmogorov complexity of memorizing examples is high, a model employing this approach would not generalize to harder examples. Intelligence can be perceived as the ability to explain observations using short programs. For example, Einstein’s general relativity theory has a very low Kolmogorov complexity, and his model can explain orbits of Mercury 32,33 as accurately as other more complicated models (i.e. models having higher Kolmogorov complexity). As a result, physicists prefer Einstein’s theory. Similarly, the models presented here are chosen due to their ability to learn concise description of data, rather than simply memorize it. Contemporary machine learning models rely heavily on memorization, which has high Kolmogorov complexity (Chapter 3). Training on more data gives the impression of progress because the models perform better on test data. Nonetheless, these models are just memorizing data without being able to make sense of
+
+5
+
+it. The growing interest in the Big Data paradigm 55,80,141 further encourages this reliance on memorization. But this reliance on memorization is not new. Since ancient times, physicists were able to predict the trajectories of stars because they had large tables of star positions. Their predictions were correct for examples within the training distribution, but the Kolmogorov complexity of their model is unnecessarily large. Consequently, their models do not generalize well to corner case examples, such as Mercury’s orbit. Space-time warping significantly influences Mercury due to its proximity to the sun, and, hence, ancient astronomical tables were inaccurate in fully describing its orbit. The objective of the models presented in this thesis is to discover fundamental principles underlying the phenomenon of interest. By analogy to physicists’ work, it is preferable for a model to discover the real underlying phenomena such as the theory of general relativity, rather than to memorize the positions of all stars at every day of the year. Memorization is a way to compensate for the lack of understanding. One could argue that this is an old fashion trade-off between fitting data and model simplicity. However, we consider experiments in the infinite data regime, where over-fitting is not an issue. The majority of tasks that we consider are from the mathematical realm, rather than from the perceptive one, as the former have low Kolmogorov complexities. We employ neural networks, because they achieve remarkable performance in various other applications, so there is a hope that neural networks could learn to encode algorithms as well. First, we introduce modern neural networks as the primary statistical model
+
+6
+
+used in this thesis. This includes feed-forward networks, convolutional neural networks, recurrent neural networks, long short term memory units, and the use of these models to perform sequence-to-sequence mappings (Chapter 1.1). The chapter presents neural networks as universal approximators, and explains the relationship between deep architectures and small Kolmogorov complexity. This chapter is based on a long-standing work in the field, and it briefly refers to our papers “Recurrent neural network regularization” 147 and “An empirical exploration of recurrent network architectures” 59 . Chapter 2 describes the relation of the results presented here to those presented in the prior work, and outlines classical approaches to algorithm learning. Chapter 3 examines the trainability limits of neural networks. More specifically, given the fact that a neural network can approximate any function (as neural networks are universal approximators), we investigate how well it can learn to approximate a specific function in practice. We show that while neural networks can rarely learn the perfect solution, they can compensate for their lack of true understanding with memorization. Memorization results in remarkable performance on some tasks, even though the networks could not learn to solve the given task completely. Chapter 3 is based on the paper “Learning to execute” 145 . Continuing this line of inquiry, we research how to encourage a neural network to learn a function that generalizes from short sequences correctly to ones of arbitrary length. Chapter 4 investigates neural networks augmented with external interfaces. These interfaces provide composable building blocks for expressing algorithms, and the results presented are based on the papers “Rein-
+
+7
+
+forcement learning neural Turing machines” 146 , “Learning Simple Algorithms from Examples” 144 and “Sequence Level Training with Recurrent Neural Networks” 100 . Chapter 5 takes the opposite route, and attempts to rediscover an existing algorithm, namely convolution. It generalizes concepts like grid, locality, multiresolution, and operates over of these abstract concepts. The model used in this chapter successfully learns to express the convolution algorithm. Finally, Chapter 6 explores the possibility of searching for solutions to the problem explicitly in the space of programs. Our approach enumerates all short programs given a learned bias from a neural network. Then, we verify whether a given program solves the target task. We explored this idea in “Learning to discover efficient mathematical identities” 143 . 1.1 Background - neural networks as function approximators This section introduces neural networks as they are extensively referenced in the following chapters. We have chosen this model as it has achieved the stateof-the-art performance on tasks such as object recognition 67,109,122 , language modeling 86,58 , speech recognition 39 , machine translation 61,4 , caption generation 82,129,142 and many others. A neural network is a function from a data point x, with parameters θ = [θ1 , θ2 , . . . , θk ] to an output, such as classification error or input probability. The parameters (weights) [θ1 , θ2 , . . . θk ] are used sequentially to evaluate the neural network. The input data-point x is transformed into a feature vector by multiplication with a matrix θ1 . The weights used during the first matrix multiplica-
+
+8
+
+Figure 1.1: This diagram presents a graphical representation of a 2-layer neural network. The figure is taken from wikipedia https://en.wikipedia.org/wiki/Artificial_neural_network.
+
+tion are regarded as the parameters of the first layer. Similarly, the n-th matrix multiplication parameters are called the n-th layer. The matrix multiplication is followed by an application of the non-linear function σ. The non-linearity is an element-wise function, and common choice is the sigmoid function: hyperbolic tangent:
+ex −e−x , ex +e−x 1 , 1+e−x
+
+or the rectified linear unit: max(x, 0). The process
+
+of matrix multiplication and composition repeats k times. The output of the network is the result of this computation, and we refer to it as ϕ(x, θ). Fig. 1.1 presents this concept on a diagram, and the equations below describe it more formally:
+
+9
+
+Input: Parameters of the 1-st layer: Activations of the 1-st layer: Parameters of the 2-nd layer: Activations of the 2-nd layer: Parameters of the (k − 1)-th layer: Activations of the (k − 1)-th layer: Parameters of the k-th layer: Output: Output shortly:
+
+x ∈ Rn (1.1) n×n1 θ1 ∈ R (1.2) n1 σ(xθ1 ) ∈ R (1.3) n1 ×n2 θ2 ∈ R (1.4) n2 σ(σ(xθ1 )θ2 ) ∈ R . . . (1.5) nk−2 ×nk−1 θk−1 ∈ R (1.6) σ(. . . σ(σ(xθ1 )θ2 ) . . . θk−1 ) ∈ Rnk−1 (1.7) nk−1 ×nk θk ∈ R (1.8) nk σ(σ(. . . σ(σ(xθ1 )θ2 ) . . . θk−1 )θk ) ∈ R (1.9) ϕ(x, θ) ∈ Rnk (1.10)
+
+Some design choices behind neural networks might look arbitrary. For instance, one can ask why the application of the non-linear function is necessary, and whether a neural network could attain the same performance without it. In fact, since the composition of matrix multiplication operations is a linear function, the neural network would reduce to a single layer transformation. The properties of the non-linear functions thus extend the expressive power of the model. The classic example of the need for non-linearity is the task to learn the exclusive-or (XOR) function (Fig. 1.2). The XOR function cannot be represented by a linear classifier, because it has a non-linear decision boundary. The two layer neural network has been proven to be a universal function approximator 24 . Consequently, there exist parameters [θ1 , θ2 ], such that any continuous function g with compact support S can be arbitrarily well approximated by a neural network. More formally:
+
+10
+
+Figure 1.2: Diagram presents XOR function. Blue points ([0, 0], [1, 1]) have label 1, while red points ([0, 1], [1, 0]) have label 0. It is impossible to assign such labels to the points with a linear classifier, as the decision boundary is not linearly separable.
+
+∀ϵ>0 , ∃θ1 ,θ2 ∀x∈S , ||σ(xθ1 )θ2 − g(x)|| < ϵ.
+
+(1.11)
+
+If a two layer neural network can approximate any function, one could ask why one would need to use more layers. Indeed, there is no expressive power gained by adding more layers. However, many functions are easier to represent with several layers. For instance, the parity function requires an exponential number of parameters to be represented by a two layer neural network, whereas only a linear number of parameters for a sufficiently deep network 137 . The theorem that a two layer neural network is a universal function approximator caused stagnation in the neural network field for 30 years 91 . The deep learning paradigm encourages the use of a larger number of layers, hence use of the word deep. Deep architectures have proved to be very successful empirically 67,39,5,118 , because they force the sharing of the computation, which results in a smaller Kolmogorov complexity. 11
+
+The loss function L measures the performance of a model. The goal of learning is to achieve a low loss over the data distribution:
+
+find θ = arg min Ex∼p L(ϕ(x, θ))
+θ
+
+(1.12)
+
+Learning is a process of determining model parameters θ = [θ1 , . . . , θk ] that minimize the loss over the data distribution. However, we do not have access to the entire data distribution. Therefore, learning attempts to achieve low error over the data distribution by finding parameters that yield low error on the training data (empirical risk minimization 127 ). There are various ways to learn neural network parameters based on data, such as the cross-entropy method 102 , simulated annealing 14 , genetic programming 92 and a few others. However, the single most popular method of training neural networks is gradient descent. Gradient descent is a sequential method of updating parameters θ according to their derivatives with respect to the loss: [ ] θnew := θ − ϵ∂θ Ex∼ptrain L(ϕ(x, θ))
+
+(1.13)
+
+The updates of gradient descent are guaranteed to drop the training loss as long as the step ϵ is sufficiently small, unless θ is a critical point of L(ϕ) (i.e. a minimum or a saddle point). Conventional training consists of several changes to the original formulation of gradient descent. These changes include using only part of the data instead of all of it to determine each parameter update (stochastic gradient descent 28 ), incorporating momentum, applying batch nor12
+
+malization 54 etc. Other advances deal with compressing θ by reusing it. For instance, a convolution layer 75 uses a banded matrix θi (as convolutional kernels are locally connected), and θi has many repeated entries due to weight sharing. Such a matrix θi is much smaller in the number of parameters than an arbitrary matrix. We discuss more details of convolutional neural networks in Section 1.1.1. Another choice of sharing parameters has to do with processing sequences. A recurrent neural network 7,10 (RNN) is a neural network that shares parameters over time. Therefore, every time slice is processed by a network having the same parameters. We use RNNs in this thesis extensively, hence Section 1.1.2 describes them in details. 1.1.1 Convolutional neural network (CNN)
+
+The convolutional layer is a linear layer with constraints on the weights. It assumes that the input representation has a grid structure and that nearby values are correlated. A generic linear layer does not make any assumptions on the relation between consecutive input entries; thus it requires more data in order to estimate parameters. The most compelling example of an input with grid structure is an image. The nearby pixels of an image are highly correlated, and convolution uses the same weights for all locations. Fig. 1.3 outlines the connectivity pattern for the convolutional layer. The Kolmogorov complexity is well defined not only for datasets, but also for models. The Kolmogorov complexity of a model is the smallest size of program that reproduces parameters of the model. Given the same number of activa-
+
+13
+
+Figure 1.3: (Left) Connectivity pattern for fully connected layer. Every input pixel has a separate set of parameters. (Center) Connectivity pattern for a layer with parameter sharing. Pixels in various locations are treated using the same weights. (Right) Diagram for convolutional neural network. Pixels in different areas share weights, and weights act locally (locally receptive fields). Figure adapted with permission from Marc’aurelio Ranzato.
+
+tions, fully connected layers are less compressible than convolution layers which have small number of parameters in the first place. Therefore, Kolmogorov complexity of a convolutional layer is usually smaller than the Kolmogorov complexity of a fully connected layer, and this implies better generalization. Remark: It’s possible to construct a fully connected network with tiny Kolmogorov complexity. It’s enough to assign a single constant value to all weights. However, this contrived example is not of our interest, as we consider Kolmogorov complexity of a model after being trained on a distribution coming from natural data. 1.1.2 Recurrent neural networks (RNN)
+
+The Recurrent Neural Network (RNN) is a variant of the neural network whose parameters repeat in a manner that allows arbitrary-length sequences to be processed using a finite number of parameters. The RNN achieves this by sharing parameters over time steps, where time is represented by the sequence index.
+
+14
+
+Notation Let the subscripts denote time-steps and the superscripts denote layers. All our states are n-dimensional. Let hl ∈ Rn be a hidden state in layer l in time-step t. t Moreover, let Tn,m : Rn → Rm be an affine transformation (W x + b for some W and b). Let ⊙ be element-wise multiplication and h0 be an input vector at t time-step k. The RNN dynamics consist of parametric, deterministic transitions from previous to current hidden states:
+
+RNN : hl−1 , hl → hl t t−1 t The classical RNN uses the following transition functions:
+
+(1.14)
+
+hl = f (Tn,n hl−1 + Tn,n hl ), where f ∈ {sigmoid, hyperbolic tangent} t t t−1
+
+(1.15)
+
+One of the main, classical tasks for RNN is language modeling 117,85 . A language model is a probabilistic model for sequences. It relies on the mathematical identity
+
+p(x1 , x2 , . . . , xk ) = Πk p(xi |xj<i ). i=1
+
+(1.16)
+
+An RNN is trained by maximizing the probability p(xi |xj<i ). Fig. 1.4 presents three time-steps of an RNN on the task of language modeling for English. Nowadays, the application of RNNs has expanded beyond language modeling, and
+
+15
+
+Figure 1.4: Language modelling task. The RNN tries to predict probability of a word given the hidden state h. The hidden state h can encode arbitrary information about the past that is useful for the prediction.
+
+they are used to perform complex mappings between many kinds of input and output sequences 118 (Fig. 1.5 shows the input and the output sequence). For instance, the input sequence could be English text, and the target output sequence Polish text. Sequence-to-sequence mapping requires a small modification to the way RNN consumes and produces symbols. The input is delivered one symbol at a time, and RNN refrains from making any prediction until the complete consumption of the input sequence. Afterward, the model sequentially emits output symbols until it decides that the prediction is over by producing the end-of-prediction symbol. Learning models to map sequences to sequences provides the flexibility to address diverse tasks like translation, speech recognition, caption generation using the same methodology. Standard RNNs suffer from both exploding and vanishing gradients 50,10 . Both problems are caused by the iterative nature of the RNN for which the gradient is essentially equal to the recurrent weight matrix raised to a high power. These iterated matrix powers cause the gradient to grow or shrink at a rate that is exponential in the number of time-steps. An architecture called the Long Short 16
+
+Figure 1.5: Sequence level training with RNNs. The RNN first consumes the input sequence A, B, C. Then, it starts the prediction for a variable-length output sequence W , X, Y , Z, end-of-sequence. Figure taken from Sutskever et al. 118 .
+
+hl hl−1 t−1 t
+Input gate
+
+hl hl−1 t−1 t o
+Cell Output gate
+
+i
+
+hl−1 t hl t−1
+
+g
+Input modulation gate
+
+×
+
+ct
+×
+
+×
+
+hl t
+
+f
+
+Forget gate
+
+l−1 hl t−1 ht
+
+Figure 1.6: A graphical representation of LSTM memory cells (there are minor differences in comparison to Graves 38 ). Figure taken from my publication 147 .
+
+Term Memory (LSTM) alleviates these problems. Most of our models, introduced in the next section, are LSTMs. 1.1.3 Long Short-Term Memory (LSTM)
+
+Long Short Term Memory (LSTM) 51 is a powerful, easy to train, variant of RNN. Most of our experiments with sequences rely on LSTM. The LSTM has complicated dynamics that allow it to easily “memorize” information for an extended number of time steps. The “long term” memory is stored in a vector of memory cells cl ∈ Rn . Although many LSTM architect tures differ in their connectivity structure and activation functions, all LSTM architectures have explicit memory cells for storing information for long periods 17
+
+of time. The LSTM can decide to overwrite a memory cell, retrieve its content, or keep its content for the next time step. The LSTM architecture used in our experiments is described by the following equations 39 :
+
+LSTM : hl−1 , hl , cl → hl , cl t t−1 t−1 t t     sigm i ( l−1 ) f  sigm ht   =  o  sigm T2n,4n hl t−1 tanh g cl = f ⊙ cl + i ⊙ g t t−1 hl t =o⊙ tanh(cl ) t
+
+(1.17) (1.18) (1.19) (1.20) (1.21)
+
+In these equations, sigm and tanh are applied element-wise. Fig. 1.6 illustrates the LSTM equations. One criticism of the LSTM architecture 89,71 is that it is ad-hoc, containing a substantial number of components whose purpose is not immediately apparent. As a result, it is also not clear that the LSTM is an optimal architecture, and it is possible that better architectures exist. In one of our contributions 59 , we aimed to determine whether the LSTM architecture is optimal or whether much better architectures exist. We conducted a thorough architecture search where we evaluated over ten thousand different RNN architectures and identified an architecture that outperforms both the LSTM and the recently-introduced Gated Recurrent Unit (GRU) on some but not all tasks. We found that adding a bias of one to the LSTM’s forget gate closes the performance gap between the LSTM and the GRU. 18
+
+2
+Related work
+The problem of learning algorithms has its origins in the field of program induction 114,140,95,79 and probabilistic programming 99,37 . In this domain, the model has to infer the source code of a program that solves a given problem. Chapter 6 explores the most similar approach to classical program induction. This chapter presents a model that infers short, fast programs. The generated programs have a one-to-one correspondence with mathematical formulas in linear algebra. In comparison to the classical program induction,￿the main difference in out approach is is the use of a learned prior and the goal of finding fast programs. We prioritize programs based on their computational complexity. 19
+
+The former is achieved by employing an attribute grammar with annotations on program computational complexity 64 . Attribute grammars have previously been explored in optimization problems 29,17,132,96 . However, we are not aware of any previous work related to discovering mathematical formulas using grammars. Other chapters are concerned with learning algorithms without source code generation. The goal is to encode algorithms in the weights of a neural network. In Chapter 3, we do it directly by training a classical neural network to predict results of multi-digit addition or the output of a Python program execution. We empirically establish trainability limits of neural networks. A lot of previous work describes expressibility limits for boolean circuits 104,111,112,135 , which are simplified neural networks. Prior work on circuit complexity gives bounds on the number of units or depth to solve a given problem. However, these proofs do not answer the question of whether it is possible to train a neural network to solve a given problem. Rather, they indicate whether there exists a set of weights that could solve it, but these weights might be hard to find by training a neural network. Our work described in Chapter 3 evaluates whether it is empirically possible to learn functions such as copy, addition, or even the evaluation of a Python program. The models considered in Chapter 4 extend neural networks with external interfaces. We define a conceptual split between the entity that learns (the controller) and the one that accesses the environment (interfaces). There are many models matching the controller-interface paradigm. The Neural Turing Machine (NTM) 41 uses a modified LSTM 51 as the controller, and has differentiable mem-
+
+20
+
+ory inference. NTM can learn simple algorithms including copying and sorting. The Stack RNN 57 consists of a stack memory interface, and is capable of learning simple binary patterns and regular expressions. A closely related approach represents memory as a queue 25,42 . End-to-End Memory Networks 136,116 use a feed-forward network as the controller and a soft-attention interface. Neural Random-Access Machines 68 use a large number of interfaces; this method has a separate interface to perform addition, memory lookup, assignment, and a few other actions. This approach attempts to create a soft version of the mechanics implemented in the computer CPU. The most outstanding recent work is the Neural GPU 60 . Neural GPU is capable of learning multi-digit multiplication, which is a super-linear algorithm. This model discovers cellular automata by representing them inside recursive convolutional kernels. Hierarchical Attentive Memory 2 considers memory stored in a binary tree which allows accessing leaves in logarithmic time. All previous work uses differentiable interfaces, apart from some models discussed by Andrychowicz et al. 2 . Therefore, the model needs to know the internal dynamic of an interface in order to use it. However, humans use many interfaces without knowing their internal structure. For instance, humans can interact with the Google search engine (an example of an interface) without the need to know how Google generates its ranking. People do not have to backpropagate through the Google search engine to understand what to type. Similarly, our approach does not use knowledge about the structure of the internal interface. In contrast, all other prior work backpropagates through interfaces and relies on their internal structure.
+
+21
+
+The techniques used in Chapter 4 are based on reinforcement learning. We either use Q-learning 134 with an extension called Watkins Q(λ) 133,120 , or the REINFORCE algorithm 138 . Visual attention 93,3 inspires our models; we center model’s attention over input tape locations and memory locations. Both Q-learning and REINFORCE are applied to planning problems 119,1,65,98 . The execution of an algorithm has the flavor of planning, as it requires farseeing, and preparing necessary resources, and arranging data. However, we are unaware of any prior work that would perceive learning algorithms in such context. Finally, our model with memory and input interfaces is one of the very few Turing-complete models 106,107 . Although our model is Turing-complete, it is hard to train and it can solve only relatively simple problems. Goal of learning algorithms from data could be achieved with a structure prediction approach 123,31,56,26 . The main difference between reinforcement learning and structural prediction is in online vs offline access to samples. Structural learning techniques assume that a given sample can be processed multiple times, while reinforcement learning assumes that samples are delivered online. Techniques based on structural learning could facilitate the solving of harder tasks, however we haven’t examined such approaches. There are many similarities between both frameworks. Actions in reinforcement learning correspond to latent variables in structural prediction. Moreover, both techniques optimize the same objective. Nonetheless, none of the prior works use structure prediction in the context of learning algorithms. Another line of research takes an opposite route to the one considered in
+
+22
+
+Chapter 4. Chapter 4 extends neural networks in order to express algorithms easily, while Chapter 5 tries to find sufficient components that allow rediscovering algorithms such as convolution. It might be easier to learn algorithms once we provide a sufficient number of small building blocks. This can be viewed as meta-learning 16,128 . One can also view this work in terms of discovering the topology of data. LeCun et al.
+74
+
+empirically confirm that one can recover the
+20
+
+2-D grid structure via second order statistics. Coates et al.
+
+estimate similar-
+
+ities between features in order to construct locally connected networks. Moreover, there is a large body of work concerned with specifying by hand (without learning) optimal structures for signal processing 44,23,21,35,103 .
+
+23
+
+3
+Limits of trainability for neural networks
+The interest of this thesis is in training statistical models to learn algorithms. Hence, our first approach is to take an existing, powerful model such as a neural network and to train it directly on input-output pairs of an algorithm. First, two algorithms that we consider are simple mathematical functions like identity and addition. The identity f (x) = x is one of the simplest functions, and it has very low Kolmogorov complexity. Clearly, neural networks can learn this function when number of possible inputs is limited, i.e., X = {1, 2, . . . n}. However, learning such a function is not trivial for a neural network when the number of possible 24
+
+inputs is large as it is the case for sequences. We examine if a recurrent neural network can learn to map a sequence of tokens to the same sequence of tokens (following sequence-to-sequence approach presented in Section 1.1.2). We find that, empirically, RNNs and LSTMs are incapable of learning identity function beyond the lengths presented in training data. Furthermore, we investigate if a neural network can learn the addition operation. The input is a sequence: 123 + 34 = and the target is another sequence: 157. (where the dot denotes the end of the sequence token). As before, we find that the model can perform reasonably well with samples from the data distribution; however, models that we have examined could not generalize to numbers longer than the ones presented during training. Therefore, the models we considered learned an incorrect function, and were unable to learn the simple concept of addition. Neural networks can perform pretty well on the tasks above, much better than guessing the answers at random. However, they cannot solve these tasks perfectly. At least empirically, we were unable to fully learn the solution to such tasks with the various architectures and optimization algorithms considered. The performance of the system on such tasks improves as we increase the number of model parameters, but, still, the model is never able to master the problem. Since the model memorized many facts about addition, it learns a solution with high Kolmogorov complexity. For instance, it could learn that adding 100 to any number causes only the third digit from the right to increase. This rule is not entirely correct as it misses corner cases when 9 turns to 0.
+
+25
+
+Moreover, the aforementioned rule is not generic enough, as it allows to add correctly only some numbers, but not all. Finally, we investigate if neural networks can learn to simulate a Python interpreter on simplified programs. The evaluation of Python programs requires understanding several concepts such as numerical operations, if-statements, variable assignments and the composition of operations. We find that neural networks can achieve great performance on this task, but do not fully generalize. This performance indicates that even when a model is far from understanding the real concept, it is capable of achieving good performance. However, that good performance is not sufficient proof of mastering the concept. Nonetheless, it is surprising that an LSTM (Section 1.1.3) can learn to map the characterlevel representations of such programs to the correct output with substantial accuracy, far beyond the accuracy of guessing. 3.1 Tasks Copying Task Given an example input 123456789, the model reads it one character at a time, stores it in memory, and then has to generate the same sequence: 123456789 one character at a time. Addition Task The model has to learn to add two numbers of the same length (Fig. 3.1). Numbers are chosen uniformly from [10length−1 , 10length − 1]. Adding two numbers of the same length is simpler than adding numbers of variable length, since the 26
+
+Input:
+print (398345+425098)
+
+Target: 823443
+Figure 3.1: A typical data sample for the addition task.
+
+model does not need to align them. Execution of Python programs The input to our model is a character representation of simple Python programs. We consider the class of short programs that can be evaluated in linear time and constant memory. This restriction is dictated by the computational structure of the recurrent neural network (RNN) itself, as it can only perform a single pass over the program and its memory is limited. Our programs use the Python syntax and are constructed from a small number of operations and their compositions (nesting). We allow the following operations: addition, subtraction, multiplication, variable assignments, if-statements, and for-loops, although we disallow double loops. Every program ends with a single “print” statement whose output is an integer. Several example programs are shown in Fig. 3.2. We select our programs from a family of distributions parametrized by their length and nesting. The length parameter is the number of digits of the integers that appear in the programs (so the integers are chosen uniformly from [1, 10length − 1]). For example, two programs that are generated with length = 4 and nesting = 3 are shown in Fig. 3.2. We impose restrictions on the operands of multiplication and on the ranges of 27
+
+Input:
+j =8584 for x in range (8): j+=920 b =(1500+ j) print ((b +7567) )
+
+Target: 25011.
+
+Input:
+i =8827 c=(i -5347) print ((c +8704) if 2641 <8500 else 5308)
+
+Target: 12184.
+
+Figure 3.2: Example programs on which we train the LSTM. The output of each program is a single integer. A “dot” symbol indicates the end of the integer, which has to be predicted by the LSTM.
+
+the for-loop, since they pose a greater difficulty to our model. We constrain one of the arguments of multiplication and the range of for-loops to be chosen uniformly from the much smaller range [1, 4 ∗ length]. We do so since our models are able to perform linear-time computations, while generic integer multiplication requires superlinear time. Similar considerations apply to for-loops, since nested for-loops can implement integer multiplication. The nesting parameter controls the number of times we are allowed to combine the operations with each other. Higher values of nesting yield programs with deeper parse trees. Nesting makes the task much harder for LSTMs, because they do not have a natural way of dealing with compositionality, unlike Recursive Neural Networks. It is surprising that the LSTMs can handle nested
+
+28
+
+Input:
+vqppkn sqdvfljmnc y2vxdddsepnimcbvubkomhrpliibtwztbljipcc
+
+Target: hkhpg
+Figure 3.3: A sample program with its outputs when the characters are scrambled. It helps illustrate the difficulty faced by our neural network.
+
+expressions at all. The programs also do not receive an external input. It is important to emphasize that the LSTM reads the entire input one character at a time and produces the output one character at a time. The characters are initially meaningless from the model’s perspective; for instance, the model does not know that “+” means addition or that 6 is followed by 7. In fact, scrambling the input characters (e.g., replacing “a” with “q”, “b” with “w”, etc.,) has no effect on the model’s ability to solve this problem. We demonstrate the difficulty of the task by presenting an input-output example with scrambled characters in Fig. 3.3. 3.2 Curriculum Learning Learning to predict the execution outcome from a source code of a Python program is not an easy task. We found out that ordering samples according to their complexity helps to improve performance 8 . We have examined several strategies of ordering samples. Our program generation procedure is parametrized by length and nesting. These two parameters allow us to control the complexity of the program. When
+
+29
+
+length and nesting are large enough, the learning problem becomes nearly intractable. This indicates that in order to learn to evaluate programs of a given length = a and nesting = b, it may help to first learn to evaluate programs with length ≪ a and nesting ≪ b (≪ means much smaller). We evaluate the following curriculum learning strategies: No curriculum learning (baseline) The baseline approach does not use curriculum learning. This means that we generate all the training samples with length = a and nesting = b. This strategy is the most “sound” from statistical perspective, since it is generally recommended to make the training distribution identical to the test distribution. Naive curriculum strategy (naive) We begin with length = 1 and nesting = 1. Once learning stops making progress on the validation set, we increase length by 1. We repeat this process until its length reaches a, in which case we increase nesting by one and reset length to 1. We can also choose to first increase nesting and then length. However, it does not make a noticeable difference in performance. We skip this option in the rest of the thesis, and increase length first in all our experiments. This strategy has been examined in previous work on curriculum learning 8 . However, we show that sometimes it performs even worse than baseline. Mixed strategy (mix) To generate a random sample, we first pick a random length from [1, a] and a
+
+30
+
+random nesting from [1, b] independently for every sample. The Mixed strategy uses a balanced mixture of easy and difficult examples, so at every point during training, a sizable fraction of the training samples will have the appropriate difficulty for the LSTM. Combining the mixed strategy with naive strategy (combined) This strategy combines the mix strategy with the naive strategy. In this approach, every training case is obtained either by the naive strategy or by the mix strategy. As a result, the combined strategy always exposes the network at least to some difficult examples, which is the key way in which it differs from the naive curriculum strategy. We noticed that it always outperformed the naive strategy and would generally (but not always) outperform the mix strategy. We explain why our new curriculum learning strategies outperform the naive curriculum strategy in Section 3.5. 3.3 Input delivery Changing the way how the input is presented can significantly improve the performance of the system. We present two such enhancing techniques: input reversing 118 and input doubling. The idea of input reversing is to reverse the order of the input (987654321) while keeping the desired output unchanged (123456789). It may appear to be a neutral operation because the average distance between each input and its corresponding target does not change. However, input reversing introduces many short term dependencies that make it easier for the LSTM to learn to make cor31
+
+rect predictions. This strategy was first introduced by Sutskever et al. 118 . The second performance enhancing technique is input doubling, where we present the input sequence twice (so the example input becomes 123456789; 123456789), while the output remains unchanged (123456789). This method is meaningless from a probabilistic perspective as RNNs approximate the conditional distribution p(y|x), yet here we attempt to learn p(y|x, x). Still, we see a noticeable improvement in performance. By processing the input several times before producing the output, the LSTM is given the opportunity to correct any mistakes or omissions it may have made earlier. 3.4 Experiments All our tasks involve mapping a sequence to different sequence, and we shall use the sequence-to-sequence approach (Section 1.1.2). In all our experiments, we use a two-layer LSTM architecture, and we unroll it for 50 time-steps. The network has 400 cells per layer and it is initialized uniformly in [−0.08, 0.08], which sums to a total of ∼ 2.5M parameters. We initialize the hidden states to zero. Then, we use the final hidden states of the current minibatch as the initial hidden state of the subsequent minibatch. The size of the minibatch is 100. We constrain the norm of the gradients (normalized by minibatch size) to be no greater than 5 (gradient clipping 90 ). We keep the learning rate equal to 0.5 until we reach the target length and nesting (we only vary the length, i.e., the number of digits, in the copy task). After reaching the target accuracy (95%), we decrease the learning rate by
+
+32
+
+a factor of 0.8. We keep the learning rate on the same level until there is no improvement on the training set. Then we decrease it again when there is no improvement on training set. The only difference between the experiments is the termination criteria. For the program output prediction, we stop when the learning rate becomes smaller than 0.001. For the copying task, we stop training after 20 epochs, where each epoch has 0.5M samples. We begin training with length = 1 and nesting = 1 (or length=1 for the copy task). We ensure that the training, validation, and test sets are disjoint. This is achieved computing the hash value of each sample and applying modulo 3. Important note on error rates: We use teacher forcing when we compute the accuracy of our LSTMs. That is, when predicting the i-th digit of the target, the LSTM is provided with the correct first i − 1 digits of the target. This is different from using the LSTM to generate the entire output on its own, as done by Sutskever et al. 118 , which would almost surely result in lower numerical accuracies. 3.4.1 Results on the Copy Task
+
+Recall that the goal of the copy task is to read a sequence of digits into the hidden state and then to reconstruct it from the hidden state. Namely, given an input such as 123456789, the goal is to produce the output 123456789. The model processes the input one input character at the time and has to reconstruct the output only after loading the entire input into its memory. This task provides insight into the LSTM’s ability to learn to remember. We have evaluated our model on sequences of lengths ranging from 5 to 65. We use the four curriculum 33
+
+Figure 3.4: Prediction accuracy on the copy task for the four curriculum strategies. The input length ranges from 5 to 65 digits. Every strategy is evaluated with the following 4 input modification schemes: no modification; input inversion; input doubling; and input doubling and inversion. The training time was not limited; the network was trained till convergence.
+
+strategies of Section 3.2. In addition, we investigate two strategies to modify the input which increase performance: • Inverting input 118 • Doubling Input Both strategies are described in Section Section 3.3. Fig. 3.4 shows the absolute performance of the baseline strategy and of the combined strategy. This figure also shows the performance at convergence. For this task, the combined strategy no longer outperforms the mixed strategy in every experimental setting, although both strategies are always better than using no curriculum and the naive curriculum strategy. Each graph contains 4 34
+
+Figure 3.5: The effect of curriculum strategies on the addition task.
+
+settings, which correspond to the possible combinations of input inversion and input doubling. The result clearly shows that simultaneously doubling and reversing the input achieves the best results. Random guessing would achieve an accuracy of ∼ 9%, since there are 11 possible output symbols. 3.4.2 Results on the Addition Task
+
+Fig. 3.5 presents the accuracy achieved by the LSTM with the various curriculum strategies on the addition task. Remarkably, the combined curriculum strategy resulted in 99% accuracy on the addition of 9-digit long numbers, which is a massive improvement over the naive curriculum. Nonetheless, the model is unable to get 100% accuracy, which would mean mastering the algorithm. 3.4.3 Results on Program Evaluation
+
+First, we wanted to verify that our programs are not trivial to evaluate, by ensuring that the bias coming from Benford’s law 46 is not too strong. Our setup has 12 possible output characters: 10 digits, the end of sequence character, and
+
+35
+
+minus. Their output distribution is not uniform, which can be seen by noticing that the minus sign and the dot do not occur with the same frequency as the other digits. If we assume that the output characters are independent, the probability of guessing the correct character is ∼ 8.3%. The most common character is 1 which occurs with probability 12.7% over the entire output. However, there is a bias in the distribution of the first character of the output. There are 11 possible choices, which can be randomly guessed with a probability of 9%. The most common character is 1, and it occurs with a probability 20.3% in its first position, indicating a strong bias. Still, this value is far below our model prediction accuracy. Moreover, the second most likely character in the first position of the output occurs with probability 12.6%, which is indistinguishable from the probability distribution of digits in the other positions. The last character is always the end of sequence. The most common digit prior to the last character is 4, and it occurs with probability 10.3%. These statistics are computed with 10000 randomly generated programs with length = 4 and nesting = 1. The absence of a strong bias for this configuration suggests that there will be even less bias with greater nesting and longer digits, which we have also confirmed numerically. These verifications are meant to set up any baseline for such a foreign task. This confirms that the task of predicting the execution of Python programs from our distribution is not trivial, and we are ready to move to evaluation with LSTM network. We train our LSTMs using the four strategies described in Section 3.2: • No curriculum learning (baseline) 36
+
+• Naive curriculum strategy (naive) • Mixed strategy (mix) • Combined strategy (combined) Fig. 3.6 shows the absolute performance of the baseline strategy (training on the original target distribution), and of the best performing strategy, combined. Moreover, fig. 3.7 shows the performance of the three curriculum strategies relative to baseline. Finally, we provide several example predictions on test data Fig. 3.8. The accuracy of a random predictor would be ∼ 8.3%, since there are 12 possible output symbols.
+
+Figure 3.6: Absolute prediction accuracy of the baseline strategy and of the combined strategy (see Section 3.2) on the program evaluation task. Deeper nesting and longer integers make the task more difficult. Overall, the combined strategy outperformed the baseline strategy in every setting.
+
+3.5 Hidden State Allocation Hypothesis Our experimental results suggest that a proper curriculum learning strategy is critical for achieving good performance on very hard problems where conventional stochastic gradient descent (SGD) performs poorly. The results on both 37
+
+Figure 3.7: Relative prediction accuracy of the different strategies with respect to the baseline strategy. The Naive curriculum strategy was found to sometime perform worse than baseline. A possible explanation is provided in Section 3.5. The combined strategy outperforms all other strategies in every configuration on program evaluation.
+
+of our problems (Sections 3.4.1 and 3.4.3) show that the combined strategy is better than all other curriculum strategies, including both naive curriculum learning, and training on the target distribution. We have a plausible explanation for why this is the case. It seems natural to train models with examples of increasing difficulty. This way the models have a chance to learn the correct intermediate concepts, and then utilize them for the more difficult problem instances. Otherwise, learning the full task might be just too difficult for SGD from a random initialization. This explanation has been proposed in previous work on curriculum learning 8 . However, based the on empirical results, the naive strategy of curriculum learning can sometimes be worse than learning with the target distribution. In our tasks, the neural network has to perform a lot of memorization. The easier examples usually require less memorization than the hard examples. For instance, in order to add two 5-digit numbers, one has to remember at least 5 digits before producing any output. The best way to accurately memorize 5
+
+38
+
+Input: i =6404; print ((i +8074) ). Target: ”Baseline” prediction: ”Naive” prediction: ”Mix” prediction: ”Combined” prediction:
+
+14478. 14498. 14444. 14482. 14478.
+
+Input: b=6968 for x in range (10):b -=(299 if 3389 <9977 else 203) print ((12* b)). Target: 47736. ”Baseline” prediction: -0666. ”Naive” prediction: 11262. ”Mix” prediction: 48666. ”Combined” prediction: 48766.
+
+Input: c =335973; b=(c +756088) ; print ((6*( b +66858) )). Target: ”Baseline” prediction: ”Naive” prediction: ”Mix” prediction: ”Combined” prediction:
+
+6953514. 1099522. 7773362. 6993124. 1044444.
+
+Input: j =(181489 if 467875 >46774 else (127738 if 866523 <633391 else 592486) ); print ((j -627483) ). Target: -445994. ”Baseline” prediction: -333153. ”Naive” prediction: -488724. ”Mix” prediction: -440880. ”Combined” prediction: -447944.
+
+Figure 3.8: Comparison of predictions on program evaluation task using various curriculum strategies.
+
+39
+
+numbers could be to spread them over the entire hidden state / memory cell (i.e., use a distributed representation). Indeed, the network has no incentive to utilize only a fraction of its state, and it is always better to make use of its entire memory capacity. This implies that the harder examples would require a restructuring of its memory patterns. It would need to contract its representations of 5 digit numbers in order to free space for the sixth number. This process of memory pattern restructuring might be difficult to implement, so it could be the reason for the sometimes poor performance of the naive curriculum learning strategy relative to baseline. The combined strategy reduces the need to restructure the memory patterns. The combined strategy is a combination of the naive curriculum strategy and of the mix strategy, which is a mixture of examples of all difficulties. The examples produced by the naive curriculum strategy help to learn the intermediate input-output mapping, which is useful for solving the target task, while the extra samples from the mix strategy prevent the network from utilizing all the memory on the easy examples, thus eliminating the need to restructure its memory patterns. 3.6 Discussion We have shown that it is possible to learn to copy a sequence, add numbers and evaluate simple Python programs with high accuracy by using an LSTM. However, the model predictions are far from perfect. Perfect prediction requires a complete understanding of all operands and concepts, and of the precise way in
+
+40
+
+which they are combined. However, the imperfect prediction might be due to various reasons, and could heavily rely on memorization, without a genuine understanding of the underlying concepts. Therefore, the LSTM learned solutions with an unnecessarily high Kolmogorov complexity. Nonetheless, it is remarkable that an LSTM can learn anything beyond training data. One could suspect that the LSTM learnt an almost perfect solution, and makes mistakes sporadically. Then, model averaging should result in a perfect solution, but it does not. There are many alternatives to the addition algorithm if the perfect output is not required. For instance, one can perform element-wise addition, and as long as there is no carry then the output would be correct. Another alternative, which requires more memory, but is also simpler, is to memorize all results of addition for 2 digit numbers. Then multi-digit addition can be broken down to multiple 2-digits additions element-wise. Once again, such an algorithm would have a reasonably high prediction accuracy although it would be far from correct. Giving more capacity to a network would improve results because more memorization would occur. However, the model would not learn the true underlying algorithm, but will remember more training instances. It is a widespread belief that a sufficient amount of computational resources without changes in algorithms would result in super-human intelligence; however, our experiments indicate the contrary (humans are able to discover algorithms like addition from data, as one has done it thousands of years ago). Providing more resources to the current learning algorithm is unlikely to solve such simplistic problems as
+
+41
+
+learning to add multi-digit numbers, and changes to the algorithms are required to succeed. The next chapter investigates the use of extended neural networks to solve similar mathematical problems as in this chapter. We show that it is possible to achieve almost 100% accuracy and almost perfect generalization beyond the training data distribution; however, the model breaks for sufficiently distant samples. The model from the next chapter breaks on sequences which are a hundred times longer than the training ones.
+
+42
+
+4
+Neural networks with external interfaces
+Chapter 3 shows that neural networks with the current training methods are incapable of learning simple algorithms like copying a sequence or adding two numbers, even though they can represent such a computation. However, it might be sufficient to provide them with higher level abstraction in order to simplify encoding such algorithms. By analogy, a human might have difficulty expressing concepts in an assembly programming language as opposed to Python. Therefore, the main idea of this chapter is to enhance neural networks with external interfaces, in order to achieve a higher level of abstraction. The interfaces might simplify some tasks significantly. For instance, a question43
+
+answering task is much easier once someone has access to interfaces such as the Google search engine. Similarly, a task of washing clothes is simpler with an interface of a washing machine as opposed to doing it by bare hands. We investigate the use of a few external interfaces. Input interfaces allow control of the access pattern of the input where the input might be organized over a tape, or on a grid. Memory interfaces permit storing data on memory tape, and later recalling it. Output interfaces allow postponing predictions, so that the model can perform an arbitrary amount of computation. We consider the domain of symbol reordering and arithmetic, where our tasks include copying, reversing a sequence, multi-digit addition, multiplication, and many others. A few properly-chosen external interfaces make the model Turing complete. An unlimited external memory interface together with control over prediction time given by the output interface is sufficient to achieve Turing completeness. Some of our models are Turing complete; however, such models are not easy to train and can solve only very simple tasks. Our approach formalizes the notion of a central controller that interacts with the world via a set of interfaces. The controller is a neural network model which must learn to control the interfaces via a set of actions (e.g. “move input tape left”, “read”, “write symbol to output tape”, “write nothing this time step” ) in order to produce the correct output for given input patterns. Optimization of black-box interfaces cannot be done with backpropagation, as backpropagation requires the signal to propagate through an interface. Humans encounter the same limitation, as we do not backpropagate through external interfaces like the
+
+44
+
+Google search engine or a washing machine. We consider two separate settings. In the first setting, we provide supervision in the form of ground truth actions during training. In the second one, we train only with input-output pairs (i.e. no supervision over actions). While we can solve all tasks in the latter case, the supervised setting provides insights about the model limitations and an upper bound on trainability. We evaluate our model on sequences far longer than those presented during training, in order to assess the Kolmogorov complexity of the function that the model learned. We find that controllers are often unable to get a fully generalizable solution. Frequently, they fail on sufficiently long test sequences, even if we provide the ground truth actions during training. The model can generalize to sequences which are a hundred times longer but has trouble with ones that are beyond it. This model seems to almost grasp the underlying algorithms, but not entirely. We would like to direct the reader to the video accompanying this chapter https://youtu.be/GVe6kfJnRAw. This movie gives a concise overview of our approach and complements the following explanations. The full source code for our Q-learning implementation is at https://github.com/wojzaremba/ algorithm-learning and the source code for learning with REINFORCE is at https://github.com/ilyasu123/rlntm. 4.1 Model Our model consists of an RNN-based controller that accesses the environment through a series of pre-defined interfaces. Each interface has a specific structure
+
+45
+
+and set of actions it can perform. The interfaces are manually selected according to the task (see Section 4.2). The controller is the only part of the system that learns and has no prior knowledge of how the interfaces operate. Thus, the controller must learn the sequence of actions over the various interfaces that allow it to solve a task. We make use of four different interfaces: Input Tape: This provides access to the input data symbols stored on an “infinite” 1-D tape. A read head accesses a single character at a time through the read action. The head can be moved via the left and right actions. Input Grid: This is a 2D version of the input tape where the read head can now be moved by actions up, down, left and right. Memory Tape: This interface provides access to data stored in memory. Data is stored on an “infinite” 1-D tape. A read head accesses a vector of values at a time, and during training, the signal is backpropagated though the stored vector. Backpropagation is implemented independently of memory dynamics, and would work with an arbitrary memory topology. The memory head can be moved via discrete actions: left, stay, and right actions. Output Tape: This is similar to the input tape, except that the head now writes a single symbol at a time to the tape, as provided by the controller. The vocabulary includes a no-operation symbol (∅) enabling the controller to defer output if it so desires. During training, the written and target symbols are compared using a cross-entropy loss. This provides a differentiable learning signal that is used in addition to the sparse reward signal. 46
+
+Input interface
+
+Output interface
+
+Memory interface
+
+Controller Output Past State Controller Controller Input Future State
+
+Input interface
+
+Output interface
+
+Memory interface
+
+(a)
+
+(b)
+
+(c)
+
+Figure 4.1: (a): The input tape and grid interfaces. Both have a single head (gray box) that reads one character at a time, in response to a read action from the controller. It can also move the location of the head with the left and right (and up, down) actions. (b) An overview of the model, showing the abstraction of controller and a set of interfaces. (c) An example of the model applied to the addition task. At time step t1 , the controller, a form of RNN, reads the symbol 4 from the input grid and outputs a no-operation symbol (⊘) on the output tape and a down action on the input interface, as well as passing the hidden state to the next time step.
+
+Fig. 4.1(a) shows examples of the input tape and grid interfaces. Fig. 4.1(b) gives an overview of our controller–interface abstraction and Fig. 4.1(c) shows an example of this on the addition task (for two time steps). For the controller, we explore several recurrent neural network architectures and a vanilla feed-forward network. Note that RNN-based models are able to remember previous network states, unlike the the feed-forward network. This is important because some tasks explicitly require some form of memory, e.g. the carry in addition. As illustrated in Fig. 4.1(c), the controller passes two signals to the output tape: a discrete action (move left, move right, write something) and a symbol from the vocabulary. This symbol is produced by taking the max from the softmax output on top of the controller. In training, two different signals are computed from this: (i) a cross-entropy loss is used to compare the softmax output
+
+47
+
+to the target symbol and (ii) a reward if the symbol is correct/incorrect. The first signal gives a continuous gradient to update the controller parameters via backpropagation. Since actions are fetched by black-box interfaces that do not expose internal dynamics, the second signal is required to train the controller to perform actions that lead to success using reinforcement learning. 4.2 Tasks We consider nine different tasks: Copy, Reverse, Walk, Multi-Digit Addition, 3Number Addition, Single Digit Multiplication, Duplicated Input, Repeat Copy, and Forward Reverse. The input interface for Copy, Reverse, Duplicated Input, Repeat Copy, Forward Reverse is an input tape and an input grid for the others. All tasks use an output tape interface. All arithmetic operations use base 10, and the symbol reordering operations are over a vocabulary of size 30. Moreover, Forward Reverse uses and external memory interface, and it is always forced to progress forward over the input tape. The nine tasks are shown in Fig. 4.2. Copy: This task involves copying the symbols from the input tape to the output tape. Although simple, the model still has to learn the correspondence between the input and output symbols, as well as execute the move right action on the input tape. Reverse: Here the goal is to reverse a sequence of symbols on the input tape. We provide a special character “r” to indicate the end of the sequence. The
+
+48
+
+model must learn to move right multiple times until it hits the “r” symbol, then move to the left, and copy the symbols to the output tape. Walk: The goal is to copy symbols, according to the directions given by an arrow symbol. The controller starts by moving to the right (suppressing prediction) until reaching one of the symbols ↑, ↓, ←. Then it should change its direction accordingly, and copy all symbols encountered to the output tape. Addition: The goal is to add two multi-digit sequences, provided on an input grid. The sequences are provided in two adjacent rows, with the right edges aligned. The initial position of the read head is the last digit of the top number (i.e. upper-right corner). The model has to: (i) memorize an addition table for pairs of digits; (ii) learn how to move over the input grid and (iii) discover the concept of a carry. 3-Number Addition: Same as the addition task, but now three numbers are to be added. This is more challenging as the reward signal is less frequent (since more correct actions must be completed before a correct output digit can be produced). Also the carry now can take on three states (0, 1 and 2), compared with two for the 2 number addition task. Single Digit Multiplication: This involves multiplying a single digit with a long multi-digit number. It is of similar complexity to the 2 number addition task, except that the carry can take on more values ∈ [0, 8]. Duplicated Input. A generic input has the form x1 x1 x1 x2 x2 x2 x3 . . . xC−1 xC xC xC ∅
+
+49
+
+while the desired output is x1 x2 x3 . . . xC ∅. Thus each input symbol is replicated three times, so the controller must emit every third input symbol. Repeat Copy. A generic input is mx1 x2 x3 . . . xC ∅ and the desired output is x1 x2 . . . xC x1 . . . xC x1 . . . xC ∅, where the number of copies is given by m. Thus the goal is to copy the input m times, where m can be only 2 or 3. Forward Reverse. The task is identical to Reverse, but the controller is only allowed to move its input tape pointer forward. It means that a perfect solution must use the external memory.
+
+3 number Copy Reverse Walk Addition addition
+
+Single digit multiplication Duplicated Input Repeat Copy Forward Reverse
+
+Figure 4.2: Examples of the nine tasks, presented in their initial state. The yellow box indicates the starting position of the read head on the Input interface. The gray characters on the Output Tape are target symbols used in training.
+
+In Table 4.1, we examine the feasibility of solving these tasks by exhaustively searching over all possible automata. For tasks involving addition and multiplication, this approach is impractical. We thus explore a range of learning-based approaches.
+
+50
+
+Task Copy Reverse Walk Addition 3-Number Addition Single Digit Multiplication Duplicated Input Repeat Copy Forward Reverse
+
+#states 1 2 4 30 50 20 2 6 2
+
+#possible automatas 1 4 4096 10262 10737 10114 16 109 4
+
+Table 4.1: All nine of our tasks can be solved by a finite-state automata. We estimate size of the automata for each task. The model is in a single state at any given time and the current input, together with model state, determines the output actions and new state. For instance, addition has to store: (i) the current position on the grid (up, down after coming from the top, down after coming from the right) and (ii) the previous number with accumulated carry. All combinations of these properties can occur, and the automata must have sufficient number of states to distinguish them. The number of possible directed graphs for a given number of states is 4n∗(n−1)/2 . Thus exhaustive search is impractical for all but the simplest tasks.
+
+4.3 Supervised Experiments To understand the behavior of our model and to provide an upper bound on performance, we train our model in a supervised setting, i.e. where the ground truth actions are provided. Note that the controller must still learn which symbol to output. This now can be done purely with backpropagation since the actions are known. To facilitate a comparison of the task difficulties, we use a common measure of complexity, corresponding to the number of time steps required to solve each task (using the ground truth actions* ). For instance, a reverse task involving a sequence of length 10 requires 20 time-steps (10 steps to move to the
+In practice, multiple solutions can exist (see Section 4.4.4.3), thus the measure is approximate.
+*
+
+51
+
+“r” and 10 steps to move back to the start). The conversion factors between the sequence lengths and the complexity are as follows: copy=1; reverse=2; walk=1; addition=2; 3 row addition=3; single digit multiplication=1; duplicated input=3; repeat copy=1; forward reverse=1. For each task, we train a separate model, starting with sequences of complexity 6 and incrementing by 4 once it achieves 100% accuracy on held-out examples of the current length. Training stops once the model successfully generalizes to examples of complexity 1000. Three different cores for the controllers are explored: (i) a 200 unit, 1-layer LSTM; (iii) a 200 unit, 1-layer GRU model and (iii) a 200 unit, 1-layer feed-forward network. An additional linear layer is placed on top of these models that maps the hidden state to either action for a given interface, or the target symbol. In Fig. 4.3 we show the accuracy of the different controllers the tasks such as copy, reverse, walk, addition, 3-row addition and single digit multiplication. We evaluate the model on test instances of increasing complexity, up to 20, 000 time-steps. The simple feed-forward controller generalizes perfectly on the copy, reverse and walk tasks but completely fails on the remaining ones, due to a lack of required memory† . The RNN-based controllers succeed to varying degrees, although we observe some variability in performance. Further insight can be obtained by examining the internal state of the conAmending the interfaces to allow both reading and writing on the same interface would provide a mechanism for long-term memory, even with a feed-forward controller. However, then the same lack of generalization issues (encountered with more powerful controllers) would become an issue.
+†
+
+52
+
+troller. To do this, we compute the autocorrelation matrix‡ A of the network state over time when the model is processing a reverse task example of length 35, having been trained on sequences of length 10 or shorter. For this problem there should be two distinct states: move right until “r” is reached and then move left to the start. Table 4.2 plots A for models with three different controllers. The larger the controller capacity, the less similar the states are within the two phases of execution. This indicates that the larger the model becomes, the underlaying learnt automata is driven further from the correct automata that should have 2 states only. The figure also shows the confidence in the two actions over time. In the case of high capacity models, the initial confidence in the move left action is high, but this drops off after moving along the sequence. This is because the controller has learned during training that it should change direction after at most 10 steps. Consequently, the unexpectedly long test sequence makes it unsure of what the correct action is. By contrast, the simple feed-forward controller does not show this behavior since it is stateless, and thus has no capacity to know where it is within a sequence. The equivalent automata is shown in Fig. 4.4(a), while Fig. 4.4(b) shows the incorrect time-dependent automata learned by the over-expressive RNN-based controllers. We note that this argument is empirically supported by our results in Table 4.5, as well as related work 41,57 which found limited capacity controllers to be most effective. For example, in the latter case, the counting and memorization tasks used controllers
+‡ ∑T
+
+Let hi be the controller state at time i, then the autocorrelation Ai,j between time=
+⟨hi −E,hj −E⟩ , i, j σ2
+
+steps i and j is given by Ai,j
+k=1 ⟨hk −E,hk −E⟩
+
+= 1, . . . , T where E =
+
+∑T
+
+k=1
+
+hk
+
+T
+
+, σ2 =
+
+T
+
+. T is the number of time steps (i.e. complexity).
+
+53
+
+with just 40 and 100 units respectively.
+Walk Task
+
+Figure 4.3: Test accuracy for several tasks with supervised actions over 10 runs for feed-forward (green), GRU (red) and LSTM (yellow) controllers. In this setting the optimal policy is provided during training. The complexity is the number of time steps required to compute the solution. Every task has a slightly different conversion factor between the complexity and the sequence length: a complexity of 104 for copy and walk would mean 104 input symbols; for reverse would corre4 4 spond to 10 input symbols; for addition would involve two 10 long numbers; for 3 row addition 2 2 4 would involve three 10 long numbers and for single digit multiplication would involve a single 104 3 long number.
+
+4.4 No Supervision over actions In the previous section, we assumed that the optimal controller actions were given during training. This meant that only the output symbols need to be predicted and these could be learned via backpropagation. We now consider the
+
+54
+
+Feed-Forward
+
+Small LSTM
+
+Large LSTM
+
+Table 4.2: Three models with different controllers (feed-forward, 200 unit LSTM and 400 unit LSTM) trained on the reverse task and applied to a 20 digit test example. The top row shows confidence values for the two actions on the input tape: move left (green) and move right (red) as a function of time. The correct model should be equivalent to a two-state automata (Fig. 4.4), thus we expect to see the controller hidden state occupy two distinct values. The autocorrelation matrices (whose axes are also time) show this to be the case for the feed-forward model – two distinct blocks of high correlation. However, for the LSTM controllers, this structure is only loosely present in the matrix, indicating that they have failed to learn the correct algorithm.
+
+setting where the actions are also learned, in order to test the true capabilities of the models to learn simple algorithms from pairs of input and output sequences. We present here two algorithms: REINFORCE, and Q-learning. There are some tasks that we share between algorithms (copy and reverse). However, we have used slightly different tasks to test each of algorithms. 4.4.1 Notation
+
+We share notation between REINFORCE and Q-learning algorithm. This section outlines the notation, which is simplified, and assumes that the environment is deterministic. However, neither REINFORCE nor Q-learning requires 55
+
+Autocorrelation matrix
+
+right
+
+left
+
+right1
+
+right2
+
+right3
+
+right4
+
+left
+
+(a)
+
+(b)
+
+Figure 4.4: (a): The automata describing the correct solution to the reverse problem. The model first has to go to the right while suppressing prediction. Then, it has to go to the left and predict what it sees at the given moment (this figure illustrates only actions over the Input Tape). (b) Another automata that solves the reverse problem for short sequences, but does not generalize to arbitrary length sequences, unlike (a). Expressive models like LSTMs tend to learn such incorrect automata.
+
+the environment to be deterministic. Let A be a space of actions and S be the space of states. The execution of an action in state s ∈ S causes it to transit to the new state s′ ∈ S, and provides a reward r ∈ R. Some states are terminal and end the episode. We mark the time steps of state, action and reward by t, i.e. at is an action at time t, st is the tth state, and rt is the tth reward. Our assumption on the environment being deterministic allows to associate a state with a sequence of actions. An action a uniquely determines the transition s → s′ . Therefore, the sequence of actions together with the initial state s0 dictates the state after the execution of the sequence of actions. Consequently, st = (s0 , a1 , a2 , . . . at ). REINFORCE can be described as the function over sequences of actions, while Q-learning as the mapping from state-action space. Nonetheless, they refer to similar objects as the sequence of actions is equivalent to a state. Let a1:t stand for a sequence of actions [a1 , a2 , . . . , at ]. The cumulative future ∑ reward is denoted by R(a1:T ), namely R(ak:T ) = T rt . Let pθ (at |a1:(t−1) ) be t=k 56
+
+a parametric conditional probability of an action at given all previous actions a1:(t−1) . Finally, pθ is a policy parametrized by θ. Moreover, we use A† to denote the space of all sequences of actions that cause an episode to end. Let A‡ denote all valid subsequences of actions (i.e. A‡ ⊂ A† ). Moreover, we define the set of sequences of actions that are valid after executing a sequence a1:t and terminate and denote it by: A† 1:t . Every sequence a(t+1):T ∈ A† 1:t terminates an a a episode. The Qp (s, a) function maps a pair of state and action to the cumulative future reward under policy p. More formally, assuming that s = (s0 , a1 , . . . at ), then Qp (s, at+1 ) = R(t+1):T . Most of the time, we will skip the superscript p. V is the value function and V (s) is the expected sum of future rewards starting from the state s. Moreover, Q∗ and V ∗ are function values for the optimal policy. 4.4.2 REINFORCE Algorithm
+
+We present two reinforcement learning algorithms that we use in our setting: REINFORCE and Q-learning. This section describes REINFORCE. The REINFORCE algorithm directly optimizes the expected log probability of the desired outputs, where the expectation is taken over all possible sequences of actions, weighted by the probability of taking these actions. Both negative cross-entropy loss and REINFORCE loss maximize this objective. Negative cross-entropy maximizes the log probabilities of the model’s predictions, while the REINFORCE loss deals with the probabilities of action sequences.
+
+57
+
+There are many other algorithms in discrete optimization that do not rely on reinforcement learning, but that aim to optimize a similar quantity 123,31,56,26 . The most successful approaches to discrete optimization require relaxation 66 . However, relaxation techniques are problem specific, and cannot be applied to arbitrary interfaces. Other techniques assume that the sequence of actions is provided during training, such as DAGGER 27 (DAGGER is considered an imitation learning algorithm). Another algorithm like SEARN 26 requires an optimal policy for the training data, which we do not know. Fully general discrete optimization algorithms end up being equivalent to the one considered in reinforcement learning. For instance, various techniques in structural-outputprediction construct sequences by iteratively taking the most likely action. Similarly, Q-learning algorithm relies on picking the most likely actions. Therefore, there is no significant difference between such approaches. The main issue with applying classical structural prediction to our set of tasks is that the sequence of actions that gives the highest reward is not the one that we look for (if we are allowed to iterate over many action sequences for the same input). For instance, it’s possible to solve addition without moving over the grid. The structural output prediction approach could just find actions that produce targets without looking on the input grid. Therefore, not committing to action and checking its future outcome can have disastrous consequences. We lack a comparison of performance for all structural-output-prediction and reinforcement learning algorithms that have been considered in literature. However, we investigate two specific reinforcement learning algorithms that have proven to work well in a
+
+58
+
+variety of domains. This section focuses on describing the objective of the REINFORCE algorithm, and presents methods to optimize it. The global objective can be written formally as:
+n ] [∑ log(pbp (yi |x1 , . . . , xi , a1 , . . . ai , θ) . preinforce (a1 , a2 , . . . , an |θ) i=1
+
+∑
+[a1 ,a2 ,...,an ]∈A†
+
+(4.1) The probabilities in the above equation are parametrized with a neural network (the controller). We have marked with preinforce the part of the equation which is learned with REINFORCE. pbp indicates the part of the equation optimized with the classical backpropagation.
+interface
+Input Tape Head the current position Head Output Tape Content Head Memory Tape Content the current address all actions taken in Miscellaneous the previous time step vector of real values to store Backpropagation
+
+Read
+window of values around
+
+Write
+distribution over [−1, 0, 1]
+
+Training Type
+
+REINFORCE
+REINFORCE Backpropagation REINFORCE
+
+∅ ∅
+window of memory values around
+
+distribution over [0, 1] distribution over output vocabulary distribution over [−1, 0, 1]
+
+∅
+
+∅
+
+Table 4.3: Table summarizes what the controller reads at every time step, and what it has to produce. The “training” column indicates how the given part of the model is trained.
+
+The controller receives a direct learning signal only when it decides to make a prediction. If it chooses not to make a prediction at a given time step, it will not receive a learning signal at the current time-step, but from the following time-steps when a prediction is made. Theoretically, we can allow the controller to run for an arbitrary number of steps without making any prediction, hop59
+
+ing that after sufficiently many steps it will decide to make a prediction. Doing so will also provide the controller with an arbitrary computational capability. However, this strategy is both unstable and computationally infeasible. Thus, we resort to limiting the total number of computational steps to a fixed upper bound, and force the controller to predict the next desired output whenever the number of remaining desired outputs is equal to the number of remaining computational steps. The goal of reinforcement learning is to maximize the sum of future rewards. The REINFORCE algorithm 139 does so directly by optimizing the parameters of the policy pθ (at |a1:(t−1) ). REINFORCE follows the gradient of the sum of the future rewards. The objective function for episodic REINFORCE can be expressed as the sum over all sequences of valid actions that cause the episode to end: ∑
+[a1 ,a2 ,...,aT ]∈A†
+
+J(θ) =
+
+pθ (a1 , a2 , . . . , aT )R(a1 , a2 , . . . , aT ) =
+
+∑
+a1:T ∈A†
+
+pθ (a1:T )R(a1:T ). (4.2)
+
+This sum iterates over sequences of all possible actions, which is usually exponential in size or even infinite, so it cannot be computed exactly and cheaply for most of problems. However, it can be written as an expectation, which can be approximated with an unbiased estimator. We have that:
+
+60
+
+J(θ) =
+
+∑
+a1:T ∈A†
+
+pθ (a1:T )R(a1:T ) =
+n ∑ t=1
+
+(4.3) (4.4)
+T ∑ t=1
+
+Ea1:T ∼pθ
+
+r(a1:t ) = r(a1:t ).
+
+Ea1 ∼pθ (a1 ) Ea2 ∼pθ (a2 |a1 ) . . . EaT ∼pθ (aT |a1:(T −1) )
+
+(4.5)
+
+The last expression suggests a procedure to estimate J(θ): simply sequentially sample each at from the model distribution pθ (at |a1:(t−1) ) for t from 1 to T . The unbiased estimator of J(θ) is the sum of r(a1:t ) and this gives us an algorithm to estimate J(θ). However, the main interest is in training a model maximizing this quantity. The REINFORCE algorithm maximizes J(θ) by following its gradient: ∑ [ ] ∂θ pθ (a1:T ) R(a1:T ).
+a1:T ∈A†
+
+∂θ J(θ) =
+
+(4.6)
+
+However, the above expression is a sum over the set of the possible action sequences, so it cannot be computed directly for most A† . Once again, the REINFORCE algorithm rewrites this sum as an expectation that is approximated
+θ with sampling. It relies on the following equation: ∂θ f (θ) = f (θ) ∂ff (θ) = f (θ)∂θ [log f (θ)]. (θ)
+
+This identity is valid as long as f (x) ̸= 0. As typical neural network parametrizations of distributions assign non-zero probability to every action, this condition holds for f = pθ . We have that:
+
+61
+
+∂θ J(θ) = =
+
+∑ [ ] ∂θ pθ (a1:T ) R(a1:T ) =
+[a1:T ]∈A†
+
+(4.7) (4.8) (4.9)
+
+∑ ∑
+
+[ ] pθ (a1:T ) ∂θ log pθ (a1:T ) R(a1:T ) pθ (a1:T )
+n [∑ t=1 T [∑ t=1
+
+a1:T
+
+∈A†
+
+=
+
+] ∂θ log pθ (ai |a1:(t−1) ) R(a1:T )
+
+a1:T ∈A†
+
+= Ea1 ∼pθ (a1 ) Ea2 ∼pθ (a2 |a1 ) . . . EaT ∼pθ (aT |a1:T −1 )
+
+T ][ ∑ ] ∂θ log pθ (ai |a1:(t−1) ) r(a1:t ) . t=1
+
+(4.10) The last expression gives us an algorithm for estimating ∂θ J(θ), which we sketch on the left side of the Figure 4.6. It is easiest to describe it with respect to the computational graph behind a neural network. REINFORCE can be implemented as follows. The neural network first outputs: lt = log pθ (at |a1:(t−1) ). Then, we sequentially sample an action at from the distribution elt , and execute the sampled action at . Simultaneously, we experience a reward r(a1:t ). Now, ∑ backpropagate the sum of the rewards T r(a1:t ) to every node ∂θ log pθ (at |a1:(t−1) ). t=1 We have derived an unbiased estimator for the sum of future rewards, and the unbiased estimator of its gradient. However, the derived gradient estimator has high variance, which makes learning difficult. This model employs several techniques to reduce the gradient estimator variance: (1) future rewards backpropagation, (2) online baseline prediction, and (3) offline baseline prediction. All these techniques are crucial to solve our tasks. More information can be found in Section 4.4.2.1. Finally, we need a way of verifying the correctness of our implementation. We 62
+
+discovered a technique that makes it possible to easily implement a gradient checker for nearly any model that uses REINFORCE. Section 4.4.2.2 describes this technique. Finally, some tasks were significantly simpler with a modified controller, described in Section 4.4.2.3. 4.4.2.1 Variance reduction We had to employ several techniques to decrease the variance of gradients during learning with REINFORCE. Here we outline these techniques. 4.4.2.1.1 Causality of actions The actions at time t cannot influence rewards obtained in the past, as the past rewards are caused by actions prior to them. This idea allows to derive an unbiased estimator of ∂θ J(θ) with lower variance. Here, we formalize it:
+
+63
+
+∂θ J(θ) =
+
+∑
+a1:T ∈A†
+
+[ ] pθ (a) ∂θ log pθ (a) R(a)
+T [ ][ ∑ ] pθ (a) ∂θ log pθ (a) r(a1:t ) t=1
+
+(4.11)
+
+=
+
+∑
+a1:T ∈A†
+
+(4.12)
+
+=
+
+∑
+a1:T ∈A†
+
+pθ (a)
+
+[
+
+T ∑ t=1
+
+] ∂θ log pθ (a1:t )r(a1:t )
+
+(4.13)
+
+=
+
+∑
+a1:T ∈A†
+
+pθ (a)
+
+T [∑ t=1
+
+] ∂θ log pθ (a1:t )r(a1:t ) + ∂θ log pθ (a(t+1):T |a1:t )r(a1:t ) (4.14)
+
+=
+
+T ∑ ∑ a1:T ∈A† t=1
+
+pθ (a1:t )∂θ log pθ (a1:t )r(a1:t ) + pθ (a)∂θ log pθ (a(t+1):T |a1:t )r(a1:t ) (4.15)
+
+=
+
+∑
+a1:T ∈A†
+
+T ∑ t=1
+
+pθ (a1:t )∂θ log pθ (a1:t )r(a1:t ) + pθ (a1:t )r(a1:t )∂θ pθ (a(t+1):T |a1:t ) (4.16)
+
+=
+
+T ∑ [∑ a1:T ∈A† t=1
+
+T ∑ ∑[ ] pθ (a1:t )∂θ log pθ (a1:t )r(a1:t ) + pθ (a1:t )r(a1:t )∂θ pθ (a(t+1):T |a1:t ) .
+
+]
+
+a1:T ∈A† t=1
+
+(4.17) (4.18) We will show that the right side of this equation is equal to zero, because the future actions a(t+1):T do not influence past rewards r(a1:t ). Here we formalize it, using the identity Ea(t+1):T ∈A† pθ (a(t+1):T |a1:t ) = 1: a
+1:t
+
+64
+
+T ∑ ∑[ ] pθ (a1:t )r(a1:t )∂θ pθ (a(t+1):T |a1:t ) = a1:T ∈A† t=1
+
+(4.19) (4.20) (4.21)
+
+∑ [ pθ (a1:t )r(a1:t ) ∑
+∈A‡
+
+∑
+a(t+1):T ∈A† 1:t a
+
+] ∂θ pθ (a(t+1):T |a1:t ) =
+
+a1:t
+
+pθ (a1:t )r(a1:t )∂θ 1 = 0.
+
+a1:t ∈A‡
+
+We can purge the right side of the equation for ∂θ J(θ):
+
+∂θ J(θ) =
+
+T ∑ [∑ a1:T ∈A† t=1
+
+pθ (a1:t )∂θ log pθ (a1:t )r(a1:t )
+
+]
+T [∑ t=1
+
+(4.22) ∂θ log pθ (at |a1:(t−1) )
+T ∑ i=t
+
+= Ea1 ∼pθ (a) Ea2 ∼pθ (a|a1 ) . . . EaT ∼pθ (a|a1:(T −1) )
+
+] r(a1:i )
+
+(4.23) The last line of derived equations describes the learning algorithm with a smaller variance than the original REINFORCE algorithm. 4.4.2.1.2 Online baseline prediction Online baseline prediction is the idea that the importance of the reward is determined by its relative relation to other rewards. All the rewards could be shifted by a constant factor and this change should not affect its relation; thus, it should not influence the expected gradient. However, it could decrease the variance of the gradient estimate. The aforementioned shift is called the baseline, and it can be estimated separately for every time step. We have that:
+
+65
+
+∑
+a(t+1):T ∈A† 1:t a
+
+pθ (a(t+1):T |a1:t ) = 1 pθ (a(t+1):T |a1:t ) = 0.
+
+(4.24) (4.25) (4.26)
+
+∂θ
+
+∑
+
+a(t+1):T ∈A† 1:t a
+
+We can subtract the above quantity (multiplied by bt ) from our estimate of the gradient without changing its expected value:
+
+∂θ J(θ) = Ea1 ∼pθ (a) Ea2 ∼pθ (a|a1 ) . . . EaT ∼pθ (a|a1:(T −1) )
+
+T [∑ t=1
+
+∂θ log pθ (at |a1:(t−1) )
+
+T ∑ i=t
+
+] (r(a1:i ) − bt ) .
+
+(4.27) The above statement holds for any sequence bt , and we aim to find the sequence bt that yields the lowest variance estimator on ∂θ J(θ). The variance of our estimator is:
+
+V ar = Ea1 ∼pθ (a) Ea2 ∼pθ (a|a1 ) . . . EaT ∼pθ (a|a1:(T −1) ) [
+
+T [∑ t=1
+
+∂θ log pθ (at |a1:(t−1) )
+
+T ∑ i=t
+
+]2 (r(a1:i ) − bt ) − (4.28) ]]2 (r(a1:i ) − bt ) (4.29)
+
+Ea1 ∼pθ (a) Ea2 ∼pθ (a|a1 ) . . . EaT ∼pθ (a|a1:(T −1) )
+
+T [∑ t=1
+
+∂θ log pθ (at |a1:(t−1) )
+
+T ∑ i=t
+
+The second term does not depend on bt and the variance is always positive. Hence, it suffices to minimize the first term, which is minimal when its derivative with respect to bt is zero. This implies the following: 66
+
+Ea1 ∼pθ (a) Ea2 ∼pθ (a|a1 ) . . . EaT ∼pθ (a|a1:(T −1) )
+T ∑ t=1
+
+T ∑ t=1
+
+∂θ log pθ (at |a1:(t−1) )
+
+T ∑ i=t
+
+(r(a1:i ) − bt ) = 0 (4.30)
+
+T ∑ ∂θ log pθ (at |a1:(t−1) ) (r(a1:i ) − bt ) = 0
+
+(4.31) (4.32)
+
+∑T
+t=1
+
+bt =
+
+∑ ∂θ log pθ (at |a1:(t−1) ) T r(a1:t ) i=t ∑T t=1 ∂θ log pθ (at |a1:(t−1) )
+
+i=t
+
+This gives us an estimate for a vector bt ∈ R#θ (where #θ is the number of dimensions of theta). However, it is common to use a single scalar for bt ∈ R, and estimate it as Epθ (at:T |a1:(t−1) ) R(at:T ). 4.4.2.1.3 Offline baseline prediction The REINFORCE algorithm works much better when it has accurate baselines. A separate LSTM can help in the baseline estimation. This can be done by first running the baseline LSTM on the entire input tape to produce a vector summarizing the input. Next, continue running the baseline LSTM in tandem with the controller LSTM, so that the baseline LSTM receives precisely the same inputs as the controller LSTM, and outputs a baseline bt at each time step ]2 ∑ [ t. The baseline LSTM is trained to minimize T R(at:T ) − bt (Fig. 4.5). t=1 This technique introduces a biased estimator; however, it works well in practice. We found it important to first have the baseline LSTM go over the entire input before computing the baselines bt . This is especially beneficial whenever there is considerable variation in the difficulty of the examples. For example, if the baseline LSTM can recognize that the current instance is unusually difficult, 67
+
+Figure 4.5: The baseline LSTM computes a baseline bt for every computational step t. The baseline LSTM receives the same inputs as the controller and it computes a baseline bt for time t before observing the chosen actions of time t. However, it is important to first provide the baseline LSTM with the entire input tape as a preliminary input, because doing so allows the baseline LSTM to accurately estimate the true difficulty of a given problem instance and therefore compute better baselines. For example, if a problem instance is unusually difficult, then we expect R1 to be large and negative. If the baseline LSTM is given entire input tape as an auxiliary input, it could compute an appropriately large and negative b1 .
+
+it can output a large negative value for bt=1 in anticipation of a large and negative R1 . In general, it is cheap and therefore worthwhile to provide the baseline network with all the available information, even if this information is not available at test time, because the baseline network is not needed at test time. 4.4.2.2 Gradient Checking for REINFORCE Gradient checking allow us to verify that the symbolic gradient of a deterministic function agrees with the numerical gradient of the objective. This procedure is critical to ensure the correctness of the neural network. However, REINFORCE is a stochastic algorithm, so the gradient checking would not be able to verify its correctness. The REINFORCE gradient verification should ensure that the expected gradient over all sequences of actions matches the numerical derivative of the expected objective. However, even for a small problem, we would need to draw billions of samples to achieve estimates accurate enough to state if there is match or mismatch. Instead, we developed a technique which 68
+
+avoids sampling and allows for gradient verification of REINFORCE within seconds on a laptop.
+
+REINFORCE
+
+Gradient Checking of REINFORCE
+
+Figure 4.6: Figure sketches algorithms: (Left) the REINFORCE algorithm, (Right) gradient checking for the REINFORCE algorithm. The red color indicates necessary steps to override the REINFORCE to become the gradient checker for the reinforce.
+
+First, we have to reduce the size of our task to make sure that the number of possible actions is manageable (e.g., < 104 ). This is similar to conventional gradient checkers, which can only be applied to small models. Next, we enumerate all possible sequences of actions that terminate the episode (brute force). By definition, these are precisely all the elements of A† . The key idea is the following: we override the sampling function with a deterministic function that returns every possible sequence of actions once (this are sequences from A† ). This deterministic sampler records the probability of the every sequence and modifies REINFORCE to account for it. For efficiency, it is desirable to use a single minibatch whose size is #A† . The sampling function needs to be adapted in a way that incrementally outputs the appropriate sequence from A† as we repeatedly call the sampling function. At the end of the minibatch, the sampling function will have access to the total 69
+
+probability of each action sequence (
+
+∏
+t
+
+pθ (at |a1:t−1 )), which in turn can be used
+
+to exactly compute J(θ) and its derivative. To compute the derivative, the REINFORCE gradient produced by each sequence a1:T ∈ A† should be weighted by its probability pθ (a1:T ). We summarize this procedure in Figure 4.6. The gradient checking is critical for ensuring the correctness of our implementation. While the basic REINFORCE algorithm is conceptually simple, our model is fairly complicated, as REINFORCE is used to train several interfaces of our model. Moreover, the model uses three separate techniques for reducing the variance of the gradient estimators. The model’s high complexity greatly increases the probability of a code error. In particular, our early implementations were incorrect, and we were able to fix them only after implementing gradient checking. 4.4.2.3 Direct Access Controller All tasks considered by the REINFORCE algorithm involve rearranging the input symbols in some way. For example, a typical task is to reverse a sequence (Section 4.2 lists the tasks). For these tasks, the controller would benefit from a built-in mechanism to directly copy an appropriate input to memory and to output. Such a mechanism would free the LSTM controller from remembering the input symbol in its control variables (“registers”), and would shorten the backpropagation paths and therefore make learning easier. We implemented this mechanism by adding the input to the memory and to the output, while also adding the memory to the output and to the adjacent memories (Fig. 4.8),
+
+70
+
+and adjust these additive contributions by a dynamic scalar (sigmoid) computed from the controller’s state. This way, the controller can decide to effectively not add the current input to the output at a given time step. Unfortunately, the necessity of this architectural modification is a drawback of our implementation, since it is not domain independent and would therefore not improve the performance of the model on many tasks of interest.
+
+Figure 4.8: The direct access conFigure 4.7: LSTM as a controller.
+
+troller.
+
+4.4.3
+
+Q-learning
+
+We present two reinforcement learning algorithms used in our setting: REINFORCE (Section 4.4.2), and Q-learning. This section describes Q-learning. The purpose of reinforcement learning is to learn a policy that yields the highest sum of future rewards. Q-learning does it indirectly by learning a Qfunction. Q(s, a) is a function that maps a pair of state and action to the sum of future rewards. This function is parametrized by the neural network and is learned. The optimal policy can then be extracted by taking argmax over Q(s, •). The function Q is updated during training according to:
+
+71
+
+[ ( )] Qt+1 (s, a) = Qt (s, a) − α Qt (s, a) − R(s′ ) + γ max Qn (s′ , a) .
+a
+
+(4.33)
+
+Taking the action a in state s causes a transition to state s′ , which in our case is deterministic. R(s′ ) is the reward experienced in state s′ , γ is the discount factor and α is the learning rate. Another commonly considered quantity is V (s) = maxa Q(s, a). V is the value function, and V (s) is the expected sum of future rewards starting from state s. Moreover, Q∗ and V ∗ are function values for the optimal policy. Our controller receives a reward of 1 every time it correctly predicts a digit (and 0 otherwise). Since the overall solution to the task requires all digits to be correct, we terminate a training episode as soon as an incorrect prediction is made. This learning environment is non-stationary, since even if the model initially picks the right actions, the symbol prediction is unlikely to be correct and the model receives no reward. But further on in training, when the symbol prediction is more reliable, the correct action will be rewarded§ . This is important because reinforcement learning algorithms assume stationarity of the environment, which is not true in our case. Learning in non-stationary environments is not well understood and there are no definitive methods to deal with it. However, empirically we find that this non-stationarity can be partially addressed by the use of Watkins Q(λ) 133 , as detailed in Section 4.4.3.2.
+If we were to use reinforcement to train the symbol output as well as the actions, then the environment would be stationary. However, this would mean ignoring the reliable signal available from direct backpropagation of the symbol output.
+§
+
+72
+
+4.4.3.1 Dynamic Discount Various episodes differ significantly in terms of length and thus they differ in terms of the sum of the future rewards as well. The initial state is insufficient to predict the sum of the future rewards when the length is unknown. Moreover, shifting or scaling Q induces the same policy. We propose to dynamically rescale Q so (i) it is independent of the length of the episode and (ii) Q is within a small range, making it easier to predict. ˆ ˆ We define Q to be our reparametrization and Q(s, a) should be roughly in the range [0, 1], and it should correspond to how close we are to V ∗ (s). Q could be ˆ decomposed multiplicatively as Q(s, a) = Q(s, a)V ∗ (s). However, in practice, we do not have access to V ∗ (s), so instead we use an estimate of the future rewards based on the total number of digits left in the sequence. Since every correct prediction yields a reward of 1, the optimal policy should be that the sum of future rewards be equal to the number of remaining symbols to predict. The number ˆ of remaining symbols to predict is known and we denote it by V (s). We remark that this is a form of supervision, albeit a weak one. Therefore, we normalize the Q-function by the remaining sum of rewards left in the task:
+
+Q(s, a) ˆ . Q(s, a) := ˆ V (s)
+
+(4.34)
+
+We assume that s transitions to s′ , and we re-write the Q-learning update equations: 73
+
+ˆ R(s′ ) V (s′ ) ˆ ′ ˆ Q(s, a) = + γ max Q(s , a) ˆ ˆ a V (s) V (s)
+
+(4.35)
+
+[ ( R(s′ ) ˆ V (s′ ) ˆ ′ )] ˆ ˆ ˆ Qt+1 (s, a) = Qt (s, a) − α Qt (s, a) − + γ max Qt (s , a) . ˆ ˆ a V (s) V (s)
+
+(4.36)
+
+ˆ ˆ Note that V (s) ≥ V (s′ ), with equality if no digit was predicted at the current time-step. As the episode progresses, the discount factor
+ˆ V (s′ ) ˆ V (s)
+
+decreases, making
+
+1 the model greedier. At the end of the sequence, the discount drops to 2 .
+
+4.4.3.2 Watkins Q(λ) The update to Q(s, a) in Eqn. 4.33 comes from two parts: the observed reward R(s′ ) and the estimated future reward Q(s′ , a). In our setting, there are two factors that make the former far more reliable than the latter: (i) rewards are deterministic and (ii) non-stationarity (induced by the ongoing learning of the symbol output by backpropagation) means that estimates of Q(s, a) are unreliable as the environment evolves. Consequently, the single action recurrence used in Eqn. 4.33 can be improved upon when on-policy actions are chosen. More precisely, let at , at+1 , . . . , at+T be consecutive actions induced by Q:
+
+at+i = argmax Q(st+i , a)
+a
+
+(4.37) (4.38)
+
+st+i − → st+i+1 . − Then the optimal Q∗ follows the following recursive equation: 74
+
+at+i
+
+Q (st , at ) =
+
+∗
+
+T ∑ i=1
+
+γ i−1 R(st+i ) + γ T max Q∗ (st+n+1 , a).
+a
+
+(4.39)
+
+and the update rule corresponding to Eqn. 4.33 becomes:
+
+T [ ( ∑ i−1 )] Qt+1 (st , at ) = Qt (st , at ) − α Qt (st , at ) − γ R(st+i ) + γ T max Qt (st+n+1 , a) . i=1 a
+
+(4.40) This is a special form of Watkins Q(λ) 133 where λ = 1. The classical applications of Watkins Q(λ) suggest choosing a small λ, which is a trade off on estimates based on various numbers of future rewards. λ = 0 rolls back to the classical Q-learning. Due to the reliability of our rewards, we found λ = 1 to be better than λ < 1; however, this needs further study. We remark that this unrolling of rewards can only take place until a nongreedy action is taken. When using an ϵ-greedy policy, we expect to be able to unroll ϵ−1 steps on average. For the value of ϵ = 0.05 used in our experiments this corresponds to 20 steps on average. 4.4.3.3 Penalty on Q-function ˆ ˆ After reparametrizing the Q-function to Q (Section 4.4.3.1), the optimal Q∗ (s, a) should be 1 for the correct action and 0 otherwise. To encourage our estimate ˆ Q(s, a) to converge to this, we introduce a penalty that “pushes down” on in∑ ˆ correct actions: κ∥ a Q(s, a) − 1∥2 . Therefore, it influences the value of Q for actions that are taken infrequently. This has the effect of introducing a margin
+
+75
+
+between correct and incorrect actions, which greatly improves generalization. We commence training with κ = 0 and make it non-zero once good accuracy is reached on short samples (introducing it from the outset hurts learning). 4.4.4 Experiments
+
+REINFORCE and Q-learning experiments have been conducted during separate periods, and on different set of tasks. REINFORCE tasks involve rearrangement of symbols, while Q-learning experiments are mainly about arithmetics. Nonetheless, they share the reverse and copy tasks. We have trained REINFORCE on the following tasks: Copy, Reverse, Duplicated Input, Repeat Copy, Forward Reverse, and Q-learning on Copy, Reverse, Walk, Addition, 3-Number Addition and Single Digit Multiplication. We start by presenting results from the REINFORCE algorithm. 4.4.4.1 Experiments with REINFORCE algorithm
+Controller Task Copy Duplicated Input Reverse Forward Reverse Repeat Copy
+
+LSTM ✓ ✓ × × ×
+
+Direct Access ✓ ✓ ✓ ✓ ✓
+
+Table 4.4: Success of training on various tasks for a given controller.
+
+This section presents results from training our model on REINFORCE algorithm Table 4.4. We trained our model using SGD with a fixed learning rate of 0.05 and a fixed momentum of 0.9. We used a batch of size 200, which we found to work better than smaller batch sizes (such as 50 or 20). We normal-
+
+76
+
+ized the gradient by batch size and not by sequence length. We independently clip the norm of the gradients w.r.t. the model parameters to 5, and the gradient w.r.t. the baseline network to 2. We initialize the controller and the baseline model using a Gaussian with standard deviation 0.1. We used an inverse temperature of 0.01 for the different action distributions. Doing so reduced the effective learning rate of the REINFORCE derivatives. The memory consists of 35 real values through which we backpropagate. The initial memory state and the controller’s initial hidden states were set to the zero vector. The Forward Reverse task is particularly interesting. In order to solve the problem, the controller has to move to the end of the sequence without making any predictions. While doing so, it has to store the input sequence into its memory (encoded in real values), and use its memory when reversing the sequence (Fig. 4.9). We have also experimented with a number of additional tasks but with less empirical success. Tasks we found to be too difficult include sorting, long integer addition (in base 3 for simplicity), and Repeat Copy when the input tape is forced to only move forward. While we were able to achieve reasonable performance on the sorting task, the controller learned an ad-hoc algorithm and made excessive use of its controller memory in order to sort the sequence. Empirically, we found all components of the model essential to successfully solving these problems. All our tasks are either solvable in under 20, 000 parameter updates or fail in arbitrary number of updates. We were completely unable to solve Repeat Copy, Reverse, and Forward reverse with the LSTM controller,
+
+77
+
+Reverse
+
+Duplicated Input
+
+Repeat Copy
+
+Forward Reverse
+
+Figure 4.9: This figure presents the execution traces from experiments with REINFORCE. The vertical depicts execution time. The rows show the input pointer, output pointer, and memory pointer (with the ∗ symbol) at each step of the controller’s execution. Note that we represent the set {1, . . . , 30} with 30 distinct symbols, and lack of prediction with #.
+
+78
+
+but we succeeded with a direct access controller. Moreover, we were also unable to solve any of these problems at all without a curriculum (except for short sequences of length 5). 4.4.4.2 Experiments with Q-learning This section presents the results of the Q-learning algorithm. We apply our enhancements to the six tasks in a series of experiments designed to examine the contribution of each of them. Unless otherwise specified, the controller is a 1layer GRU model with 200 units. This was selected on the basis of its mean performance across the six tasks in the supervised setting (see Section 4.3). As the performance of reinforcement learning methods tend to be highly stochastic, we repeated each experiment 10 times with a different random seed. Each model is trained using 3 × 107 characters which takes ∼ 4 hrs. A model is considered to have successfully solved the task if it is able to give a perfect answer to 50 test instances, each 100 digits in length. The GRU model is trained with a batch size of 20, a learning rate of α = 0.1, using the same initialization 36 but multiplied by 2. All tasks are trained with the same curriculum used in the supervised experiments 57 , whereby the sequences are initially of complexity 6 (corresponding to 2 or 3 digits, depending on the task) and once 100% accuracy is achieved, increased by 4 until the model is able to solve validation sequences of length 100. For 3-row addition, a more elaborate curriculum was needed which started with examples that did not involve a carry and contained many zero. The test distribution was unaffected.
+
+79
+
+Task
+
+Test length #Units Discount γ Watkins Q(λ) Penalty
+
+100 600 1 × × 30% 0% 0% 0% 0% 10% 0% 0% 0%
+
+100 400 1 × × 60% 0% 0% 0% 0% 70% 0% 50% 0%
+
+100 200 1 × × 90% 0% 0% 0% 0% 70% 0% 80% 0%
+
+100 200 0.99 × × 50% 0% 0% 0% 0% 70% 0% 40% 0%
+
+100 200 0.95 × × 70% 0% 0% 0% 0% 80% 0% 50% 0%
+
+100 200 D × × 90% 0% 0% 0% 0% 60% 0% 50% 100%
+
+100 200 D ✓ × 100% 0% 100% 10% 100% 60% 0% 80% 100%
+
+100 200 D ✓ ✓ 100% 0% 90% 90% 100% 100% 0% 80% 100%
+
+1000 200 D ✓ × 100% 0% 100% 10% 100% 40% 0% 10% 0%
+
+1000 200 D ✓ ✓ 100% 0% 90% 80% 100% 100% 0% 60% 0%
+
+Copying Reverse Reverse (FF controller) Walk Walk (FF controller) 2-row Addition 3-row Addition 3-row Addition (extra curriculum) Single Digit Multiplication
+
+Table 4.5: Success rates for classical Q-learning (columns 2-5) versus our enhanced Q-learning. A GRU-based controller is used on all tasks, except reverse and walk which use a feed-forward network. Curriculum learning was also used for the 3-row addition task (see text for details). When dynamic discount (D), Watkins Q(λ) and the penalty term are all used, the model consistently succeeds on all tasks. The model still performs well on test sequences of length 1000, apart from the multiplication task. Increasing the capacity of the controller results in worse performance (columns 2-4).
+
+We show results for various combinations of terms in Table 4.5. The experiments demonstrate that standard Q-learning fails on most of our tasks (first six columns). Each of our additions (dynamic discount, Watkins Q(λ) and penalty term) give significant improvements. When all three are used, our model is able to succeed at all tasks, provided that the appropriate curriculum and controller are used. Remark: there is not a single model that succeed on all tasks, but for every task we have a model that succeeds on it (i.e. compare Reverse with Reverse with FF controller in Table 4.5). For the reverse and walk tasks, the default GRU controller failed completely. However, using a feed-forward controller instead enabled the model to succeed, when dynamic discount and Watkins Q(λ) were used. As noted above, the 3row addition required a more careful curriculum before the model was able to
+
+80
+
+(FF)
+
+(FF)
+
+Figure 4.10: Test accuracy as a function of task complexity (10 runs) for standard Q-learning (blue) and our enhanced version (dynamic discount, Watkins Q(λ) and penalty term). Accuracy corresponds to the fraction of correct test cases (all digits must be predicted correctly for the instance to be considered correct).
+
+learn successfully. Increasing the capacity of the controller (columns 2-4) hurts performance, echoing Table 4.2. The last two columns of Table 4.5 show the results on test sequences of length 1000. Except for multiplication, the models still generalized successfully. Fig. 4.10 shows accuracy as a function of test example complexity for standard Q-learning and our enhanced version. The difference in performance is clear. At very high complexity, corresponding to thousands of digits, the accuracy starts to drop on the more complicated tasks. We note that these trends are essentially the same as those observed in the supervised setting (Fig. 4.3),
+
+81
+
+suggesting that Q-learning is not at fault. Instead, the inability of the controller to learn an automata seems to be the cause. Potential solutions to this might include (i) noise injection, (ii) discretization of state, (iii) a state error correction mechanism or (iv) regularizing the learned automata using MDL principles. However, the issue of the inability of RNN to perfectly represent an automata can be examined separately from the setting where actions have to be learned (i.e. in the supervised domain). 4.4.4.3 Multiple Solutions On examining the models learned on the addition task, we notice that three different solutions were discovered. While they all give the correct answer, they differ in their actions over the input grid, as shown in Fig. 4.11.
+
+Figure 4.11: Our model found three different solutions to the addition task, all of which give the correct answer. The arrows show the trajectory of the read head over the input grid.
+
+4.5 Discussion We have explored the ability of neural network models to learn algorithms for symbol rearrangement and simple arithmetic operations. Through experiments with supervision and reinforcement learning, we have shown that they can do this successfully, albeit with caveats. Solving problems with small Kolmogorov complexity is not interesting on its own because any developer could write down
+
+82
+
+such solutions explicitly. However, being able to train neural networks to express the correct solution to such problems is the prerequisite to finding small Kolmogorov complexity solutions to more complicated problems. Next chapter takes the opposite route to the approach presented in this chapter. We attempt to identify smaller building blocks, rather than providing a new high abstraction interface. Such small blocks allow us to rediscover known algorithms such as convolution.
+
+83
+
+5
+Learning the convolution algorithm
+Chapter 4 presents methods to extend neural networks by specifying interfaces that can easily express certain algorithms. However, the interfaces considered may provide abstractions that are too high-level. Consider the following analogy, in order to build a complicated LEGO structure, one needs many small bricks, rather than a few large ones. While having a variety of large bricks allows to rapidly build some structures, large bricks may be insufficient to build interesting LEGO structures. By the same token, having many high-level interfaces allows to solve a great variety of tasks, but such interfaces may be inadequate to solve needed tasks. We are interested in finding the smallest metaphor84
+
+ical building blocks that are sufficient to express certain high-level concepts of interest. One such high-level concept that we could learn is convolution. In this chapter, we attempt to rediscover the high-level concept of convolution. This chapter is based on the ICLR 2014 paper “Spectral networks and locally connected networks on graphs” 15 and was done in collaboration with Joan Bruna, Arthur Szlam and Yann LeCun. Convolutional neural networks (CNN) have proven successful in various computer vision tasks like object recognition 76,67,108 , video classification 124,73 and others. CNNs have significantly lower Kolmogorov complexity than fully connected networks due to requiring a smaller number of parameters to solve the same task. CNNs exploit several structures that reduce the number of parameters: 1. The translation structure, which allows the use of filters instead of generic linear maps and, hence enables weight sharing. 2. The metric of the grid, which allows compactly supported filters, whose support is typically much smaller than the size of the input signals. 3. The multiscale dyadic clustering of the grid, which allows subsampling implemented using strided convolutions and pooling. Consider a layer on a d-dimensional grid of n input coordinates. A fully connected layer with m outputs requires n · m parameters, which in typical operating regimes amounts to a complexity of O (n2 ) parameters. Using arbitrary filters instead of generic fully connected layers reduces the complexity to O (n) 85
+
+parameters per feature map, as does using the metric structure by building a “locally connected” network 43,72 . Using both together further reduces the complexity to O (k · S) parameters, where k is the number of feature maps and S is the support of the filters. As a result, the learning complexity is independent of n. Finally, using the multiscale dyadic clustering allows each successive layer to use a factor of 2d fewer (spatial) coordinates per filter. We rediscover convolution by considering classification problem in a more complex domain than a 2-D grid. Graphs offer a natural framework to generalize the low-dimensional structure of a grid. For instance, data defined on 3-D meshes, such as surface tension, temperature, measurements from a network of meteorological stations, or data coming from social networks or collaborative filtering, are all examples of structured input defined on graphs. Another relevant example is the intermediate representation arising from deep neural networks. Although the spatial convolutional structure can be exploited at several layers, typical CNN architectures do not assume any geometry in the “feature” dimension, resulting in 4-D tensors which are only convolutional along their spatial coordinates. In this work, we discuss constructions of deep neural networks on graphs other than regular grids. We propose two different constructions. In the first one, we show that one can extend properties (2) and (3) to general graphs, and use them to define “locally” connected and pooling layers, which require O (n) parameters instead of O (n2 ). We define this to be the spatial construction. The other construction, which we call spectral construction, draws on the proper-
+
+86
+
+ties of convolutions in the Fourier domain. In Rd , convolutions are linear operators diagonalised by the Fourier basis exp(iω · t), where ω, t ∈ Rd . One may then extend convolutions to general graphs by finding the corresponding “Fourier” basis. This equivalence is given by the graph Laplacian, an operator which enables harmonic analysis on the graphs 6 . The spectral construction needs at most O (n) parameters per feature map, and also enables a construction where the number of parameters is independent of the input dimension n. These constructions allow efficient forward propagation and can be applied to datasets with a very large number of coordinates. Our main contributions are summarized as follows: • We show that from a weak geometric structure in the input domain, it is possible to obtain efficient architectures using O (n) parameters, which we validate on low-dimensional graph datasets. • We introduce a construction using O (1) parameters which we empirically verify, and discuss its connections with harmonic analysis on graphs. 5.1 Spatial Construction The most immediate generalization of CNN to general graphs is to consider multiscale, hierarchical, local receptive fields, as suggested in 20 . For that purpose, the grid will be replaced by a weighted graph G = (Ω, W ), where Ω is a discrete set of size m and W is a m × m symmetric and nonnegative matrix.
+
+87
+
+5.1.1
+
+Locality via W
+
+The notion of locality can be generalized easily in the context of a graph. Indeed, the weights in a graph determine a notion of locality. For example, a straightforward way to define neighborhoods on W is to set a threshold δ > 0 and take neighborhoods
+
+Nδ (j) = {i ∈ Ω : Wij > δ} . We can restrict attention to sparse “filters” with receptive fields given by these neighborhoods to get locally connected networks, thus reducing the number of parameters in a filter layer to O (S · n), where S is the average neighborhood size. 5.1.2 Multiresolution Analysis on Graphs
+
+CNNs reduce the size of the grid via pooling and subsampling layers. These layers are possible because of the natural multiscale clustering of the grid: they input all feature maps over a cluster, and output a single feature for that cluster. On the grid, the dyadic clustering behaves nicely with respect to the metric and the Laplacian (and similarly with the translation structure). There is a large literature on forming multiscale clusterings on graphs, see for example 62,69,131,30 . Finding multiscale clusterings that are provably guaranteed to behave well w.r.t. the Laplacian on the graph is still an open area of research. In this work we will use a naive agglomerative method.
+
+88
+

@@ -1,0 +1,19 @@
+1.初始化列表：
+class Blob {
+ public:
+  Blob()
+       : data_(), diff_(), num_(0), channels_(0), height_(0), width_(0),
+       count_(0) {}
+
+：后面为类里面的内部变量，直接初始化
+
+
+2.函数模板：
+template <typename Dtype>
+void Blob<Dtype>:
+
+Dtype为变量
+
+
+
+3.net.transpose 是如何实现的

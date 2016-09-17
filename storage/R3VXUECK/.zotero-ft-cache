@@ -1,0 +1,185 @@
+DEEP DISCRIMINATIVE MANIFOLD LEARNING Jen-Tzung Chien and Ching-Huai Chen Department of Electrical and Computer Engineering National Chiao Tung University, Hsinchu, Taiwan 30010, ROC
+ABSTRACT This paper presents a new non-linear dimensionality reduction with stochastic neighbor embedding. A deep neural network is developed for discriminative manifold learning where the class information in transformed low-dimensional space is preserved. Importantly, the objective function for deep manifold learning is formed as the Kullback-Leibler divergence between the probability measures of the labeled samples in high-dimensional and low-dimensional spaces. Different from conventional methods, the derived objective does not require the empirically-tuned parameter. This objective is optimized to attractive those samples from the same class to be close together and simultaneously impose those samples from different classes to be far apart. In the experiments on image and audio tasks, we illustrate the effectiveness of the proposed discriminative manifold learning in terms of visualization and classiﬁcation performance. Index Terms— Manifold learning, deep neural network, discriminative learning, pattern classiﬁcation 1. INTRODUCTION Representation learning aims to explore the meaningful modeling of signals which is crucial for signal processing and machine learning [1]. The primary assumption behind most learning methods is that the minimum number of factors needed to describe the variance of dataset is much smaller than the dimensionality in the original signals [2]. Basically, the algorithms for learning representation range from linear transformations, such as principal component analysis (PCA) and linear discriminant analysis (LDA), to the nonlinear mappings, such as locally linear embedding [3] and stochastic neighbor embedding (SNE) [4, 5, 6, 7] where many of them are nonparametric approaches and there is no explicit mapping function between high-dimensional signal and lowdimensional representation. Such nonparametric manifold learning [3, 4] suffers from the generalization problem for unseen samples. To tackle this problem, the parametric mapping was proposed to predict unseen samples [8]. In [9], the manifold learning using deep neural network (DNN) was developed to improve the unsupervised representation learning. The parametric t-distributed SNE was proposed to learn the parametric mapping based on a DNN such that the representation for new samples was available. The deep model using DNN improved the mapping function for manifold learning. Considering the dimensionality reduction from a probabilistic perspective, the representation learning could be realized by using latent variables based on maximum a posteriori probability [10]. Several probabilistic latent variable models such as probabilistic PCA and LDA (PLDA) [11] have been proposed for parametric manifold learning. When estimating the model parameters in parametric approaches, the latent variables are typically assumed to be independent with Gaussian distributions so that the relation between observations and latent variables is arranged as a linear function and the resulting solution is computationally efﬁcient. Nevertheless, the latent variable model could be improved by introducing the non-Gaussian priors. In general, most manifold learning methods were performed in unsupervised manner. In this paper, we build a supervised DNN for dimensionality reduction and pattern classiﬁcation. A parametric mapping function using DNN is adopted to conduct a supervised nonlinear transformation for manifold learning. The class labels are treated as targets in parametric manifold learning to learn the neighbor embedding for low-dimensional representation. The objective for learning representation is formed as the generalized Kullback-Leibler (KL) divergence between the probability measures of labeled samples in original and transformed spaces. Experiments on different tasks illustrate the merit of proposed method in a sense that the class information is preserved in the space with the reduced dimension and model discrimination. 2. MANIFOLD AND DEEP LEARNING SNE was developed as a nonlinear unsupervised manifold learning [4]. Suppose we are given a set of high-dimensional signals X = {x1 , . . . , xN }. SNE attempts to ﬁnd the lowdimensional representations Y = {y1 , . . . , yN } where yn ∈ Rd preserves the pairwise similarity to xn ∈ RD and d < D. The conditional probability pm|n that xm is a neighbor of xn is expressed by pm|n = exp − xn − xm 2 . 2 t=n exp (− xn − xt ) (1)
+
+Similarly, the conditional probability in low-dimensional representation is modeled by qm|n = exp − yn − ym 2 . 2 t=n exp (− yn − yt ) (2)
+
+3. DEEP DISCRIMINATIVE MANIFOLD LEARNING Different from previous works, this paper presents a new deep supervised manifold learning for pattern classiﬁcation. 3.1. Supervised manifold learning
+
+pn|n and qn|n are set to zero. Intuitively, the difference between two sets of probability distributions Pn = {pm|n }N m=1 and Qn = {qm|n }N m=1 can be measured by the KullbackLeibler (KL) divergence L. SNE is implemented to ﬁnd lowdimensional representations Y from high-dimensional observations X by minimizing the objective function L. Neighbor embedding of samples in two spaces is naturally preserved with this nonlinear and nonparametric transformation. In a symmetric SNE (s-SNE), the pairwise similarities encoded in Pn and Qn are measured by the joint probabilities
+
+Suppose there are a set of high-dimensional data X and their corresponding labels T = {t1 , . . . , tN } collected for supervised manifold learning. We consider the assumption behind PLDA [11] that the members of the same class share the same latent variable yc which is called the class variable. The point ˆ estimate of class variable yc is the variable that maximizes the ˆ posterior distribution, i.e. yc = argmaxyn p(yn |xn ). Let xn and xm be two samples from the same class. The probability that yn is identical to ym equals to one if xn and xm belong to the same class or with the same target values tn = tm . To ﬁnd the corresponding latent variable without using explicit probability model, we deﬁne pnn = 0 and pnm = 1 when pm|n + pn|m exp − yn − ym 2 , qnm = . tn = tm and pnm = 0 when tn = tm . The pre-assigned probpnm = 2) 2N s t,t=s exp (− ys − yt abilities in high-dimensional space P = {pnm } are viewed as (3) the desired probability values for latent variables given by the In [5], the t-distributed SNE (t-SNE) was implemented labeled samples. On the other hand, we deﬁne the joint probby calculating the pairwise similarity between two lowability of two samples in low-dimensional space as dimensional representations (5) qnm = exp − yn − ym k qnm =
+s
+
+1 + yn − ym 2 /ν
+t,t=s
+
+− ν+1 2 − ν+1 2
+
+(1 + ys − yt 2 /ν)
+
+(4)
+
+where ν is the degree of freedom in Student’s t-distribution. The crowding problem in conventional SNE model is resolved accordingly. Such t-SNE can prevent attracting the low-dimensional representations mutually close together. To deal with the unseen data problem, the parametric mapping function based on DNN can be incorporated for deep manifold learning. Generally, DNN consists of the connected neurons in many layers which receive the weighted outputs of the connected neurons in previous layer and pass their outputs to the connected neurons in next layer. The nonlinear activation function is applied in calculation of neuron output. A DNN is characterized by its layered structure and the connection weights. DNN model can be simply seen as a nonlinear function which maps between input space X and output space Y, namely f (w, xn ) = yn , where w denotes the weight parameters and xn and yn are the samples in X and Y, respectively. Therefore, we would like to attain the desired outputs in the reduced-dimensional space by optimally estimating the weights of DNN from training data. This DNN is treated as a prediction function for unseen test data. The procedure of adjusting weights is referred to as DNN training. Recent works in [9, 12] showed that the improvement was obtained by applying the deep manifold learning with the pre-training procedure for the initial weights using the restricted Boltzmann machine (RBM) [13].
+
+and qnn = 0. The supervision of training samples is correspondingly provided. According to the above deﬁnition, if tn = tm , yn and ym are imposed to be identical such that the probability equals to one in the latent space. In Eq. (5), there is a parameter k > 0 that controls the shape of an exponentially decay function. Smaller k gives a longer tail. To pursue the latent variables satisfying the probability assumption for pnm and qnm , we consider the objective function for elastic embedding [14] and extend it for supervised manifold learning by minimizing the objective L given by pnm yn − ym
+n m k
+
++λ
+n m
+
+rnm exp − yn − ym (6)
+
+k
+
+where rnm = 1 − pnm . Given the objective function in Eq. (6), if pnm equals to one, then yn and ym shall affect the objective function through the ﬁrst term. In other words, the ﬁrst term forces the latent variables in the same class to be as close as possible. On the other hand, if yn and ym are not in the same class, the second term pushes them away. This circumstance becomes negligible when they have been far apart. Typically, both cases depend on the tuning parameters k and λ. The parameter λ governs the trade-off between the attraction in the ﬁrst term and the repulsion in the second term. The objective function in Eq. (6) is rewritten in a form of generalized KL divergence or I divergence DI (P Q) = n m (pnm log (pnm /qnm ) − pnm + qnm ) [15] as (7) L = DI (P λR ◦ Q) + G(λ)
+
+where R = {rnm }, Q = {qnm }, ◦ denotes the element-wise multiplication and G(λ) is deﬁned by [pnm (log pnm − log λ − log rnm − 1)] .
+n m
+
+(8)
+
+DNN is the construction of objective function Ldisc-SNE . Conventional DNN minimizes the sum-of-square-error function while our model minimizes the KL divergence for elastic embedding and dimensionality reduction. 3.4. Comparison with other methods It is interesting to compare the objective functions in different methods. The proposed objective DKL (P R ◦ Q) in Eq. (10) is related to that of the weighted symmetric SNE (ws-SNE) DKL (P M ◦ Q) [15] where P and Q are deﬁned in Eq. (3) and M is the weighting matrix which is imposed to force the centroids in different clusters repulsed mutually. This wsSNE obtained better performance for manifold learning by alleviating the crowding problem. In our study, the deﬁnition of P and R is used to map the samples of the same class into a single low-dimensional representation while preventing the low-dimensional representations from other classes to be close each other. A discriminative SNE (also denoted as discSNE) is implemented. In [12], the idea of mapping those samples from the same class into a single representative sample was also incorporated in the deep metric learning by means of collapsing classes, which was named as the d-MCML where the objective function was proposed in a form of [12] Ld-MCML ∝
+n
+
+Minimizing L over Y is equivalent to minimizing the objective DI (P λR ◦ Q) over Y because G(λ) is a constant. 3.2. Discriminative objective function One issue in the objective function of Eq. (6) is the empirical trade-off parameter λ which should be determined beforehand. Here, we consider Eq. (7) and propose a new optimization objective min DKL (P R ◦ Q) = min min DI (P λR ◦ Q)
+Y Y λ≥0
+
+(9)
+
+where KL divergence is deﬁned as DKL (P Q) = n m pnm log (˜nm /˜nm ) with pnm = pnm / s t pst and ˜ p q ˜ qnm = qnm / s t qst . By expanding Eq. (9) and dropping ˜ off the terms irrelevant to Y, the discriminative objective function based on SNE (disc-SNE) Ldisc-SNE is derived as pnm yn − ym
+n m k
+
++
+s t
+
+pst (10)
+k
+
+pnm yn − ym ⎛
+m
+
+2
+
+× log
+n m
+
+rnm exp − yn − ym
+
+. +
+n m
+
+⎞ exp − ys − yt
+s t,t=s 2
+
+log ⎝
+
+⎠.
+
+(12)
+
+Notably, the advantage of the objective in Eq. (10) over Eq. (6) is that there is no need of choosing λ. Parameter λ has been inherently merged during the optimization of Ldisc-SNE with respect to Y. 3.3. Optimization procedure It is important that we adopt a DNN as the parametric manifold learner for dimensionality reduction over training samples as well as unseen new samples. The optimal network weights w in different layers are trained by minimizing the objective Ldisc-SNE by using the training samples X = {x1 , . . . , xN } and their labels T = {t1 , . . . , tN }. The RPROP algorithm [16] with weight backtracking is implemented for updating w in an optimization procedure where the gradients of objective function with respect to the weight parameters are calculated according to ∂Ldisc-SNE = n ∂Ldisc-SNE ∂yn where ∂Ldisc-SNE is yielded as ∂w ∂yn ∂w ∂yn 2k pnm −
+m s
+k−2 2
+
+Here, the ﬁrst term aims to map the samples into a single representative sample while the second term would like to repulse low-dimensional representations to be apart from each other. There are two issues in this objective function. The ﬁrst one is that the term in the brackets of the second term is shared for different samples yn and ym in different classes. The force of repulsion is seen as a ﬁxed value. The second issue is that the physical meaning of the ﬁrst term and the second term are possibly conﬂicting for those samples in the same class. However, such issues do not happen in the proposed objective Eq. (10) where the effect of the second term is individually caused by each pair of samples yn and ym . Either the ﬁrst term or the second term is activating for each data pair {yn , ym }. Namely, the proposed manifold learning aims to move all samples of the same class in reduced dimension space toward the class centroid and also move the samples of different classes far apart mutually. 4. EXPERIMENTS 4.1. Experimental setup We conducted the experiments on the MNIST and USPS handwritten digit datasets and also on the NIST i-vector
+
+s
+
+pst rnm qnm t rst qst
+t
+
+(11)
+
+× yn − ym
+
+(yn − ym )
+
+and ∂yn is estimated through the error back propagation ∂w algorithm. The key difference compared with conventional
+
+speaker recognition challenge by following the experimental setups in [9, 12, 17]. For MNIST and USPS, we implemented the DNN supervised manifold learning which mapped an image into a two-dimensional sample vector for visualization using the topology D-500-500-2000-2. For speaker veriﬁcation task, the DNN topology 600-300-300-d was applied to reduce the dimension of i-vector D=600 to dimension d=300. The equal error rate (EER) was examined for speaker veriﬁcation and the classiﬁcation error was measured for image recognition. RBM pre-training was applied. The RPROP algorithm with mini-batch size of 100 was implemented. For comparison, we carried out the s-SNE, t-SNE [5], d-MCML [12] and the proposed disc-SNE with different k. The 1nearest neighbor classiﬁer was applied for image recognition.
+
+MNIST (2)
+
+MNIST (10)
+
+USPS (2)
+
+USPS (10)
+
+s-SNE t-SNE d-MCML disc-SNE
+
+38.7% 11.6% 4.4% 4.0%
+
+5.7% 5.0% 1.9% 1.6%
+
+36.4% 21.9% 13.3% 10.3%
+
+7.6% 7.5% 6.0% 5.3%
+
+Table 1. Comparison of classiﬁcation error rates. The number in brackets indicates the reduced dimension d.
+Baseline 7.26 % PCA 7.92 % LDA 6.08 % s-SNE 7.15% t-SNE 6.85% d-MCML 5.91% disc-SNE 5.85%
+
+Table 2. Comparison of EERs for speaker veriﬁcation. Table 1 reports the classiﬁcation error rates of test images by using different dimensionality reduction methods with the reduced dimensions d=2 and 10. MNIST and USPS datasets are used. This table shows that the supervision in manifold learning does improve the feature discrimination and accordingly reduce the recognition error in different conditions. Classiﬁcation performance is improved by increasing d. The supervised learning using d-MCML and disc-SNE with k = 0.5 performs better than unsupervised learning using s-SNE and t-SNE. The lowest classiﬁcation error is achieved by using disc-SNE. On the other hand, the comparison of EER (%) using different approaches to reduce the dimensionality of i-vector is shown in Table 2. The cosine distance scoring is performed for speaker recognition. Dimensionality reduction using PCA and LDA is implemented for comparison. PCA, s-SNE and t-SNE correspond to unsupervised methods while LDA, d-MCML and disc-SNE are seen as supervised method. Different dimensionality reduction methods are superior to baseline system with i-vectors. The supervised methods perform better than unsupervised methods. The proposed disc-SNE obtains the lowest EER among different methods. 5. CONCLUSIONS
+
+(a) s-SNE
+
+(b) t-SNE
+
+(c) disc-SNE, k = 2
+80 60 40 20 0 −20 −40 −60 −80 −80 25 20 15
+
+(d) k = 1
+1000 800 600 400 10 5 0 −5 −600 −10 −15 −20 −800 −15 −10 −5 0 5 10 15 200 0 −200 −400
+
+(e) k = 0.5
+
+−60
+
+−40
+
+−20
+
+0
+
+20
+
+40
+
+60
+
+−1000 −1000 −800
+
+−600
+
+−400
+
+−200
+
+0
+
+200
+
+400
+
+600
+
+800
+
+1000
+
+(f) t-SNE
+
+(g) d-MCML
+
+(h) disc-SNE
+
+Fig. 1. Two-dimensional visualization of test images of MNIST ((a)-(e)) and USPS ((f)-(h)) using different methods.
+
+4.2. Experimental result Figures 1(a)-(e) demonstrate the visualization of 10, 000 test samples in MNIST dataset by s-SNE, t-SNE and disc-SNE under different k. We can see that the crowding problem is serious by using s-SNE. The heavy-tail of t-distribution in tSNE alleviates such problem in s-SNE. However, using the class information in SNE algorithm is feasible to move the test samples of the same class with tendency of closeness in the low-dimensional space. In case of k = 2, disc-SNE obtains clear separation between classes. When decreasing k, a heavy-tailed condition is increasing. The separation between classes is further enhanced but the shape of a class is changed. Figures 1(f)-(h) show the visualization of 2007 test images in USPS dataset using t-SNE, d-MCML and dis-SNE with k = 0.5. Disc-SNE visualizes better than the other methods.
+
+This paper presented a supervised and parametric manifold learning method based on the stochastic neighbor embedding. The proposed method considers the condition that the samples from the same class share the same latent representation. Using a DNN as the mapping function, the proposed objective is optimized to transform the samples of the same class into a single representative centroid and simultaneously map those samples from different classes to be far apart. A meaningful objective is realized for discriminative manifold learning. The experiments on image and audio tasks show that the proposed manifold learning reﬂects the clustering structure of the classes in low-dimensional visualization, achieves the goal of extracting the discriminative features, and successfully improves the performance of pattern recognition. This framework could be further extended by building a hybrid transformation and classiﬁcation deep neural network.
+
+6. REFERENCES [1] Y. Bengio, A. Courville, and P. Vincent, “Representation learning: A review and new perspectives,” IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 35, no. 8, pp. 1798–1828, Aug. 2013. [2] E. Levina and P. J. Bickel, “Maximum likelihood estimation of intrinsic dimension,” in Advances in Neural Information Processing Systems, 2004, pp. 777–784. [3] S. T. Roweis and L. K. Saul, “Nonlinear dimensionality reduction by locally linear embedding,” Science, vol. 290, no. 5500, pp. 2323–2326, 2000. [4] G. E. Hinton and S. T. Roweis, “Stochastic neighbor embedding,” in Advances in Neural Information Processing Systems, 2002, pp. 857–864. [5] L. Maaten and G. Hinton, “Visualizing data using tSNE,” Journal of Machine Learning Research, vol. 9, pp. 2579–2605, Nov. 2008. [6] Z. Yang, I. King, Z. Xu, and E. Oja, “Heavy-tailed symmetric stochastic neighbor embedding,” in Advances in Neural Information Processing Systems, 2009, pp. 2169–2177. [7] K. Bunte, S. Haase, M. Biehl, and T. Villmann, “Stochastic neighbor embedding (SNE) for dimension reduction and visualization using arbitrary divergences,” Neurocomputing, vol. 90, pp. 23–45, 2012. [8] Y. Bengio, J.-F. Paiement, P. Vincent, O. Delalleau, N. Le Roux, and M. Ouimet, “Out-of-sample extensions for lle, isomap, mds, eigenmaps, and spectral clustering,” in Advances in Neural Information Processing Systems, 2004, vol. 16, pp. 177–184. [9] L. Maaten, “Learning a parametric embedding by preserving local structure,” in Proc. of International Conference on Artiﬁcial Intelligence and Statistics (AISTATS), 2009, pp. 384–391. [10] S. Watanabe and J.-T. Chien, Bayesian Speech and Language Processing, Cambridge University Press, 2015. [11] S. J. D. Prince and J. H. Elder, “Probabilistic linear discriminant analysis for inferences about identity,” in Proc. of IEEE International Conference on Computer Vision (ICCV), 2007, pp. 1–8. [12] R. Min, L. Maaten, Z. Yuan, A. Bonner, and Z. Zhang, “Deep supervised t-distributed embedding,” in Proc. of International Conference on Machine Learning (ICML), 2010, pp. 791–798.
+
+[13] G. E. Hinton, “A practical guide to training restricted Boltzmann machines,” in Neural Networks: Tricks of the Trade (2nd ed.), pp. 599–619. 2012. [14] M. A. Carreira-Perpinan, “The elastic embedding algorithm for dimensionality reduction,” in Proc. of International Conference on Machine Learning (ICML), 2010, pp. 167–174. [15] Z. Yang, J. Peltonen, and S. Kaski, “Optimization equivalence of divergences improves neighbor embedding,” in Proc. of International Conference on Machine Learning (ICML), 2014, pp. 460–468. [16] M. Riedmiller and H. Braun, “A direct adaptive method for faster backpropagation learning: The RPROP algorithm,” in Proc. of IEEE International Conference on Neural Networks, 1993, pp. 586–591. [17] C. S. Greenberg, D. Bans´ , G. R. Doddington, e D. Garcia-Romero, J. J. Godfrey, T. Kinnunen, A. F. Martin, A. McCree, M. Przybocki, and D. A. Reynolds, “The NIST 2014 speaker recognition i-vector machine learning challenge,” in Proc. of Odyssey: The Speaker and Language Recognition Workshop, 2014.
+

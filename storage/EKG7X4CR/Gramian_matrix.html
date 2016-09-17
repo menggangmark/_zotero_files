@@ -1,0 +1,1103 @@
+<html class="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="wpd_version" content="0.2">
+<meta name="wpd_baseurl" content="https://en.wikipedia.org/wiki/Gramian_matrix">
+<meta name="wpd_url" content="https://en.wikipedia.org/wiki/Gramian_matrix">
+<meta name="wpd_date" content="2016-08-11T14:21Z">
+
+<meta charset="UTF-8">
+<title>Gramian matrix - Wikipedia, the free encyclopedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Gramian_matrix","wgTitle":"Gramian matrix","wgCurRevisionId":733967021,"wgRevisionId":733967021,"wgArticleId":987959,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Systems theory","Matrices","Determinants","Analytic geometry","Kernel methods for machine learning"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Gramian_matrix","wgRelevantArticleId":987959,"wgRequestId":"V9TotQpAIDoAAAtCUCsAAAAM","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgRedirectedFrom":"Gram_matrix","wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"preview":false,"publish":false},"wgBetaFeaturesFeatures":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","usePageImages":true,"usePageDescriptions":true},"wgPreferredVariant":"en","wgMFDisplayWikibaseDescriptions":{"search":true,"nearby":true,"watchlist":true,"tagline":false},"wgRelatedArticles":null,"wgRelatedArticlesUseCirrusSearch":true,"wgRelatedArticlesOnlyUseCirrusSearch":false,"wgULSCurrentAutonym":"English","wgNoticeProject":"wikipedia","wgCentralNoticeCookiesToDelete":[],"wgCentralNoticeCategoriesUsingLegacy":["Fundraising","fundraising"],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgInternalRedirectTargetUrl":"/wiki/Gramian_matrix","wgWikibaseItemId":"Q1409400","wgCentralAuthMobileDomain":false,"wgVisualEditorToolbarScrollOffset":0,"wgEditSubmitButtonLabelPublish":false});mw.loader.state({"ext.globalCssJs.user.styles":"ready","ext.globalCssJs.site.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","user.cssprefs":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.math.styles":"ready","ext.cite.styles":"ready","wikibase.client.init":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.nojs":"ready","ext.tmh.thumbnail.styles":"ready","ext.wikimediaBadges":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready","ext.globalCssJs.user":"ready","ext.globalCssJs.site":"ready"});mw.loader.implement("user.options",function($,jQuery,require,module){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/;
+
+});mw.loader.load(["mediawiki.action.view.redirect","mediawiki.page.startup","mediawiki.legacy.wikibits","ext.centralauth.centralautologin","ext.visualEditor.desktopArticleTarget.init","ext.uls.interface","ext.quicksurveys.init","mw.MediaWikiPlayer.loader","mw.PopUpMediaTransform","skins.vector.js"]);});</script>
+
+<script async="" src="load.php"></script>
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+<meta name="generator" content="MediaWiki 1.28.0-wmf.18">
+<meta name="referrer" content="origin-when-cross-origin">
+<link rel="alternate" href="android-app://org.wikipedia/http/en.m.wikipedia.org/wiki/Gramian_matrix">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit">
+<link rel="edit" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit">
+<link rel="apple-touch-icon" href="https://en.wikipedia.org/static/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="https://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="canonical" href="https://en.wikipedia.org/wiki/Gramian_matrix">
+<link rel="dns-prefetch" href="https://login.wikimedia.org/">
+<link rel="dns-prefetch" href="https://meta.wikimedia.org/">
+<script src="load_001.php"></script><script src="load_001.php"></script>
+<link rel="stylesheet" type="text/css" href="Gramian_matrix.css" media="all">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Gramian_matrix rootpage-Gramian_matrix skin-vector action-view feature-page-action-bar-v2">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+							<div id="siteNotice"><div id="centralNotice"></div><div id="centralNotice"></div><!-- CentralNotice --></div>
+						<div class="mw-indicators">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">Gramian matrix</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"><span class="mw-redirectedfrom">&nbsp;&nbsp;(Redirected from <a href="https://en.wikipedia.org/w/index.php?title=Gram_matrix&amp;redirect=no" class="mw-redirect" title="Gram matrix">Gram matrix</a>)</span></div>
+												<div id="jump-to-nav" class="mw-jump">
+
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><p>In <a href="https://en.wikipedia.org/wiki/Linear_algebra" title="Linear algebra">linear algebra</a>, the <b>Gram matrix</b> (<b>Gramian matrix</b> or <b>Gramian</b>) of a set of vectors <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle v_{1},\dots ,v_{n}}</annotation>
+  </semantics>
+</math></span><img src="3e6ddc943290a5e10aa10a064fb4d6a745f0fde7" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 9.773ex; height: 2.009ex;" alt="v_{1},\dots ,v_{n}"></span> in an <a href="https://en.wikipedia.org/wiki/Inner_product_space" title="Inner product space">inner product space</a> is the <a href="https://en.wikipedia.org/wiki/Hermitian_matrix" title="Hermitian matrix">Hermitian matrix</a> of <a href="https://en.wikipedia.org/wiki/Inner_product" class="mw-redirect" title="Inner product">inner products</a>, whose entries are given by <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>G</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle G_{ij}=\langle v_{i},v_{j}\rangle }</annotation>
+  </semantics>
+</math></span><img src="39526a3504840b2c7c1adb01913e9558180f4c7c" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width: 13.313ex; height: 3.009ex;" alt="G_{ij}=\langle v_{i},v_{j}\rangle "></span>.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+<p>An important application is to compute <a href="https://en.wikipedia.org/wiki/Linear_independence" title="Linear independence">linear independence</a>: a set of vectors is linearly independent if and only if the <a href="#Gram_determinant">Gram determinant</a> (the <a href="https://en.wikipedia.org/wiki/Determinant" title="Determinant">determinant</a> of the Gram matrix) is non-zero.</p>
+<p>It is named after <a href="https://en.wikipedia.org/wiki/J%C3%B8rgen_Pedersen_Gram" title="Jørgen Pedersen Gram">Jørgen Pedersen Gram</a>.</p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Examples"><span class="tocnumber">1</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-2 tocsection-2"><a href="#Applications"><span class="tocnumber">1.1</span> <span class="toctext">Applications</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-3"><a href="#Properties"><span class="tocnumber">2</span> <span class="toctext">Properties</span></a>
+<ul>
+<li class="toclevel-2 tocsection-4"><a href="#Positive_semidefinite"><span class="tocnumber">2.1</span> <span class="toctext">Positive semidefinite</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="#Change_of_basis"><span class="tocnumber">2.2</span> <span class="toctext">Change of basis</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="#Gram_determinant"><span class="tocnumber">3</span> <span class="toctext">Gram determinant</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="#External_links"><span class="tocnumber">6</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Examples">Examples</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit&amp;section=1" title="Edit section: Examples">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>For finite-dimensional real vectors with the usual Euclidean <a href="https://en.wikipedia.org/wiki/Dot_product" title="Dot product">dot product</a>, the Gram matrix is simply <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>G</mi>
+        <mo>=</mo>
+        <msup>
+          <mi>V</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">T</mi>
+            </mrow>
+          </mrow>
+        </msup>
+        <mi>V</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle G=V^{\mathrm {T} }V}</annotation>
+  </semantics>
+</math></span><img src="49c3111cf7b86cfc410757b12b37408cdcabe1fa" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 10.097ex; height: 2.676ex;" alt="G=V^{\mathrm {T} }V"></span> (or <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>G</mi>
+        <mo>=</mo>
+        <msup>
+          <mi>V</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>H</mi>
+          </mrow>
+        </msup>
+        <mi>V</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle G=V^{H}V}</annotation>
+  </semantics>
+</math></span><img src="60431328522ac07059aa50e365d078e8e8ceaaaf" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 10.37ex; height: 2.676ex;" alt="{\displaystyle G=V^{H}V}"></span> for <a href="https://en.wikipedia.org/wiki/Complex_number" title="Complex number">complex</a> vectors using the <a href="https://en.wikipedia.org/wiki/Conjugate_transpose" title="Conjugate transpose">conjugate transpose</a>), where <i>V</i> is a matrix whose columns are the vectors <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>k</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle v_{k}}</annotation>
+  </semantics>
+</math></span><img src="d142b4083872eb72f81c1e20fd2c91d02b4a9838" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 2.234ex; height: 2.009ex;" alt="v_{k}"></span>.</p>
+<p>Most commonly, the vectors are elements of a <a href="https://en.wikipedia.org/wiki/Euclidean_space" title="Euclidean space">Euclidean space</a>, or are functions in an <a href="https://en.wikipedia.org/wiki/L2_space" class="mw-redirect" title="L2 space"><i>L</i><sup>2</sup> space</a>, such as <a href="https://en.wikipedia.org/wiki/Continuous_function" title="Continuous function">continuous functions</a> on a compact <a href="https://en.wikipedia.org/wiki/Interval_(mathematics)" title="Interval (mathematics)">interval</a> [<i>a</i>,&nbsp;<i>b</i>] (which are a subspace of <i>L</i><sup>&nbsp;2</sup>([<i>a</i>,&nbsp;<i>b</i>])).</p>
+<p>Given <a href="https://en.wikipedia.org/wiki/Real_number" title="Real number">real</a>-valued functions <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo fence="false" stretchy="false">{</mo>
+        <msub>
+          <mi>ℓ<!-- ℓ --></mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">(</mo>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mo stretchy="false">)</mo>
+        <mo>,</mo>
+        <mspace width="thinmathspace"></mspace>
+        <mi>i</mi>
+        <mo>=</mo>
+        <mn>1</mn>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <mi>n</mi>
+        <mo fence="false" stretchy="false">}</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \{\ell _{i}(\cdot ),\,i=1,\dots ,n\}}</annotation>
+  </semantics>
+</math></span><img src="f17d425e5be01f88a97035aeac79c97bf11a4e71" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 19.761ex; height: 2.843ex;" alt="\{\ell _{i}(\cdot ),\,i=1,\dots ,n\}"></span> on the interval <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo stretchy="false">[</mo>
+        <msub>
+          <mi>t</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>0</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>t</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>f</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">]</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle [t_{0},t_{f}]}</annotation>
+  </semantics>
+</math></span><img src="eca39f9a98030b9e7d258b08f8a3a1c372a80e8e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width: 6.264ex; height: 3.009ex;" alt="[t_{0},t_{f}]"></span>, the Gram matrix <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>G</mi>
+        <mo>=</mo>
+        <mo stretchy="false">[</mo>
+        <msub>
+          <mi>G</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">]</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle G=[G_{ij}]}</annotation>
+  </semantics>
+</math></span><img src="f6965937523ac7c52b59d5061ae8bdc98c340498" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width: 9.59ex; height: 3.009ex;" alt="G=[G_{{ij}}]"></span>, is given by the <a href="https://en.wikipedia.org/wiki/Inner_product#Examples" class="mw-redirect" title="Inner product">standard inner product on functions</a>:</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>G</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <msubsup>
+          <mo>∫<!-- ∫ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <msub>
+              <mi>t</mi>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mn>0</mn>
+              </mrow>
+            </msub>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <msub>
+              <mi>t</mi>
+              <mrow class="MJX-TeXAtom-ORD">
+                <mi>f</mi>
+              </mrow>
+            </msub>
+          </mrow>
+        </msubsup>
+        <msub>
+          <mi>ℓ<!-- ℓ --></mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">(</mo>
+        <mi>τ<!-- τ --></mi>
+        <mo stretchy="false">)</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <msub>
+                <mi>ℓ<!-- ℓ --></mi>
+                <mrow class="MJX-TeXAtom-ORD">
+                  <mi>j</mi>
+                </mrow>
+              </msub>
+              <mo stretchy="false">¯<!-- ¯ --></mo>
+            </mover>
+          </mrow>
+        </mrow>
+        <mo stretchy="false">(</mo>
+        <mi>τ<!-- τ --></mi>
+        <mo stretchy="false">)</mo>
+        <mspace width="thinmathspace"></mspace>
+        <mi>d</mi>
+        <mi>τ<!-- τ --></mi>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle G_{ij}=\int _{t_{0}}^{t_{f}}\ell _{i}(\tau ){\bar {\ell _{j}}}(\tau )\,d\tau .}</annotation>
+  </semantics>
+</math></span><img src="74618825e36446f9eac868d0d3d2d98581246d98" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -2.671ex; width: 24.29ex; height: 6.509ex;" alt="G_{ij}=\int _{t_{0}}^{t_{f}}\ell _{i}(\tau ){\bar {\ell _{j}}}(\tau )\,d\tau ."></span></dd>
+</dl>
+<p>For a general <a href="https://en.wikipedia.org/wiki/Bilinear_form" title="Bilinear form">bilinear form</a> <i>B</i> on a <a href="https://en.wikipedia.org/wiki/Finite-dimensional" class="mw-redirect" title="Finite-dimensional">finite-dimensional</a> <a href="https://en.wikipedia.org/wiki/Vector_space" title="Vector space">vector space</a> over any <a href="https://en.wikipedia.org/wiki/Field_(mathematics)" title="Field (mathematics)">field</a> we can define a Gram matrix <i>G</i> attached to a set of vectors <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle v_{1},\dots ,v_{n}}</annotation>
+  </semantics>
+</math></span><img src="3e6ddc943290a5e10aa10a064fb4d6a745f0fde7" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 9.773ex; height: 2.009ex;" alt="v_{1},\dots ,v_{n}"></span> by <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>G</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mi>B</mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mspace width="thinmathspace"></mspace>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle G_{ij}=B(v_{i},v_{j})\,}</annotation>
+  </semantics>
+</math></span><img src="7d016dbb1bda0f5c0df420ef2bdc86ee46a5caed" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width: 15.474ex; height: 3.009ex;" alt="G_{ij}=B(v_{i},v_{j})\,"></span>. The matrix will be symmetric if the bilinear form <i>B</i> is symmetric.</p>
+<h3><span class="mw-headline" id="Applications">Applications</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit&amp;section=2" title="Edit section: Applications">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<ul>
+<li>If the vectors are centered <a href="https://en.wikipedia.org/wiki/Random_variable" title="Random variable">random variables</a>, the Gramian is approximately proportional to the <b><a href="https://en.wikipedia.org/wiki/Covariance_matrix" title="Covariance matrix">covariance matrix</a></b>, with the scaling determined by the number of elements in the vector.</li>
+<li>In <a href="https://en.wikipedia.org/wiki/Quantum_chemistry" title="Quantum chemistry">quantum chemistry</a>, the Gram matrix of a set of <a href="https://en.wikipedia.org/wiki/Basis_vectors" class="mw-redirect" title="Basis vectors">basis vectors</a> is the <b><a href="https://en.wikipedia.org/wiki/Overlap_matrix" class="mw-redirect" title="Overlap matrix">overlap matrix</a></b>.</li>
+<li>In <a href="https://en.wikipedia.org/wiki/Control_theory" title="Control theory">control theory</a> (or more generally <a href="https://en.wikipedia.org/wiki/Systems_theory" title="Systems theory">systems theory</a>), the <b><a href="https://en.wikipedia.org/wiki/Controllability_Gramian" title="Controllability Gramian">controllability Gramian</a></b> and <b><a href="https://en.wikipedia.org/wiki/Observability_Gramian" title="Observability Gramian">observability Gramian</a></b> determine properties of a linear system.</li>
+<li>Gramian matrices arise in covariance structure model fitting (see e.g., Jamshidian and Bentler, 1993, Applied Psychological Measurement, Volume 18, pp.&nbsp;79–94).</li>
+<li>In the <a href="https://en.wikipedia.org/wiki/Finite_element_method" title="Finite element method">finite element method</a>, the Gram matrix arises from approximating a function from a finite dimensional space; the Gram matrix entries are then the inner products of the basis functions of the finite dimensional subspace.</li>
+<li>In <a href="https://en.wikipedia.org/wiki/Machine_learning" title="Machine learning">machine learning</a>, <a href="https://en.wikipedia.org/wiki/Kernel_function" class="mw-redirect" title="Kernel function">kernel functions</a> are often represented as Gram matrices.<sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup></li>
+</ul>
+<h2><span class="mw-headline" id="Properties">Properties</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit&amp;section=3" title="Edit section: Properties">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<h3><span class="mw-headline" id="Positive_semidefinite">Positive semidefinite</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit&amp;section=4" title="Edit section: Positive semidefinite">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>The Gramian matrix is <a href="https://en.wikipedia.org/wiki/Positive-semidefinite_matrix" class="mw-redirect" title="Positive-semidefinite matrix">positive semidefinite</a>, and every positive symmetric semidefinite matrix is the Gramian matrix for some set of vectors. Further, in finite-dimensions it determines the vectors up to isomorphism, i.e. any two sets of vectors with the same Gramian matrix must be related by a single unitary matrix. These facts follow from taking the <a href="https://en.wikipedia.org/wiki/Spectral_decomposition" class="mw-redirect" title="Spectral decomposition">spectral decomposition</a> of any positive semidefinite matrix <i>P</i>, so that <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>P</mi>
+        <mo>=</mo>
+        <mi>U</mi>
+        <mi>D</mi>
+        <msup>
+          <mi>U</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>H</mi>
+          </mrow>
+        </msup>
+        <mo>=</mo>
+        <mo stretchy="false">(</mo>
+        <mi>U</mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mi>D</mi>
+          </msqrt>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo stretchy="false">(</mo>
+        <mi>U</mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mi>D</mi>
+          </msqrt>
+        </mrow>
+        <msup>
+          <mo stretchy="false">)</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>H</mi>
+          </mrow>
+        </msup>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle P=UDU^{H}=(U{\sqrt {D}})(U{\sqrt {D}})^{H}}</annotation>
+  </semantics>
+</math></span><img src="4255269b95e3ce589ee9f1f04ccebef3d7c6514b" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 31.959ex; height: 3.176ex;" alt="{\displaystyle P=UDU^{H}=(U{\sqrt {D}})(U{\sqrt {D}})^{H}}"></span> and so <i>P</i> is the Gramian matrix of the columns of <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>U</mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msqrt>
+            <mi>D</mi>
+          </msqrt>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle U{\sqrt {D}}}</annotation>
+  </semantics>
+</math></span><img src="969e106317acdc6870f1b9df50100979382b91d3" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 5.674ex; height: 3.009ex;" alt="U{\sqrt {D}}"></span>. The Gramian matrix of any <a href="https://en.wikipedia.org/wiki/Orthonormal_basis" title="Orthonormal basis">orthonormal basis</a> is the identity matrix. The infinite-dimensional analog of this statement is <a href="https://en.wikipedia.org/wiki/Mercer%27s_theorem" title="Mercer's theorem">Mercer's theorem</a>.</p>
+<h3><span class="mw-headline" id="Change_of_basis">Change of basis</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit&amp;section=5" title="Edit section: Change of basis">edit</a><span class="mw-editsection-bracket">]</span></span></h3>
+<p>Under change of basis represented by an invertible matrix <i>P</i>, the Gram matrix will change by a <a href="https://en.wikipedia.org/wiki/Matrix_congruence" title="Matrix congruence">matrix congruence</a> to <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msup>
+          <mi>P</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>T</mi>
+          </mrow>
+        </msup>
+        <mi>G</mi>
+        <mi>P</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle P^{T}GP}</annotation>
+  </semantics>
+</math></span><img src="bdec5c95e025c7be25552d1dc585ab4172a11e80" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 6.822ex; height: 2.676ex;" alt="{\displaystyle P^{T}GP}"></span>.</p>
+<h2><span class="mw-headline" id="Gram_determinant">Gram determinant</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit&amp;section=6" title="Edit section: Gram determinant">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The <b>Gram determinant</b> or <b>Gramian</b> is the determinant of the Gram matrix:</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>G</mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>x</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mi>x</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow>
+            <mo>|</mo>
+            <mtable rowspacing="4pt" columnspacing="1em">
+              <mtr>
+                <mtd>
+                  <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>1</mn>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>1</mn>
+                    </mrow>
+                  </msub>
+                  <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+                </mtd>
+                <mtd>
+                  <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>1</mn>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>2</mn>
+                    </mrow>
+                  </msub>
+                  <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+                </mtd>
+                <mtd>
+                  <mo>…<!-- … --></mo>
+                </mtd>
+                <mtd>
+                  <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>1</mn>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>n</mi>
+                    </mrow>
+                  </msub>
+                  <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd>
+                  <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>2</mn>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>1</mn>
+                    </mrow>
+                  </msub>
+                  <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+                </mtd>
+                <mtd>
+                  <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>2</mn>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>2</mn>
+                    </mrow>
+                  </msub>
+                  <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+                </mtd>
+                <mtd>
+                  <mo>…<!-- … --></mo>
+                </mtd>
+                <mtd>
+                  <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>2</mn>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>n</mi>
+                    </mrow>
+                  </msub>
+                  <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd>
+                  <mo>⋮<!-- ⋮ --></mo>
+                </mtd>
+                <mtd>
+                  <mo>⋮<!-- ⋮ --></mo>
+                </mtd>
+                <mtd>
+                  <mo>⋱<!-- ⋱ --></mo>
+                </mtd>
+                <mtd>
+                  <mo>⋮<!-- ⋮ --></mo>
+                </mtd>
+              </mtr>
+              <mtr>
+                <mtd>
+                  <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>n</mi>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>1</mn>
+                    </mrow>
+                  </msub>
+                  <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+                </mtd>
+                <mtd>
+                  <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>n</mi>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mn>2</mn>
+                    </mrow>
+                  </msub>
+                  <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+                </mtd>
+                <mtd>
+                  <mo>…<!-- … --></mo>
+                </mtd>
+                <mtd>
+                  <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>n</mi>
+                    </mrow>
+                  </msub>
+                  <mo>,</mo>
+                  <msub>
+                    <mi>x</mi>
+                    <mrow class="MJX-TeXAtom-ORD">
+                      <mi>n</mi>
+                    </mrow>
+                  </msub>
+                  <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+                </mtd>
+              </mtr>
+            </mtable>
+            <mo>|</mo>
+          </mrow>
+        </mrow>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle G(x_{1},\dots ,x_{n})={\begin{vmatrix}\langle x_{1},x_{1}\rangle &amp;\langle x_{1},x_{2}\rangle &amp;\dots &amp;\langle x_{1},x_{n}\rangle \\\langle x_{2},x_{1}\rangle &amp;\langle x_{2},x_{2}\rangle &amp;\dots &amp;\langle x_{2},x_{n}\rangle \\\vdots &amp;\vdots &amp;\ddots &amp;\vdots \\\langle x_{n},x_{1}\rangle &amp;\langle x_{n},x_{2}\rangle &amp;\dots &amp;\langle x_{n},x_{n}\rangle \end{vmatrix}}.}</annotation>
+  </semantics>
+</math></span><img src="a7a4a52cdd8e93d04c8964ea9c21b68f927fb765" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -6.838ex; width: 53.325ex; height: 14.843ex;" alt="G(x_{1},\dots ,x_{n})={\begin{vmatrix}\langle x_{1},x_{1}\rangle &amp;\langle x_{1},x_{2}\rangle &amp;\dots &amp;\langle x_{1},x_{n}\rangle \\\langle x_{2},x_{1}\rangle &amp;\langle x_{2},x_{2}\rangle &amp;\dots &amp;\langle x_{2},x_{n}\rangle \\\vdots &amp;\vdots &amp;\ddots &amp;\vdots \\\langle x_{n},x_{1}\rangle &amp;\langle x_{n},x_{2}\rangle &amp;\dots &amp;\langle x_{n},x_{n}\rangle \end{vmatrix}}."></span></dd>
+</dl>
+<p>Geometrically, the Gram determinant is the square of the volume of the <a href="https://en.wikipedia.org/wiki/Parallelotope" class="mw-redirect" title="Parallelotope">parallelotope</a> formed by the vectors. In particular, the vectors are <a href="https://en.wikipedia.org/wiki/Linear_independence" title="Linear independence">linearly independent</a> if and only if the Gram determinant is nonzero (if and only if the Gram matrix is <a href="https://en.wikipedia.org/wiki/Non-singular_matrix" class="mw-redirect" title="Non-singular matrix">nonsingular</a>).</p>
+<p>The Gram determinant can also be expressed in terms of the <a href="https://en.wikipedia.org/wiki/Exterior_product" class="mw-redirect" title="Exterior product">exterior product</a> of vectors by</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>G</mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>x</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mi>x</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mo>∥<!-- ∥ --></mo>
+        <msub>
+          <mi>x</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>∧<!-- ∧ --></mo>
+        <mo>⋯<!-- ⋯ --></mo>
+        <mo>∧<!-- ∧ --></mo>
+        <msub>
+          <mi>x</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+        <msup>
+          <mo>∥<!-- ∥ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>2</mn>
+          </mrow>
+        </msup>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle G(x_{1},\dots ,x_{n})=\|x_{1}\wedge \cdots \wedge x_{n}\|^{2}.}</annotation>
+  </semantics>
+</math></span><img src="9cded34bb483efcfdbe3dcf5b0015089cf7e7d95" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 33.906ex; height: 3.176ex;" alt="G(x_{1},\dots ,x_{n})=\|x_{1}\wedge \cdots \wedge x_{n}\|^{2}."></span></dd>
+</dl>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit&amp;section=7" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Controllability_Gramian" title="Controllability Gramian">Controllability Gramian</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Observability_Gramian" title="Observability Gramian">Observability Gramian</a></li>
+</ul>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit&amp;section=8" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1"><span class="cite-accessibility-label">Jump up </span><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a href="#CITEREFHornJohnson2013">Horn &amp; Johnson 2013</a>, p.&nbsp;441<br>
+<b>Theorem 7.2.10</b> Let <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>m</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle v_{1},\ldots ,v_{m}}</annotation>
+  </semantics>
+</math></span><img src="4f87255ebbe8365adb9ceec34f33c02cb3121bc7" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 10.23ex; height: 2.009ex;" alt="{\displaystyle v_{1},\ldots ,v_{m}}"></span> be vectors in an inner product space <span class="texhtml mvar" style="font-style: italic;">V</span> with inner product <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mo>⋅<!-- ⋅ --></mo>
+          <mo>,</mo>
+          <mo>⋅<!-- ⋅ --></mo>
+        </mrow>
+        <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \langle {\cdot ,\cdot }\rangle }</annotation>
+  </semantics>
+</math></span><img src="4d4e79c7c650853fd3b2807d17afbe6b2f053646" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 4.189ex; height: 2.843ex;" alt="{\displaystyle \langle {\cdot ,\cdot }\rangle }"></span> and let <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>G</mi>
+        <mo>=</mo>
+        <mo stretchy="false">[</mo>
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msub>
+            <mi>v</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>j</mi>
+            </mrow>
+          </msub>
+          <mo>,</mo>
+          <msub>
+            <mi>v</mi>
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi>i</mi>
+            </mrow>
+          </msub>
+        </mrow>
+        <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+        <msubsup>
+          <mo stretchy="false">]</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>,</mo>
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>1</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>m</mi>
+          </mrow>
+        </msubsup>
+        <mo>∈<!-- ∈ --></mo>
+        <msub>
+          <mi>M</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>m</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle G=[\langle {v_{j},v_{i}}\rangle ]_{i,j=1}^{m}\in M_{m}}</annotation>
+  </semantics>
+</math></span><img src="d832dd07fb90ae90b963443330bf6328f8462b9b" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.338ex; width: 24.006ex; height: 3.343ex;" alt="{\displaystyle G=[\langle {v_{j},v_{i}}\rangle ]_{i,j=1}^{m}\in M_{m}}"></span>. Then<br>
+(a) <span class="texhtml mvar" style="font-style: italic;">G</span> is Hermitian and positive-semidefinite<br>
+(b) <span class="texhtml mvar" style="font-style: italic;">G</span> is positive-definite <a href="https://en.wikipedia.org/wiki/If_and_only_if" title="If and only if">if and only if</a> the vectors <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>m</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle v_{1},\ldots ,v_{m}}</annotation>
+  </semantics>
+</math></span><img src="4f87255ebbe8365adb9ceec34f33c02cb3121bc7" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 10.23ex; height: 2.009ex;" alt="{\displaystyle v_{1},\ldots ,v_{m}}"></span> are linearly-independent.<br>
+(c) rank(<span class="texhtml mvar" style="font-style: italic;">G</span>)=dimspan<span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo fence="false" stretchy="false">{</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mi>v</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>m</mi>
+          </mrow>
+        </msub>
+        <mo fence="false" stretchy="false">}</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \{v_{1},\ldots ,v_{m}\}}</annotation>
+  </semantics>
+</math></span><img src="d96e035f2d67ce98f56a1bbf44fa5473f9ed0bd7" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 12.576ex; height: 2.843ex;" alt="{\displaystyle \{v_{1},\ldots ,v_{m}\}}"></span></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-2"><span class="cite-accessibility-label">Jump up </span><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Lanckriet, G. R. G.; Cristianini, N.; Bartlett, P.; Ghaoui, L. E.; Jordan, M. I. (2004). <a rel="nofollow" class="external text" href="https://dl.acm.org/citation.cfm?id=894170">"Learning the kernel matrix with semidefinite programming"</a>. <i>Journal of Machine Learning Research</i>. <b>5</b>: 27–72 [p. 29].</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AGramian+matrix&amp;rft.atitle=Learning+the+kernel+matrix+with+semidefinite+programming&amp;rft.au=Bartlett%2C+P.&amp;rft.au=Cristianini%2C+N.&amp;rft.aufirst=G.+R.+G.&amp;rft.au=Ghaoui%2C+L.+E.&amp;rft.au=Jordan%2C+M.+I.&amp;rft.aulast=Lanckriet&amp;rft.date=2004&amp;rft.genre=article&amp;rft_id=https%3A%2F%2Fdl.acm.org%2Fcitation.cfm%3Fid%3D894170&amp;rft.jtitle=Journal+of+Machine+Learning+Research&amp;rft.pages=27-72+p.+29&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=5" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+</ol>
+</div>
+<ul>
+<li><cite id="CITEREFHornJohnson2013" class="citation book">Horn, Roger A.; Johnson, Charles R. (2013). "7.2 Characterizations and Properties". <i>Matrix Analysis (Second Edition)</i>. <a href="https://en.wikipedia.org/wiki/Cambridge_University_Press" title="Cambridge University Press">Cambridge University Press</a>. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-0-521-83940-2" title="Special:BookSources/978-0-521-83940-2">978-0-521-83940-2</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AGramian+matrix&amp;rft.atitle=7.2+Characterizations+and+Properties&amp;rft.aufirst=Roger+A.&amp;rft.au=Johnson%2C+Charles+R.&amp;rft.aulast=Horn&amp;rft.btitle=Matrix+Analysis+%28Second+Edition%29&amp;rft.date=2013&amp;rft.genre=bookitem&amp;rft.isbn=978-0-521-83940-2&amp;rft.pub=Cambridge+University+Press&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit&amp;section=9" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><cite id="CITEREFHazewinkel2001" class="citation">Hazewinkel, Michiel, ed. (2001), <a rel="nofollow" class="external text" href="http://www.encyclopediaofmath.org/index.php?title=p/g044750">"Gram matrix"</a>, <i><a href="https://en.wikipedia.org/wiki/Encyclopedia_of_Mathematics" title="Encyclopedia of Mathematics">Encyclopedia of Mathematics</a></i>, <a href="https://en.wikipedia.org/wiki/Springer_Science%2BBusiness_Media" title="Springer Science+Business Media">Springer</a>, <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/978-1-55608-010-4" title="Special:BookSources/978-1-55608-010-4">978-1-55608-010-4</a></cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AGramian+matrix&amp;rft.atitle=Gram+matrix&amp;rft.btitle=Encyclopedia+of+Mathematics&amp;rft.date=2001&amp;rft.genre=bookitem&amp;rft_id=http%3A%2F%2Fwww.encyclopediaofmath.org%2Findex.php%3Ftitle%3Dp%2Fg044750&amp;rft.isbn=978-1-55608-010-4&amp;rft.pub=Springer&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></li>
+<li><i><a rel="nofollow" class="external text" href="http://www.owlnet.rice.edu/~fjones/chap8.pdf">Volumes of parallelograms</a></i> by Frank Jones</li>
+</ul>
+
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:987959-0!*!0!!en!*!*!math=5 and timestamp 20160910093753 and revision id 733967021
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>					<div class="printfooter">
+
+						Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;oldid=733967021">https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;oldid=733967021</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="https://en.wikipedia.org/wiki/Category:Systems_theory" title="Category:Systems theory">Systems theory</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Matrices" title="Category:Matrices">Matrices</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Determinants" title="Category:Determinants">Determinants</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Analytic_geometry" title="Category:Analytic geometry">Analytic geometry</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Kernel_methods_for_machine_learning" title="Category:Kernel methods for machine learning">Kernel methods for machine learning</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-anonuserpage">Not logged in</li><li id="pt-anontalk"><a href="https://en.wikipedia.org/wiki/Special:MyTalk" title="Discussion about edits from this IP address [Alt+Shift+n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs"><a href="https://en.wikipedia.org/wiki/Special:MyContributions" title="A list of edits made from this IP address [Alt+Shift+y]" accesskey="y">Contributions</a></li><li id="pt-createaccount"><a href="https://en.wikipedia.org/w/index.php?title=Special:CreateAccount&amp;returnto=Gramian+matrix" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login"><a href="https://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Gramian+matrix" title="You're encouraged to log in; however, it's not mandatory. [Alt+Shift+o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li id="ca-nstab-main" class="selected"><span><a href="https://en.wikipedia.org/wiki/Gramian_matrix" title="View the content page [Alt+Shift+c]" accesskey="c">Article</a></span></li>
+															<li id="ca-talk"><span><a href="https://en.wikipedia.org/wiki/Talk:Gramian_matrix" title="Discussion about the content page [Alt+Shift+t]" accesskey="t" rel="discussion">Talk</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 tabindex="0" id="p-variants-label">
+							<span>Variants</span><a tabindex="-1" href="#"></a>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="https://en.wikipedia.org/wiki/Gramian_matrix">Read</a></span></li>
+															<li id="ca-edit"><span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=edit" title="Edit this page [Alt+Shift+e]" accesskey="e">Edit</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div style="" id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 tabindex="0" id="p-cactions-label"><span>More</span><a tabindex="-1" href="#"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="https://en.wikipedia.org/w/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input autocomplete="off" tabindex="2" name="search" placeholder="Search" title="Search Wikipedia [Alt+Shift+f]" accesskey="f" id="searchInput" type="search"><input value="Special:Search" name="title" type="hidden"><input name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton" type="submit">							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+			<h3 id="p-navigation-label">Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main page</a></li><li id="n-contents"><a href="https://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li><li id="n-featuredcontent"><a href="https://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li><li id="n-currentevents"><a href="https://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li><li id="n-randompage"><a href="https://en.wikipedia.org/wiki/Special:Random" title="Load a random article [Alt+Shift+x]" accesskey="x">Random article</a></li><li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li><li id="n-shoplink"><a href="https://shop.wikimedia.org/" title="Visit the Wikipedia store">Wikipedia store</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+			<h3 id="p-interaction-label">Interaction</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-help"><a href="https://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li><li id="n-aboutsite"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li><li id="n-portal"><a href="https://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li><li id="n-recentchanges"><a href="https://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r">Recent changes</a></li><li id="n-contactpage"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+			<h3 id="p-tb-label">Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="https://en.wikipedia.org/wiki/Special:WhatLinksHere/Gramian_matrix" title="List of all English Wikipedia pages containing links to this page [Alt+Shift+j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="https://en.wikipedia.org/wiki/Special:RecentChangesLinked/Gramian_matrix" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k">Related changes</a></li><li id="t-upload"><a href="https://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [Alt+Shift+u]" accesskey="u">Upload file</a></li><li id="t-specialpages"><a href="https://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q">Special pages</a></li><li id="t-permalink"><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;oldid=733967021" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;action=info" title="More information about this page">Page information</a></li><li id="t-wikibase"><a href="https://www.wikidata.org/wiki/Q1409400" title="Link to connected data repository item [Alt+Shift+g]" accesskey="g">Wikidata item</a></li><li id="t-cite"><a href="https://en.wikipedia.org/w/index.php?title=Special:CiteThisPage&amp;page=Gramian_matrix&amp;id=733967021" title="Information on how to cite this page">Cite this page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+			<h3 id="p-coll-print_export-label">Print/export</h3>
+
+			<div class="body">
+									<ul>
+						<li id="coll-create_a_book"><a href="https://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Gramian+matrix">Create a book</a></li><li id="coll-download-as-rdf2latex"><a href="https://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Gramian+matrix&amp;returnto=Gramian+matrix&amp;oldid=733967021&amp;writer=rdf2latex">Download as PDF</a></li><li id="t-print"><a href="https://en.wikipedia.org/w/index.php?title=Gramian_matrix&amp;printable=yes" title="Printable version of this page [Alt+Shift+p]" accesskey="p">Printable version</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span aria-haspopup="true" role="button" tabindex="0" title="Language settings" class="uls-settings-trigger"></span><span aria-haspopup="true" role="button" tabindex="0" title="Language settings" class="uls-settings-trigger"></span>
+			<h3 id="p-lang-label">Languages</h3>
+
+			<div class="body">
+									<ul>
+						<li class="interlanguage-link interwiki-ca"><a href="https://ca.wikipedia.org/wiki/Matriu_de_Gram" title="Matriu de Gram – Catalan" hreflang="ca" lang="ca">Català</a></li><li class="interlanguage-link interwiki-cs"><a href="https://cs.wikipedia.org/wiki/Gramova_matice" title="Gramova matice – Czech" hreflang="cs" lang="cs">Čeština</a></li><li class="interlanguage-link interwiki-de"><a href="https://de.wikipedia.org/wiki/Gramsche_Determinante" title="Gramsche Determinante – German" hreflang="de" lang="de">Deutsch</a></li><li class="interlanguage-link interwiki-es"><a href="https://es.wikipedia.org/wiki/Matriz_de_Gram" title="Matriz de Gram – Spanish" hreflang="es" lang="es">Español</a></li><li class="interlanguage-link interwiki-fr"><a href="https://fr.wikipedia.org/wiki/D%C3%A9terminant_de_Gram" title="Déterminant de Gram – French" hreflang="fr" lang="fr">Français</a></li><li class="interlanguage-link interwiki-it"><a href="https://it.wikipedia.org/wiki/Matrice_di_Gram" title="Matrice di Gram – Italian" hreflang="it" lang="it">Italiano</a></li><li class="interlanguage-link interwiki-ja"><a href="https://ja.wikipedia.org/wiki/%E3%82%B0%E3%83%A9%E3%83%A0%E8%A1%8C%E5%88%97" title="グラム行列 – Japanese" hreflang="ja" lang="ja">日本語</a></li><li class="interlanguage-link interwiki-pl"><a href="https://pl.wikipedia.org/wiki/Macierz_Grama" title="Macierz Grama – Polish" hreflang="pl" lang="pl">Polski</a></li><li class="interlanguage-link interwiki-ru"><a href="https://ru.wikipedia.org/wiki/%D0%9E%D0%BF%D1%80%D0%B5%D0%B4%D0%B5%D0%BB%D0%B8%D1%82%D0%B5%D0%BB%D1%8C_%D0%93%D1%80%D0%B0%D0%BC%D0%B0" title="Определитель Грама – Russian" hreflang="ru" lang="ru">Русский</a></li><li class="interlanguage-link interwiki-sl"><a href="https://sl.wikipedia.org/wiki/Gramova_matrika" title="Gramova matrika – Slovenian" hreflang="sl" lang="sl">Slovenščina</a></li><li class="interlanguage-link interwiki-sr"><a href="https://sr.wikipedia.org/wiki/%D0%93%D1%80%D0%B0%D0%BC%D0%BE%D0%B2%D0%B0_%D0%BC%D0%B0%D1%82%D1%80%D0%B8%D1%86%D0%B0" title="Грамова матрица – Serbian" hreflang="sr" lang="sr">Српски / srpski</a></li><li class="interlanguage-link interwiki-uk"><a href="https://uk.wikipedia.org/wiki/%D0%92%D0%B8%D0%B7%D0%BD%D0%B0%D1%87%D0%BD%D0%B8%D0%BA_%D0%93%D1%80%D0%B0%D0%BC%D0%B0" title="Визначник Грама – Ukrainian" hreflang="uk" lang="uk">Українська</a></li><li class="interlanguage-link interwiki-zh"><a href="https://zh.wikipedia.org/wiki/%E6%A0%BC%E6%8B%89%E5%A7%86%E7%9F%A9%E9%98%B5" title="格拉姆矩阵 – Chinese" hreflang="zh" lang="zh">中文</a></li>					</ul>
+				<div class="after-portlet after-portlet-lang"><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Q1409400#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>			</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 11 August 2016, at 07:52.</li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/" style="display: none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="https://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="https://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="https://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="https://wikimediafoundation.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="https://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-cookiestatement"><a href="https://wikimediafoundation.org/wiki/Cookie_statement">Cookie statement</a></li>
+											<li id="footer-places-mobileview"><a href="https://en.m.wikipedia.org/w/index.php?title=Gramian_matrix&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+							<a href="https://wikimediafoundation.org/"><img src="wikimedia-button.png" srcset="/static/images/wikimedia-button-1.5x.png 1.5x, /static/images/wikimedia-button-2x.png 2x" alt="Wikimedia Foundation" height="31" width="88"></a>						</li>
+											<li id="footer-poweredbyico">
+							<a href="https://www.mediawiki.org/"><img src="poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/static/images/poweredby_mediawiki_132x47.png 1.5x, /static/images/poweredby_mediawiki_176x62.png 2x" height="31" width="88"></a>						</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.loader.load(["ext.math.scripts","ext.cite.a11y","mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.watchlist-notice","ext.gadget.DRN-wizard","ext.gadget.charinsert","ext.gadget.refToolbar","ext.gadget.extra-toolbar-buttons","ext.gadget.switcher","ext.gadget.featured-articles-links","ext.visualEditor.targetLoader","ext.eventLogging.subscriber","ext.wikimediaEvents","ext.navigationTiming","ext.uls.eventlogger","ext.uls.init","ext.uls.interlanguage","ext.centralNotice.geoIP","ext.centralNotice.startUp"]);});</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set( {
+    "wgPageParseReport": {
+        "limitreport": {
+            "cputime": "0.110",
+            "walltime": "0.210",
+            "ppvisitednodes": {
+                "value": 399,
+                "limit": 1000000
+            },
+            "ppgeneratednodes": {
+                "value": 0,
+                "limit": 1500000
+            },
+            "postexpandincludesize": {
+                "value": 6951,
+                "limit": 2097152
+            },
+            "templateargumentsize": {
+                "value": 24,
+                "limit": 2097152
+            },
+            "expansiondepth": {
+                "value": 6,
+                "limit": 40
+            },
+            "expensivefunctioncount": {
+                "value": 0,
+                "limit": 500
+            },
+            "entityaccesscount": {
+                "value": 0,
+                "limit": 400
+            },
+            "timingprofile": [
+                "100.00%   91.594      1 -total",
+                " 75.88%   69.504      1 Template:Reflist",
+                " 39.41%   36.098      1 Template:Cite_journal",
+                " 22.44%   20.554      1 Template:Harvnb",
+                " 16.74%   15.337      1 Template:Springer",
+                " 11.17%   10.232      1 Template:Citation",
+                "  7.11%    6.511      1 Template:Cite_book",
+                "  3.48%    3.184      4 Template:Mvar"
+            ]
+        },
+        "scribunto": {
+            "limitreport-timeusage": {
+                "value": "0.033",
+                "limit": "10.000"
+            },
+            "limitreport-memusage": {
+                "value": 1743753,
+                "limit": 52428800
+            }
+        },
+        "cachereport": {
+            "origin": "mw1188",
+            "timestamp": "20160910093753",
+            "ttl": 2592000,
+            "transientcontent": false
+        }
+    }
+} );});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":80,"wgHostname":"mw1188"});});</script>
+	
+
+<div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body>
+</html>

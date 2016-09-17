@@ -1,0 +1,20 @@
+ 1.³õÊ¼»¯ÁÐ±í£º
+class Blob {
+ public:
+  Blob()
+       : data_(), diff_(), num_(0), channels_(0), height_(0), width_(0),
+       count_(0) {}
+
+£ººóÃæÎªÀàÀïÃæµÄÄÚ²¿±äÁ¿£¬Ö±½Ó³õÊ¼»¯
+
+
+2.º¯ÊýÄ£°å£º
+template <typename Dtype>
+void Blob<Dtype>:
+
+DtypeÎª±äÁ¿
+
+
+
+3.net.transpose ÊÇÈçºÎÊµÏÖµÄ
+

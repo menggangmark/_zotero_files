@@ -1,0 +1,1560 @@
+<html class="ve-not-available">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="wpd_version" content="0.2">
+<meta name="wpd_baseurl" content="https://en.wikipedia.org/wiki/Kernel_method">
+<meta name="wpd_url" content="https://en.wikipedia.org/wiki/Kernel_method">
+<meta name="wpd_date" content="2016-08-08T15:05Z">
+
+<meta charset="UTF-8">
+<title>Kernel method - Wikipedia, the free encyclopedia</title>
+<script>document.documentElement.className = document.documentElement.className.replace( /(^|\s)client-nojs(\s|$)/, "$1client-js$2" );</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgCanonicalNamespace":"","wgCanonicalSpecialPageName":false,"wgNamespaceNumber":0,"wgPageName":"Kernel_method","wgTitle":"Kernel method","wgCurRevisionId":730750764,"wgRevisionId":730750764,"wgArticleId":3424576,"wgIsArticle":true,"wgIsRedirect":false,"wgAction":"view","wgUserName":null,"wgUserGroups":["*"],"wgCategories":["Articles lacking in-text citations from January 2011","All articles lacking in-text citations","Kernel methods for machine learning","Geostatistics","Classification algorithms"],"wgBreakFrames":false,"wgPageContentLanguage":"en","wgPageContentModel":"wikitext","wgSeparatorTransformTable":["",""],"wgDigitTransformTable":["",""],"wgDefaultDateFormat":"dmy","wgMonthNames":["","January","February","March","April","May","June","July","August","September","October","November","December"],"wgMonthNamesShort":["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"wgRelevantPageName":"Kernel_method","wgRelevantArticleId":3424576,"wgRequestId":"V9CnhgpAIDgAAF0Sl-gAAAAD","wgIsProbablyEditable":true,"wgRestrictionEdit":[],"wgRestrictionMove":[],"wgRedirectedFrom":"Kernel_trick","wgWikiEditorEnabledModules":{"toolbar":true,"dialogs":true,"preview":false,"publish":false},"wgBetaFeaturesFeatures":[],"wgMediaViewerOnClick":true,"wgMediaViewerEnabledByDefault":true,"wgVisualEditor":{"pageLanguageCode":"en","pageLanguageDir":"ltr","usePageImages":true,"usePageDescriptions":true},"wgPreferredVariant":"en","wgMFDisplayWikibaseDescriptions":{"search":true,"nearby":true,"watchlist":true,"tagline":false},"wgRelatedArticles":null,"wgRelatedArticlesUseCirrusSearch":true,"wgRelatedArticlesOnlyUseCirrusSearch":false,"wgULSCurrentAutonym":"English","wgNoticeProject":"wikipedia","wgCentralNoticeCookiesToDelete":[],"wgCentralNoticeCategoriesUsingLegacy":["Fundraising","fundraising"],"wgCategoryTreePageCategoryOptions":"{\"mode\":0,\"hideprefix\":20,\"showcount\":true,\"namespaces\":false}","wgFlaggedRevsParams":{"tags":{"status":{"levels":1,"quality":2,"pristine":3}}},"wgStableRevisionId":null,"wgInternalRedirectTargetUrl":"/wiki/Kernel_method","wgWikibaseItemId":"Q620622","wgCentralAuthMobileDomain":false,"wgVisualEditorToolbarScrollOffset":0,"wgEditSubmitButtonLabelPublish":false});mw.loader.state({"ext.globalCssJs.user.styles":"ready","ext.globalCssJs.site.styles":"ready","site.styles":"ready","noscript":"ready","user.styles":"ready","user.cssprefs":"ready","user":"ready","user.options":"loading","user.tokens":"loading","ext.math.styles":"ready","ext.cite.styles":"ready","wikibase.client.init":"ready","ext.visualEditor.desktopArticleTarget.noscript":"ready","ext.uls.nojs":"ready","ext.tmh.thumbnail.styles":"ready","ext.wikimediaBadges":"ready","mediawiki.legacy.shared":"ready","mediawiki.legacy.commonPrint":"ready","mediawiki.sectionAnchor":"ready","mediawiki.skinning.interface":"ready","skins.vector.styles":"ready","ext.globalCssJs.user":"ready","ext.globalCssJs.site":"ready"});mw.loader.implement("user.options",function($,jQuery,require,module){mw.user.options.set({"variant":"en"});});mw.loader.implement("user.tokens",function ( $, jQuery, require, module ) {
+mw.user.tokens.set({"editToken":"+\\","patrolToken":"+\\","watchToken":"+\\","csrfToken":"+\\"});/*@nomin*/;
+
+});mw.loader.load(["mediawiki.action.view.redirect","mediawiki.page.startup","mediawiki.legacy.wikibits","ext.centralauth.centralautologin","mmv.head","ext.visualEditor.desktopArticleTarget.init","ext.uls.interface","ext.quicksurveys.init","mw.MediaWikiPlayer.loader","mw.PopUpMediaTransform","skins.vector.js"]);});</script>
+
+<script async="" src="load.php"></script>
+<meta name="ResourceLoaderDynamicStyles" content="">
+
+<meta name="generator" content="MediaWiki 1.28.0-wmf.17">
+<meta name="referrer" content="origin-when-cross-origin">
+<link rel="alternate" href="android-app://org.wikipedia/http/en.m.wikipedia.org/wiki/Kernel_method">
+<link rel="alternate" type="application/x-wiki" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit">
+<link rel="edit" title="Edit this page" href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit">
+<link rel="apple-touch-icon" href="https://en.wikipedia.org/static/apple-touch/wikipedia.png">
+<link rel="shortcut icon" href="wikipedia.ico">
+<link rel="search" type="application/opensearchdescription+xml" href="https://en.wikipedia.org/w/opensearch_desc.php" title="Wikipedia (en)">
+<link rel="EditURI" type="application/rsd+xml" href="https://en.wikipedia.org/w/api.php?action=rsd">
+<link rel="copyright" href="https://creativecommons.org/licenses/by-sa/3.0/">
+<link rel="canonical" href="https://en.wikipedia.org/wiki/Kernel_method">
+<link rel="dns-prefetch" href="https://login.wikimedia.org/">
+<link rel="dns-prefetch" href="https://meta.wikimedia.org/">
+<script src="load_001.php"></script><script src="load_001.php"></script>
+<link rel="stylesheet" type="text/css" href="Kernel_method.css" media="all">
+</head>
+<body class="mediawiki ltr sitedir-ltr mw-hide-empty-elt ns-0 ns-subject page-Kernel_method rootpage-Kernel_method skin-vector action-view feature-page-action-bar-v2">		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<div id="content" class="mw-body" role="main">
+			<a id="top"></a>
+
+							<div id="siteNotice"><div id="centralNotice"></div><!-- CentralNotice --></div>
+						<div class="mw-indicators">
+</div>
+			<h1 id="firstHeading" class="firstHeading" lang="en">Kernel method</h1>
+									<div id="bodyContent" class="mw-body-content">
+									<div id="siteSub">From Wikipedia, the free encyclopedia</div>
+								<div id="contentSub"><span class="mw-redirectedfrom">&nbsp;&nbsp;(Redirected from <a href="https://en.wikipedia.org/w/index.php?title=Kernel_trick&amp;redirect=no" class="mw-redirect" title="Kernel trick">Kernel trick</a>)</span></div>
+												<div id="jump-to-nav" class="mw-jump">
+
+					Jump to:					<a href="#mw-head">navigation</a>, 					<a href="#p-search">search</a>
+				</div>
+				<div id="mw-content-text" dir="ltr" class="mw-content-ltr" lang="en"><table class="vertical-navbox nowraplinks" style="float: right; clear: right; width: 22em; margin: 0px 0px 1em 1em; background: rgb(249, 249, 249) none repeat ; 0%; border: 1px solid rgb(170, 170, 170); padding: 0.2em; border-spacing: 0.4em 0px; text-align: center; line-height: 1.4em; font-size: 88%;">
+<tbody><tr>
+<th style="padding: 0.2em 0.4em; font-size: 145%; line-height: 1.2em;"><a href="https://en.wikipedia.org/wiki/Machine_learning" title="Machine learning">Machine learning</a> and<br>
+<a href="https://en.wikipedia.org/wiki/Data_mining" title="Data mining">data mining</a></th>
+</tr>
+<tr>
+<td style="padding: 0.25em 0.25em 0.75em;"><a href="https://en.wikipedia.org/wiki/File:Kernel_Machine.svg" class="image"><img alt="Kernel Machine.svg" src="220px-Kernel_Machine.svg.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kernel_Machine.svg/330px-Kernel_Machine.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Kernel_Machine.svg/440px-Kernel_Machine.svg.png 2x" data-file-width="512" data-file-height="232" height="100" width="220"></a></td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame1" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;">Problems<a href="#" id="NavToggle1" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Statistical_classification" title="Statistical classification">Classification</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Cluster_analysis" title="Cluster analysis">Clustering</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Regression_analysis" title="Regression analysis">Regression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Anomaly_detection" title="Anomaly detection">Anomaly detection</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Association_rule_learning" title="Association rule learning">Association rules</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Reinforcement_learning" title="Reinforcement learning">Reinforcement learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Structured_prediction" title="Structured prediction">Structured prediction</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Feature_engineering" title="Feature engineering">Feature engineering</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Feature_learning" title="Feature learning">Feature learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Online_machine_learning" title="Online machine learning">Online learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Semi-supervised_learning" title="Semi-supervised learning">Semi-supervised learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Unsupervised_learning" title="Unsupervised learning">Unsupervised learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Learning_to_rank" title="Learning to rank">Learning to rank</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Grammar_induction" title="Grammar induction">Grammar induction</a></li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame2" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;">
+<div style="padding: 0.1em 0px; line-height: 1.2em;"><a href="https://en.wikipedia.org/wiki/Supervised_learning" title="Supervised learning">Supervised learning</a><br>
+<span style="font-weight: normal;"><small>(<b><a href="https://en.wikipedia.org/wiki/Statistical_classification" title="Statistical classification">classification</a></b>&nbsp;• <b><a href="https://en.wikipedia.org/wiki/Regression_analysis" title="Regression analysis">regression</a></b>)</small></span></div>
+<a href="#" id="NavToggle2" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Decision_tree_learning" title="Decision tree learning">Decision trees</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Ensemble_learning" title="Ensemble learning">Ensembles</a> (<a href="https://en.wikipedia.org/wiki/Bootstrap_aggregating" title="Bootstrap aggregating">Bagging</a>, <a href="https://en.wikipedia.org/wiki/Boosting_(machine_learning)" title="Boosting (machine learning)">Boosting</a>, <a href="https://en.wikipedia.org/wiki/Random_forest" title="Random forest">Random forest</a>)</li>
+<li><a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm" title="K-nearest neighbors algorithm"><i>k</i>-NN</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Linear_regression" title="Linear regression">Linear regression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Naive_Bayes_classifier" title="Naive Bayes classifier">Naive Bayes</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Artificial_neural_network" title="Artificial neural network">Neural networks</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Logistic_regression" title="Logistic regression">Logistic regression</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Perceptron" title="Perceptron">Perceptron</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Relevance_vector_machine" title="Relevance vector machine">Relevance vector machine (RVM)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Support_vector_machine" title="Support vector machine">Support vector machine (SVM)</a></li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame3" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;"><a href="https://en.wikipedia.org/wiki/Cluster_analysis" title="Cluster analysis">Clustering</a><a href="#" id="NavToggle3" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/BIRCH" title="BIRCH">BIRCH</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Hierarchical_clustering" title="Hierarchical clustering">Hierarchical</a></li>
+<li><a href="https://en.wikipedia.org/wiki/K-means_clustering" title="K-means clustering"><i>k</i>-means</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Expectation-maximization_algorithm" class="mw-redirect" title="Expectation-maximization algorithm">Expectation-maximization (EM)</a></li>
+<li><br>
+<a href="https://en.wikipedia.org/wiki/DBSCAN" title="DBSCAN">DBSCAN</a></li>
+<li><a href="https://en.wikipedia.org/wiki/OPTICS_algorithm" title="OPTICS algorithm">OPTICS</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Mean-shift" class="mw-redirect" title="Mean-shift">Mean-shift</a></li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame4" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;"><a href="https://en.wikipedia.org/wiki/Dimensionality_reduction" title="Dimensionality reduction">Dimensionality reduction</a><a href="#" id="NavToggle4" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Factor_analysis" title="Factor analysis">Factor analysis</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Canonical_correlation_analysis" class="mw-redirect" title="Canonical correlation analysis">CCA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Independent_component_analysis" title="Independent component analysis">ICA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Linear_discriminant_analysis" title="Linear discriminant analysis">LDA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Non-negative_matrix_factorization" title="Non-negative matrix factorization">NMF</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Principal_component_analysis" title="Principal component analysis">PCA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/T-distributed_stochastic_neighbor_embedding" title="T-distributed stochastic neighbor embedding">t-SNE</a></li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame5" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;"><a href="https://en.wikipedia.org/wiki/Structured_prediction" title="Structured prediction">Structured prediction</a><a href="#" id="NavToggle5" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Graphical_model" title="Graphical model">Graphical models</a> (<a href="https://en.wikipedia.org/wiki/Bayesian_network" title="Bayesian network">Bayes net</a>, <a href="https://en.wikipedia.org/wiki/Conditional_random_field" title="Conditional random field">CRF</a>, <a href="https://en.wikipedia.org/wiki/Hidden_Markov_model" title="Hidden Markov model">HMM</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame6" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;"><a href="https://en.wikipedia.org/wiki/Anomaly_detection" title="Anomaly detection">Anomaly detection</a><a href="#" id="NavToggle6" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/K-nearest_neighbors_classification" class="mw-redirect" title="K-nearest neighbors classification"><i>k</i>-NN</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Local_outlier_factor" title="Local outlier factor">Local outlier factor</a></li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame7" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;"><a href="https://en.wikipedia.org/wiki/Artificial_neural_network" title="Artificial neural network">Neural nets</a><a href="#" id="NavToggle7" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Autoencoder" title="Autoencoder">Autoencoder</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Deep_learning" title="Deep learning">Deep learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Multilayer_perceptron" title="Multilayer perceptron">Multilayer perceptron</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Recurrent_neural_network" title="Recurrent neural network">RNN</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Restricted_Boltzmann_machine" title="Restricted Boltzmann machine">Restricted Boltzmann machine</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Self-organizing_map" title="Self-organizing map">SOM</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Convolutional_neural_network" title="Convolutional neural network">Convolutional neural network</a></li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame8" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;"><a href="https://en.wikipedia.org/wiki/Reinforcement_Learning" class="mw-redirect" title="Reinforcement Learning">Reinforcement Learning</a><a href="#" id="NavToggle8" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Q-Learning" class="mw-redirect" title="Q-Learning">Q-Learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/State-Action-Reward-State-Action" title="State-Action-Reward-State-Action">SARSA</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Temporal_Difference_Learning" class="mw-redirect" title="Temporal Difference Learning">Temporal Difference (TD)</a></li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame9" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;">Theory<a href="#" id="NavToggle9" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Bias-variance_dilemma" class="mw-redirect" title="Bias-variance dilemma">Bias-variance dilemma</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Computational_learning_theory" title="Computational learning theory">Computational learning theory</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Empirical_risk_minimization" title="Empirical risk minimization">Empirical risk minimization</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Occam_learning" title="Occam learning">Occam learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Probably_approximately_correct_learning" title="Probably approximately correct learning">PAC learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Statistical_learning_theory" title="Statistical learning theory">Statistical learning</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Vapnik%E2%80%93Chervonenkis_theory" title="Vapnik–Chervonenkis theory">VC theory</a></li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td style="padding: 0px 0.1em 0.4em;">
+<div id="NavFrame10" class="NavFrame collapsed" style="border: medium none; padding: 0px;">
+<div class="NavHead" style="font-size: 105%; background: transparent none repeat ; 0%; text-align: left;">Machine learning venues<a href="#" id="NavToggle10" class="NavToggle">[show]</a></div>
+<div class="NavContent" style="font-size: 105%; padding: 0.2em 0px 0.4em; text-align: center; display: none;">
+<div class="hlist">
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Conference_on_Neural_Information_Processing_Systems" title="Conference on Neural Information Processing Systems">NIPS</a></li>
+<li><a href="https://en.wikipedia.org/wiki/International_Conference_on_Machine_Learning" title="International Conference on Machine Learning">ICML</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Journal_of_Machine_Learning_Research" title="Journal of Machine Learning Research">JMLR</a></li>
+<li><a rel="nofollow" class="external text" href="http://arxiv.org/list/cs.LG/recent">ArXiv:cs.LG</a></li>
+</ul>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<tr>
+<td class="plainlist" style="padding: 0.3em 0.4em; font-weight: bold; border-top: 1px solid rgb(170, 170, 170); border-bottom: 1px solid rgb(170, 170, 170);">
+<ul>
+<li><span class="metadata"><img alt="" src="16px-Portal-puzzle.svg.png" srcset="//upload.wikimedia.org/wikipedia/en/thumb/f/fd/Portal-puzzle.svg/24px-Portal-puzzle.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/f/fd/Portal-puzzle.svg/32px-Portal-puzzle.svg.png 2x" data-file-width="32" data-file-height="28" height="14" width="16"> <a href="https://en.wikipedia.org/wiki/Portal:Machine_learning" title="Portal:Machine learning">Machine learning portal</a></span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td style="text-align: right; font-size: 115%; padding-top: 0.6em;">
+<div class="plainlinks hlist navbar mini">
+<ul>
+<li class="nv-view"><a href="https://en.wikipedia.org/wiki/Template:Machine_learning_bar" title="Template:Machine learning bar"><abbr title="View this template">v</abbr></a></li>
+<li class="nv-talk"><a href="https://en.wikipedia.org/wiki/Template_talk:Machine_learning_bar" title="Template talk:Machine learning bar"><abbr title="Discuss this template">t</abbr></a></li>
+<li class="nv-edit"><a class="external text" href="https://en.wikipedia.org/w/index.php?title=Template:Machine_learning_bar&amp;action=edit"><abbr title="Edit this template">e</abbr></a></li>
+</ul>
+</div>
+</td>
+</tr>
+</tbody></table>
+<p>In <a href="https://en.wikipedia.org/wiki/Machine_learning" title="Machine learning">machine learning</a>, <b>kernel methods</b> are a class of algorithms for <a href="https://en.wikipedia.org/wiki/Pattern_analysis" class="mw-redirect" title="Pattern analysis">pattern analysis</a>, whose best known member is the <a href="https://en.wikipedia.org/wiki/Support_vector_machine" title="Support vector machine">support vector machine</a> (SVM). The general task of pattern analysis is to find and study general types of relations (for example <a href="https://en.wikipedia.org/wiki/Cluster_analysis" title="Cluster analysis">clusters</a>, <a href="https://en.wikipedia.org/wiki/Ranking" title="Ranking">rankings</a>, <a href="https://en.wikipedia.org/wiki/Principal_components" class="mw-redirect" title="Principal components">principal components</a>, <a href="https://en.wikipedia.org/wiki/Correlation" class="mw-redirect" title="Correlation">correlations</a>, <a href="https://en.wikipedia.org/wiki/Statistical_classification" title="Statistical classification">classifications</a>) in datasets. For many algorithms that solve these tasks, the data in raw representation have to be explicitly transformed into <a href="https://en.wikipedia.org/wiki/Feature_vector" title="Feature vector">feature vector</a> representations via a user-specified <i>feature map</i>: in contrast, kernel methods require only a user-specified <i>kernel</i>, i.e., a <a href="https://en.wikipedia.org/wiki/Similarity_function" class="mw-redirect" title="Similarity function">similarity function</a> over pairs of data points in raw representation.</p>
+<p>Kernel methods owe their name to the use of <a href="https://en.wikipedia.org/wiki/Positive-definite_kernel" title="Positive-definite kernel">kernel functions</a>, which enable them to operate in a high-dimensional, <i>implicit</i> feature space without ever computing the coordinates of the data in that space, but rather by simply computing the <a href="https://en.wikipedia.org/wiki/Inner_product" class="mw-redirect" title="Inner product">inner products</a> between the images of all pairs of data in the feature space. This operation is often computationally cheaper than the explicit computation of the coordinates. This approach is called the "<b>kernel trick</b>". Kernel functions have been introduced for sequence data, <a href="https://en.wikipedia.org/wiki/Graph_kernel" title="Graph kernel">graphs</a>, text, images, as well as vectors.</p>
+<p>Algorithms capable of operating with kernels include the <a href="https://en.wikipedia.org/wiki/Kernel_perceptron" title="Kernel perceptron">kernel perceptron</a>, support vector machines (SVM), <a href="https://en.wikipedia.org/wiki/Gaussian_process" title="Gaussian process">Gaussian processes</a>, <a href="https://en.wikipedia.org/wiki/Principal_components_analysis" class="mw-redirect" title="Principal components analysis">principal components analysis</a> (PCA), <a href="https://en.wikipedia.org/wiki/Canonical_correlation_analysis" class="mw-redirect" title="Canonical correlation analysis">canonical correlation analysis</a>, <a href="https://en.wikipedia.org/wiki/Ridge_regression" class="mw-redirect" title="Ridge regression">ridge regression</a>, <a href="https://en.wikipedia.org/wiki/Spectral_clustering" title="Spectral clustering">spectral clustering</a>, <a href="https://en.wikipedia.org/wiki/Adaptive_filter" title="Adaptive filter">linear adaptive filters</a> and many others. Any <a href="https://en.wikipedia.org/wiki/Linear_model" title="Linear model">linear model</a> can be turned into a non-linear model by applying the kernel trick to the model: replacing its features (predictors) by a kernel function.</p>
+<p>Most kernel algorithms are based on <a href="https://en.wikipedia.org/wiki/Convex_optimization" title="Convex optimization">convex optimization</a> or <a href="https://en.wikipedia.org/wiki/Eigenvalue,_eigenvector_and_eigenspace" class="mw-redirect" title="Eigenvalue, eigenvector and eigenspace">eigenproblems</a> and are statistically well-founded. Typically, their statistical properties are analyzed using <a href="https://en.wikipedia.org/wiki/Statistical_learning_theory" title="Statistical learning theory">statistical learning theory</a> (for example, using <a href="https://en.wikipedia.org/wiki/Rademacher_complexity" title="Rademacher complexity">Rademacher complexity</a>).</p>
+<p></p>
+<div id="toc" class="toc">
+<div id="toctitle">
+<h2>Contents</h2>
+<span class="toctoggle">&nbsp;[<a href="#" id="togglelink">hide</a>]&nbsp;</span></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="#Motivation_and_informal_explanation"><span class="tocnumber">1</span> <span class="toctext">Motivation and informal explanation</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="#Mathematics:_the_kernel_trick"><span class="tocnumber">2</span> <span class="toctext">Mathematics: the kernel trick</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="#Applications"><span class="tocnumber">3</span> <span class="toctext">Applications</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="#Popular_kernels"><span class="tocnumber">4</span> <span class="toctext">Popular kernels</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="#Notes"><span class="tocnumber">6</span> <span class="toctext">Notes</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="#External_links"><span class="tocnumber">8</span> <span class="toctext">External links</span></a></li>
+</ul>
+</div>
+<p></p>
+<h2><span class="mw-headline" id="Motivation_and_informal_explanation">Motivation and informal explanation</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit&amp;section=1" title="Edit section: Motivation and informal explanation">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Kernel methods can be thought of as <a href="https://en.wikipedia.org/wiki/Instance-based_learning" title="Instance-based learning">instance-based learners</a>: rather than learning some fixed set of parameters corresponding to the features of their inputs, they instead "remember" the <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>i</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle i}</annotation>
+  </semantics>
+</math></span><img src="add78d8608ad86e54951b8c8bd6c8d8416533d20" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 0.813ex; height: 2.176ex;" alt="i"></span>-th training example <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>y</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle (\mathbf {x} _{i},y_{i})}</annotation>
+  </semantics>
+</math></span><img src="b1391d404dfff362732744fbced84d474a44e1c2" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 7.06ex; height: 2.843ex;" alt="(\mathbf {x} _{i},y_{i})"></span> and learn for it a corresponding weight <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>w</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle w_{i}}</annotation>
+  </semantics>
+</math></span><img src="fe22f0329d3ecb2e1880d44d191aba0e5475db68" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 2.482ex; height: 2.009ex;" alt="w_{i}"></span>. Prediction for unlabeled inputs, i.e., those not in the training set, is treated by the application of a <a href="https://en.wikipedia.org/wiki/Similarity_function" class="mw-redirect" title="Similarity function">similarity function</a> <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k}</annotation>
+  </semantics>
+</math></span><img src="c3c9a2c7b599b37105512c5d570edc034056dd40" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.222ex; height: 2.176ex;" alt="k"></span>, called a <b>kernel</b>, between the unlabeled input <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <msup>
+            <mi mathvariant="bold">x</mi>
+            <mo>′</mo>
+          </msup>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {x'} }</annotation>
+  </semantics>
+</math></span><img src="7d14ab6186e99346cb608a30858c3e1580f760e6" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 2.114ex; height: 2.509ex;" alt="\mathbf {x'} "></span> and each of the training inputs <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {x} _{i}}</annotation>
+  </semantics>
+</math></span><img src="57d2ef3df60acdb53bdf90535264041fea7231cd" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 2.228ex; height: 2.009ex;" alt="\mathbf {x} _{i}"></span>. For instance, a kernelized <a href="https://en.wikipedia.org/wiki/Binary_classifier" class="mw-redirect" title="Binary classifier">binary classifier</a> typically computes a weighted sum of similarities</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <mi>y</mi>
+              <mo stretchy="false">^<!-- ^ --></mo>
+            </mover>
+          </mrow>
+        </mrow>
+        <mo>=</mo>
+        <mi>sgn</mi>
+        <mo>⁡<!-- ⁡ --></mo>
+        <munderover>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>1</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </munderover>
+        <msub>
+          <mi>w</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>y</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mi>k</mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msup>
+            <mi mathvariant="bold">x</mi>
+            <mo>′</mo>
+          </msup>
+        </mrow>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\hat {y}}=\operatorname {sgn} \sum _{i=1}^{n}w_{i}y_{i}k(\mathbf {x} _{i},\mathbf {x'} )}</annotation>
+  </semantics>
+</math></span><img src="89ee5a3186c6e0ff15dd8065d94777b6179a56a9" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.005ex; width: 24.841ex; height: 7.009ex;" alt="{\hat {y}}=\operatorname {sgn} \sum _{i=1}^{n}w_{i}y_{i}k(\mathbf {x} _{i},\mathbf {x'} )"></span>,</dd>
+</dl>
+<p>where</p>
+<ul>
+<li><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <mi>y</mi>
+              <mo stretchy="false">^<!-- ^ --></mo>
+            </mover>
+          </mrow>
+        </mrow>
+        <mo>∈<!-- ∈ --></mo>
+        <mo fence="false" stretchy="false">{</mo>
+        <mo>−<!-- − --></mo>
+        <mn>1</mn>
+        <mo>,</mo>
+        <mo>+</mo>
+        <mn>1</mn>
+        <mo fence="false" stretchy="false">}</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\hat {y}}\in \{-1,+1\}}</annotation>
+  </semantics>
+</math></span><img src="3ff919c29b83be4191b91d3067b89a217401341d" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 13.537ex; height: 2.843ex;" alt="{\hat {y}}\in \{-1,+1\}"></span> is the kernelized binary classifier's predicted label for the unlabeled input <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <msup>
+            <mi mathvariant="bold">x</mi>
+            <mo>′</mo>
+          </msup>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {x'} }</annotation>
+  </semantics>
+</math></span><img src="7d14ab6186e99346cb608a30858c3e1580f760e6" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 2.114ex; height: 2.509ex;" alt="\mathbf {x'} "></span> whose hidden true label <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>y</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle y}</annotation>
+  </semantics>
+</math></span><img src="b8a6208ec717213d4317e666f1ae872e00620a0d" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 1.166ex; height: 2.009ex;" alt="y"></span> is of interest;</li>
+<li><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+        <mo>:<!-- : --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+        <mo>×<!-- × --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+        <mo stretchy="false">→<!-- → --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="double-struck">R</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k\colon {\mathcal {X}}\times {\mathcal {X}}\to \mathbb {R} }</annotation>
+  </semantics>
+</math></span><img src="ecc3c27f7e04f4ce7c0088a69e0b414a74869e3e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 14.202ex; height: 2.176ex;" alt="k\colon {\mathcal {X}}\times {\mathcal {X}}\to \mathbb {R} "></span> is the kernel function that measures similarity between any pair of inputs <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">x</mi>
+        </mrow>
+        <mo>,</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msup>
+            <mi mathvariant="bold">x</mi>
+            <mo>′</mo>
+          </msup>
+        </mrow>
+        <mo>∈<!-- ∈ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {x} ,\mathbf {x'} \in {\mathcal {X}}}</annotation>
+  </semantics>
+</math></span><img src="f029197c8bd56f41a73dca35dc1afccc8baaa665" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 9.316ex; height: 2.843ex;" alt="\mathbf {x} ,\mathbf {x'} \in {\mathcal {X}}"></span>;</li>
+<li>the sum ranges over the <span class="texhtml mvar" style="font-style: italic;">n</span> labeled examples <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo fence="false" stretchy="false">{</mo>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mi>y</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <msubsup>
+          <mo fence="false" stretchy="false">}</mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>1</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msubsup>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \{(\mathbf {x} _{i},y_{i})\}_{i=1}^{n}}</annotation>
+  </semantics>
+</math></span><img src="fa50701446bc8bb883c6aa304144373d240c1c85" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width: 12.328ex; height: 3.009ex;" alt="\{(\mathbf {x} _{i},y_{i})\}_{i=1}^{n}"></span> in the classifier's training set, with <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>y</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>∈<!-- ∈ --></mo>
+        <mo fence="false" stretchy="false">{</mo>
+        <mo>−<!-- − --></mo>
+        <mn>1</mn>
+        <mo>,</mo>
+        <mo>+</mo>
+        <mn>1</mn>
+        <mo fence="false" stretchy="false">}</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle y_{i}\in \{-1,+1\}}</annotation>
+  </semantics>
+</math></span><img src="287b80f546eb07ca26f570566d3a0f71bf237e6d" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 14.181ex; height: 2.843ex;" alt="y_{i}\in \{-1,+1\}"></span>;</li>
+<li>the <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>w</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>∈<!-- ∈ --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="double-struck">R</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle w_{i}\in \mathbb {R} }</annotation>
+  </semantics>
+</math></span><img src="bd3678bb35c0b03cbbd918b869c2461838a1c98f" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 7.021ex; height: 2.509ex;" alt="w_{i}\in \mathbb {R} "></span> are the weights for the training examples, as determined by the learning algorithm;</li>
+<li>the <a href="https://en.wikipedia.org/wiki/Sign_function" title="Sign function">sign function</a> <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>sgn</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \operatorname {sgn} }</annotation>
+  </semantics>
+</math></span><img src="ec838dfd8a4a659b2877f93a6b53f22fc7777d07" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 3.403ex; height: 2.176ex;" alt="\operatorname {sgn} "></span> determines whether the predicted classification <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mover>
+              <mi>y</mi>
+              <mo stretchy="false">^<!-- ^ --></mo>
+            </mover>
+          </mrow>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\hat {y}}}</annotation>
+  </semantics>
+</math></span><img src="3dc8de3d8ea01304329ef9518fad7a6d196c4c01" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.671ex; width: 1.313ex; height: 2.676ex;" alt="{\hat {y}}"></span> comes out positive or negative.</li>
+</ul>
+<p>Kernel classifiers were described as early as the 1960s, with the invention of the <a href="https://en.wikipedia.org/wiki/Kernel_perceptron" title="Kernel perceptron">kernel perceptron</a>.<sup id="cite_ref-1" class="reference"><a href="#cite_note-1">[1]</a></sup> They rose to great prominence with the popularity of the <a href="https://en.wikipedia.org/wiki/Support_vector_machine" title="Support vector machine">support vector machine</a> (SVM) in the 1990s, when the SVM was found to be competitive with <a href="https://en.wikipedia.org/wiki/Artificial_neural_network" title="Artificial neural network">neural networks</a> on tasks such as <a href="https://en.wikipedia.org/wiki/Handwriting_recognition" title="Handwriting recognition">handwriting recognition</a>.</p>
+<h2><span class="mw-headline" id="Mathematics:_the_kernel_trick">Mathematics: the kernel trick</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit&amp;section=2" title="Edit section: Mathematics: the kernel trick">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>The kernel trick avoids the explicit mapping that is needed to get linear <a href="https://en.wikipedia.org/wiki/Learning_algorithms" class="mw-redirect" title="Learning algorithms">learning algorithms</a> to learn a nonlinear function or <a href="https://en.wikipedia.org/wiki/Decision_boundary" title="Decision boundary">decision boundary</a>. For all <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">x</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {x} }</annotation>
+  </semantics>
+</math></span><img src="32adf004df5eb0a8c7fd8c0b6b7405183c5a5ef2" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.421ex; height: 1.676ex;" alt="\mathbf {x} "></span> and <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <msup>
+            <mi mathvariant="bold">x</mi>
+            <mo>′</mo>
+          </msup>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {x'} }</annotation>
+  </semantics>
+</math></span><img src="7d14ab6186e99346cb608a30858c3e1580f760e6" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 2.114ex; height: 2.509ex;" alt="\mathbf {x'} "></span> in the input space <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\mathcal {X}}}</annotation>
+  </semantics>
+</math></span><img src="8c7e5461c5286852df4ef652fca7e4b0b63030e9" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.886ex; height: 2.176ex;" alt="{\mathcal {X}}"></span>, certain functions <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">x</mi>
+        </mrow>
+        <mo>,</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msup>
+            <mi mathvariant="bold">x</mi>
+            <mo>′</mo>
+          </msup>
+        </mrow>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k(\mathbf {x} ,\mathbf {x'} )}</annotation>
+  </semantics>
+</math></span><img src="7d02f87329f893c16295074bcfe9d974fb72c4eb" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 7.631ex; height: 3.009ex;" alt="k(\mathbf {x} ,\mathbf {x'} )"></span> can be expressed as an <a href="https://en.wikipedia.org/wiki/Inner_product" class="mw-redirect" title="Inner product">inner product</a> in another space <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">V</mi>
+          </mrow>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\mathcal {V}}}</annotation>
+  </semantics>
+</math></span><img src="47d69f309b6deb2e5008f6130ee11e09bbabd7b6" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.54ex; height: 2.176ex;" alt="{\mathcal {V}}"></span>. The function <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+        <mo>:<!-- : --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+        <mo>×<!-- × --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+        <mo stretchy="false">→<!-- → --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="double-struck">R</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k\colon {\mathcal {X}}\times {\mathcal {X}}\to \mathbb {R} }</annotation>
+  </semantics>
+</math></span><img src="ecc3c27f7e04f4ce7c0088a69e0b414a74869e3e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 14.202ex; height: 2.176ex;" alt="k\colon {\mathcal {X}}\times {\mathcal {X}}\to \mathbb {R} "></span> is often referred to as a <i>kernel</i> or a <i><a href="https://en.wikipedia.org/wiki/Kernel_function" class="mw-redirect" title="Kernel function">kernel function</a></i>. The word "kernel" is used in mathematics to denote a weighting function for a weighted sum or <a href="https://en.wikipedia.org/wiki/Integral" title="Integral">integral</a>.</p>
+<p>Certain problems in machine learning have additional structure than an arbitrary weighting function <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k}</annotation>
+  </semantics>
+</math></span><img src="c3c9a2c7b599b37105512c5d570edc034056dd40" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.222ex; height: 2.176ex;" alt="k"></span>. The computation is made much simpler if the kernel can be written in the form of a "feature map" <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>φ<!-- φ --></mi>
+        <mo>:<!-- : --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+        <mo stretchy="false">→<!-- → --></mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">V</mi>
+          </mrow>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \varphi \colon {\mathcal {X}}\to {\mathcal {V}}}</annotation>
+  </semantics>
+</math></span><img src="b8484d2e5a2fb0ed38f151079dceaca4a395eca5" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 9.625ex; height: 2.676ex;" alt="\varphi \colon {\mathcal {X}}\to {\mathcal {V}}"></span> which satisfies</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">x</mi>
+        </mrow>
+        <mo>,</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msup>
+            <mi mathvariant="bold">x</mi>
+            <mo>′</mo>
+          </msup>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <mi>φ<!-- φ --></mi>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">x</mi>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <mo>,</mo>
+        <mi>φ<!-- φ --></mi>
+        <mo stretchy="false">(</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <msup>
+            <mi mathvariant="bold">x</mi>
+            <mo>′</mo>
+          </msup>
+        </mrow>
+        <mo stretchy="false">)</mo>
+        <msub>
+          <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi class="MJX-tex-caligraphic" mathvariant="script">V</mi>
+            </mrow>
+          </mrow>
+        </msub>
+        <mo>.</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k(\mathbf {x} ,\mathbf {x'} )=\langle \varphi (\mathbf {x} ),\varphi (\mathbf {x'} )\rangle _{\mathcal {V}}.}</annotation>
+  </semantics>
+</math></span><img src="ebfd06f5026904530b03ddf7e600a642d1546d43" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 25.85ex; height: 3.009ex;" alt="k(\mathbf {x} ,\mathbf {x'} )=\langle \varphi (\mathbf {x} ),\varphi (\mathbf {x'} )\rangle _{\mathcal {V}}."></span></dd>
+</dl>
+<p>The key restriction is that <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo fence="false" stretchy="false">⟨<!-- ⟨ --></mo>
+        <mo>⋅<!-- ⋅ --></mo>
+        <mo>,</mo>
+        <mo>⋅<!-- ⋅ --></mo>
+        <msub>
+          <mo fence="false" stretchy="false">⟩<!-- ⟩ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi class="MJX-tex-caligraphic" mathvariant="script">V</mi>
+            </mrow>
+          </mrow>
+        </msub>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \langle \cdot ,\cdot \rangle _{\mathcal {V}}}</annotation>
+  </semantics>
+</math></span><img src="cfaf5152d8c0788782803dc35974e62634f7a635" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 5.51ex; height: 2.843ex;" alt="\langle \cdot ,\cdot \rangle _{\mathcal {V}}"></span> must be a proper inner product. On the other hand, an explicit representation for <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>φ<!-- φ --></mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \varphi }</annotation>
+  </semantics>
+</math></span><img src="33ee699558d09cf9d653f6351f9fda0b2f4aaa3e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 1.531ex; height: 2.176ex;" alt="\varphi "></span> is not necessary, as long as <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">V</mi>
+          </mrow>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\mathcal {V}}}</annotation>
+  </semantics>
+</math></span><img src="47d69f309b6deb2e5008f6130ee11e09bbabd7b6" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.54ex; height: 2.176ex;" alt="{\mathcal {V}}"></span> is an <a href="https://en.wikipedia.org/wiki/Inner_product_space" title="Inner product space">inner product space</a>. The alternative follows from <a href="https://en.wikipedia.org/wiki/Mercer%27s_theorem" title="Mercer's theorem">Mercer's theorem</a>: an implicitly defined function <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>φ<!-- φ --></mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \varphi }</annotation>
+  </semantics>
+</math></span><img src="33ee699558d09cf9d653f6351f9fda0b2f4aaa3e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 1.531ex; height: 2.176ex;" alt="\varphi "></span> exists whenever the space <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\mathcal {X}}}</annotation>
+  </semantics>
+</math></span><img src="8c7e5461c5286852df4ef652fca7e4b0b63030e9" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.886ex; height: 2.176ex;" alt="{\mathcal {X}}"></span> can be equipped with a suitable <a href="https://en.wikipedia.org/wiki/Measure_(mathematics)" title="Measure (mathematics)">measure</a> ensuring the function <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k}</annotation>
+  </semantics>
+</math></span><img src="c3c9a2c7b599b37105512c5d570edc034056dd40" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.222ex; height: 2.176ex;" alt="k"></span> satisfies <a href="https://en.wikipedia.org/wiki/Mercer%27s_condition" class="mw-redirect" title="Mercer's condition">Mercer's condition</a>.</p>
+<p>Mercer's theorem is akin to a generalization of the result from linear algebra that <a href="https://en.wikipedia.org/wiki/Positive-definite_matrix#Characterizations" title="Positive-definite matrix">associates an inner product to any positive-definite matrix</a>. In fact, Mercer's condition can be reduced to this simpler case. If we choose as our measure the <a href="https://en.wikipedia.org/wiki/Counting_measure" title="Counting measure">counting measure</a> <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>μ<!-- μ --></mi>
+        <mo stretchy="false">(</mo>
+        <mi>T</mi>
+        <mo stretchy="false">)</mo>
+        <mo>=</mo>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mo stretchy="false">|</mo>
+        </mrow>
+        <mi>T</mi>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mo stretchy="false">|</mo>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mu (T)=|T|}</annotation>
+  </semantics>
+</math></span><img src="a44af909e4eab9daa53ba7b9e6901c8df5bf2bc1" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 10.959ex; height: 2.843ex;" alt="\mu (T)=|T|"></span> for all <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>T</mi>
+        <mo>⊂<!-- ⊂ --></mo>
+        <mi>X</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle T\subset X}</annotation>
+  </semantics>
+</math></span><img src="28eb68af8d21de80992dc26e6ee9b6a99f5c54f9" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 6.746ex; height: 2.176ex;" alt="T\subset X"></span>, which counts the number of points inside the set <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>T</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle T}</annotation>
+  </semantics>
+</math></span><img src="ec7200acd984a1d3a3d7dc455e262fbe54f7f6e0" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.647ex; height: 2.176ex;" alt="T"></span>, then the integral in Mercer's theorem reduces to a summation</p>
+<dl>
+<dd><span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <munderover>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mo>=</mo>
+            <mn>1</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </munderover>
+        <munderover>
+          <mo>∑<!-- ∑ --></mo>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+            <mo>=</mo>
+            <mn>1</mn>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </munderover>
+        <mi>k</mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+        <msub>
+          <mi>c</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <msub>
+          <mi>c</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>≥<!-- ≥ --></mo>
+        <mn>0.</mn>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \sum _{i=1}^{n}\sum _{j=1}^{n}k(\mathbf {x} _{i},\mathbf {x} _{j})c_{i}c_{j}\geq 0.}</annotation>
+  </semantics>
+</math></span><img src="d07d0e93a3b836934f9d0967261dc4d1c08fd1e7" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -3.338ex; width: 24.866ex; height: 7.343ex;" alt="\sum _{i=1}^{n}\sum _{j=1}^{n}k(\mathbf {x} _{i},\mathbf {x} _{j})c_{i}c_{j}\geq 0."></span></dd>
+</dl>
+<p>If this summation holds for all finite sequences of points <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle (\mathbf {x} _{1},\dotsc ,\mathbf {x} _{n})}</annotation>
+  </semantics>
+</math></span><img src="5b4e4c8cc45e704f262c34fda4e3a3fa52754d0e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 12.17ex; height: 2.843ex;" alt="(\mathbf {x} _{1},\dotsc ,\mathbf {x} _{n})"></span> in <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\mathcal {X}}}</annotation>
+  </semantics>
+</math></span><img src="8c7e5461c5286852df4ef652fca7e4b0b63030e9" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.886ex; height: 2.176ex;" alt="{\mathcal {X}}"></span> and all choices of <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>n</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle n}</annotation>
+  </semantics>
+</math></span><img src="a601995d55609f2d9f5e233e36fbe9ea26011b3b" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.405ex; height: 1.676ex;" alt="n"></span> real-valued coefficients <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mi>c</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mi>c</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle (c_{1},\dots ,c_{n})}</annotation>
+  </semantics>
+</math></span><img src="bd731fbc6215cae64c53bf0120c4ebfee01d3f96" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 11.362ex; height: 2.843ex;" alt="(c_{1},\dots ,c_{n})"></span> (cf. <a href="https://en.wikipedia.org/wiki/Positive_definite_kernel" class="mw-redirect" title="Positive definite kernel">positive definite kernel</a>), then the function <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k}</annotation>
+  </semantics>
+</math></span><img src="c3c9a2c7b599b37105512c5d570edc034056dd40" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.222ex; height: 2.176ex;" alt="k"></span> satisfies Mercer's condition.</p>
+<p>Some algorithms that depend on arbitrary relationships in the native space <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi class="MJX-tex-caligraphic" mathvariant="script">X</mi>
+          </mrow>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle {\mathcal {X}}}</annotation>
+  </semantics>
+</math></span><img src="8c7e5461c5286852df4ef652fca7e4b0b63030e9" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.886ex; height: 2.176ex;" alt="{\mathcal {X}}"></span> would, in fact, have a linear interpretation in a different setting: the range space of <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>φ<!-- φ --></mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \varphi }</annotation>
+  </semantics>
+</math></span><img src="33ee699558d09cf9d653f6351f9fda0b2f4aaa3e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 1.531ex; height: 2.176ex;" alt="\varphi "></span>. The linear interpretation gives us insight about the algorithm. Furthermore, there is often no need to compute <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>φ<!-- φ --></mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \varphi }</annotation>
+  </semantics>
+</math></span><img src="33ee699558d09cf9d653f6351f9fda0b2f4aaa3e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 1.531ex; height: 2.176ex;" alt="\varphi "></span> directly during computation, as is the case with <a href="https://en.wikipedia.org/wiki/Support_vector_machines" class="mw-redirect" title="Support vector machines">support vector machines</a>. Some cite this running time shortcut as the primary benefit. Researchers also use it to justify the meanings and properties of existing algorithms.</p>
+<p>Theoretically, a <a href="https://en.wikipedia.org/wiki/Gram_matrix" class="mw-redirect" title="Gram matrix">Gram matrix</a> <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">K</mi>
+        </mrow>
+        <mo>∈<!-- ∈ --></mo>
+        <msup>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="double-struck">R</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+            <mo>×<!-- × --></mo>
+            <mi>n</mi>
+          </mrow>
+        </msup>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {K} \in \mathbb {R} ^{n\times n}}</annotation>
+  </semantics>
+</math></span><img src="5ddf49f743a8541a3c6812638951cc6d13015d07" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 10.149ex; height: 2.343ex;" alt="\mathbf {K} \in \mathbb {R} ^{n\times n}"></span> with respect to <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mo fence="false" stretchy="false">{</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mn>1</mn>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <mo>…<!-- … --></mo>
+        <mo>,</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>n</mi>
+          </mrow>
+        </msub>
+        <mo fence="false" stretchy="false">}</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \{\mathbf {x} _{1},\dotsc ,\mathbf {x} _{n}\}}</annotation>
+  </semantics>
+</math></span><img src="8246b26ae9914d260265dfbea03c55be5e8d00b3" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.838ex; width: 12.686ex; height: 2.843ex;" alt="\{\mathbf {x} _{1},\dotsc ,\mathbf {x} _{n}\}"></span> (sometimes also called a "kernel matrix"<sup id="cite_ref-2" class="reference"><a href="#cite_note-2">[2]</a></sup>), where <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msub>
+          <mi>K</mi>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo>=</mo>
+        <mi>k</mi>
+        <mo stretchy="false">(</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>i</mi>
+          </mrow>
+        </msub>
+        <mo>,</mo>
+        <msub>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">x</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi>j</mi>
+          </mrow>
+        </msub>
+        <mo stretchy="false">)</mo>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle K_{ij}=k(\mathbf {x} _{i},\mathbf {x} _{j})}</annotation>
+  </semantics>
+</math></span><img src="bd50a73f3c68c1ec4fad86ce50b4c413b22b075e" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -1.005ex; width: 15.248ex; height: 3.009ex;" alt="{\displaystyle K_{ij}=k(\mathbf {x} _{i},\mathbf {x} _{j})}"></span>, must be <a href="https://en.wikipedia.org/wiki/Positive-definite_matrix" title="Positive-definite matrix">positive semi-definite (PSD)</a>.<sup id="cite_ref-3" class="reference"><a href="#cite_note-3">[3]</a></sup> Empirically, for machine learning heuristics, choices of a function <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k}</annotation>
+  </semantics>
+</math></span><img src="c3c9a2c7b599b37105512c5d570edc034056dd40" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.222ex; height: 2.176ex;" alt="k"></span> that do not satisfy Mercer's condition may still perform reasonably if <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k}</annotation>
+  </semantics>
+</math></span><img src="c3c9a2c7b599b37105512c5d570edc034056dd40" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.222ex; height: 2.176ex;" alt="k"></span> at least approximates the intuitive idea of similarity.<sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[4]</a></sup> Regardless of whether <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k}</annotation>
+  </semantics>
+</math></span><img src="c3c9a2c7b599b37105512c5d570edc034056dd40" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.222ex; height: 2.176ex;" alt="k"></span> is a Mercer kernel, <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k}</annotation>
+  </semantics>
+</math></span><img src="c3c9a2c7b599b37105512c5d570edc034056dd40" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.222ex; height: 2.176ex;" alt="k"></span> may still be referred to as a "kernel".</p>
+<p>If the kernel function <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mi>k</mi>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle k}</annotation>
+  </semantics>
+</math></span><img src="c3c9a2c7b599b37105512c5d570edc034056dd40" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 1.222ex; height: 2.176ex;" alt="k"></span> is also a <a href="https://en.wikipedia.org/wiki/Covariance_function" title="Covariance function">covariance function</a> as used in <a href="https://en.wikipedia.org/wiki/Gaussian_processes" class="mw-redirect" title="Gaussian processes">Gaussian processes</a>, then the Gram matrix <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">K</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {K} }</annotation>
+  </semantics>
+</math></span><img src="368b3827262016c64b340a761d9b95e0b031d6dd" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 2.104ex; height: 2.176ex;" alt="\mathbf {K} "></span> can also be called a <a href="https://en.wikipedia.org/wiki/Covariance_matrix" title="Covariance matrix">covariance matrix</a>.<sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup></p>
+<p>Finally, suppose that <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">K</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {K} }</annotation>
+  </semantics>
+</math></span><img src="368b3827262016c64b340a761d9b95e0b031d6dd" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 2.104ex; height: 2.176ex;" alt="\mathbf {K} "></span> is a square matrix. Then <span><span class="mwe-math-mathml-inline mwe-math-mathml-a11y" style="display: none;"><math xmlns="http://www.w3.org/1998/Math/MathML">
+  <semantics>
+    <mrow class="MJX-TeXAtom-ORD">
+      <mstyle displaystyle="true" scriptlevel="0">
+        <msup>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mi mathvariant="bold">K</mi>
+          </mrow>
+          <mrow class="MJX-TeXAtom-ORD">
+            <mrow class="MJX-TeXAtom-ORD">
+              <mi mathvariant="normal">T</mi>
+            </mrow>
+          </mrow>
+        </msup>
+        <mrow class="MJX-TeXAtom-ORD">
+          <mi mathvariant="bold">K</mi>
+        </mrow>
+      </mstyle>
+    </mrow>
+    <annotation encoding="application/x-tex">{\displaystyle \mathbf {K} ^{\mathrm {T} }\mathbf {K} }</annotation>
+  </semantics>
+</math></span><img src="e7a9582000c3cc7f43f45d9930070660626fd6b0" class="mwe-math-fallback-image-inline" aria-hidden="true" style="vertical-align: -0.338ex; width: 5.635ex; height: 2.676ex;" alt="\mathbf {K} ^{\mathrm {T} }\mathbf {K} "></span> is a positive-semi-definite matrix.</p>
+<h2><span class="mw-headline" id="Applications">Applications</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit&amp;section=3" title="Edit section: Applications">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<p>Application areas of kernel methods are diverse and include <a href="https://en.wikipedia.org/wiki/Geostatistics" title="Geostatistics">geostatistics</a>,<sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[6]</a></sup> <a href="https://en.wikipedia.org/wiki/Kriging" title="Kriging">kriging</a>, <a href="https://en.wikipedia.org/wiki/Inverse_distance_weighting" title="Inverse distance weighting">inverse distance weighting</a>, <a href="https://en.wikipedia.org/wiki/3D_reconstruction" title="3D reconstruction">3D reconstruction</a>, <a href="https://en.wikipedia.org/wiki/Bioinformatics" title="Bioinformatics">bioinformatics</a>, <a href="https://en.wikipedia.org/wiki/Chemoinformatics" class="mw-redirect" title="Chemoinformatics">chemoinformatics</a>, <a href="https://en.wikipedia.org/wiki/Information_extraction" title="Information extraction">information extraction</a> and <a href="https://en.wikipedia.org/wiki/Handwriting_recognition" title="Handwriting recognition">handwriting recognition</a>.</p>
+<h2><span class="mw-headline" id="Popular_kernels">Popular kernels</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit&amp;section=4" title="Edit section: Popular kernels">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Fisher_kernel" title="Fisher kernel">Fisher kernel</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Graph_kernel" title="Graph kernel">Graph kernels</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Kernel_smoother" title="Kernel smoother">Kernel smoother</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Polynomial_kernel" title="Polynomial kernel">Polynomial kernel</a></li>
+<li><a href="https://en.wikipedia.org/wiki/RBF_kernel" class="mw-redirect" title="RBF kernel">RBF kernel</a></li>
+<li><a href="https://en.wikipedia.org/wiki/String_kernel" title="String kernel">String kernels</a></li>
+</ul>
+<h2><span class="mw-headline" id="See_also">See also</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit&amp;section=5" title="Edit section: See also">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Kernel_methods_for_vector_output" title="Kernel methods for vector output">Kernel methods for vector output</a></li>
+</ul>
+<h2><span class="mw-headline" id="Notes">Notes</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit&amp;section=6" title="Edit section: Notes">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<div class="reflist" style="list-style-type: decimal;">
+<ol class="references">
+<li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Aizerman, M. A.; Braverman, Emmanuel M.; Rozoner, L. I. (1964). "Theoretical foundations of the potential function method in pattern recognition learning". <i>Automation and Remote Control</i>. <b>25</b>: 821–837.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AKernel+method&amp;rft.atitle=Theoretical+foundations+of+the+potential+function+method+in+pattern+recognition+learning&amp;rft.au=Braverman%2C+Emmanuel+M.&amp;rft.aufirst=M.+A.&amp;rft.aulast=Aizerman&amp;rft.au=Rozoner%2C+L.+I.&amp;rft.date=1964&amp;rft.genre=article&amp;rft.jtitle=Automation+and+Remote+Control&amp;rft.pages=821-837&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=25" class="Z3988"><span style="display: none;">&nbsp;</span></span> Cited in <cite class="citation conference">Guyon, Isabelle; Boser, B.; Vapnik, Vladimir (1993). <i>Automatic capacity tuning of very large VC-dimension classifiers</i>. Advances in neural information processing systems. <a href="https://en.wikipedia.org/wiki/CiteSeer#CiteSeerX" title="CiteSeer">CiteSeerX</a>: <span class="url"><a rel="nofollow" class="external text" href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.17.7215">10<wbr>.1<wbr>.1<wbr>.17<wbr>.7215</a></span>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AKernel+method&amp;rft.au=Boser%2C+B.&amp;rft.aufirst=Isabelle&amp;rft.aulast=Guyon&amp;rft.au=Vapnik%2C+Vladimir&amp;rft.btitle=Automatic+capacity+tuning+of+very+large+VC-dimension+classifiers&amp;rft.date=1993&amp;rft.genre=conference&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-2"><span class="mw-cite-backlink"><b><a href="#cite_ref-2"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Hofmann, Thomas; Scholkopf, Bernhard; Smola, Alexander J. (2008). "Kernel Methods in Machine Learning".</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AKernel+method&amp;rft.atitle=Kernel+Methods+in+Machine+Learning&amp;rft.aufirst=Thomas&amp;rft.aulast=Hofmann&amp;rft.au=Scholkopf%2C+Bernhard&amp;rft.au=Smola%2C+Alexander+J.&amp;rft.date=2008&amp;rft.genre=article&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-3"><span class="mw-cite-backlink"><b><a href="#cite_ref-3"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation book"><a href="https://en.wikipedia.org/wiki/Mehryar_Mohri" title="Mehryar Mohri">Mohri, Mehryar</a>; Rostamizadeh, Afshin; Talwalkar, Ameet (2012). <i>Foundations of Machine Learning</i>. The MIT Press. <a href="https://en.wikipedia.org/wiki/International_Standard_Book_Number" title="International Standard Book Number">ISBN</a>&nbsp;<a href="https://en.wikipedia.org/wiki/Special:BookSources/9780262018258" title="Special:BookSources/9780262018258">9780262018258</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AKernel+method&amp;rft.aufirst=Mehryar&amp;rft.aulast=Mohri&amp;rft.au=Rostamizadeh%2C+Afshin&amp;rft.au=Talwalkar%2C+Ameet&amp;rft.btitle=Foundations+of+Machine+Learning&amp;rft.date=2012&amp;rft.genre=book&amp;rft.isbn=9780262018258&amp;rft.pub=The+MIT+Press&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-4"><span class="mw-cite-backlink"><b><a href="#cite_ref-4"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><a rel="nofollow" class="external free" href="http://www.svms.org/mercer/">http://www.svms.org/mercer/</a></span></li>
+<li id="cite_note-5"><span class="mw-cite-backlink"><b><a href="#cite_ref-5"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Rasmussen, C. E.; Williams, C. K. I. (2006). "Gaussian Processes for Machine Learning".</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AKernel+method&amp;rft.atitle=Gaussian+Processes+for+Machine+Learning&amp;rft.aufirst=C.+E.&amp;rft.aulast=Rasmussen&amp;rft.au=Williams%2C+C.+K.+I.&amp;rft.date=2006&amp;rft.genre=article&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+<li id="cite_note-6"><span class="mw-cite-backlink"><b><a href="#cite_ref-6"><span class="cite-accessibility-label">Jump up </span>^</a></b></span> <span class="reference-text"><cite class="citation journal">Honarkhah, M.; Caers, J. (2010). "Stochastic Simulation of Patterns Using Distance-Based Pattern Modeling". <i><a href="https://en.wikipedia.org/wiki/Mathematical_Geosciences" title="Mathematical Geosciences">Mathematical Geosciences</a></i>. <b>42</b>: 487–517. <a href="https://en.wikipedia.org/wiki/Digital_object_identifier" title="Digital object identifier">doi</a>:<a rel="nofollow" class="external text" href="https://dx.doi.org/10.1007%2Fs11004-010-9276-7">10.1007/s11004-010-9276-7</a>.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AKernel+method&amp;rft.atitle=Stochastic+Simulation+of+Patterns+Using+Distance-Based+Pattern+Modeling&amp;rft.au=Caers%2C+J.&amp;rft.aufirst=M.&amp;rft.aulast=Honarkhah&amp;rft.date=2010&amp;rft.genre=article&amp;rft_id=info%3Adoi%2F10.1007%2Fs11004-010-9276-7&amp;rft.jtitle=Mathematical+Geosciences&amp;rft.pages=487-517&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.volume=42" class="Z3988"><span style="display: none;">&nbsp;</span></span></span></li>
+</ol>
+</div>
+<table class="metadata plainlinks ambox ambox-style ambox-More_footnotes" role="presentation">
+<tbody><tr>
+<td class="mbox-image">
+<div style="width: 52px;"><img alt="" src="40px-Text_document_with_red_question_mark.svg.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Text_document_with_red_question_mark.svg/60px-Text_document_with_red_question_mark.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Text_document_with_red_question_mark.svg/80px-Text_document_with_red_question_mark.svg.png 2x" data-file-width="48" data-file-height="48" height="40" width="40"></div>
+</td>
+<td class="mbox-text"><span class="mbox-text-span">This article includes a <a href="https://en.wikipedia.org/wiki/Wikipedia:Citing_sources" title="Wikipedia:Citing sources">list of references</a>, but <b>its sources remain unclear</b> because it has <b>insufficient <a href="https://en.wikipedia.org/wiki/Wikipedia:Citing_sources#Inline_citations" title="Wikipedia:Citing sources">inline citations</a></b>. <span class="hide-when-compact">Please help to <a href="https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Fact_and_Reference_Check" title="Wikipedia:WikiProject Fact and Reference Check">improve</a> this article by <a href="https://en.wikipedia.org/wiki/Wikipedia:When_to_cite" title="Wikipedia:When to cite">introducing</a> more precise citations.</span> <small><i>(January 2011)</i></small> <small class="hide-when-compact"><i>(<a href="https://en.wikipedia.org/wiki/Help:Maintenance_template_removal" title="Help:Maintenance template removal">Learn how and when to remove this template message</a>)</i></small></span></td>
+</tr>
+</tbody></table>
+<h2><span class="mw-headline" id="References">References</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit&amp;section=7" title="Edit section: References">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><cite class="citation book"><a href="https://en.wikipedia.org/wiki/John_Shawe-Taylor" title="John Shawe-Taylor">Shawe-Taylor, J.</a>; <a href="https://en.wikipedia.org/wiki/Nello_Cristianini" title="Nello Cristianini">Cristianini, N.</a> (2004). <i>Kernel Methods for Pattern Analysis</i>. Cambridge University Press.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AKernel+method&amp;rft.au=Cristianini%2C+N.&amp;rft.aufirst=J.&amp;rft.aulast=Shawe-Taylor&amp;rft.btitle=Kernel+Methods+for+Pattern+Analysis&amp;rft.date=2004&amp;rft.genre=book&amp;rft.pub=Cambridge+University+Press&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></li>
+<li><cite class="citation book">Liu, W.; Principe, J.; Haykin, S. (2010). <i>Kernel Adaptive Filtering: A Comprehensive Introduction</i>. Wiley.</cite><span title="ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fen.wikipedia.org%3AKernel+method&amp;rft.aufirst=W.&amp;rft.au=Haykin%2C+S.&amp;rft.aulast=Liu&amp;rft.au=Principe%2C+J.&amp;rft.btitle=Kernel+Adaptive+Filtering%3A+A+Comprehensive+Introduction&amp;rft.date=2010&amp;rft.genre=book&amp;rft.pub=Wiley&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook" class="Z3988"><span style="display: none;">&nbsp;</span></span></li>
+</ul>
+<h2><span class="mw-headline" id="External_links">External links</span><span class="mw-editsection"><span class="mw-editsection-bracket">[</span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit&amp;section=8" title="Edit section: External links">edit</a><span class="mw-editsection-bracket">]</span></span></h2>
+<ul>
+<li><a rel="nofollow" class="external text" href="http://www.kernel-machines.org/">Kernel-Machines Org</a>—community website</li>
+<li><a rel="nofollow" class="external text" href="http://www.support-vector-machines.org/">www.support-vector-machines.org</a> <i>(Literature, Review, Software, Links related to Support Vector Machines - Academic Site)</i></li>
+<li><a rel="nofollow" class="external text" href="http://onlineprediction.net/?n=Main.KernelMethods">onlineprediction.net Kernel Methods Article</a></li>
+</ul>
+
+
+<!-- Saved in parser cache with key enwiki:pcache:idhash:3424576-0!*!0!!en!4!*!math=5 and timestamp 20160822123006 and revision id 730750764
+ -->
+<noscript><img src="//en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1" alt="" title="" width="1" height="1" style="border: none; position: absolute;" /></noscript></div>					<div class="printfooter">
+
+						Retrieved from "<a dir="ltr" href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;oldid=730750764">https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;oldid=730750764</a>"					</div>
+				<div id="catlinks" class="catlinks" data-mw="interface"><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="https://en.wikipedia.org/wiki/Help:Category" title="Help:Category">Categories</a>: <ul><li><a href="https://en.wikipedia.org/wiki/Category:Kernel_methods_for_machine_learning" title="Category:Kernel methods for machine learning">Kernel methods for machine learning</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Geostatistics" title="Category:Geostatistics">Geostatistics</a></li><li><a href="https://en.wikipedia.org/wiki/Category:Classification_algorithms" title="Category:Classification algorithms">Classification algorithms</a></li></ul></div><div id="mw-hidden-catlinks" class="mw-hidden-catlinks mw-hidden-cats-hidden">Hidden categories: <ul><li><a href="https://en.wikipedia.org/wiki/Category:Articles_lacking_in-text_citations_from_January_2011" title="Category:Articles lacking in-text citations from January 2011">Articles lacking in-text citations from January 2011</a></li><li><a href="https://en.wikipedia.org/wiki/Category:All_articles_lacking_in-text_citations" title="Category:All articles lacking in-text citations">All articles lacking in-text citations</a></li></ul></div></div>				<div class="visualClear"></div>
+							</div>
+		</div>
+		<div id="mw-navigation">
+			<h2>Navigation menu</h2>
+
+			<div id="mw-head">
+									<div id="p-personal" role="navigation" class="" aria-labelledby="p-personal-label">
+						<h3 id="p-personal-label">Personal tools</h3>
+						<ul>
+							<li id="pt-anonuserpage">Not logged in</li><li id="pt-anontalk"><a href="https://en.wikipedia.org/wiki/Special:MyTalk" title="Discussion about edits from this IP address [Alt+Shift+n]" accesskey="n">Talk</a></li><li id="pt-anoncontribs"><a href="https://en.wikipedia.org/wiki/Special:MyContributions" title="A list of edits made from this IP address [Alt+Shift+y]" accesskey="y">Contributions</a></li><li id="pt-createaccount"><a href="https://en.wikipedia.org/w/index.php?title=Special:CreateAccount&amp;returnto=Kernel+method" title="You are encouraged to create an account and log in; however, it is not mandatory">Create account</a></li><li id="pt-login"><a href="https://en.wikipedia.org/w/index.php?title=Special:UserLogin&amp;returnto=Kernel+method" title="You're encouraged to log in; however, it's not mandatory. [Alt+Shift+o]" accesskey="o">Log in</a></li>						</ul>
+					</div>
+									<div id="left-navigation">
+										<div id="p-namespaces" role="navigation" class="vectorTabs" aria-labelledby="p-namespaces-label">
+						<h3 id="p-namespaces-label">Namespaces</h3>
+						<ul>
+															<li id="ca-nstab-main" class="selected"><span><a href="https://en.wikipedia.org/wiki/Kernel_method" title="View the content page [Alt+Shift+c]" accesskey="c">Article</a></span></li>
+															<li id="ca-talk"><span><a href="https://en.wikipedia.org/wiki/Talk:Kernel_method" title="Discussion about the content page [Alt+Shift+t]" accesskey="t" rel="discussion">Talk</a></span></li>
+													</ul>
+					</div>
+										<div id="p-variants" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-variants-label">
+												<h3 tabindex="0" id="p-variants-label">
+							<span>Variants</span><a tabindex="-1" href="#"></a>
+						</h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+									</div>
+				<div id="right-navigation">
+										<div id="p-views" role="navigation" class="vectorTabs" aria-labelledby="p-views-label">
+						<h3 id="p-views-label">Views</h3>
+						<ul>
+															<li id="ca-view" class="selected"><span><a href="https://en.wikipedia.org/wiki/Kernel_method">Read</a></span></li>
+															<li id="ca-edit"><span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=edit" title="Edit this page [Alt+Shift+e]" accesskey="e">Edit</a></span></li>
+															<li id="ca-history" class="collapsible"><span><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=history" title="Past revisions of this page [Alt+Shift+h]" accesskey="h">View history</a></span></li>
+													</ul>
+					</div>
+										<div style="" id="p-cactions" role="navigation" class="vectorMenu emptyPortlet" aria-labelledby="p-cactions-label">
+						<h3 tabindex="0" id="p-cactions-label"><span>More</span><a tabindex="-1" href="#"></a></h3>
+
+						<div class="menu">
+							<ul>
+															</ul>
+						</div>
+					</div>
+										<div id="p-search" role="search">
+						<h3>
+							<label for="searchInput">Search</label>
+						</h3>
+
+						<form action="https://en.wikipedia.org/w/index.php" id="searchform">
+							<div id="simpleSearch">
+							<input autocomplete="off" tabindex="2" name="search" placeholder="Search" title="Search Wikipedia [Alt+Shift+f]" accesskey="f" id="searchInput" type="search"><input value="Special:Search" name="title" type="hidden"><input name="go" value="Go" title="Go to a page with this exact name if it exists" id="searchButton" class="searchButton" type="submit">							</div>
+						</form>
+					</div>
+									</div>
+			</div>
+			<div id="mw-panel">
+				<div id="p-logo" role="banner"><a class="mw-wiki-logo" href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page"></a></div>
+						<div class="portal" role="navigation" id="p-navigation" aria-labelledby="p-navigation-label">
+			<h3 id="p-navigation-label">Navigation</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-mainpage-description"><a href="https://en.wikipedia.org/wiki/Main_Page" title="Visit the main page [Alt+Shift+z]" accesskey="z">Main page</a></li><li id="n-contents"><a href="https://en.wikipedia.org/wiki/Portal:Contents" title="Guides to browsing Wikipedia">Contents</a></li><li id="n-featuredcontent"><a href="https://en.wikipedia.org/wiki/Portal:Featured_content" title="Featured content – the best of Wikipedia">Featured content</a></li><li id="n-currentevents"><a href="https://en.wikipedia.org/wiki/Portal:Current_events" title="Find background information on current events">Current events</a></li><li id="n-randompage"><a href="https://en.wikipedia.org/wiki/Special:Random" title="Load a random article [Alt+Shift+x]" accesskey="x">Random article</a></li><li id="n-sitesupport"><a href="https://donate.wikimedia.org/wiki/Special:FundraiserRedirector?utm_source=donate&amp;utm_medium=sidebar&amp;utm_campaign=C13_en.wikipedia.org&amp;uselang=en" title="Support us">Donate to Wikipedia</a></li><li id="n-shoplink"><a href="https://shop.wikimedia.org/" title="Visit the Wikipedia store">Wikipedia store</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-interaction" aria-labelledby="p-interaction-label">
+			<h3 id="p-interaction-label">Interaction</h3>
+
+			<div class="body">
+									<ul>
+						<li id="n-help"><a href="https://en.wikipedia.org/wiki/Help:Contents" title="Guidance on how to use and edit Wikipedia">Help</a></li><li id="n-aboutsite"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Find out about Wikipedia">About Wikipedia</a></li><li id="n-portal"><a href="https://en.wikipedia.org/wiki/Wikipedia:Community_portal" title="About the project, what you can do, where to find things">Community portal</a></li><li id="n-recentchanges"><a href="https://en.wikipedia.org/wiki/Special:RecentChanges" title="A list of recent changes in the wiki [Alt+Shift+r]" accesskey="r">Recent changes</a></li><li id="n-contactpage"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us" title="How to contact Wikipedia">Contact page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-tb" aria-labelledby="p-tb-label">
+			<h3 id="p-tb-label">Tools</h3>
+
+			<div class="body">
+									<ul>
+						<li id="t-whatlinkshere"><a href="https://en.wikipedia.org/wiki/Special:WhatLinksHere/Kernel_method" title="List of all English Wikipedia pages containing links to this page [Alt+Shift+j]" accesskey="j">What links here</a></li><li id="t-recentchangeslinked"><a href="https://en.wikipedia.org/wiki/Special:RecentChangesLinked/Kernel_method" title="Recent changes in pages linked from this page [Alt+Shift+k]" accesskey="k">Related changes</a></li><li id="t-upload"><a href="https://en.wikipedia.org/wiki/Wikipedia:File_Upload_Wizard" title="Upload files [Alt+Shift+u]" accesskey="u">Upload file</a></li><li id="t-specialpages"><a href="https://en.wikipedia.org/wiki/Special:SpecialPages" title="A list of all special pages [Alt+Shift+q]" accesskey="q">Special pages</a></li><li id="t-permalink"><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;oldid=730750764" title="Permanent link to this revision of the page">Permanent link</a></li><li id="t-info"><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;action=info" title="More information about this page">Page information</a></li><li id="t-wikibase"><a href="https://www.wikidata.org/wiki/Q620622" title="Link to connected data repository item [Alt+Shift+g]" accesskey="g">Wikidata item</a></li><li id="t-cite"><a href="https://en.wikipedia.org/w/index.php?title=Special:CiteThisPage&amp;page=Kernel_method&amp;id=730750764" title="Information on how to cite this page">Cite this page</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-coll-print_export" aria-labelledby="p-coll-print_export-label">
+			<h3 id="p-coll-print_export-label">Print/export</h3>
+
+			<div class="body">
+									<ul>
+						<li id="coll-create_a_book"><a href="https://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=book_creator&amp;referer=Kernel+method">Create a book</a></li><li id="coll-download-as-rdf2latex"><a href="https://en.wikipedia.org/w/index.php?title=Special:Book&amp;bookcmd=render_article&amp;arttitle=Kernel+method&amp;returnto=Kernel+method&amp;oldid=730750764&amp;writer=rdf2latex">Download as PDF</a></li><li id="t-print"><a href="https://en.wikipedia.org/w/index.php?title=Kernel_method&amp;printable=yes" title="Printable version of this page [Alt+Shift+p]" accesskey="p">Printable version</a></li>					</ul>
+							</div>
+		</div>
+			<div class="portal" role="navigation" id="p-lang" aria-labelledby="p-lang-label"><span aria-haspopup="true" role="button" tabindex="0" title="Language settings" class="uls-settings-trigger"></span><span aria-haspopup="true" role="button" tabindex="0" title="Language settings" class="uls-settings-trigger"></span>
+			<h3 id="p-lang-label">Languages</h3>
+
+			<div class="body">
+									<ul>
+						<li class="interlanguage-link interwiki-de"><a href="https://de.wikipedia.org/wiki/Kernel_(Maschinelles_Lernen)" title="Kernel (Maschinelles Lernen) – German" hreflang="de" lang="de">Deutsch</a></li><li class="interlanguage-link interwiki-fr"><a href="https://fr.wikipedia.org/wiki/Astuce_du_noyau" title="Astuce du noyau – French" hreflang="fr" lang="fr">Français</a></li><li class="interlanguage-link interwiki-it"><a href="https://it.wikipedia.org/wiki/Metodi_Kernel" title="Metodi Kernel – Italian" hreflang="it" lang="it">Italiano</a></li><li class="interlanguage-link interwiki-ja"><a href="https://ja.wikipedia.org/wiki/%E3%82%AB%E3%83%BC%E3%83%8D%E3%83%AB%E6%B3%95" title="カーネル法 – Japanese" hreflang="ja" lang="ja">日本語</a></li><li class="interlanguage-link interwiki-uk"><a href="https://uk.wikipedia.org/wiki/%D0%AF%D0%B4%D1%80%D0%BE%D0%B2%D1%96_%D0%BC%D0%B5%D1%82%D0%BE%D0%B4%D0%B8" title="Ядрові методи – Ukrainian" hreflang="uk" lang="uk">Українська</a></li>					</ul>
+				<div class="after-portlet after-portlet-lang"><span class="wb-langlinks-edit wb-langlinks-link"><a href="https://www.wikidata.org/wiki/Q620622#sitelinks-wikipedia" title="Edit interlanguage links" class="wbc-editpage">Edit links</a></span></div>			</div>
+		</div>
+				</div>
+		</div>
+		<div id="footer" role="contentinfo">
+							<ul id="footer-info">
+											<li id="footer-info-lastmod"> This page was last modified on 20 July 2016, at 22:53.</li>
+											<li id="footer-info-copyright">Text is available under the <a rel="license" href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="https://creativecommons.org/licenses/by-sa/3.0/" style="display: none;"></a>;
+additional terms may apply.  By using this site, you agree to the <a href="https://wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="https://wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="https://www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.</li>
+									</ul>
+							<ul id="footer-places">
+											<li id="footer-places-privacy"><a href="https://wikimediafoundation.org/wiki/Privacy_policy" class="extiw" title="wmf:Privacy policy">Privacy policy</a></li>
+											<li id="footer-places-about"><a href="https://en.wikipedia.org/wiki/Wikipedia:About" title="Wikipedia:About">About Wikipedia</a></li>
+											<li id="footer-places-disclaimer"><a href="https://en.wikipedia.org/wiki/Wikipedia:General_disclaimer" title="Wikipedia:General disclaimer">Disclaimers</a></li>
+											<li id="footer-places-contact"><a href="https://en.wikipedia.org/wiki/Wikipedia:Contact_us">Contact Wikipedia</a></li>
+											<li id="footer-places-developers"><a href="https://www.mediawiki.org/wiki/Special:MyLanguage/How_to_contribute">Developers</a></li>
+											<li id="footer-places-cookiestatement"><a href="https://wikimediafoundation.org/wiki/Cookie_statement">Cookie statement</a></li>
+											<li id="footer-places-mobileview"><a href="https://en.m.wikipedia.org/w/index.php?title=Kernel_method&amp;mobileaction=toggle_view_mobile" class="noprint stopMobileRedirectToggle">Mobile view</a></li>
+									</ul>
+										<ul id="footer-icons" class="noprint">
+											<li id="footer-copyrightico">
+							<a href="https://wikimediafoundation.org/"><img src="wikimedia-button.png" srcset="/static/images/wikimedia-button-1.5x.png 1.5x, /static/images/wikimedia-button-2x.png 2x" alt="Wikimedia Foundation" height="31" width="88"></a>						</li>
+											<li id="footer-poweredbyico">
+							<a href="https://www.mediawiki.org/"><img src="poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" srcset="/static/images/poweredby_mediawiki_132x47.png 1.5x, /static/images/poweredby_mediawiki_176x62.png 2x" height="31" width="88"></a>						</li>
+									</ul>
+						<div style="clear: both;"></div>
+		</div>
+		<script>(window.RLQ=window.RLQ||[]).push(function(){mw.loader.load(["ext.math.scripts","ext.cite.a11y","mediawiki.toc","mediawiki.action.view.postEdit","site","mediawiki.user","mediawiki.hidpi","mediawiki.page.ready","mediawiki.searchSuggest","ext.gadget.teahouse","ext.gadget.ReferenceTooltips","ext.gadget.watchlist-notice","ext.gadget.DRN-wizard","ext.gadget.charinsert","ext.gadget.refToolbar","ext.gadget.extra-toolbar-buttons","ext.gadget.switcher","ext.gadget.featured-articles-links","mmv.bootstrap.autostart","ext.visualEditor.targetLoader","ext.eventLogging.subscriber","ext.wikimediaEvents","ext.navigationTiming","ext.uls.eventlogger","ext.uls.init","ext.uls.interlanguage","ext.centralNotice.startUp","ext.centralNotice.geoIP"]);});</script>
+<script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set( {
+    "wgPageParseReport": {
+        "limitreport": {
+            "cputime": "0.265",
+            "walltime": "0.601",
+            "ppvisitednodes": {
+                "value": 940,
+                "limit": 1000000
+            },
+            "ppgeneratednodes": {
+                "value": 0,
+                "limit": 1500000
+            },
+            "postexpandincludesize": {
+                "value": 37976,
+                "limit": 2097152
+            },
+            "templateargumentsize": {
+                "value": 703,
+                "limit": 2097152
+            },
+            "expansiondepth": {
+                "value": 10,
+                "limit": 40
+            },
+            "expensivefunctioncount": {
+                "value": 1,
+                "limit": 500
+            },
+            "timingprofile": [
+                "100.00%  227.794      1 -total",
+                " 45.94%  104.658      1 Template:Reflist",
+                " 27.46%   62.542      1 Template:Machine_learning_bar",
+                " 24.89%   56.700      1 Template:Sidebar_with_collapsible_lists",
+                " 24.55%   55.927      2 Template:Cite_journal",
+                " 16.98%   38.678      1 Template:More_footnotes",
+                " 13.63%   31.042      1 Template:Ambox",
+                "  7.51%   17.113      1 Template:Portal-inline",
+                "  6.63%   15.111      3 Template:Cite_book",
+                "  5.87%   13.362      1 Template:Cite_conference"
+            ]
+        },
+        "scribunto": {
+            "limitreport-timeusage": {
+                "value": "0.093",
+                "limit": "10.000"
+            },
+            "limitreport-memusage": {
+                "value": 2869745,
+                "limit": 52428800
+            }
+        },
+        "EntityAccessCount": 0,
+        "cachereport": {
+            "origin": "mw1188",
+            "timestamp": "20160822123006",
+            "ttl": 2592000,
+            "transientcontent": false
+        }
+    }
+} );});</script><script>(window.RLQ=window.RLQ||[]).push(function(){mw.config.set({"wgBackendResponseTime":85,"wgHostname":"mw1186"});});</script>
+	
+
+<div class="suggestions" style="display: none; font-size: 13px;"><div class="suggestions-results"></div><div class="suggestions-special"></div></div></body>
+</html>
